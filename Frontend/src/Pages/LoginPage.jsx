@@ -41,31 +41,33 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-left">
-        <img src={Register_Img} alt="" />
-      </div>
-      <div className="login-right">
-        <h1>Login</h1>
-        <input
-          className={errors.username ? "error-input" : ""}
-          type="text"
-          placeholder="Username"
-          name="username"
-          value={userData.username}
-          onChange={handleChange}
-        />
-        {errors.username && <p className="error">{errors.username}</p>}
-        <input
-          className={errors.email ? "error-input" : ""}
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={userData.email}
-          onChange={handleChange}
-        />
-        {errors.password && <p className="error">{errors.password}</p>}
-        <button onClick={handleSubmit}>Login</button>
+    <div className="center-wrapper">
+      <div className="login-container">
+        <div className="login-left">
+          <img src={Register_Img} alt="" />
+        </div>
+        <div className="login-right">
+          <h1>Login</h1>
+          <input
+            className={errors.username ? "error-input" : ""}
+            type="text"
+            placeholder="Username"
+            name="username"
+            value={userData.username}
+            onChange={handleChange}
+          />
+          {errors.username && <p className="error">{errors.username}</p>}
+          <input
+            className={errors.email ? "error-input" : ""}
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={userData.email}
+            onChange={handleChange}
+          />
+          {errors.password && <p className="error">{errors.password}</p>}
+          <button onClick={handleSubmit}>Login</button>
+        </div>
       </div>
     </div>
   );
