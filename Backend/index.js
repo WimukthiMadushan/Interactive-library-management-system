@@ -1,6 +1,5 @@
 import express from "express";
 import authRoutes from "./Routes/Auth.js";
-import database from "./DataBase.js";
 
 const app = express();
 const port = 5000;
