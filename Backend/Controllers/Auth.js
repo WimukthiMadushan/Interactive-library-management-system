@@ -1,6 +1,7 @@
 export const register = (req, res) => {
   //registration logic here
-  res.send("Register");
+  //res.send("Register");
+  //const { username, email, password, Idnumber, phoneNumber } = req.body;
 };
 
 export const login = (req, res) => {

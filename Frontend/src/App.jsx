@@ -15,23 +15,22 @@ import UpdateBook from "./Pages/UpdateBook";
 import Book from "./Pages/Book";
 import UserProfile from "./Pages/UserProfile";
 import Footer from "./Components/Footer";
+import SearchBook from "./Pages/SearchBook";
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/profie" element={<UserProfile />} />
-          <Route path="/addbook" element={<AddBook />} />
-          <Route path="/updatebook" element={<UpdateBook />} />
-          <Route path="/book/:bookID" element={<Book />} />
-        </Routes>
-        <Footer />
-      </Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/searchbooks" element={<SearchBook />} />
+        <Route path="/profie" element={<UserProfile />} />
+        <Route path="/addbook" element={<AddBook />} />
+        <Route path="/updatebook" element={<UpdateBook />} />
+        <Route path="/book/:bookID" element={<Book />} />
+      </Routes>
     </div>
   );
 }
