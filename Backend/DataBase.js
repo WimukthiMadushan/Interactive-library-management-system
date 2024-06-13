@@ -1,5 +1,14 @@
 import mysql2 from "mysql2";
-import { Book, User } from "./Tables.js";
+import {
+  Book,
+  User,
+  Author,
+  Category,
+  Publisher,
+  Location,
+  Staff,
+  dropTables,
+} from "./Tables.js";
 
 const connection = mysql2.createConnection({
   host: "localhost",
@@ -7,6 +16,16 @@ const connection = mysql2.createConnection({
   password: "#WM@b2000#",
   database: "library_database",
 });
+
+function DropTables() {
+  connection.query(dropTables, (err, results) => {
+    if (err) {
+      console.error("Error dropping tables:", err.message);
+      return;
+    }
+    console.log("Tables dropped successfully");
+  });
+}
 
 function createTable(Table) {
   connection.query(Table, (err, results) => {
@@ -24,8 +43,14 @@ connection.connect((err) => {
     return;
   }
   console.log("Database connection established");
-  createTable(Book);
+  DropTables();
   createTable(User);
+  createTable(Author);
+  createTable(Category);
+  createTable(Publisher);
+  createTable(Location);
+  createTable(Book);
+  createTable(Staff);
 });
 
 export default connection;
