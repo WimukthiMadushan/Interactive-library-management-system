@@ -1,5 +1,17 @@
 import mysql2 from "mysql2";
-import { Book, User } from "./Tables.js";
+
+import {
+  Book,
+  User,
+  Author,
+  Category,
+  Publisher,
+  Location,
+  Staff,
+  dropTables,
+} from "./Tables.js";
+
+import insertDataFromFile from "./insertData.js";
 
 const connection = mysql2.createConnection({
   host: "localhost",
@@ -8,14 +20,36 @@ const connection = mysql2.createConnection({
   database: "library_database",
 });
 
-function createTable(Table) {
-  connection.query(Table, (err, results) => {
+function DropTables() {
+  connection.query(dropTables, (err, results) => {
     if (err) {
-      console.error("Error creating table:", err.message);
+      console.error("Error dropping tables:", err.message);
       return;
     }
-    console.log("Table created successfully");
+    console.log("Tables dropped successfully");
   });
+}
+
+function createTable(User, Author, Category, Publisher, Location, Book, Staff) {
+  const tables = [User, Author, Category, Publisher, Location, Book, Staff];
+  for (let i = 0; i < tables.length; i++) {
+    connection.query(tables[i], (err, results) => {
+      if (err) {
+        console.error("Error creating table:", err.message);
+        return;
+      }
+      console.log(`${i} Table created successfully`);
+    });
+  }
+}
+function insertData() {
+  insertDataFromFile("User", "./../Backend/Data/users.csv");
+  insertDataFromFile("Author", "./../Backend/Data/authors.csv");
+  insertDataFromFile("Category", "./../Backend/Data/categories.csv");
+  insertDataFromFile("Publisher", "./../Backend/Data/publishers.csv");
+  insertDataFromFile("Location", "./../Backend/Data/locations.csv");
+  insertDataFromFile("Book", "./../Backend/Data/books.csv");
+  insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
 }
 
 connection.connect((err) => {
@@ -24,8 +58,9 @@ connection.connect((err) => {
     return;
   }
   console.log("Database connection established");
-  createTable(Book);
-  createTable(User);
+  DropTables();
+  createTable(User, Author, Category, Publisher, Location, Book, Staff);
+  insertData();
 });
 
 export default connection;
