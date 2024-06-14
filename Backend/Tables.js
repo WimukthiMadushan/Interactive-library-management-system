@@ -34,7 +34,7 @@ const Publisher = `CREATE TABLE IF NOT EXISTS Publisher (
     Publisher_Last_Name VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
     Address VARCHAR(50),
-    Mobile VARCHAR(10)
+    Mobile VARCHAR(20)
 )`;
 
 const Location = `CREATE TABLE IF NOT EXISTS Location (
@@ -52,7 +52,7 @@ const Book = `CREATE TABLE IF NOT EXISTS Book (
     Title VARCHAR(50) NOT NULL,
     Author INTEGER NOT NULL,
     Description VARCHAR(300) NOT NULL,
-    Language VARCHAR(20) NOT NULL,
+    Language VARCHAR(50) NOT NULL,
     isAvailable BOOLEAN NOT NULL,
     Published_Date DATE,
     Category SMALLINT NOT NULL,
@@ -66,9 +66,10 @@ const Book = `CREATE TABLE IF NOT EXISTS Book (
 
 const Staff = `CREATE TABLE IF NOT EXISTS Staff (
     Staff_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
-    User_ID INTEGER NOT NULL,
-    Role VARCHAR(10) NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES User(User_ID)
+    User_id INTEGER NOT NULL,
+    Role VARCHAR(20) NOT NULL,
+    FOREIGN KEY (User_id) REFERENCES User(User_ID)
+    
 )`;
 
 export { dropTables, User, Author, Category, Publisher, Location, Book, Staff };
