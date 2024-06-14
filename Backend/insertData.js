@@ -106,7 +106,7 @@ function insertDataFromFile(table, filePath) {
             console.error(`Error inserting data into ${table}:`, err.message);
             return;
           }
-          console.log(`Inserted data into ${table} successfully`);
+          // console.log(`Inserted data into ${table} successfully`);
         });
       })
       .on("end", () => {
@@ -114,5 +114,10 @@ function insertDataFromFile(table, filePath) {
       });
   });
 }
+
+// Insert data for all tables
+//insertDataFromFile("User", "../data/user.csv");
+//insertDataFromFile("Author", "../data/author.csv");
+// Repeat for other tables as needed
 
 export default insertDataFromFile;

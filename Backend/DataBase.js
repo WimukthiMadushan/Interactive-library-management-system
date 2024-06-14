@@ -9,6 +9,10 @@ import {
   Location,
   Staff,
   dropTables,
+  Review,
+  Borrow,
+  Reserve,
+  Book_Copy,
 } from "./Tables.js";
 
 import insertDataFromFile from "./insertData.js";
@@ -30,8 +34,32 @@ function DropTables() {
   });
 }
 
-function createTable(User, Author, Category, Publisher, Location, Book, Staff) {
-  const tables = [User, Author, Category, Publisher, Location, Book, Staff];
+function createTable(
+  User,
+  Author,
+  Category,
+  Publisher,
+  Location,
+  Book,
+  Book_Copy,
+  Staff,
+  Review,
+  Borrow,
+  Reserve
+) {
+  const tables = [
+    User,
+    Author,
+    Category,
+    Publisher,
+    Location,
+    Book,
+    Book_Copy,
+    Staff,
+    Review,
+    Borrow,
+    Reserve,
+  ];
   for (let i = 0; i < tables.length; i++) {
     connection.query(tables[i], (err, results) => {
       if (err) {
@@ -49,7 +77,11 @@ function insertData() {
   insertDataFromFile("Publisher", "./../Backend/Data/publishers.csv");
   insertDataFromFile("Location", "./../Backend/Data/locations.csv");
   insertDataFromFile("Book", "./../Backend/Data/books.csv");
-  insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
+  insertDataFromFile("Book_Copy", "./../Backend/Data/book_copy.csv");
+  //insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
+  //insertDataFromFile("Review", "./../Backend/Data/reviews.csv");
+  //insertDataFromFile("Borrow", "./../Backend/Data/borrows.csv");
+  //insertDataFromFile("Reserve", "./../Backend/Data/reserves.csv");
 }
 
 connection.connect((err) => {
@@ -59,7 +91,19 @@ connection.connect((err) => {
   }
   console.log("Database connection established");
   DropTables();
-  createTable(User, Author, Category, Publisher, Location, Book, Staff);
+  createTable(
+    User,
+    Author,
+    Category,
+    Publisher,
+    Location,
+    Book,
+    Book_Copy,
+    Staff,
+    Review,
+    Borrow,
+    Reserve
+  );
   insertData();
 });
 

@@ -1,22 +1,22 @@
-Cat_Name
+Cat_ID,Cat_Name
 
-Fiction
-Non-fiction
-Science Fiction
-Fantasy
-Mystery
-Romance
-Thriller
-Horror
-Biography
-Self-help
-History
-Travel
-Cooking
-Poetry
-Business
-Art
-Science
-Health
-Religion
-Sports
+1,Fiction
+2,Non-fiction
+3,Science Fiction
+4,Fantasy
+5,Mystery
+6,Romance
+7,Thriller
+8,Horror
+9,Biography
+10,Self-help
+11,History
+12,Travel
+13,Cooking
+14,Poetry
+15,Business
+16,Art
+17,Science
+18,Health
+19,Religion
+20,Sports
