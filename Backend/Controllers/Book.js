@@ -1,5 +1,6 @@
 import connection from "./../DataBase.js";
 
+// completed ones....
 export const getBooks = (req, res) => {
   connection.query("SELECT * FROM Book", (err, result) => {
     if (err) {
@@ -44,37 +45,37 @@ export const getBooksFromTitle = (req, res) => {
 
 export const getBooksFromAuthor = (req, res) => {
   const { author } = req.params;
+  connection.query(
+    'SELECT Author_ID FROM Author WHERE CONCAT(First_Name, " ", Last_Name) LIKE ?',
+    [`%${author}%`],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Database error" });
+      }
+      if (results.length === 0) {
+        return res.status(404).json({ error: "Author not found" });
+      }
 
-  // Check if the author parameter is provided
-  if (!author) {
-    return res.status(400).json({ message: "Author parameter is required" });
-  }
+      const authorIds = results.map((result) => result.Author_ID);
 
-  // SQL query to join Book and Author tables, select books, and match based on the author's full name
-  const sqlQuery = `
-      SELECT Book.BookID, Book.Title, CONCAT(Author.First_Name, ' ', Author.Last_Name) AS AuthorFullName
-      FROM Book
-      JOIN Author ON Book.Author = Author.Author_ID
-      WHERE CONCAT(Author.First_Name, ' ', Author.Last_Name) LIKE ?
-    `;
+      connection.query(
+        "SELECT * FROM Book WHERE Author IN (?)",
+        [authorIds],
+        (err, books) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Database error" });
+          }
 
-  // Add wildcards around the author name for partial matching
-  const formattedAuthor = `%${author}%`;
-
-  // Execute the query with the formatted author name
-  connection.query(sqlQuery, [formattedAuthor], (err, result) => {
-    if (err) {
-      console.error("Database error: ", err);
-      return res.status(500).json({ message: "Internal server error" });
+          res.status(200).json(books);
+        }
+      );
     }
-    if (result.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No books found for the given author" });
-    }
-    return res.status(200).json(result);
-  });
+  );
 };
+
+//these are not completed..............
 export const getBooksFromLanguage = (req, res) => {
   const { language } = req.params;
   connection.query(

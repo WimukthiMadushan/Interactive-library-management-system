@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import authRoutes from "./Routes/Auth.js";
+import userRoutes from "./Routes/User.js";
+import bookRoutes from "./Routes/Book.js";
 
 const app = express();
 const port = 5000;
