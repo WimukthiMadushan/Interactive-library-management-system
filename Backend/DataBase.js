@@ -1,4 +1,5 @@
 import mysql2 from "mysql2";
+
 import {
   Book,
   User,
@@ -9,6 +10,8 @@ import {
   Staff,
   dropTables,
 } from "./Tables.js";
+
+import insertDataFromFile from "./insertData.js";
 
 const connection = mysql2.createConnection({
   host: "localhost",
@@ -27,14 +30,26 @@ function DropTables() {
   });
 }
 
-function createTable(Table) {
-  connection.query(Table, (err, results) => {
-    if (err) {
-      console.error("Error creating table:", err.message);
-      return;
-    }
-    console.log("Table created successfully");
-  });
+function createTable(User, Author, Category, Publisher, Location, Book, Staff) {
+  const tables = [User, Author, Category, Publisher, Location, Book, Staff];
+  for (let i = 0; i < tables.length; i++) {
+    connection.query(tables[i], (err, results) => {
+      if (err) {
+        console.error("Error creating table:", err.message);
+        return;
+      }
+      console.log(`${i} Table created successfully`);
+    });
+  }
+}
+function insertData() {
+  insertDataFromFile("User", "./../Backend/Data/users.csv");
+  insertDataFromFile("Author", "./../Backend/Data/authors.csv");
+  insertDataFromFile("Category", "./../Backend/Data/categories.csv");
+  insertDataFromFile("Publisher", "./../Backend/Data/publishers.csv");
+  insertDataFromFile("Location", "./../Backend/Data/locations.csv");
+  insertDataFromFile("Book", "./../Backend/Data/books.csv");
+  insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
 }
 
 connection.connect((err) => {
@@ -44,13 +59,8 @@ connection.connect((err) => {
   }
   console.log("Database connection established");
   DropTables();
-  createTable(User);
-  createTable(Author);
-  createTable(Category);
-  createTable(Publisher);
-  createTable(Location);
-  createTable(Book);
-  createTable(Staff);
+  createTable(User, Author, Category, Publisher, Location, Book, Staff);
+  insertData();
 });
 
 export default connection;
