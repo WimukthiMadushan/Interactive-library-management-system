@@ -1,9 +1,135 @@
+import { validationResult } from "express-validator";
+import jwt from "jsonwebtoken";
+import connection from "./../DataBase.js";
+import bcrypt from "bcrypt";
+
 export const register = (req, res) => {
-  //registration logic here
-  res.send("Register");
+  const {
+    First_Name,
+    Last_Name,
+    Username,
+    Password,
+    Email,
+    Address,
+    NIC,
+    Mobile,
+  } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  // Check if user with the same username or email already exists
+  connection.query(
+    "SELECT * FROM User WHERE Username = ? OR Email = ?",
+    [Username, Email],
+    (err, result) => {
+      if (err) {
+        console.error("Database error: ", err);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+      if (result.length > 0) {
+        return res.status(400).json({
+          message: "User with this username or email already exists",
+        });
+      }
+
+      // Insert new user into the database
+      try {
+        // Hash the password
+        const hashedPassword = bcrypt.hashSync(Password, 10);
+        const q =
+          "INSERT INTO User (First_Name, Last_Name, Username, Password, Email, Address, NIC, Mobile, Registered_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        connection.query(
+          q,
+          [
+            First_Name,
+            Last_Name,
+            Username,
+            hashedPassword,
+            Email,
+            Address,
+            NIC,
+            Mobile,
+            new Date().toISOString().slice(0, 19).replace("T", " "),
+          ],
+          (err, result) => {
+            if (err) {
+              console.error("Database error: ", err);
+              return res.status(500).json({ message: "Internal server error" });
+            }
+            return res.status(201).json({
+              message: "User registered successfully",
+              userId: result.insertId,
+            });
+          }
+        );
+      } catch (error) {
+        console.error("Error registering user: ", error);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+    }
+  );
 };
 
 export const login = (req, res) => {
-  //login logic here
-  res.send("Login");
+  const { Username, Password } = req.body;
+  //validate requesr body
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  // Check if the user exists
+  connection.query(
+    "SELECT * FROM User WHERE Username = ?",
+    [Username],
+    (err, result) => {
+      if (err) {
+        console.error("Database error: ", err);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+      if (result.length === 0) {
+        return res
+          .status(400)
+          .json({ message: "Invalid username or password" });
+      }
+
+      // Check if the password is correct
+      const user = result[0];
+      if (!bcrypt.compareSync(Password, user.Password)) {
+        return res
+          .status(400)
+          .json({ message: "Invalid username or password" });
+      }
+
+      connection.query(
+        "SELECT Role FROM Staff WHERE User_ID = ?",
+        [user.User_ID],
+        (err, roleResult) => {
+          if (err) {
+            console.error("Database error: ", err);
+            return res.status(500).json({ message: "Internal server error" });
+          }
+          //console.log(user.roleResult);
+          // Assuming roleResult contains the role data
+          const role = roleResult.length > 0 ? roleResult[0].Role : "default";
+
+          // User authenticated, generate JWT token
+          const token = jwt.sign(
+            { Username: user.Username, ID: user.User_ID, Role: role },
+            "your_jwt_secret",
+            { expiresIn: "1h" } // Token expiration time
+          );
+
+          // Return token to client
+          return res.status(200).json({
+            message: "User logged in successfully",
+            token: token,
+            userId: user.User_ID,
+            role: role,
+          });
+        }
+      );
+    }
+  );
 };
