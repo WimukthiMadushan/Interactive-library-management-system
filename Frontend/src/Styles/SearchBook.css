@@ -1,0 +1,62 @@
+.search-container {
+  display: flex;
+}
+.left {
+  flex: 2;
+}
+.right {
+  flex: 7;
+}
+/* Container for the search box */
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px; /* Space between input and button */
+  margin: 20px 0; /* Space around the search box */
+}
+
+/* Styling for the input field */
+.search-books {
+  flex: 2;
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input field focus effect */
+.search-books:focus {
+  border-color: #0069d9;
+  box-shadow: 0 0 10px rgba(0, 105, 217, 0.5);
+}
+
+/* Styling for the button */
+.search-books-button {
+  flex: 1;
+  padding: 10px 20px; /* Padding inside the button */
+  background-color: #0069d9; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none; /* Remove default border */
+  border-radius: 25px; /* Rounded corners to match the input field */
+  font-size: 16px;
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Button hover effect */
+.search-books-button:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+  box-shadow: 0 0 10px rgba(0, 86, 179, 0.5); /* Subtle shadow on hover */
+}
+
+/* Button focus effect */
+.search-books-button:focus {
+  outline: none; /* Remove default focus outline */
+  background-color: #004b99; /* Even darker color on focus */
+  box-shadow: 0 0 10px rgba(0, 75, 153, 0.5); /* Subtle shadow on focus */
+}
