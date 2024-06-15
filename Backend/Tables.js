@@ -48,7 +48,7 @@ const Location = `CREATE TABLE IF NOT EXISTS Location (
 
 const Book = `CREATE TABLE IF NOT EXISTS Book (
     Book_ID INT AUTO_INCREMENT PRIMARY KEY,
-    ISBN_Number VARCHAR(13) NOT NULL, 
+    ISBN_Number VARCHAR(20) NOT NULL, 
     Title VARCHAR(50) NOT NULL,
     Author INTEGER NOT NULL,
     Description VARCHAR(300) NOT NULL,

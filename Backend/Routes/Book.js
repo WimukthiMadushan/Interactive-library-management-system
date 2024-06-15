@@ -11,7 +11,7 @@ import {
   getBooksFromCategory,
   getBooksFromISBN,
   getBooksFromPublisher,
-  getBooksFromYear,
+  // getBooksFromDate,
   getBooksFromFilters,
   getBooksFromTitle,
   getBooksFromLanguage,
@@ -21,13 +21,14 @@ router.get("/", getBooks);
 router.get("/:id", getBook);
 router.get("/title/:title", getBooksFromTitle);
 router.get("/author/:author", getBooksFromAuthor);
+router.get("/language/:language", getBooksFromLanguage);
 router.get("/category/:category", getBooksFromCategory);
 router.get("/isbn/:isbn", getBooksFromISBN);
-router.get("/language/:language", getBooksFromLanguage);
 router.get("/publisher/:publisher", getBooksFromPublisher);
-router.get("/year/:year", getBooksFromYear);
-router.get("/filters", getBooksFromFilters);
+//router.get("/date/:date", getBooksFromDate);
 router.post("/", addBook);
+router.get("/filters", getBooksFromFilters);
+
 router.put("/:id", updateBook);
 router.delete("/:id", deleteBook);
 
