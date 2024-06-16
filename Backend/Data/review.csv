@@ -1,0 +1,11 @@
+Review_ID,User_ID,Book_ID,Rating,Review,Review_Date
+1,1005,100001,4,"Great book, loved the characters!",6/15/2024
+2,1012,100002,5,"Amazing storyline, couldn't put it down.",6/15/2024
+3,1017,100003,3,"Interesting read, but the ending was disappointing.",6/15/2024
+4,1020,100004,4,Well-written and engaging.,6/16/2024
+5,1028,100005,2,"Not my favorite book, quite boring actually.",6/16/2024
+6,1030,100006,5,"Absolutely loved it, highly recommend!",6/17/2024
+7,1035,100007,3,"Decent book, but felt too predictable.",6/17/2024
+8,1038,100008,4,"Enjoyable read, especially the twist midway.",6/18/2024
+9,1042,100009,5,One of the best books I've read recently!,6/18/2024
+10,1044,100010,2,"Struggled to finish it, not worth the hype.",6/19/2024
