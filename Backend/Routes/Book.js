@@ -11,6 +11,7 @@ import {
   getBooksFromCategory,
   getBooksFromISBN,
   getBooksFromPublisher,
+  getBooksFromFloor,
   // getBooksFromDate,
   getBooksFromFilters,
   getBooksFromTitle,
@@ -25,6 +26,7 @@ router.get("/language/:language", getBooksFromLanguage);
 router.get("/category/:category", getBooksFromCategory);
 router.get("/isbn/:isbn", getBooksFromISBN);
 router.get("/publisher/:publisher", getBooksFromPublisher);
+router.get("/floor/:floor", getBooksFromFloor);
 //router.get("/date/:date", getBooksFromDate);
 router.post("/", addBook);
 router.get("/filters", getBooksFromFilters);
