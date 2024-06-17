@@ -6,6 +6,7 @@ import {
   Author,
   Category,
   Publisher,
+  Language,
   Location,
   Staff,
   dropTables,
@@ -20,8 +21,8 @@ import insertDataFromFile from "./insertData.js";
 const connection = mysql2.createConnection({
   host: "localhost",
   user: "root",
-  password: "dulanga1234",
-  database: "library",
+  password: "#WM@b2000#",
+  database: "library_database",
 });
 
 function DropTables() {
@@ -39,6 +40,7 @@ function createTable(
   Author,
   Category,
   Publisher,
+  Language,
   Location,
   Book,
   Book_Copy,
@@ -52,6 +54,7 @@ function createTable(
     Author,
     Category,
     Publisher,
+    Language,
     Location,
     Book,
     Book_Copy,
@@ -67,7 +70,7 @@ function createTable(
         return;
       }
       console.log(`${i} Table created successfully`);
-    }); 
+    });
   }
 }
 
@@ -76,6 +79,7 @@ function insertData() {
   insertDataFromFile("Author", "./../Backend/Data/authors.csv");
   insertDataFromFile("Category", "./../Backend/Data/categories.csv");
   insertDataFromFile("Publisher", "./../Backend/Data/publishers.csv");
+  insertDataFromFile("Language", "./../Backend/Data/lanuages.csv");
   insertDataFromFile("Location", "./../Backend/Data/locations.csv");
   insertDataFromFile("Book", "./../Backend/Data/books.csv");
   insertDataFromFile("Book_Copy", "./../Backend/Data/book_copy.csv");
@@ -97,6 +101,7 @@ connection.connect((err) => {
     Author,
     Category,
     Publisher,
+    Language,
     Location,
     Book,
     Book_Copy,
