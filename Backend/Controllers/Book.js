@@ -175,6 +175,35 @@ export const getBooksFromPublisher = (req, res) => {
   );
 };
 
+//have to be check.....
+export const getBooksFromFloor = (req, res) => {
+  const { floor } = req.params;
+  const location_query = `SELECT Loca_ID from Location WHERE floor = ?`;
+  connection.query(location_query, [floor], (err, result) => {
+    if (err) {
+      console.error("Database error: ", err);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    connection.query(
+      "SELECT * FROM Book_Copy WHERE Book_Location = ?",
+      [result],
+      (err, result) => {
+        if (err) {
+          console.error("Database error: ", err);
+          return res.status(500).json({ message: "Internal server error" });
+        }
+        if (result.length === 0) {
+          return res.status(404).json({ message: "Book not found" });
+        }
+        return res.status(200).json(result);
+      }
+    );
+  });
+};
+
 /*
 the format of the date should look from the frontend.....
 export const getBooksFromDate = (req, res) => {
