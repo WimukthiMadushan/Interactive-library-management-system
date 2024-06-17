@@ -1,4 +1,4 @@
-const dropTables = `DROP TABLE IF EXISTS Borrow, Reserve, Review, Staff, Book, Book_Copy,  Location, Publisher, Category, Author, User`;
+const dropTables = `DROP TABLE IF EXISTS Borrow, Reserve, Review, Staff, Book, Book_Copy,  Location, Language, Publisher, Category, Author, User`;
 
 const User = `CREATE TABLE IF NOT EXISTS User (
     User_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -36,6 +36,10 @@ const Publisher = `CREATE TABLE IF NOT EXISTS Publisher (
     Address VARCHAR(50),
     Mobile VARCHAR(20)
 )`;
+const Language = `CREATE TABLE IF NOT EXISTS Language (
+    Language_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    Language_Name VARCHAR(50) NOT NULL
+)`;
 
 const Location = `CREATE TABLE IF NOT EXISTS Location (
     Loca_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -52,7 +56,6 @@ const Book = `CREATE TABLE IF NOT EXISTS Book (
     Title VARCHAR(50) NOT NULL,
     Author INTEGER NOT NULL,
     Description VARCHAR(300) NOT NULL,
-    Language VARCHAR(50) NOT NULL,
     Published_Date DATE,
     Category SMALLINT NOT NULL,
     Publisher INTEGER NOT NULL,
@@ -64,11 +67,13 @@ const Book = `CREATE TABLE IF NOT EXISTS Book (
 const Book_Copy = `CREATE TABLE IF NOT EXISTS Book_Copy (
     Copy_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     Book_ID INTEGER NOT NULL,
+    Language INTEGER NOT NULL,
     isReserved BOOLEAN NOT NULL,
     isBorrowed BOOLEAN NOT NULL,
     Book_Location INTEGER NOT NULL,
     FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
-    FOREIGN KEY (Book_Location) REFERENCES Location(Loca_ID)
+    FOREIGN KEY (Book_Location) REFERENCES Location(Loca_ID),
+    FOREIGN KEY (Language) REFERENCES Language(Language_ID)
 )`;
 
 const Staff = `CREATE TABLE IF NOT EXISTS Staff (
@@ -117,11 +122,12 @@ export {
   Author,
   Category,
   Publisher,
+  Language,
   Location,
   Book,
   Staff,
   Review,
   Book_Copy,
   Borrow,
-  Reserve
+  Reserve,
 };
