@@ -1,111 +1,161 @@
+/* Sidebar Container */
 .sidebar {
   width: 300px;
   padding: 20px;
-  background-color: #ffffff;
-  border: 9px solid #e4e4e4;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #f0f0f0, #e6e6e6);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: fixed;
   height: 100vh;
   overflow-y: auto;
+  font-family: "Arial", sans-serif;
+  transition: all 0.3s ease-in-out;
 }
 
+/* Sidebar Title */
 .sidebar h1 {
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #333;
-  border-bottom: 3px solid #f1f1f1;
+  border-bottom: 2px solid #ccc;
   padding-bottom: 10px;
 }
-filter-group input[type="radio"] {
-  width: 20px;
-}
 
+/* Filter Group */
 .filter-group {
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
+  padding: 0 0.1rem;
 }
 
-.filter-group label {
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #555;
-}
+/* Radio Button Styles */
 .wrapper {
-  display: inline-flex;
-  background: #fff;
-  height: 100px;
-  width: 100%;
-  align-items: center;
-  border-radius: 5px;
-  padding: 20px 15px;
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  gap: 1rem;
 }
+
 .wrapper .option {
-  background: #fff;
-  height: 60%;
-  width: 55%;
+  flex: 1;
+  background: #f7f7f7;
+  border: 2px solid lightgrey;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  text-align: center;
-  border-radius: 5px;
-  padding-left: 2px;
+  justify-content: center;
+  padding: 10px;
   cursor: pointer;
-  border: 3px solid lightgrey;
   transition: all 0.3s ease;
 }
+
+.wrapper .option:hover {
+  background: #eaeaea;
+}
+
 .wrapper .option .dot {
+  width: 12px;
+  height: 12px;
+  background: #bbb;
+  border-radius: 50%;
+  margin-right: 8px;
+  transition: background 0.3s ease;
   display: none;
 }
-.wrapper .option .dot::before {
-  display: none;
-}
+
 input[type="radio"] {
   display: none;
 }
-#option-1:checked:checked ~ .option-1,
-#option-2:checked:checked ~ .option-2 {
+
+#option-1:checked ~ .option-1,
+#option-2:checked ~ .option-2 {
   border-color: #0069d9;
   background: #0069d9;
 }
-#option-1:checked:checked ~ .option-1 .dot,
-#option-2:checked:checked ~ .option-2 .dot {
+
+#option-1:checked ~ .option-1 .dot,
+#option-2:checked ~ .option-2 .dot {
   background: #fff;
 }
-#option-1:checked:checked ~ .option-1 .dot::before,
-#option-2:checked:checked ~ .option-2 .dot::before {
-  opacity: 1;
-  transform: scale(1);
-}
+
 .wrapper .option span {
-  font-size: 20px;
-  color: #808080;
+  font-size: 1rem;
+  color: #333;
 }
-#option-1:checked:checked ~ .option-1 span,
-#option-2:checked:checked ~ .option-2 span {
+
+#option-1:checked ~ .option-1 span,
+#option-2:checked ~ .option-2 span {
   color: #fff;
 }
 
+/* Select Styles */
 .category-select {
-  margin-top: 2rem;
   width: 100%;
   padding: 10px;
-  border: 1px solid #e4e4e4;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
 }
+
+.category-select:hover {
+  border-color: #0069d9;
+}
+
 .initial-category {
   padding: 10px;
   font-size: 1rem;
 }
+
 .category-select option {
   padding: 10px;
   font-size: 1rem;
 }
+
+/* Date Input */
 .date-input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #e4e4e4;
-  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
   margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.date-input:hover {
+  border-color: #0069d9;
+}
+
+/* Reviews Range */
+.reviews-range {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.reviews-range label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #555;
+}
+
+.reviews-range input {
+  width: 80px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.reviews-range input:hover {
+  border-color: #0069d9;
 }

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import axios from "axios";
 import "./../Styles/SideBar.css";
 
 function SideBar({ onFilterChange }) {
@@ -7,56 +8,46 @@ function SideBar({ onFilterChange }) {
     title: false,
     author: false,
     category: "",
+    language: "",
+    publisher: "",
     publicationDate: "",
-    available: false,
     minReviews: 0,
-    maxReviews: 100,
+    maxReviews: 0,
   });
-  const categories = [
-    "Fiction",
-    "Non-Fiction",
-    "Mystery",
-    "Thriller",
-    "Romance",
-    "Sci-Fi",
-    "Fantasy",
-    "Horror",
-    "Self-Help",
-    "Biography",
-    "Autobiography",
-    "History",
-    "Science",
-    "Travel",
-    "Cooking",
-    "Art",
-    "Photography",
-    "Children",
-    "Young-Adult",
-    "Comics",
-    "Manga",
-    "Poetry",
-    "Drama",
-    "Religion",
-    "Philosophy",
-    "Psychology",
-    "Health",
-    "Fitness",
-    "Sports",
-    "Education",
-    "Reference",
-    "Technology",
-    "Programming",
-    "Web-Development",
-    "Business",
-    "Economics",
-    "Finance",
-    "Marketing",
-    "Management",
-    "Leadership",
-    "Politics",
-    "Sociology",
-    "Anthropology",
-  ];
+  const [categories, setCategories] = useState([]);
+  const [languages, setlanguages] = useState([]);
+  const [publishers, setPublishers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/category/");
+        console.log(response.data);
+        setCategories(response.data);
+      } catch (error) {
+        console.log("Error fetching categories:", error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+  {
+    /*
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/languages");
+        setlanguages(response.data);
+      } catch (error) {
+        console.log("Error fetching categories:", error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+  */
+  }
 
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -67,7 +58,6 @@ function SideBar({ onFilterChange }) {
       ...filters,
       [name]: filterValue,
     };
-
     // Ensure "Title" and "Author" are mutually exclusive
     if (name === "title" && checked) {
       newFilters.author = false;
@@ -76,7 +66,6 @@ function SideBar({ onFilterChange }) {
     }
 
     setFilters(newFilters);
-
     // Pass the updated filters to the parent component
     onFilterChange(newFilters);
   };
@@ -109,8 +98,25 @@ function SideBar({ onFilterChange }) {
           <span>Author</span>
         </label>
       </div>
-
-      {/* category */}
+      {/* Language */}
+      <div className="filter-group">
+        <select
+          className="category-select"
+          name="language"
+          value={filters.language}
+          onChange={handleFilterChange}
+        >
+          <option className="initial-category" value="">
+            Select Language
+          </option>
+          {languages.map((language, index) => (
+            <option key={index} value={language}>
+              {language}
+            </option>
+          ))}
+        </select>
+      </div>
+      {/* Category */}
       <div className="filter-group">
         <select
           className="category-select"
@@ -122,8 +128,8 @@ function SideBar({ onFilterChange }) {
             Select Category
           </option>
           {categories.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
+            <option key={category.Cat_ID} value={category}>
+              {category.Cat_Name}
             </option>
           ))}
         </select>
@@ -139,24 +145,10 @@ function SideBar({ onFilterChange }) {
           onChange={handleFilterChange}
         />
       </div>
-
-      {/* Availability
-      <div className="filter-group">
-        <label>
-          <input
-            type="radio"
-            name="available"
-            checked={filters.available}
-            onChange={handleFilterChange}
-          />
-          Available
-        </label>
-      </div> */}
-
       {/* Reviews Range */}
       <div className="filter-group">
         <label>Reviews Range:</label>
-        <div>
+        <div className="reviews-range">
           <label>
             Min:
             <input

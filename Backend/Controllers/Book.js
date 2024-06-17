@@ -1,228 +1,14 @@
 import connection from "./../DataBase.js";
 
-// completed ones....
 export const getBooks = (req, res) => {
-  connection.query("SELECT * FROM Book", (err, result) => {
+  connection.query("SELECT * FROM Book", (err, results) => {
     if (err) {
-      console.error("Database error: ", err);
-      return res.status(500).json({ message: "Internal server error" });
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Internal server error" });
     }
-    return res.status(200).json(result);
+    res.status(200).json(results);
   });
 };
-
-export const getBook = (req, res) => {
-  const { id } = req.params;
-  connection.query(
-    "SELECT * FROM Book WHERE Book_ID = ?",
-    [id],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      if (result.length === 0) {
-        return res.status(404).json({ message: "Book not found" });
-      }
-      return res.status(200).json(result[0]);
-    }
-  );
-};
-export const getBooksFromTitle = (req, res) => {
-  const { title } = req.params;
-  const sqlQuery = "SELECT * FROM Book WHERE Title LIKE ?";
-  connection.query(sqlQuery, [`%${title}%`], (err, result) => {
-    if (err) {
-      console.error("Database error: ", err);
-      return res.status(500).json({ message: "Internal server error" });
-    }
-    if (result.length === 0) {
-      return res.status(404).json({ message: "Book not found" });
-    }
-    return res.status(200).json(result);
-  });
-};
-
-export const getBooksFromAuthor = (req, res) => {
-  const { author } = req.params;
-  connection.query(
-    'SELECT Author_ID FROM Author WHERE CONCAT(First_Name, " ", Last_Name) LIKE ?',
-    [`%${author}%`],
-    (err, results) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Database error" });
-      }
-      if (results.length === 0) {
-        return res.status(404).json({ error: "Author not found" });
-      }
-
-      const authorIds = results.map((result) => result.Author_ID);
-
-      connection.query(
-        "SELECT * FROM Book WHERE Author IN (?)",
-        [authorIds],
-        (err, books) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Database error" });
-          }
-
-          res.status(200).json(books);
-        }
-      );
-    }
-  );
-};
-
-export const getBooksFromLanguage = (req, res) => {
-  const { language } = req.params;
-  connection.query(
-    "SELECT * FROM Book WHERE Language = ?",
-    [language],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      if (result.length === 0) {
-        return res.status(404).json({ message: "Book not found" });
-      }
-      return res.status(200).json(result);
-    }
-  );
-};
-
-export const getBooksFromCategory = (req, res) => {
-  const { category } = req.params;
-
-  connection.query(
-    "SELECT Cat_ID from Category WHERE Cat_Name = ?",
-    [category],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      if (result.length === 0) {
-        return res.status(404).json({ message: "Category not found" });
-      }
-
-      const category = result[0].Cat_ID;
-      connection.query(
-        "SELECT * FROM Book WHERE Category = ?",
-        [category],
-        (err, result) => {
-          if (err) {
-            console.error("Database error: ", err);
-            return res.status(500).json({ message: "Internal server error" });
-          }
-          if (result.length === 0) {
-            return res.status(404).json({ message: "Book not found" });
-          }
-          return res.status(200).json(result);
-        }
-      );
-    }
-  );
-};
-
-export const getBooksFromISBN = (req, res) => {
-  const { isbn } = req.params;
-  const sqlQuery = "SELECT * FROM Book WHERE ISBN_Number = ?";
-  connection.query(sqlQuery, [isbn], (err, result) => {
-    if (err) {
-      console.error("Database error: ", err);
-      return res.status(500).json({ message: "Internal server error" });
-    }
-    if (result.length === 0) {
-      return res.status(404).json({ message: "Book not found" });
-    }
-    return res.status(200).json(result[0]);
-  });
-};
-
-export const getBooksFromPublisher = (req, res) => {
-  const { publisher } = req.params;
-  connection.query(
-    "SELECT Publisher_ID FROM Publisher WHERE CONCAT(Publisher_First_Name, ' ', Publisher_Last_Name) LIKE ?",
-    [`%${publisher}%`],
-    (err, results) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Database error" });
-      }
-      if (results.length === 0) {
-        return res.status(404).json({ message: "Book not found" });
-      }
-
-      const publisherID = results[0].Publisher_ID;
-      connection.query(
-        "SELECT * FROM Book WHERE Publisher = ?",
-        [publisherID],
-        (err, results) => {
-          if (err) {
-            console.error("Database error: ", err);
-            return res.status(500).json({ message: "Internal server error" });
-          }
-          if (results.length === 0) {
-            return res.status(404).json({ message: "Book not found" });
-          }
-          return res.status(200).json(results);
-        }
-      );
-    }
-  );
-};
-
-//have to be check.....
-export const getBooksFromFloor = (req, res) => {
-  const { floor } = req.params;
-  const location_query = `SELECT Loca_ID from Location WHERE floor = ?`;
-  connection.query(location_query, [floor], (err, result) => {
-    if (err) {
-      console.error("Database error: ", err);
-      return res.status(500).json({ message: "Internal server error" });
-    }
-    if (result.length === 0) {
-      return res.status(404).json({ message: "Book not found" });
-    }
-    connection.query(
-      "SELECT * FROM Book_Copy WHERE Book_Location = ?",
-      [result],
-      (err, result) => {
-        if (err) {
-          console.error("Database error: ", err);
-          return res.status(500).json({ message: "Internal server error" });
-        }
-        if (result.length === 0) {
-          return res.status(404).json({ message: "Book not found" });
-        }
-        return res.status(200).json(result);
-      }
-    );
-  });
-};
-
-/*
-the format of the date should look from the frontend.....
-export const getBooksFromDate = (req, res) => {
-  const { date } = req.params;
-  connection.query(
-    "SELECT * FROM Book WHERE Year = ?",
-    [year],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      if (result.length === 0) {
-        return res.status(404).json({ message: "Book not found" });
-      }
-      return res.status(200).json(result[0]);
-    }
-  );
-};*/
 
 export const addBook = (req, res) => {
   const {
@@ -417,39 +203,45 @@ export const addBook = (req, res) => {
   );
 };
 
-//these are not completed..............
 export const getBooksFromFilters = (req, res) => {
-  const { title, author, category, isbn, publisher, year } = req.params;
-  connection.query(
-    "SELECT * FROM Book WHERE Title = ? AND Author = ? AND Category = ? AND ISBN = ? AND Publisher = ? AND Year = ?",
-    [title, author, category, isbn, publisher, year],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      if (result.length === 0) {
-        return res.status(404).json({ message: "Book not found" });
-      }
-      return res.status(200).json(result[0]);
-    }
-  );
-};
+  const { title, author, category, publisher, language } = req.query;
 
-export const updateBook = (req, res) => {
-  const { id } = req.params;
-  const { Title, Author, Category, ISBN, Publisher, Year } = req.body;
-  connection.query(
-    "UPDATE Book SET Title = ?, Author = ?, Category = ?, ISBN = ?, Publisher = ?, Year = ? WHERE Book_ID = ?",
-    [Title, Author, Category, ISBN, Publisher, Year, id],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      return res.status(200).json({ message: "Book updated successfully" });
+  // Construct SQL query with joins and filters
+  let sqlQuery = `
+    SELECT b.*, a.First_Name AS Author_First_Name, a.Last_Name AS Author_Last_Name,
+           p.Publisher_First_Name, p.Publisher_Last_Name,
+           c.Cat_Name AS Category_Name
+    FROM Book b
+    INNER JOIN Author a ON b.Author = a.Author_ID
+    INNER JOIN Publisher p ON b.Publisher = p.Publisher_ID
+    INNER JOIN Category c ON b.Category = c.Cat_ID
+    WHERE 1=1`;
+
+  // Add filters to SQL query dynamically
+  if (title) {
+    sqlQuery += ` AND b.Title LIKE '%${title}%'`;
+  }
+  if (author) {
+    sqlQuery += ` AND (a.First_Name LIKE '%${author}%' OR a.Last_Name LIKE '%${author}%')`;
+  }
+  if (category) {
+    sqlQuery += ` AND c.Cat_Name = '${category}'`;
+  }
+  if (publisher) {
+    sqlQuery += ` AND (p.Publisher_First_Name LIKE '%${publisher}%' OR p.Publisher_Last_Name LIKE '%${publisher}%')`;
+  }
+  if (language) {
+    sqlQuery += ` AND b.Language = '${language}'`;
+  }
+
+  // Execute SQL query
+  connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Internal server error" });
     }
-  );
+    res.status(200).json(results);
+  });
 };
 
 export const deleteBook = (req, res) => {
@@ -466,3 +258,6 @@ export const deleteBook = (req, res) => {
     }
   );
 };
+
+//these are not completed..............
+export const updateBook = (req, res) => {};

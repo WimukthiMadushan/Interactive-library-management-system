@@ -48,8 +48,7 @@ body {
 }
 
 .navbar-center .nav-links a:hover {
-  background-color: #838383;
-  border-radius: 5px;
+  color: #000000;
 }
 .navbar-right {
   text-align: center;
