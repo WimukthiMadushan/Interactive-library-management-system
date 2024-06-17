@@ -20,8 +20,8 @@ import insertDataFromFile from "./insertData.js";
 const connection = mysql2.createConnection({
   host: "localhost",
   user: "root",
-  password: "#WM@b2000#",
-  database: "library_database",
+  password: "dulanga1234",
+  database: "library",
 });
 
 function DropTables() {
@@ -67,9 +67,10 @@ function createTable(
         return;
       }
       console.log(`${i} Table created successfully`);
-    });
+    }); 
   }
 }
+
 function insertData() {
   insertDataFromFile("User", "./../Backend/Data/users.csv");
   insertDataFromFile("Author", "./../Backend/Data/authors.csv");
@@ -78,10 +79,10 @@ function insertData() {
   insertDataFromFile("Location", "./../Backend/Data/locations.csv");
   insertDataFromFile("Book", "./../Backend/Data/books.csv");
   insertDataFromFile("Book_Copy", "./../Backend/Data/book_copy.csv");
-  //insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
-  //insertDataFromFile("Review", "./../Backend/Data/reviews.csv");
-  //insertDataFromFile("Borrow", "./../Backend/Data/borrows.csv");
-  //insertDataFromFile("Reserve", "./../Backend/Data/reserves.csv");
+  insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
+  insertDataFromFile("Review", "./../Backend/Data/review.csv");
+  insertDataFromFile("Borrow", "./../Backend/Data/borrows.csv");
+  insertDataFromFile("Reserve", "./../Backend/Data/reserves.csv");
 }
 
 connection.connect((err) => {

@@ -1,4 +1,5 @@
 Review_ID,User_ID,Book_ID,Rating,Review,Review_Date
+,,,,,
 1,1005,100001,4,"Great book, loved the characters!",6/15/2024
 2,1012,100002,5,"Amazing storyline, couldn't put it down.",6/15/2024
 3,1017,100003,3,"Interesting read, but the ending was disappointing.",6/15/2024

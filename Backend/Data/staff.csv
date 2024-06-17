@@ -1,4 +1,5 @@
-Staff_ID,User_id,Role
+Staff_ID,User_ID,Role
+,,
 2000,1002,Administrator
 2001,1009,Receptionist
 2002,1011,Receptionist

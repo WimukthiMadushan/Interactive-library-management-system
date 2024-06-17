@@ -47,7 +47,7 @@ const Location = `CREATE TABLE IF NOT EXISTS Location (
 )`;
 
 const Book = `CREATE TABLE IF NOT EXISTS Book (
-    Book_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Book_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     ISBN_Number VARCHAR(20) NOT NULL, 
     Title VARCHAR(50) NOT NULL,
     Author INTEGER NOT NULL,
@@ -62,7 +62,7 @@ const Book = `CREATE TABLE IF NOT EXISTS Book (
 )`;
 
 const Book_Copy = `CREATE TABLE IF NOT EXISTS Book_Copy (
-    Copy_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Copy_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     Book_ID INTEGER NOT NULL,
     isReserved BOOLEAN NOT NULL,
     isBorrowed BOOLEAN NOT NULL,
@@ -121,7 +121,7 @@ export {
   Book,
   Staff,
   Review,
-  Borrow,
-  Reserve,
   Book_Copy,
+  Borrow,
+  Reserve
 };
