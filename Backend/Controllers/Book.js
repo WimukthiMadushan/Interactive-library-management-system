@@ -1,5 +1,36 @@
 import connection from "./../DataBase.js";
 
+export const getBook = (req, res) => {
+  const { id } = req.params;
+  const query = `
+    SELECT 
+      Book.Book_ID,
+      Book.ISBN_Number,
+      Book.Title,
+      CONCAT(Author.First_Name, ' ', Author.Last_Name) AS Author_Name,
+      Book.Description,
+      Book.Published_Date,
+      Category.Cat_Name AS Category_Name
+    FROM 
+      Book
+    JOIN Author ON Book.Author = Author.Author_ID
+    JOIN Category ON Book.Category = Category.Cat_ID
+    WHERE 
+      Book.Book_ID = ?
+  `;
+
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Book not found" });
+    }
+    res.status(200).json(results[0]);
+  });
+};
+
 export const getBooks = (req, res) => {
   connection.query("SELECT * FROM Book", (err, results) => {
     if (err) {
@@ -116,7 +147,6 @@ export const addBook = (req, res) => {
             } else {
               // Use existing publisher ID
               publisherId = publisherResults[0].Publisher_ID;
-
               // Proceed to check for category
               checkCategory();
             }
@@ -204,7 +234,7 @@ export const addBook = (req, res) => {
 };
 
 export const getBooksFromFilters = (req, res) => {
-  const { title, author, category, publisher, language } = req.query;
+  const { title, author, category } = req.query;
 
   // Construct SQL query with joins and filters
   let sqlQuery = `
@@ -226,12 +256,6 @@ export const getBooksFromFilters = (req, res) => {
   }
   if (category) {
     sqlQuery += ` AND c.Cat_Name = '${category}'`;
-  }
-  if (publisher) {
-    sqlQuery += ` AND (p.Publisher_First_Name LIKE '%${publisher}%' OR p.Publisher_Last_Name LIKE '%${publisher}%')`;
-  }
-  if (language) {
-    sqlQuery += ` AND b.Language = '${language}'`;
   }
 
   // Execute SQL query
