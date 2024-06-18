@@ -10,7 +10,6 @@ function SearchBook() {
     title: false,
     author: false,
     category: "",
-    language: "",
     publicationDate: "",
     available: false,
     minReviews: 0,

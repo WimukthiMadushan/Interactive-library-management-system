@@ -8,7 +8,6 @@ function SideBar({ onFilterChange }) {
     title: false,
     author: false,
     category: "",
-    language: "",
     publisher: "",
     publicationDate: "",
     minReviews: 0,
@@ -30,24 +29,6 @@ function SideBar({ onFilterChange }) {
     };
     fetchData();
   }, []);
-
-  {
-    /*
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/languages");
-        setlanguages(response.data);
-      } catch (error) {
-        console.log("Error fetching categories:", error.message);
-      }
-    };
-    fetchData();
-  }, []);
-
-
-  */
-  }
 
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;

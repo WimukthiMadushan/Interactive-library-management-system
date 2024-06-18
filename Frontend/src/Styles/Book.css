@@ -1,0 +1,94 @@
+/* General page layout */
+.book-container {
+  display: flex;
+  align-items: stretch; /* Ensure elements stretch to fill the container width */
+  padding: 20px;
+  background-color: #f9f9f9;
+  gap: 20px; /* Add space between the book details and copy details */
+}
+
+/* Styling for the book details section */
+.book-details {
+  padding: 20px;
+  margin: 10px 0;
+  height: fit-content;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography and spacing for book details */
+.book-details h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #333;
+}
+
+.book-details p {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #666;
+}
+
+.book-details strong {
+  color: #333;
+}
+
+/* Styling for the book copy details section */
+.book-copy-details {
+  display: flex;
+  flex-direction: column; /* Stack copies vertically */
+  gap: 20px; /* Add space between the copy cards */
+  margin: 20px 0;
+}
+
+/* Each book copy card styling */
+.book-copy-card {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Card hover effect */
+.book-copy-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.book-copy-card ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.book-copy-card li {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #666;
+}
+
+.book-copy-card strong {
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .book-details,
+  .book-copy-details {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .book-copy-card {
+    margin: 10px 0; /* Adjust margin for vertical layout */
+  }
+}
+
+@media (max-width: 480px) {
+  .book-details {
+    margin-bottom: 20px;
+  }
+}
