@@ -1,40 +1,135 @@
+/* General Profile Styling */
 .profile-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  margin: 20px;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  max-width: 600px;
-  margin: auto;
+  background-color: #fff;
 }
 
-.left,
-.right {
+.profile-left {
   flex: 1;
-  padding: 10px;
+  text-align: center;
+  padding-right: 20px;
+}
+
+.profile-right {
+  flex: 2;
+  padding: 20px;
+}
+
+.profile-image-container {
+  margin-bottom: 20px;
 }
 
 .profile-image {
-  max-width: 100%;
   border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
 }
 
-.right p {
+.profile-name {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.profile-username {
+  font-size: 16px;
+  color: #777;
+}
+
+.profile-details-list {
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
+.profile-details-list li {
+  margin: 10px 0;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #555;
+}
+
 .edit-profile-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  border: none;
+  margin-top: 20px;
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .edit-profile-button:hover {
   background-color: #0056b3;
+}
+
+/* Table Styling */
+.bottom-container {
+  margin-top: 30px;
+}
+
+.borrowed-books-title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.borrowed-books-table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.borrowed-books-table th,
+.borrowed-books-table td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.borrowed-books-table th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.borrowed-books-table td {
+  color: #555;
+}
+
+/* Set specific column widths */
+.borrowed-books-table th:nth-child(1),
+.borrowed-books-table td:nth-child(1) {
+  width: 15%;
+}
+
+.borrowed-books-table th:nth-child(2),
+.borrowed-books-table td:nth-child(2) {
+  width: 15%;
+}
+
+.borrowed-books-table th:nth-child(3),
+.borrowed-books-table td:nth-child(3) {
+  width: 20%;
+}
+
+.borrowed-books-table th:nth-child(4),
+.borrowed-books-table td:nth-child(4) {
+  width: 20%;
+}
+
+.borrowed-books-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.borrowed-books-table tr:hover {
+  background-color: #f1f1f1;
 }
