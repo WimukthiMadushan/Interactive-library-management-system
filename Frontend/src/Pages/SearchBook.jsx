@@ -32,8 +32,6 @@ function SearchBook() {
           params.push(
             `publicationDate=${encodeURIComponent(filters.publicationDate)}`
           );
-        if (filters.language)
-          params.push(`language=${encodeURIComponent(filters.language)}`);
         if (filters.minReviews) params.push(`minReviews=${filters.minReviews}`);
         if (filters.maxReviews) params.push(`maxReviews=${filters.maxReviews}`);
 

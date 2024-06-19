@@ -14,8 +14,6 @@ function SideBar({ onFilterChange }) {
     maxReviews: 0,
   });
   const [categories, setCategories] = useState([]);
-  const [languages, setlanguages] = useState([]);
-  const [publishers, setPublishers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,24 +76,6 @@ function SideBar({ onFilterChange }) {
           <div className="dot"></div>
           <span>Author</span>
         </label>
-      </div>
-      {/* Language */}
-      <div className="filter-group">
-        <select
-          className="category-select"
-          name="language"
-          value={filters.language}
-          onChange={handleFilterChange}
-        >
-          <option className="initial-category" value="">
-            Select Language
-          </option>
-          {languages.map((language, index) => (
-            <option key={index} value={language}>
-              {language}
-            </option>
-          ))}
-        </select>
       </div>
       {/* Category */}
       <div className="filter-group">
