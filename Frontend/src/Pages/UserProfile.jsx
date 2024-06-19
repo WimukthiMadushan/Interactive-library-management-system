@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "./../Hooks/AuthContext.jsx";
 import axios from "axios";
 import "./../Styles/UserProfile.css";
 import userImage from "./../Images/Profile_pic.jpg";
@@ -6,14 +7,17 @@ import userImage from "./../Images/Profile_pic.jpg";
 function UserProfile() {
   const [userDetails, setUserDetails] = useState({});
   const [borrowedBooks, setBorrowedBooks] = useState([]);
+  const [reservedBooks, setReservedBooks] = useState([]);
+  const { authState } = useAuth();
+  const { userId, username, role } = authState;
 
-  const User_ID = 1017;
+  //const User_ID = 1008; // This could be dynamic based on logged-in user
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/user/${User_ID}`
+          `http://localhost:5000/api/user/${userId}`
         );
         setUserDetails(response.data);
       } catch (error) {
@@ -27,7 +31,7 @@ function UserProfile() {
     const fetchBorrowedBooks = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/borrow/${User_ID}`
+          `http://localhost:5000/api/borrow/${userId}`
         );
         setBorrowedBooks(response.data);
         console.log(response.data);
@@ -36,6 +40,21 @@ function UserProfile() {
       }
     };
     fetchBorrowedBooks();
+  }, []);
+
+  useEffect(() => {
+    const fetchReservedBooks = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/reserve/${userId}`
+        );
+        setReservedBooks(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching reserved books: ", error);
+      }
+    };
+    fetchReservedBooks();
   }, []);
 
   return (
@@ -92,7 +111,32 @@ function UserProfile() {
                 <td>{book.Language_Name.trim()}</td>
                 <td>{new Date(book.Borrow_Date).toLocaleDateString()}</td>
                 <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
-                <td>date</td>
+                <td>{new Date(book.Return_Date).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="bottom-container">
+        <h3 className="reserved-books-title">Reserved Books</h3>
+        <table className="reserved-books-table">
+          <thead>
+            <tr>
+              <th>Copy ID</th>
+              <th>Book Title</th>
+              <th>Language</th>
+              <th>Location</th>
+              <th>Reserve Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reservedBooks.map((book) => (
+              <tr key={book.Copy_ID}>
+                <td>{book.Copy_ID}</td>
+                <td>{book.Title}</td>
+                <td>{book.Language}</td>
+                <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
+                <td>{book.Reserve_Date}</td>
               </tr>
             ))}
           </tbody>

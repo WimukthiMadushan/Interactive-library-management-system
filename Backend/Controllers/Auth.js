@@ -86,7 +86,7 @@ export const login = (req, res) => {
       }
 
       // Check if the password is correct
-      console.log(result);
+      //console.log(result);
       const user = result[0];
       if (!bcrypt.compareSync(Password, user.Password)) {
         return res
@@ -102,8 +102,7 @@ export const login = (req, res) => {
             console.error("Database error: ", err);
             return res.status(500).json({ message: "Internal server error" });
           }
-          //console.log(user.roleResult);
-          // Assuming roleResult contains the role data
+
           const role = roleResult.length > 0 ? roleResult[0].Role : "default";
 
           // User authenticated, generate JWT token

@@ -14,10 +14,13 @@ import AddBook from "./Pages/AddBook";
 import UpdateBook from "./Pages/UpdateBook";
 import Book from "./Pages/Book";
 import UserProfile from "./Pages/UserProfile";
-import Footer from "./Components/Footer";
 import SearchBook from "./Pages/SearchBook";
+import { useAuth } from "./Hooks/AuthContext.jsx";
 
 function App() {
+  const { authState } = useAuth();
+  const { userId, role } = authState;
+
   return (
     <div className="App">
       <NavBar />

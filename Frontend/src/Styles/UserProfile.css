@@ -133,3 +133,64 @@
 .borrowed-books-table tr:hover {
   background-color: #f1f1f1;
 }
+
+/* Reserved Books Table Styling */
+.reserved-books-title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.reserved-books-table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.reserved-books-table th,
+.reserved-books-table td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.reserved-books-table th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.reserved-books-table td {
+  color: #555;
+}
+
+/* Set specific column widths for reserved books table */
+.reserved-books-table th:nth-child(1),
+.reserved-books-table td:nth-child(1) {
+  width: 15%;
+}
+
+.reserved-books-table th:nth-child(2),
+.reserved-books-table td:nth-child(2) {
+  width: 25%;
+}
+
+.reserved-books-table th:nth-child(3),
+.reserved-books-table td:nth-child(3) {
+  width: 20%;
+}
+
+.reserved-books-table th:nth-child(4),
+.reserved-books-table td:nth-child(4) {
+  width: 40%;
+}
+
+.reserved-books-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.reserved-books-table tr:hover {
+  background-color: #f1f1f1;
+}

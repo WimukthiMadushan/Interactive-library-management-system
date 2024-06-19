@@ -110,15 +110,25 @@ body {
   background-color: #ddd;
   border-radius: 10px;
 }
+.login-signup-container {
+  margin-bottom: 4px;
+}
 .login {
+  font-size: 18px;
   margin-left: 10px;
-  color: #000000;
+
+  color: #919591;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .login:hover {
-  background-color: #838383;
-  border-radius: 5px;
-  padding: 10px;
+  color: #000000;
+}
+
+.logout {
+  margin-left: 10px;
+  color: #000000;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

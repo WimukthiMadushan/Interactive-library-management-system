@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./../Hooks/AuthContext.jsx";
 import "./../Styles/NavBar.css";
 import logo from "./../Images/Logo.png";
 import Profile_pic from "./../Images/Profile_pic.jpg";
 
 function NavBar() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null); // Reference to the dropdown
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // Close dropdown if clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -25,8 +25,13 @@ function NavBar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
+  const { authState, logout } = useAuth(); // Destructure logout function
+  const { userId } = authState;
 
-  const user = true;
+  const handleLogout = () => {
+    logout(); // Call logout function which clears token from local storage
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -52,7 +57,7 @@ function NavBar() {
         </ul>
       </div>
       <div className="navbar-right">
-        {user ? (
+        {userId ? (
           <div className="dropdown-container" ref={dropdownRef}>
             <button className="profile-pic" onClick={toggleDropdown}>
               <img src={Profile_pic} alt="Profile" />
@@ -60,7 +65,7 @@ function NavBar() {
             {dropdownVisible && (
               <div className="dropdown-menu">
                 <Link to={"/profile"}>Profile</Link>
-                <Link to={"/logout"} className="logout">
+                <Link to={"/"} onClick={handleLogout}>
                   Logout
                 </Link>
               </div>
