@@ -8,6 +8,7 @@ import categoryRoutes from "./Routes/Category.js";
 import publisherRoutes from "./Routes/Publishers.js";
 import bookCopyRoutes from "./Routes/Book_Copy.js";
 import reviewRoutes from "./Routes/Review.js";
+import borrowRoutes from "./Routes/Borrow.js";
 
 const app = express();
 const port = 5000;
@@ -22,6 +23,7 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/publisher", publisherRoutes);
 app.use("/api/bookcopy", bookCopyRoutes);
 app.use("/api/review", reviewRoutes);
+app.use("/api/borrow", borrowRoutes);
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
