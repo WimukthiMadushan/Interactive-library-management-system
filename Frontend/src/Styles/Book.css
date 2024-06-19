@@ -1,94 +1,173 @@
-/* General page layout */
+/* General Styling */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f9fc;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Link Styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Container for the whole page */
 .book-container {
   display: flex;
-  align-items: stretch; /* Ensure elements stretch to fill the container width */
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding: 20px;
-  background-color: #f9f9f9;
-  gap: 20px; /* Add space between the book details and copy details */
+  background-color: #f7f9fc;
+  gap: 20px;
 }
 
-/* Styling for the book details section */
+/* Book details section */
 .book-details {
+  flex: 1 1 45%;
   padding: 20px;
-  margin: 10px 0;
-  height: fit-content;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Typography and spacing for book details */
-.book-details h1 {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 20px;
+}
+
+.book-details:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Book details heading */
+.book-details h1 {
+  margin-bottom: 15px;
   font-size: 2em;
-  color: #333;
+  color: #2c3e50;
+  font-weight: 700;
 }
 
+/* Book details paragraph */
 .book-details p {
-  margin-bottom: 10px;
-  font-size: 1.1em;
-  color: #666;
+  margin-bottom: 12px;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #616161;
 }
 
+/* Strong text in book details */
 .book-details strong {
-  color: #333;
+  color: #000;
 }
 
-/* Styling for the book copy details section */
+/* Book copy details section */
 .book-copy-details {
+  flex: 1 1 45%;
   display: flex;
-  flex-direction: column; /* Stack copies vertically */
-  gap: 20px; /* Add space between the copy cards */
-  margin: 20px 0;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Book copy details heading */
+.book-copy-details h1 {
+  font-size: 1.8em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
 /* Each book copy card styling */
 .book-copy-card {
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Card hover effect */
 .book-copy-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
+/* List inside book copy card */
 .book-copy-card ul {
   list-style-type: none;
   padding: 0;
 }
 
 .book-copy-card li {
-  margin-bottom: 10px;
-  font-size: 1.1em;
-  color: #666;
+  margin-bottom: 8px;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #616161;
 }
 
 .book-copy-card strong {
-  color: #333;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Reserve button styling */
+.reserve-button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.reserve-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.reserve-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Status indicators */
+.status {
+  font-weight: bold;
+}
+
+.status.reserved {
+  color: #ff8c00;
+}
+
+.status.borrowed {
+  color: #e74c3c;
+}
+
+.status.available {
+  color: #28a745;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .book-details,
   .book-copy-details {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .book-copy-card {
-    margin: 10px 0; /* Adjust margin for vertical layout */
+    flex: 1 1 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .book-details {
+  .book-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .book-details,
+  .book-copy-details {
     margin-bottom: 20px;
   }
 }

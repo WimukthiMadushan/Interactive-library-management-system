@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import "./../Styles/Book.css";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
+import "./../Styles/Book.css"; // Import the CSS file for styling
 
 function Book() {
   const location = useLocation();
@@ -23,7 +22,7 @@ function Book() {
       }
     };
     fetchBook();
-  }, []);
+  }, [bookId]);
 
   useEffect(() => {
     const fetchBookCopy = async () => {
@@ -38,15 +37,18 @@ function Book() {
       }
     };
     fetchBookCopy();
-  }, []);
+  }, [bookId]);
+
+  const handleReserve = (copyId) => {
+    alert(`Book with ID ${copyId} reserved!`);
+    // You can replace the alert with your actual reserve logic
+  };
 
   return (
     <div className="book-container">
       <div className="book-details">
         <h1>{book.Title}</h1>
-        <p>
-          <strong>Description:</strong> {book.Description}
-        </p>
+        <p>{book.Description}</p>
         <p>
           <strong>ISBN:</strong> {book.ISBN_Number}
         </p>
@@ -69,16 +71,32 @@ function Book() {
                 <strong>Language:</strong> {copy.Language}
               </li>
               <li>
-                <strong>Location:</strong> Floor {copy.Floor}, Section{" "}
-                {copy.Section}, Shelf {copy.Shelf_Number}, Row {copy.RowNum}
+                <strong>Location:</strong> You can pick the book up from the{" "}
+                <em>{copy.Floor} Floor</em>, <em>{copy.Section} Section</em>,{" "}
+                <em>Shelf {copy.Shelf_Number}</em>, Row <em>{copy.RowNum}</em>.
               </li>
               <li>
-                <strong>Is Reserved:</strong> {copy.isReserved ? "Yes" : "No"}
-              </li>
-              <li>
-                <strong>Is Borrowed:</strong> {copy.isBorrowed ? "Yes" : "No"}
+                <strong>Status:</strong>
+                {copy.isReserved ? (
+                  <span className="status reserved">Reserved</span>
+                ) : copy.isBorrowed ? (
+                  <span className="status borrowed">Borrowed</span>
+                ) : (
+                  <span className="status available">
+                    Available for borrowing or reservation
+                  </span>
+                )}
               </li>
             </ul>
+            <button
+              className="reserve-button"
+              disabled={copy.isReserved || copy.isBorrowed}
+              onClick={() => handleReserve(copy.Copy_ID)}
+            >
+              {copy.isReserved || copy.isBorrowed
+                ? "Not Available"
+                : "Reserve Book"}
+            </button>
           </div>
         ))}
       </div>
