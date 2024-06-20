@@ -8,32 +8,25 @@ body {
   box-sizing: border-box;
 }
 
-/* Link Styles */
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
 /* Container for the whole page */
-.book-container {
+.book-page-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 20px;
   background-color: #f7f9fc;
   gap: 20px;
+  width: 90%;
+  margin: auto;
 }
 
 /* Book details section */
 .book-details {
-  flex: 1 1 45%;
   padding: 20px;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 20px;
 }
 
 .book-details:hover {
@@ -41,38 +34,101 @@ a {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Book details heading */
 .book-details h1 {
   margin-bottom: 15px;
+  font-size: 2.5em;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.book-details p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #616161;
+}
+
+.book-meta {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.book-meta p {
+  font-size: 1.1em;
+  color: #333;
+}
+
+/* Reviews section */
+.reviews {
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.reviews h2 {
+  margin-bottom: 20px;
   font-size: 2em;
   color: #2c3e50;
   font-weight: 700;
 }
 
-/* Book details paragraph */
-.book-details p {
-  margin-bottom: 12px;
-  font-size: 1em;
-  line-height: 1.6;
+.no-reviews {
+  font-size: 1.1em;
   color: #616161;
 }
 
-/* Strong text in book details */
-.book-details strong {
-  color: #000;
+/* Each review card styling */
+.review-card {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.review-username {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+.review-rating {
+  font-size: 1.2em;
+  color: #f39c12; /* Color for stars */
+}
+
+.review-text {
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: #616161;
+  line-height: 1.6;
+}
+
+.review-date {
+  font-size: 0.9em;
+  color: #9e9e9e;
 }
 
 /* Book copy details section */
 .book-copy-details {
-  flex: 1 1 45%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Book copy details heading */
-.book-copy-details h1 {
-  font-size: 1.8em;
+.book-copy-details h2 {
+  font-size: 2em;
   color: #2c3e50;
   margin-bottom: 10px;
   font-weight: 700;
@@ -80,7 +136,7 @@ a {
 
 /* Each book copy card styling */
 .book-copy-card {
-  padding: 15px;
+  padding: 20px;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
@@ -93,7 +149,6 @@ a {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* List inside book copy card */
 .book-copy-card ul {
   list-style-type: none;
   padding: 0;
@@ -151,23 +206,118 @@ a {
 .status.available {
   color: #28a745;
 }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .book-details,
-  .book-copy-details {
-    flex: 1 1 100%;
-  }
+/* Popup Background for Centering */
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Popup Background for Centering */
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 480px) {
-  .book-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
+/* Reservation Popup */
+.reservation-popup,
+.login-required-popup {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
 
-  .book-details,
-  .book-copy-details {
-    margin-bottom: 20px;
-  }
+.reservation-popup h3,
+.login-required-popup h3 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.date-picker {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.2em;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px;
+}
+
+.confirm-reservation,
+.cancel-reservation,
+.reserve-button,
+.login-required-popup button {
+  padding: 10px 20px; /* Smaller padding */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%; /* Full width for buttons */
+}
+
+.confirm-reservation {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.cancel-reservation {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.reserve-button,
+.login-required-popup button {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.reserve-button:hover,
+.confirm-reservation:hover,
+.cancel-reservation:hover,
+.login-required-popup button:hover {
+  transform: translateY(-2px);
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #999;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #333;
 }

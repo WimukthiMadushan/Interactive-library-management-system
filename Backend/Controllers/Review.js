@@ -3,7 +3,7 @@ import connection from "./../DataBase.js";
 export const getReview = (req, res) => {
   const { BookID } = req.params;
   connection.query(
-    "SELECT * FROM Review WHERE Book_ID = ?",
+    "SELECT User.Username,Review.Review_ID, Review.Review, Review.Rating, Review.Review_Date FROM Review JOIN User ON User.User_ID = Review.User_ID WHERE Book_ID = ?",
     [BookID],
     (err, results) => {
       if (err) {
