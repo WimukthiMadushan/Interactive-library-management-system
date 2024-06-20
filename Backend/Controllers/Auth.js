@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import connection from "./../DataBase.js";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 
 export const register = (req, res) => {
   const {
@@ -108,7 +109,7 @@ export const login = (req, res) => {
           // User authenticated, generate JWT token
           const token = jwt.sign(
             { Username: user.Username, ID: user.User_ID, Role: role },
-            "your_jwt_secret",
+            "process.env.JWT_SECRET",
             { expiresIn: "1h" } // Token expiration time
           );
 
