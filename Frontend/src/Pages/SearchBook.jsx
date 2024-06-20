@@ -57,7 +57,7 @@ function SearchBook() {
     setFilters(updatedFilters);
     console.log("Updated filters:", updatedFilters);
   };
-  console.log("Data:", Data);
+  //console.log("Data:", Data);
 
   return (
     <div className="search-container">

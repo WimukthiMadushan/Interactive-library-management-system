@@ -11,8 +11,6 @@ function UserProfile() {
   const { authState } = useAuth();
   const { userId, username, role } = authState;
 
-  //const User_ID = 1008; // This could be dynamic based on logged-in user
-
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
@@ -87,61 +85,74 @@ function UserProfile() {
               {new Date(userDetails.Registered_Date).toLocaleDateString()}
             </li>
           </ul>
-          <button className="edit-profile-button">Edit Profile</button>
+          <div className="profile-buttons">
+            <button className="edit-profile-button">Edit Profile</button>
+            {role === "Receptionist" && (
+              <button className="edit-profile-button">Set Borrow Book</button>
+            )}
+          </div>
         </div>
       </div>
-      <div className="bottom-container">
-        <h3 className="borrowed-books-title">Borrowed Books</h3>
-        <table className="borrowed-books-table">
-          <thead>
-            <tr>
-              <th>Borrow ID</th>
-              <th>Book Title</th>
-              <th>Language</th>
-              <th>Borrowed Date</th>
-              <th>Location</th>
-              <th>Return Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {borrowedBooks.map((book) => (
-              <tr key={book.Borrow_ID}>
-                <td>{book.Borrow_ID}</td>
-                <td>{book.Title}</td>
-                <td>{book.Language_Name.trim()}</td>
-                <td>{new Date(book.Borrow_Date).toLocaleDateString()}</td>
-                <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
-                <td>{new Date(book.Return_Date).toLocaleDateString()}</td>
+      {borrowedBooks.length > 0 ? (
+        <div className="bottom-container">
+          <h3 className="borrowed-books-title">Borrowed Books</h3>
+          <table className="borrowed-books-table">
+            <thead>
+              <tr>
+                <th>Borrow ID</th>
+                <th>Book Title</th>
+                <th>Language</th>
+                <th>Borrowed Date</th>
+                <th>Location</th>
+                <th>Return Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="bottom-container">
-        <h3 className="reserved-books-title">Reserved Books</h3>
-        <table className="reserved-books-table">
-          <thead>
-            <tr>
-              <th>Copy ID</th>
-              <th>Book Title</th>
-              <th>Language</th>
-              <th>Location</th>
-              <th>Reserve Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reservedBooks.map((book) => (
-              <tr key={book.Copy_ID}>
-                <td>{book.Copy_ID}</td>
-                <td>{book.Title}</td>
-                <td>{book.Language}</td>
-                <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
-                <td>{book.Reserve_Date}</td>
+            </thead>
+            <tbody>
+              {borrowedBooks.map((book) => (
+                <tr key={book.Borrow_ID}>
+                  <td>{book.Borrow_ID}</td>
+                  <td>{book.Title}</td>
+                  <td>{book.Language_Name.trim()}</td>
+                  <td>{new Date(book.Borrow_Date).toLocaleDateString()}</td>
+                  <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
+                  <td>{new Date(book.Return_Date).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="no-books-message">You don't have any borrowed books.</p>
+      )}
+      {reservedBooks.length > 0 ? (
+        <div className="bottom-container">
+          <h3 className="reserved-books-title">Reserved Books</h3>
+          <table className="reserved-books-table">
+            <thead>
+              <tr>
+                <th>Copy ID</th>
+                <th>Book Title</th>
+                <th>Language</th>
+                <th>Location</th>
+                <th>Reserve Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {reservedBooks.map((book) => (
+                <tr key={book.Copy_ID}>
+                  <td>{book.Copy_ID}</td>
+                  <td>{book.Title}</td>
+                  <td>{book.Language}</td>
+                  <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
+                  <td>{book.Reserve_Date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="no-books-message">You don't have any reserved books.</p>
+      )}
     </>
   );
 }

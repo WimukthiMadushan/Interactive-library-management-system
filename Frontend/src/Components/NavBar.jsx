@@ -25,11 +25,13 @@ function NavBar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
-  const { authState, logout } = useAuth(); // Destructure logout function
+
+  const { authState, logout } = useAuth();
   const { userId } = authState;
 
   const handleLogout = () => {
-    logout(); // Call logout function which clears token from local storage
+    logout();
+    dropdownVisible(false);
   };
 
   return (

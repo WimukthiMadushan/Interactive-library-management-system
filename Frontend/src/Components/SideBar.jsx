@@ -19,7 +19,7 @@ function SideBar({ onFilterChange }) {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/category/");
-        console.log(response.data);
+        //console.log(response.data);
         setCategories(response.data);
       } catch (error) {
         console.log("Error fetching categories:", error.message);
@@ -30,14 +30,13 @@ function SideBar({ onFilterChange }) {
 
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;
-    //console.log(name, value, type, checked);
     const filterValue = type === "radio" ? checked : value;
 
     const newFilters = {
       ...filters,
       [name]: filterValue,
     };
-    // Ensure "Title" and "Author" are mutually exclusive
+
     if (name === "title" && checked) {
       newFilters.author = false;
     } else if (name === "author" && checked) {
@@ -45,6 +44,7 @@ function SideBar({ onFilterChange }) {
     }
 
     setFilters(newFilters);
+    console.log("Updated filters:", newFilters);
     // Pass the updated filters to the parent component
     onFilterChange(newFilters);
   };
@@ -89,7 +89,7 @@ function SideBar({ onFilterChange }) {
             Select Category
           </option>
           {categories.map((category, index) => (
-            <option key={category.Cat_ID} value={category}>
+            <option key={category.Cat_ID} value={category.Cat_Name}>
               {category.Cat_Name}
             </option>
           ))}
