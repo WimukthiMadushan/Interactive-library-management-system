@@ -98,9 +98,11 @@ const Review = `CREATE TABLE IF NOT EXISTS Review (
 const Borrow = `CREATE TABLE IF NOT EXISTS Borrow (
     Borrow_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     User_ID INTEGER NOT NULL,
-    Book_ID INTEGER NOT NULL,  -- This references Copy_ID in Book_Copy table
+    Book_ID INTEGER NOT NULL, 
     Borrow_Date DATE NOT NULL,
-    Return_Time TIME NOT NULL,
+    Borrow_Time TIME NOT NULL,
+    Return_Date DATE DEFAULT NULL,
+    isComplete BOOLEAN NOT NULL,
     FOREIGN KEY (User_ID) REFERENCES User(User_ID),
     FOREIGN KEY (Book_ID) REFERENCES Book_Copy(Copy_ID)
 )`;
@@ -108,10 +110,11 @@ const Borrow = `CREATE TABLE IF NOT EXISTS Borrow (
 const Reserve = `CREATE TABLE IF NOT EXISTS Reserve (
     Reserve_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     User_ID INTEGER NOT NULL,
-    Book_ID INTEGER NOT NULL,  -- This references Copy_ID in Book_Copy table
+    Book_ID INTEGER NOT NULL,
     isComplete BOOLEAN NOT NULL,
     Reserve_Date DATE NOT NULL,
     Reserve_Time TIME NOT NULL,
+    Reserve_End_Time TIME NOT NULL,
     FOREIGN KEY (User_ID) REFERENCES User(User_ID),
     FOREIGN KEY (Book_ID) REFERENCES Book_Copy(Copy_ID)
 )`;
