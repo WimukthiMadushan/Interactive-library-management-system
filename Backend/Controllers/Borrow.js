@@ -39,3 +39,7 @@ export const getBorrowBooksOfUser = (req, res) => {
     }
   });
 };
+
+export const borrowBook = (req, res) => {};
+export const returnBook = (req, res) => {};
+export const renewBook = (req, res) => {};
