@@ -1,5 +1,6 @@
 import connection from "./../DataBase.js";
 
+// Get reserved books of a user
 export const getReserveBooksOfUser = (req, res) => {
   const { UserID } = req.params;
   const query = `
@@ -32,6 +33,7 @@ export const getReserveBooksOfUser = (req, res) => {
   });
 };
 
+// Reserve a book copy
 export const reserveBook = (req, res) => {
   const {
     UserID,
@@ -41,20 +43,69 @@ export const reserveBook = (req, res) => {
     Reserve_Time,
     Reserve_End_Time,
   } = req.body;
-  const query = `
-        INSERT INTO Reserve(User_ID, Book_ID,isComplete, Reserve_Date, Reserve_Time,Reserve_End_Time)
-        VALUES(?, ?, ?, ?, ?, ?)
+
+  // First, check if the book copy is already reserved or borrowed
+  const checkQuery = `
+    SELECT isReserved, isBorrowed 
+    FROM Book_Copy 
+    WHERE Copy_ID = ?
+  `;
+
+  connection.query(checkQuery, [Copy_ID], (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Book copy not found" });
+    }
+
+    const { isReserved, isBorrowed } = results[0];
+    if (isReserved || isBorrowed) {
+      return res
+        .status(400)
+        .json({ error: "Book copy is already reserved or borrowed" });
+    }
+
+    // If not reserved or borrowed, proceed to reserve the book copy
+    const reserveQuery = `
+      INSERT INTO Reserve(User_ID, Book_ID, isComplete, Reserve_Date, Reserve_Time, Reserve_End_Time)
+      VALUES(?, ?, ?, ?, ?, ?)
     `;
 
-  connection.query(
-    query,
-    [UserID, Copy_ID, isComplete, Reserve_Date, Reserve_Time, Reserve_End_Time],
-    (err, results) => {
-      if (err) {
-        console.error("Error executing query:", err);
-        return res.status(500).json({ error: "Internal server error" });
+    connection.query(
+      reserveQuery,
+      [
+        UserID,
+        Copy_ID,
+        isComplete,
+        Reserve_Date,
+        Reserve_Time,
+        Reserve_End_Time,
+      ],
+      (err, results) => {
+        if (err) {
+          console.error("Error executing query:", err);
+          return res.status(500).json({ error: "Internal server error" });
+        }
+
+        // Update the Book_Copy table to set isReserved = TRUE
+        const updateQuery = `
+          UPDATE Book_Copy
+          SET isReserved = TRUE
+          WHERE Copy_ID = ?
+        `;
+
+        connection.query(updateQuery, [Copy_ID], (err, updateResults) => {
+          if (err) {
+            console.error("Error updating book copy status:", err);
+            return res.status(500).json({ error: "Internal server error" });
+          }
+
+          res.status(201).json({ message: "Book reserved successfully" });
+        });
       }
-      res.status(201).json({ message: "Book reserved successfully" });
-    }
-  );
+    );
+  });
 };

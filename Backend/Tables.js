@@ -18,7 +18,7 @@ const Author = `CREATE TABLE IF NOT EXISTS Author (
     First_Name VARCHAR(50) NOT NULL,
     Last_Name VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
-    Address VARCHAR(50),
+    Address VARCHAR(100),
     Mobile VARCHAR(20),
     NIC VARCHAR(20) NOT NULL
 )`;

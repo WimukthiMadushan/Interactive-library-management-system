@@ -10,13 +10,13 @@ function Book() {
   const location = useLocation();
   const [book, setBook] = useState({});
   const [bookCopy, setBookCopy] = useState([]);
-  const [reviews, setReview] = useState([]);
-  const [showReservationPopup, setShowReservationPopup] = useState(false);
   const [selectedCopyId, setSelectedCopyId] = useState(null);
+  const [reviews, setReview] = useState([]);
   const [reservationDate, setReservationDate] = useState(new Date());
-  const [showLoginPopup, setShowLoginPopup] = useState(false); // Initialize showLoginPopup state
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [showReservationPopup, setShowReservationPopup] = useState(false);
 
-  const { authState } = useAuth(); // Destructure logout function
+  const { authState } = useAuth();
   const { userId } = authState;
 
   const bookId = location.pathname.split("/").pop();
@@ -28,13 +28,13 @@ function Book() {
           `http://localhost:5000/api/book/${bookId}`
         );
         setBook(response.data);
-        console.log("Book data:", response.data);
+        //console.log("Book data:", response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
     };
     fetchBook();
-  }, [bookId]);
+  }, [URL]);
 
   useEffect(() => {
     const fetchBookCopy = async () => {
@@ -43,7 +43,7 @@ function Book() {
           `http://localhost:5000/api/bookcopy/${bookId}`
         );
         setBookCopy(response.data);
-        console.log("Book copy data:", response.data);
+        //console.log("Book copy data:", response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
@@ -58,7 +58,7 @@ function Book() {
           `http://localhost:5000/api/review/${bookId}`
         );
         setReview(response.data);
-        console.log("Review data:", response.data);
+        //console.log("Review data:", response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
@@ -92,11 +92,20 @@ function Book() {
         Reserve_Time: reserveTime,
         Reserve_End_Time: reserveEndTime,
       });
+
+      // Update the local state to mark the copy as reserved
+      setBookCopy((prevCopies) =>
+        prevCopies.map((copy) =>
+          copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
+        )
+      );
+
       setShowReservationPopup(false);
     } catch (error) {
       console.error("Error reserving book:", error.message);
     }
   };
+
   const handleCancelReservation = () => {
     setShowReservationPopup(false);
   };
