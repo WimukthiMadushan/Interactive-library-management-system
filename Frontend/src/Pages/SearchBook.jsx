@@ -3,6 +3,7 @@ import axios from "axios";
 import SideBar from "../Components/SideBar";
 import "./../Styles/SearchBook.css";
 import Pagination from "../Components/Pagination";
+import SpeechRecognition from "../Components/SpeechRecognition";
 
 function SearchBook() {
   const [searchState, setSearchState] = useState("");
@@ -59,24 +60,36 @@ function SearchBook() {
   };
   //console.log("Data:", Data);
 
+  const handleSpeechRecognitionChange = (recognizedText) => {
+    setSearchState(recognizedText);
+  };
+
   return (
     <div className="search-container">
       <div className="left">
         <SideBar onFilterChange={handleFilterChange} />
       </div>
       <div className="right">
-        <div className="search-box">
-          <input
-            className="search-books"
-            type="text"
-            placeholder="Search for books"
-            value={searchState}
-            onChange={handleChange}
-          />
-          <button className="search-books-button" onClick={handleSearch}>
-            Search
-          </button>
+        <div className="search-properties">
+          <div className="search-box">
+            <input
+              className="search-books"
+              type="text"
+              placeholder="Search for books"
+              value={searchState}
+              onChange={handleChange}
+            />
+            <div className="speechRecognition">
+              <SpeechRecognition onTextChange={handleSpeechRecognitionChange} />
+            </div>
+          </div>
+          <div className="search-button">
+            <button className="search-books-button" onClick={handleSearch}>
+              Search
+            </button>
+          </div>
         </div>
+
         <div className="display-books">
           <Pagination Data={Data} itemsPerPage={12} />
         </div>
