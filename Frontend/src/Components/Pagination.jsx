@@ -50,7 +50,7 @@ const Pagination = ({ Data, itemsPerPage }) => {
         style={{ textDecoration: "none", color: "inherit" }}
       >
         <div key={index} className="item">
-          <img src={img_1} alt={item.Title} />
+          <img src={item.Image_Path} alt={item.Title} />
           <div className="item-details">
             <h3>{item.Title}</h3>
             <p>
