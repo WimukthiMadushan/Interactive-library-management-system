@@ -5,12 +5,14 @@ import axios from "axios";
 import { validate } from "./../Validation/LoginValidation";
 import "./../Styles/LoginPage.css";
 import Register_Img from "./../Images/Register_Image.jpg";
+import Eye from "../Components/Eye.jsx";
 
 function LoginPage() {
   const [userData, setUserData] = useState({
     username: "",
     password: "",
   });
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
@@ -79,12 +81,15 @@ function LoginPage() {
           {errors.username && <p className="error">{errors.username}</p>}
           <input
             className={errors.password ? "error-input" : ""}
-            type="password"
+            type={visible ? "text" : "password"}
             placeholder="Password"
             name="password"
             value={userData.password}
             onChange={handleChange}
           />
+          <div className="eye">
+            <Eye visible={visible} setVisible={setVisible} />
+          </div>
           {errors.password && <p className="error">{errors.password}</p>}
           <button onClick={handleSubmit}>Login</button>
           {errors.apiError && <p className="error">{errors.apiError}</p>}

@@ -91,3 +91,11 @@
 .error-input {
   border: 2px solid red; /* Red border for input fields with errors */
 }
+
+.eye {
+  position: relative;
+  left: 12rem;
+  top: -2.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
