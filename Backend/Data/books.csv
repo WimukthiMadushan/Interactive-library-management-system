@@ -1,6 +1,6 @@
-Book_ID,ISBN_Number,Title,Author,Description,Published_Date,Category,Publisher
+Book_ID,ISBN_Number,Title,Author,Description,Published_Date,Category,Publisher,Image_Path,
 ,,,,,,,,
-100001," 978-3-16-148410-0"," Pride and Prejudice",1," A classic novel about the manners and matrimonial machinations among the British middle class."," 1813-01-28",1,1
+100001," 978-3-16-148410-0"," Pride and Prejudice",1," A classic novel about the manners and matrimonial machinations among the British middle class."," 1813-01-28",1,1,"./../../../Backend/Books/01.jpg"
 100002," 978-0-14-043912-0"," Great Expectations",2," The story of the orphan Pip and his growth and personal development."," 1861-08-01",1,2
 100003," 978-0-19-283398-3"," War and Peace",3," A historical novel that tells the story of French invasion of Russia."," 1869-01-01",12,3
 100004," 978-0-7432-7356-5"," The Adventures of Tom Sawyer",4," A novel about a young boy growing up along the Mississippi River."," 1876-12-10",18,4

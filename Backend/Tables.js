@@ -59,6 +59,7 @@ const Book = `CREATE TABLE IF NOT EXISTS Book (
     Published_Date DATE,
     Category SMALLINT NOT NULL,
     Publisher INTEGER NOT NULL,
+    Image_Path VARCHAR(255),
     FOREIGN KEY (Author) REFERENCES Author(Author_ID),
     FOREIGN KEY (Category) REFERENCES Category(Cat_ID),
     FOREIGN KEY (Publisher) REFERENCES Publisher(Publisher_ID)

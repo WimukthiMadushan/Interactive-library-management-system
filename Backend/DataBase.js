@@ -21,8 +21,8 @@ import insertDataFromFile from "./insertData.js";
 const connection = mysql2.createConnection({
   host: "localhost",
   user: "root",
-  password: "dulanga1234",//"#WM@b2000#"
-  database: "library", //"library_database"
+  password: "#WM@b2000#",
+  database: "library_database",
 });
 
 function DropTables() {
@@ -95,22 +95,22 @@ connection.connect((err) => {
     return;
   }
   console.log("Database connection established");
-  // DropTables();
-  // createTable(
-  //   User,
-  //   Author,
-  //   Category,
-  //   Publisher,
-  //   Language,
-  //   Location,
-  //   Book,
-  //   Book_Copy,
-  //   Staff,
-  //   Review,
-  //   Borrow,
-  //   Reserve
-  // );
-  // insertData();
+  DropTables();
+  createTable(
+    User,
+    Author,
+    Category,
+    Publisher,
+    Language,
+    Location,
+    Book,
+    Book_Copy,
+    Staff,
+    Review,
+    Borrow,
+    Reserve
+  );
+  insertData();
   console.log("Database connected");
 });
 
