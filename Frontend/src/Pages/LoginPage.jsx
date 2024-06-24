@@ -87,7 +87,7 @@ function LoginPage() {
             value={userData.password}
             onChange={handleChange}
           />
-          <div className="eye">
+          <div className="login-eye">
             <Eye visible={visible} setVisible={setVisible} />
           </div>
           {errors.password && <p className="error">{errors.password}</p>}

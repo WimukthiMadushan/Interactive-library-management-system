@@ -1,7 +1,16 @@
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make the wrapper take the full viewport height */
+  width: 100vw; /* Make the wrapper take the full viewport width */
+}
 .register-container {
   display: flex;
-  width: 80vw;
-  height: 80vh;
+  position: relative;
+  left: 164px;
+  width: 250%;
+  height: 95vh;
   justify-content: center;
   font-family: "Arial", sans-serif;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -45,7 +54,7 @@
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 12px;
   transition: border 0.3s;
 }
 
@@ -79,4 +88,11 @@
 }
 .error-input {
   border: 2px solid red; /* Red border for input fields with errors */
+}
+.register-eye {
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  left: 11rem;
+  top: -2.4rem;
 }

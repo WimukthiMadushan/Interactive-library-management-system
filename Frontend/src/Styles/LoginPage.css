@@ -92,7 +92,7 @@
   border: 2px solid red; /* Red border for input fields with errors */
 }
 
-.eye {
+.login-eye {
   position: relative;
   left: 12rem;
   top: -2.5rem;

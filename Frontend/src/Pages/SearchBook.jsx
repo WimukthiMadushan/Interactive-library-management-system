@@ -39,7 +39,7 @@ function SearchBook() {
         const response = await axios(apiUrl + params.join("&"));
         console.log(apiUrl + params.join("&"));
         setData(response.data);
-        //console.log(Data);
+        console.log(Data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
