@@ -110,7 +110,7 @@ export const login = (req, res) => {
           const token = jwt.sign(
             { Username: user.Username, ID: user.User_ID, Role: role },
             "process.env.JWT_SECRET",
-            { expiresIn: "1h" } // Token expiration time
+            { expiresIn: "10min" } // Token expiration time
           );
 
           // Return token to client

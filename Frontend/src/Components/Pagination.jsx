@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./../Styles/Pagination.css";
+import img_1 from "./../../../Backend/Books/01.jpg";
 
 const Pagination = ({ Data, itemsPerPage }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,16 +50,14 @@ const Pagination = ({ Data, itemsPerPage }) => {
         style={{ textDecoration: "none", color: "inherit" }}
       >
         <div key={index} className="item">
-          <h3>{item.Title}</h3>
-          <p>{item.Description}</p>
-          <p>Category: {item.Category_Name}</p>
-          <p>
-            Author: {item.Author_First_Name} {item.Author_Last_Name}
-          </p>
-          <p>Language: {item.Language}</p>
-          <p>
-            Publisher: {item.Publisher_First_Name} {item.Publisher_Last_Name}
-          </p>
+          <img src={img_1} alt={item.Title} />
+          <div className="item-details">
+            <h3>{item.Title}</h3>
+            <p>
+              By {item.Author_First_Name} {item.Author_Last_Name}
+            </p>
+            <p>Category: {item.Category_Name}</p>
+          </div>
         </div>
       </Link>
     ));

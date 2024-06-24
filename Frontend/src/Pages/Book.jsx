@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "./../Hooks/AuthContext.jsx";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./../Styles/Book.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import img_01 from "./../../../Backend/Books/01.jpg";
 
 function Book() {
   const location = useLocation();
@@ -28,13 +31,12 @@ function Book() {
           `http://localhost:5000/api/book/${bookId}`
         );
         setBook(response.data);
-        //console.log("Book data:", response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
     };
     fetchBook();
-  }, [URL]);
+  }, [bookId]);
 
   useEffect(() => {
     const fetchBookCopy = async () => {
@@ -43,7 +45,6 @@ function Book() {
           `http://localhost:5000/api/bookcopy/${bookId}`
         );
         setBookCopy(response.data);
-        //console.log("Book copy data:", response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
@@ -58,7 +59,6 @@ function Book() {
           `http://localhost:5000/api/review/${bookId}`
         );
         setReview(response.data);
-        //console.log("Review data:", response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
@@ -101,8 +101,14 @@ function Book() {
       );
 
       setShowReservationPopup(false);
+      toast.success("Reservation Succesfull..", {
+        closeButton: false,
+      });
     } catch (error) {
       console.error("Error reserving book:", error.message);
+      toast.error("Error reserving book.", {
+        closeButton: false,
+      });
     }
   };
 
@@ -110,47 +116,61 @@ function Book() {
     setShowReservationPopup(false);
   };
 
+  const closePopupOnOverlayClick = (event) => {
+    if (event.target.classList.contains("popup-background")) {
+      setShowReservationPopup(false);
+      setShowLoginPopup(false);
+    }
+  };
+
   return (
     <div className="book-page-container">
       <div className="book-details">
-        <h1>{book.Title}</h1>
-        <p>{book.Description}</p>
-        <div className="book-meta">
-          <p>
-            <strong>ISBN:</strong> {book.ISBN_Number}
-          </p>
-          <p>
-            <strong>Author:</strong> {book.Author_Name}
-          </p>
-          <p>
-            <strong>Category:</strong> {book.Category_Name}
-          </p>
-          <p>
-            <strong>Published Date:</strong> {book.Published_Date}
-          </p>
-        </div>
-      </div>
-
-      <div className="reviews">
-        <h2>Reviews</h2>
-        {reviews.length === 0 ? (
-          <p className="no-reviews">No reviews yet.</p>
-        ) : (
-          reviews.map((review) => (
-            <div key={review.Review_ID} className="review-card">
-              <div className="review-header">
-                <span className="review-username">{review.Username}</span>
-                <span className="review-rating">
-                  {Array(review.Rating).fill("⭐")}
-                </span>
-              </div>
-              <p className="review-text">{review.Review}</p>
-              <p className="review-date">
-                {new Date(review.Review_Date).toLocaleDateString()}
+        <div className="book-content">
+          <div className="book-text">
+            <h1>{book.Title}</h1>
+            <p>{book.Description}</p>
+            <div className="book-meta">
+              <p>
+                <strong>ISBN:</strong> {book.ISBN_Number}
+              </p>
+              <p>
+                <strong>Author:</strong> {book.Author_Name}
+              </p>
+              <p>
+                <strong>Category:</strong> {book.Category_Name}
+              </p>
+              <p>
+                <strong>Published Date:</strong> {book.Published_Date}
               </p>
             </div>
-          ))
-        )}
+          </div>
+          <div className="book-image">
+            <img src={img_01} alt="" />
+          </div>
+        </div>
+        <div className="reviews">
+          <h2>Reviews</h2>
+          {reviews.length === 0 ? (
+            <p className="no-reviews">No reviews yet.</p>
+          ) : (
+            reviews.map((review) => (
+              <div key={review.Review_ID} className="review-card">
+                <div className="review-header">
+                  <span className="review-username">{review.Username}</span>
+                  <span className="review-rating">
+                    {Array(review.Rating).fill("⭐")}
+                  </span>
+                </div>
+                <p className="review-text">{review.Review}</p>
+                <p className="review-date">
+                  {new Date(review.Review_Date).toLocaleDateString()}
+                </p>
+              </div>
+            ))
+          )}
+        </div>
+        <ToastContainer />
       </div>
 
       <div className="book-copy-details">
@@ -194,7 +214,7 @@ function Book() {
 
       {/* Reservation Popup */}
       {showReservationPopup && (
-        <div className="popup-background">
+        <div className="popup-background" onClick={closePopupOnOverlayClick}>
           <div className="reservation-popup">
             <h3>Choose Reservation Date and Time</h3>
             <DatePicker
@@ -226,7 +246,7 @@ function Book() {
 
       {/* Login Required Popup */}
       {showLoginPopup && (
-        <div className="popup-background">
+        <div className="popup-background" onClick={closePopupOnOverlayClick}>
           <div className="login-required-popup">
             <p>You need to be logged in to make a reservation.</p>
             <button onClick={() => setShowLoginPopup(false)}>Close</button>

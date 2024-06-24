@@ -53,6 +53,7 @@ function LoginPage() {
         navigate("/");
       } catch (error) {
         console.error("Login error:", error);
+        //setErrors({ apiError: "Invalid username or password" });
       }
     } else {
       setErrors(newErrors);
@@ -78,7 +79,7 @@ function LoginPage() {
           {errors.username && <p className="error">{errors.username}</p>}
           <input
             className={errors.password ? "error-input" : ""}
-            type="password" // Corrected input type to 'password'
+            type="password"
             placeholder="Password"
             name="password"
             value={userData.password}

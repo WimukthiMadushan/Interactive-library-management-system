@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { validate } from "./../Validation/RegisterValidation";
 import "./../Styles/RegisterPage.css";
 import Register_Img from "./../Images/Register_Image.jpg";
@@ -42,6 +44,9 @@ function Register() {
       setErrors({});
     } else {
       setErrors(newErrors);
+      toast.error("Please fill in the input field.", {
+        closeButton: false,
+      });
     }
   };
 

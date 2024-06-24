@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 import axios from "axios";
+import { useAuth } from "./../Hooks/AuthContext.jsx";
 import "./../Styles/SideBar.css";
+import Profile_pic from "./../Images/Profile_pic.jpg";
 
 function SideBar({ onFilterChange }) {
   const [filters, setFilters] = useState({
@@ -9,17 +12,22 @@ function SideBar({ onFilterChange }) {
     author: false,
     category: "",
     publisher: "",
-    publicationDate: "",
+    publicationDateStart: "",
+    publicationDateEnd: "",
     minReviews: 0,
-    maxReviews: 0,
+    maxReviews: 5,
   });
   const [categories, setCategories] = useState([]);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [user, setUser] = useState({});
+
+  const { authState, logout } = useAuth();
+  const { userId } = authState;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/category/");
-        //console.log(response.data);
         setCategories(response.data);
       } catch (error) {
         console.log("Error fetching categories:", error.message);
@@ -27,6 +35,19 @@ function SideBar({ onFilterChange }) {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/user/${userId}`
+        );
+        setUser(response.data);
+      } catch (error) {
+        console.log("Error fetching user:", error.message);
+      }
+    };
+    fetchUser();
+  }, [userId]);
 
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -44,16 +65,63 @@ function SideBar({ onFilterChange }) {
     }
 
     setFilters(newFilters);
-    console.log("Updated filters:", newFilters);
-    // Pass the updated filters to the parent component
     onFilterChange(newFilters);
   };
 
+  const handleClearFilters = () => {
+    const defaultFilters = {
+      title: false,
+      author: false,
+      category: "",
+      publisher: "",
+      publicationDateStart: "",
+      publicationDateEnd: "",
+      minReviews: 0,
+      maxReviews: 5,
+    };
+    setFilters(defaultFilters);
+    onFilterChange(defaultFilters);
+  };
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <div className="sidebar">
-      <h1>Filters</h1>
-      {/* Search By */}
-      <div className="wrapper">
+    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      <div className="user-details" onClick={toggleSidebar}>
+        {userId ? (
+          <>
+            <img src={Profile_pic} alt="User" />
+            <div className="user-info">
+              <Link
+                to={"/profile"}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <span className={`name ${isCollapsed ? "hidden" : ""}`}>
+                  {user.First_Name} {user.Last_Name}
+                </span>
+              </Link>
+
+              <span className={`status ${isCollapsed ? "hidden" : ""}`}>
+                @{user.Username}
+              </span>
+            </div>
+          </>
+        ) : (
+          <FaUserCircle className="user-icon" />
+        )}
+      </div>
+
+      <div className="upper">
+        <h1 className={isCollapsed ? "hidden" : ""}>Filters</h1>
+      </div>
+
+      <div className={`wrapper ${isCollapsed ? "hidden" : ""}`}>
         <input
           type="radio"
           name="title"
@@ -77,8 +145,8 @@ function SideBar({ onFilterChange }) {
           <span>Author</span>
         </label>
       </div>
-      {/* Category */}
-      <div className="filter-group">
+
+      <div className={`filter-group ${isCollapsed ? "hidden" : ""}`}>
         <select
           className="category-select"
           name="category"
@@ -88,7 +156,7 @@ function SideBar({ onFilterChange }) {
           <option className="initial-category" value="">
             Select Category
           </option>
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <option key={category.Cat_ID} value={category.Cat_Name}>
               {category.Cat_Name}
             </option>
@@ -96,39 +164,82 @@ function SideBar({ onFilterChange }) {
         </select>
       </div>
 
-      {/* Publication Date */}
-      <div className="filter-group">
+      <div className={`filter-group ${isCollapsed ? "hidden" : ""}`}>
         <input
-          className="date-input"
-          type="date"
-          name="publicationDate"
-          value={filters.publicationDate}
+          className="publisher-input"
+          type="text"
+          name="publisher"
+          placeholder="Publisher"
+          value={filters.publisher}
           onChange={handleFilterChange}
         />
       </div>
-      {/* Reviews Range */}
-      <div className="filter-group">
+
+      <div className={`filter-group ${isCollapsed ? "hidden" : ""}`}>
+        <label>Publication Date Range:</label>
+        <div className="publication-dates">
+          <input
+            className="date-input"
+            type="date"
+            name="publicationDateStart"
+            value={filters.publicationDateStart}
+            onChange={handleFilterChange}
+          />
+          <input
+            className="date-input"
+            type="date"
+            name="publicationDateEnd"
+            value={filters.publicationDateEnd}
+            onChange={handleFilterChange}
+          />
+        </div>
+      </div>
+
+      <div className={`filter-group ${isCollapsed ? "hidden" : ""}`}>
         <label>Reviews Range:</label>
         <div className="reviews-range">
-          <label>
-            Min:
+          <div className="review-input">
+            <label>Min:</label>
             <input
-              type="number"
+              type="range"
               name="minReviews"
+              min="0"
+              max="5"
+              step="0.1"
               value={filters.minReviews}
               onChange={handleFilterChange}
             />
-          </label>
-          <label>
-            Max:
+            <span>{filters.minReviews}</span>
+          </div>
+          <div className="review-input">
+            <label>Max:</label>
             <input
-              type="number"
+              type="range"
               name="maxReviews"
+              min="0"
+              max="5"
+              step="0.1"
               value={filters.maxReviews}
               onChange={handleFilterChange}
             />
-          </label>
+            <span>{filters.maxReviews}</span>
+          </div>
         </div>
+      </div>
+
+      <div className={`clear-filters ${isCollapsed ? "hidden" : ""}`}>
+        <button onClick={handleClearFilters}>Clear Filters</button>
+      </div>
+
+      <div>
+        <Link style={{ textDecoration: "none" }} to={"/login"}>
+          <button
+            onClick={handleLogout}
+            className={`logout-btn ${isCollapsed ? "hidden" : ""}`}
+          >
+            {userId ? "Logout" : "Login"}
+          </button>
+        </Link>
       </div>
     </div>
   );

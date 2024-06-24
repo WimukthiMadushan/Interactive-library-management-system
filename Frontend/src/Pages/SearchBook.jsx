@@ -78,7 +78,7 @@ function SearchBook() {
           </button>
         </div>
         <div className="display-books">
-          <Pagination Data={Data} itemsPerPage={10} />
+          <Pagination Data={Data} itemsPerPage={12} />
         </div>
       </div>
     </div>
