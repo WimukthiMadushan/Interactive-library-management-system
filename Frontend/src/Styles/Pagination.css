@@ -7,10 +7,10 @@
 
 .items-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  width: 100%;
-  max-width: 1000px;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  gap: 5px;
+  width: 90%;
+  margin-left: 6%;
 }
 
 .item {
@@ -18,7 +18,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 350px;
+  width: 200px;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./../Styles/Pagination.css";
-import img_1 from "./../../../Backend/Books/01.jpg";
 
 const Pagination = ({ Data, itemsPerPage }) => {
   const [currentPage, setCurrentPage] = useState(1);

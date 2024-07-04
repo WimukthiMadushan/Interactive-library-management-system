@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "./../Hooks/AuthContext.jsx";
 import "./../Styles/NavBar.css";
-import logo from "./../Images/Logo.png";
+import logo from "./../Images/logo.png";
 import Profile_pic from "./../Images/Profile_pic.jpg";
 
 function NavBar() {
@@ -10,6 +10,7 @@ function NavBar() {
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
+    console.log("Dropdown clicked, visibility:", !dropdownVisible);
     setDropdownVisible(!dropdownVisible);
   };
 
@@ -19,7 +20,6 @@ function NavBar() {
         setDropdownVisible(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -31,7 +31,7 @@ function NavBar() {
 
   const handleLogout = () => {
     logout();
-    dropdownVisible(false);
+    setDropdownVisible(false);
   };
 
   return (
@@ -40,6 +40,7 @@ function NavBar() {
         <Link to={"/"}>
           <img className="navbar-logo" src={logo} alt="Logo" />
         </Link>
+        <p>InfoPulse</p>
       </div>
 
       <div className="navbar-center">

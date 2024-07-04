@@ -2,7 +2,8 @@
 .sidebar {
   width: 300px;
   padding: 20px;
-  background: linear-gradient(135deg, #f9f9f9, #e6e6e6);
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(50px); /* Glass-like blur effect */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -60,6 +61,7 @@
   font-size: 0.9em;
   color: #888;
 }
+
 .user-icon {
   font-size: 2.2rem;
 }

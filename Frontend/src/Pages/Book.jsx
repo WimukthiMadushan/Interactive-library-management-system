@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "./../Styles/Book.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import img_01 from "./../../../Backend/Books/01.jpg";
 
 function Book() {
   const location = useLocation();
@@ -31,6 +30,7 @@ function Book() {
           `http://localhost:5000/api/book/${bookId}`
         );
         setBook(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
@@ -146,7 +146,7 @@ function Book() {
             </div>
           </div>
           <div className="book-image">
-            <img src={img_01} alt="" />
+            <img src={book.Image_Path} alt="" />
           </div>
         </div>
         <div className="reviews">
@@ -170,6 +170,10 @@ function Book() {
             ))
           )}
         </div>
+        {/* 
+        <div className="pdf">
+          <PdfViewer pdfLink={book.PDF_Link} />
+        </div>*/}
         <ToastContainer />
       </div>
 

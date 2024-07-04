@@ -1,0 +1,65 @@
+
+.view-books-container {
+    padding: 20px;
+    width: 80vw;
+    padding-right: 0;
+  }
+  
+  .books-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .books-table th, .books-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .books-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .book-image {
+    width: 50px;
+    height: auto;
+  }
+  
+.action-button {
+    padding: 8px 16px;
+    margin: 4px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Update button styles */
+  .update-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+  }
+  
+  .update-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  /* Delete button styles */
+  .delete-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+  }
+  
+  .delete-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  
+  /* Action column styling */
+  .action-column {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  

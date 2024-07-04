@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validate } from "./../Validation/RegisterValidation";
 import "./../Styles/RegisterPage.css";
-import Register_Img from "./../Images/Register_Image.jpg";
+import Register_Img from "./../Images/user.png";
 
 function Register() {
   const [userData, setUserData] = useState({
@@ -15,7 +15,6 @@ function Register() {
     Last_Name: "",
     Username: "",
     Password: "",
-    retypePassword: "",
     Email: "",
     Address: "",
     NIC: "",
@@ -77,12 +76,14 @@ function Register() {
   return (
     <div className="center-wrapper">
       <div className="register-container">
-        <div className="register-left">
-          <img src={Register_Img} alt="Register" />
+        <div className="upper">
+          <div className="user_icon">
+            <img src={Register_Img} alt="" />
+          </div>
+          <h1>Member Sign Up</h1>
         </div>
-        <div className="register-right">
-          <h1>Register</h1>
 
+        <div className="name">
           <input
             className={errors.First_Name ? "error-input" : ""}
             type="text"
@@ -102,7 +103,9 @@ function Register() {
             onChange={handleChange}
           />
           {errors.Last_Name && <p className="error">{errors.Last_Name}</p>}
+        </div>
 
+        <div className="username">
           <input
             className={errors.Username ? "error-input" : ""}
             type="text"
@@ -112,7 +115,9 @@ function Register() {
             onChange={handleChange}
           />
           {errors.Username && <p className="error">{errors.Username}</p>}
+        </div>
 
+        <div className="email-password">
           <input
             className={errors.Email ? "error-input" : ""}
             type="Email"
@@ -132,9 +137,11 @@ function Register() {
             onChange={handleChange}
           />
           {errors.Password && <p className="error">{errors.Password}</p>}
-          <div className="register-eye">
-            <Eye visible={visible} setVisible={setVisible} />
-          </div>
+        </div>
+        <div className="register-eye">
+          <Eye visible={visible} setVisible={setVisible} />
+        </div>
+        <div className="NIC">
           <input
             className={errors.NIC ? "error-input" : ""}
             type="text"
@@ -144,7 +151,9 @@ function Register() {
             onChange={handleChange}
           />
           {errors.NIC && <p className="error">{errors.NIC}</p>}
+        </div>
 
+        <div className="address">
           <input
             className={errors.Address ? "error-input" : ""}
             type="text"
@@ -154,7 +163,9 @@ function Register() {
             onChange={handleChange}
           />
           {errors.Address && <p className="error">{errors.Address}</p>}
+        </div>
 
+        <div className="mobile">
           <input
             className={errors.Mobile ? "error-input" : ""}
             type="text"
@@ -164,7 +175,8 @@ function Register() {
             onChange={handleChange}
           />
           {errors.Mobile && <p className="error">{errors.Mobile}</p>}
-
+        </div>
+        <div className="register-button">
           <button onClick={handleSubmit}>Register</button>
         </div>
       </div>

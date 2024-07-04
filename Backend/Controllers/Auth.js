@@ -15,12 +15,11 @@ export const register = (req, res) => {
     NIC,
     Mobile,
   } = req.body;
-  //validate requesr body
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  // Check if the user exists
   connection.query(
     "SELECT * FROM User WHERE Username = ?",
     [Username],
@@ -33,10 +32,8 @@ export const register = (req, res) => {
         return res.status(400).json({ message: "User already exists" });
       }
 
-      // Hash the password
       const hashedPassword = bcrypt.hashSync(Password, 10);
 
-      // Insert the user into the database
       connection.query(
         "INSERT INTO User ( First_Name, Last_Name,Username, Password, Email,Address, NIC, Mobile, Registered_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
@@ -56,7 +53,6 @@ export const register = (req, res) => {
             return res.status(500).json({ message: "Internal server error" });
           }
 
-          // Assuming the user is successfully inserted
           return res.status(201).json({ message: "User created successfully" });
         }
       );

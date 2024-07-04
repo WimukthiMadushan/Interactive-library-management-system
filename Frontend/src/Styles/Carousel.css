@@ -1,0 +1,123 @@
+.carousel-indicators [data-bs-target] {
+  border-radius: 100%;
+  width: 10px;
+  height: 10px;
+}
+
+/* Carousel.css */
+.carousel-image {
+  position: relative;
+} /* Carousel.css */
+.carousel-image-container {
+  position: relative; /* To position the pseudo-elements relative to the container */
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container without distorting */
+}
+
+/* Pseudo-elements for gradient overlay */
+.carousel-image-container::before,
+.carousel-image-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Place the gradient above the image but below the captions */
+}
+
+.carousel-image-container::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  ); /* Gradient from left */
+}
+
+.carousel-image-container::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  ); /* Gradient from right */
+}
+
+/* Ensure captions appear above the gradient */
+.carousel-caption {
+  z-index: 2; /* Higher than gradient */
+  color: #fff; /* Optional: Ensure text is readable on gradient */
+}
+.carousel-button {
+  font-size: 1.5rem; /* Adjusted font size */
+  width: 180px; /* Adjusted width */
+  height: 50px; /* Fixed height */
+  border: none; /* Removed default border */
+  background-color: #fbb033; /* Button background color */
+  color: white; /* Text color */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: all 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+  cursor: pointer; /* Pointer cursor on hover */
+  outline: none; /* Remove default outline */
+  text-align: center; /* Center text horizontally */
+  line-height: 50px; /* Center text vertically */
+  position: relative; /* Relative positioning for pseudo-elements */
+  overflow: hidden; /* Hide overflow for the animation effects */
+  position: relative;
+  right: 13rem;
+}
+
+/* Hover effect with scaling, background color change, and box-shadow */
+.carousel-button:hover {
+  background-color: #e0a025; /* Slightly darker shade */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow */
+  transform: translateY(-5px); /* Slight upward movement */
+}
+
+/* Pressed state with darker color and reduced shadow */
+.carousel-button:active {
+  background-color: #cc9200; /* Even darker shade */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow */
+  transform: translateY(0); /* Reset translation */
+}
+
+/* Focus state with an outline ring */
+.carousel-button:focus {
+  outline: none; /* Remove default outline */
+}
+
+/* Pseudo-element for glowing effect */
+.carousel-button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2),
+    transparent 60%
+  );
+  transition: all 0.6s ease; /* Smooth transition */
+  opacity: 0; /* Initial opacity */
+  pointer-events: none; /* Ignore pointer events */
+  transform: rotate(45deg); /* Rotate for better visual effect */
+}
+
+/* Hover effect for pseudo-element */
+.carousel-button:hover::before {
+  opacity: 1; /* Increase opacity */
+  top: -70%;
+  left: -70%;
+  transition: all 0.4s ease; /* Faster transition */
+}

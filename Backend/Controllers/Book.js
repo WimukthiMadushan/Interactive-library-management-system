@@ -10,6 +10,8 @@ export const getBook = (req, res) => {
       CONCAT(Author.First_Name, ' ', Author.Last_Name) AS Author_Name,
       Book.Description,
       Book.Published_Date,
+      Book.PDF_Link,
+      Book.Image_Path,
       Category.Cat_Name AS Category_Name
     FROM 
       Book

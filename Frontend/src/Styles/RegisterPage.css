@@ -2,97 +2,136 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Make the wrapper take the full viewport height */
-  width: 100vw; /* Make the wrapper take the full viewport width */
+  height: 100vh;
+  width: 100vw;
 }
+
 .register-container {
   display: flex;
-  position: relative;
-  left: 164px;
-  width: 250%;
-  height: 95vh;
-  justify-content: center;
-  font-family: "Arial", sans-serif;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.register-left {
-  flex: 1;
-}
-
-.register-left img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the image covers the entire area without distortion */
-  border-radius: 10px 0 0 10px; /* Add rounded corners to the left only */
-}
-
-.register-right {
-  flex: 1;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  width: 1500px;
   padding: 40px;
-  background-color: #ffffff;
+  position: relative;
+  left: 20rem;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  animation: slideIn 0.5s ease-in-out;
+  row-gap: 15px;
 }
 
-.register-right h1 {
-  font-size: 2.5em;
-  color: #333;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.upper {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.register-right input {
-  width: 80%;
-  padding: 12px;
+.user_icon img {
+  width: 80px;
+}
+
+h1 {
+  font-size: 24px;
+  color: #ff7e5f;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 12px;
-  transition: border 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.register-right input:focus {
-  border-color: #007bff;
+input:focus {
+  border-color: #ff7e5f;
+  box-shadow: 0 0 5px rgba(255, 126, 95, 0.5); /* Soft orange glow */
   outline: none;
 }
 
-.register-right button {
-  width: 80%;
-  padding: 12px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.register-right button:hover {
-  background-color: #0056b3;
+.error-input {
+  border-color: #e74c3c; /* Red border for error indication */
 }
 
 .error {
-  color: red;
-  font-size: 0.9em;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  color: #e74c3c; /* Red text for errors */
+  font-size: 12px;
 }
-.error-input {
-  border: 2px solid red; /* Red border for input fields with errors */
+
+.register-button {
+  text-align: center;
+  margin-top: 20px;
 }
-.register-eye {
-  font-size: 1.2rem;
+
+.register-button button {
+  background-color: #fbb033; /* Vibrant orange color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 25px; /* Rounded button */
   cursor: pointer;
-  position: relative;
-  left: 11rem;
-  top: -2.4rem;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth hover effect */
+}
+
+.register-button button:hover {
+  background-color: #d9915a; /* Slightly lighter shade on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.name,
+.email-password,
+.NIC,
+.address,
+.mobile {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically */
+  gap: 10px; /* Space between inputs */
+}
+
+.name,
+.email-password {
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.register-eye {
+  position: absolute;
+  left: 320px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ff7e5f;
+  transition: color 0.3s ease, transform 0.3s ease;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.1); /* Slightly increase size */
+  }
+}
+
+/* Hover effect */
+.register-eye:hover {
+  color: #feb47b;
+  transform: translateY(-50%) rotate(10deg);
 }
