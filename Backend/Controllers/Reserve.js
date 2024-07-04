@@ -109,3 +109,18 @@ export const reserveBook = (req, res) => {
     );
   });
 };
+
+// Get all reservations for the admin
+export const getReserves = (req, res) => {
+  const query = `
+    SELECT * FROM Reserve
+  `;
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    res.status(200).json(results);
+  });
+};
