@@ -1,0 +1,13 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #f7f9fc;
+    z-index: 2;
+}
+.navbar .logo{
+    width: max(10%,80px);
+}
+
