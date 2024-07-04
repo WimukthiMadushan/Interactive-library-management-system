@@ -1,7 +1,9 @@
 import connection from "./../DataBase.js";
 
 export const getBookCopy = (req, res) => {
-  const { BookID } = req.params;
+  const {
+    BookID
+  } = req.params;
   const query = `
     SELECT 
       Book_Copy.Copy_ID,
@@ -25,8 +27,45 @@ export const getBookCopy = (req, res) => {
   connection.query(query, [BookID], (err, results) => {
     if (err) {
       console.error("Error executing query:", err);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({
+        error: "Internal server error"
+      });
     }
     res.status(200).json(results);
   });
+};
+
+// Add book copies for admin
+export const addBookCopies = (req, res) => {
+  
+  const bookCopies = req.body;
+  console.log(bookCopies);
+
+  const query = `
+    INSERT INTO Book_copy (Book_ID, Language, isReserved, isBorrowed, Book_Location)
+    VALUES (?, ?, 0, 0, 10)
+  `;
+
+  for (const bookCopy of bookCopies) {
+    const {
+      bookID,
+      languages
+    } = bookCopy;
+    console.log(bookID, languages);
+
+    for (const [languageCode, copies] of Object.entries(languages)) {
+      for (let i = 0; i < Number(copies); i++) {
+        console.log(bookID, languageCode, copies);
+        connection.query(query, [Number(bookID), Number(languageCode)], (err, results) => {
+          if (err) {
+            console.error("Error executing query:", err);
+            return res.status(500).json({
+              error: "Internal server error"
+            });
+          }
+        });
+      }
+    }
+  }
+  return res.json({success: true, message: "Book copies added successfully"})
 };

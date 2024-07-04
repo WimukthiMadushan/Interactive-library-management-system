@@ -11,6 +11,8 @@ import bookCopyRoutes from "./Routes/Book_Copy.js";
 import reviewRoutes from "./Routes/Review.js";
 import borrowRoutes from "./Routes/Borrow.js";
 import reserveRoutes from "./Routes/Reserve.js";
+import authorRoutes from "./Routes/Author.js";
+import languageRoutes from "./Routes/Language.js";
 
 const app = express();
 const port = 5000;
@@ -35,6 +37,9 @@ app.use("/api/bookcopy", bookCopyRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/borrow", borrowRoutes);
 app.use("/api/reserve", reserveRoutes);
+app.use("/api/author", authorRoutes);
+app.use("/api/language", languageRoutes);
+app.use('/books', express.static('books'));
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);

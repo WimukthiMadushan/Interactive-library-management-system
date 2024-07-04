@@ -1,5 +1,5 @@
-Reserve_ID,User_ID,Book_ID,isComplete,Reserve_Date,Reserve_Time,Reserve_End_Time
-,,,,,
+Reserve_ID,User_ID,Book_ID,isComplete,Reserve_Date,Reserve_Time,Reserve_End_Time,
+,,,,,,,
 1,1008,3,1,6/15/2024,10:00:00,10:30:00,10:30:00
 2,1010,13,1,6/15/2024,10:30:00,11:00:00,10:30:00
 3,1010,23,1,6/15/2024,11:00:00,11:30:00,10:30:00

@@ -4,60 +4,112 @@ export const getPublishers = (req, res) => {
   connection.query("SELECT * FROM Publisher", (err, result) => {
     if (err) {
       console.error("Database error: ", err);
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({
+        message: "Internal server error"
+      });
     }
     return res.status(200).json(result);
   });
 };
 
 export const createPublisher = (req, res) => {
-  const { Publisher_Name } = req.body;
+  const {
+    First_Name,
+    Last_Name,
+    Email,
+    Address,
+    Mobile
+  } = req.body;
   connection.query(
-    "INSERT INTO Publisher (Publisher_Name) VALUES (?)",
-    [Publisher_Name],
+    `INSERT INTO Publisher (Publisher_First_Name, Publisher_Last_Name, Email, Address, Mobile) 
+      VALUES (?,?,?,?,?) `,
+    [First_Name, Last_Name, Email, Address, Mobile],
     (err, result) => {
       if (err) {
         console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({
+          message: "Internal server error"
+        });
       }
       return res
         .status(201)
-        .json({ message: "Publisher created successfully" });
+        .json({
+          message: "Publisher created successfully"
+        });
     }
   );
 };
 
-export const updatePublisher = (req, res) => {
-  const { id } = req.params;
-  const { Publisher_Name } = req.body;
+export const getPublisherById = (req, res) => {
+  const {
+    id
+  } = req.params;
   connection.query(
-    "UPDATE Publisher SET Publisher_Name = ? WHERE Publisher_ID = ?",
-    [Publisher_Name, id],
+    "SELECT * FROM Publisher WHERE Publisher_ID = ?",
+    [id],
     (err, result) => {
       if (err) {
         console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({
+          message: "Internal server error"
+        });
+      }
+      return res.status(200).json(result[0]);
+    }
+  );
+}
+
+export const updatePublisher = (req, res) => {
+  const {
+    id
+  } = req.params;
+
+  const {
+    Publisher_First_Name,
+    Publisher_Last_Name,
+    Email,
+    Address,
+    Mobile
+  } = req.body;
+  
+  connection.query(
+    "UPDATE Publisher SET Publisher_First_Name = ?, Publisher_Last_Name = ?, Email = ?, Address = ?, Mobile = ? WHERE Publisher_ID = ?",
+    [Publisher_First_Name, Publisher_Last_Name, Email, Address, Mobile, id],
+    (err, result) => {
+      if (err) {
+        console.error("Database error: ", err);
+        return res.status(500).json({
+          message: "Internal server error"
+        });
       }
       return res
         .status(200)
-        .json({ message: "Publisher updated successfully" });
+        .json({
+          message: "Publisher updated successfully"
+        });
     }
   );
 };
 
 export const deletePublisher = (req, res) => {
-  const { id } = req.params;
+  const {
+    id
+  } = req.params;
   connection.query(
     "DELETE FROM Publisher WHERE Publisher_ID = ?",
     [id],
     (err, result) => {
       if (err) {
         console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({
+          message: "Internal server error"
+        });
       }
       return res
         .status(200)
-        .json({ message: "Publisher deleted successfully" });
+        .json({
+          message: "Publisher deleted successfully"
+        });
     }
   );
 };
