@@ -112,7 +112,7 @@ input:focus {
 .register-eye {
   position: absolute;
   left: 320px;
-  top: 20px;
+  top: 350px;
   cursor: pointer;
   font-size: 1.5rem;
   color: #ff7e5f;

@@ -5,6 +5,7 @@ import Second from "./../Images/Second.jpg";
 import Third from "./../Images/Third.jpg";
 import "./../Styles/Carousel.css";
 import NavBar from "./NavBar";
+import { Link } from "react-router-dom";
 
 function CarouselPage() {
   return (
@@ -35,7 +36,9 @@ function CarouselPage() {
                 <br /> Seamless book discovery and management at your
                 fingertips.
               </p>
-              <button className="carousel-button">Sign Up</button>
+              <Link to={"/register"}>
+                <button className="carousel-button">Sign Up</button>
+              </Link>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -63,7 +66,9 @@ function CarouselPage() {
                 collection. Simplify borrowing and returning with our intuitive
                 system.
               </p>
-              <button className="carousel-button">Sign In</button>
+              <Link to={"/login"}>
+                <button className="carousel-button">Sign In</button>
+              </Link>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -91,7 +96,9 @@ function CarouselPage() {
                 to your library. Enhance your reading journey with our
                 user-friendly platform.
               </p>
-              <button className="carousel-button">Admin Login</button>
+              <Link to={"/adminlogin"}>
+                <button className="carousel-button">Admin Login</button>
+              </Link>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>

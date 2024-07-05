@@ -16,6 +16,7 @@ import Book from "./Pages/Book";
 import UserProfile from "./Pages/UserProfile";
 import SearchBook from "./Pages/SearchBook";
 import { useAuth } from "./Hooks/AuthContext.jsx";
+import AdminLogin from "./Pages/AdminLogin.jsx";
 
 function App() {
   const { authState } = useAuth();
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/searchbooks" element={<SearchBook />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/addbook" element={<AddBook />} />

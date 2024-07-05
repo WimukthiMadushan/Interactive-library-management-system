@@ -1,0 +1,120 @@
+.adminlogin-container {
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  top: 10rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.admin-login-upper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.admin-login-img {
+  width: 15%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.admin-login-heading {
+  font-size: 2.4rem;
+  color: #333;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #fbb033;
+}
+
+.error-input {
+  border-color: #ff6347 !important;
+}
+
+.error-message {
+  color: #ff6347;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.admin-login-eye {
+  position: absolute;
+  left: 380px;
+  top: 48%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ff7e5f;
+  transition: color 0.3s ease, transform 0.3s ease;
+  animation: pulse 1.5s infinite; /* Adding pulsing animation */
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+/* Hover effect */
+.admin-login-eye:hover {
+  color: #feb47b;
+  transform: translateY(-50%) rotate(10deg);
+}
+
+.login-button {
+  padding: 8px;
+  background-color: #fbb033;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #e0a025;
+  transform: scale(1.05);
+}
+
+.login-button:active {
+  background-color: #cc9200;
+}
+.star {
+  width: 5%;
+  position: relative;
+  bottom: 50px;
+  left: 22px;
+}
