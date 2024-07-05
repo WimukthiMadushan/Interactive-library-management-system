@@ -15,7 +15,7 @@ import authorRoutes from "./Routes/Author.js";
 import languageRoutes from "./Routes/Language.js";
 
 const app = express();
-const port = 5000;
+const port = 4000;
 app.use(express.json());
 app.use(bodyParser.json());
 
@@ -39,7 +39,7 @@ app.use("/api/borrow", borrowRoutes);
 app.use("/api/reserve", reserveRoutes);
 app.use("/api/author", authorRoutes);
 app.use("/api/language", languageRoutes);
-app.use('/books', express.static('books'));
+app.use("/books", express.static("books"));
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
