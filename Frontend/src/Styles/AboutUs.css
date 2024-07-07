@@ -1,0 +1,31 @@
+.aboutUs-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+  gap: 15px;
+  margin-top: 5rem;
+  padding: 2rem;
+}
+
+.aboutUs-container > div {
+  padding: 20px;
+  /* Optional: Add borders around each grid item */
+}
+
+.aboutUs-container img {
+  max-width: 25%;
+}
+
+.first {
+  width: 95%;
+  margin: 0 auto;
+  border: none;
+}
+.third,
+.second,
+.fourth {
+  width: 95%;
+  margin: 0 auto;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
