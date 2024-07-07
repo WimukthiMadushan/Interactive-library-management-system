@@ -27,22 +27,6 @@ export const getUser = (req, res) => {
     }
   );
 };
-/*
-export const updateUser = (req, res) => {
-  const { id } = req.params;
-  const { Username, Password, Email, Role } = req.body;
-  connection.query(
-    "UPDATE User SET First_Name = ? ,Last_Name = ?, Username = ?, Password = ?, Email = ?, Role = ? WHERE User_ID = ?",
-    [Username, Password, Email, Role, id],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      return res.status(200).json({ message: "User updated successfully" });
-    }
-  );
-};*/
 
 export const deleteUser = (req, res) => {
   const { id } = req.params;

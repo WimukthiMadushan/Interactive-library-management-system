@@ -6,6 +6,7 @@ import {
   Author,
   Category,
   Publisher,
+  Language,
   Location,
   Staff,
   dropTables,
@@ -39,6 +40,7 @@ function createTable(
   Author,
   Category,
   Publisher,
+  Language,
   Location,
   Book,
   Book_Copy,
@@ -52,6 +54,7 @@ function createTable(
     Author,
     Category,
     Publisher,
+    Language,
     Location,
     Book,
     Book_Copy,
@@ -70,18 +73,20 @@ function createTable(
     });
   }
 }
+
 function insertData() {
   insertDataFromFile("User", "./../Backend/Data/users.csv");
   insertDataFromFile("Author", "./../Backend/Data/authors.csv");
   insertDataFromFile("Category", "./../Backend/Data/categories.csv");
   insertDataFromFile("Publisher", "./../Backend/Data/publishers.csv");
+  insertDataFromFile("Language", "./../Backend/Data/lanuages.csv");
   insertDataFromFile("Location", "./../Backend/Data/locations.csv");
   insertDataFromFile("Book", "./../Backend/Data/books.csv");
   insertDataFromFile("Book_Copy", "./../Backend/Data/book_copy.csv");
-  //insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
-  //insertDataFromFile("Review", "./../Backend/Data/reviews.csv");
-  //insertDataFromFile("Borrow", "./../Backend/Data/borrows.csv");
-  //insertDataFromFile("Reserve", "./../Backend/Data/reserves.csv");
+  insertDataFromFile("Staff", "./../Backend/Data/staff.csv");
+  insertDataFromFile("Review", "./../Backend/Data/review.csv");
+  insertDataFromFile("Borrow", "./../Backend/Data/borrows.csv");
+  insertDataFromFile("Reserve", "./../Backend/Data/reserves.csv");
 }
 
 connection.connect((err) => {
@@ -96,6 +101,7 @@ connection.connect((err) => {
     Author,
     Category,
     Publisher,
+    Language,
     Location,
     Book,
     Book_Copy,
@@ -105,6 +111,7 @@ connection.connect((err) => {
     Reserve
   );
   insertData();
+  console.log("Database connected");
 });
 
 export default connection;
