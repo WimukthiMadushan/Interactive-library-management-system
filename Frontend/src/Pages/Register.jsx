@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Eye from "../Components/Eye";
 import axios from "axios";
-import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { validate } from "./../Validation/RegisterValidation";
 import "./../Styles/RegisterPage.css";
 import Register_Img from "./../Images/user.png";
 
@@ -20,54 +18,43 @@ function Register() {
     NIC: "",
     Mobile: "",
   });
-  const [errors, setErrors] = useState({});
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: "",
-    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { isValid, newErrors } = validate(userData);
-    if (isValid) {
-      console.log(userData);
-      try {
-        await axios.post("http://localhost:5000/api/auth/register", userData);
-        toast.success("Registration Successful", {
-          closeButton: false,
-        });
-        setUserData({
-          First_Name: "",
-          Last_Name: "",
-          Username: "",
-          Password: "",
-          retypePassword: "",
-          Email: "",
-          Address: "",
-          NIC: "",
-          Mobile: "",
-        });
-        setErrors({});
-        navigate("/login");
-      } catch (error) {
-        console.error("Registration failed", error);
-        toast.error("Registration failed. Please try again.", {
-          closeButton: false,
-        });
-      }
-    } else {
-      setErrors(newErrors);
-      toast.error("Please fill in the input field.", {
+
+    try {
+      await axios.post("http://localhost:5000/api/auth/register", userData);
+      toast.success("Registration Successful", {
+        closeButton: false,
+      });
+
+      // Reset form data
+      setUserData({
+        First_Name: "",
+        Last_Name: "",
+        Username: "",
+        Password: "",
+        Email: "",
+        Address: "",
+        NIC: "",
+        Mobile: "",
+      });
+
+      // Navigate to login page
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration failed", error);
+      toast.error("Registration failed. Please try again.", {
         closeButton: false,
       });
     }
@@ -78,107 +65,108 @@ function Register() {
       <div className="register-container">
         <div className="upper">
           <div className="user_icon">
-            <img src={Register_Img} alt="" />
+            <img src={Register_Img} alt="User" />
           </div>
           <h1>Member Sign Up</h1>
         </div>
 
-        <div className="name">
-          <input
-            className={errors.First_Name ? "error-input" : ""}
-            type="text"
-            placeholder="First Name"
-            name="First_Name"
-            value={userData.First_Name}
-            onChange={handleChange}
-          />
-          {errors.First_Name && <p className="error">{errors.First_Name}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="name">
+            <input
+              type="text"
+              placeholder="First Name"
+              name="First_Name"
+              value={userData.First_Name}
+              onChange={handleChange}
+              required
+              pattern="[A-Za-z]+"
+            />
 
-          <input
-            className={errors.Last_Name ? "error-input" : ""}
-            type="text"
-            placeholder="Last Name"
-            name="Last_Name"
-            value={userData.Last_Name}
-            onChange={handleChange}
-          />
-          {errors.Last_Name && <p className="error">{errors.Last_Name}</p>}
-        </div>
+            <input
+              type="text"
+              placeholder="Last Name"
+              name="Last_Name"
+              value={userData.Last_Name}
+              onChange={handleChange}
+              required
+              pattern="[A-Za-z]+"
+            />
+          </div>
 
-        <div className="username">
-          <input
-            className={errors.Username ? "error-input" : ""}
-            type="text"
-            placeholder="Username"
-            name="Username"
-            value={userData.Username}
-            onChange={handleChange}
-          />
-          {errors.Username && <p className="error">{errors.Username}</p>}
-        </div>
+          <div className="username" style={{ marginBottom: "10px" }}>
+            <input
+              type="text"
+              placeholder="Username"
+              name="Username"
+              value={userData.Username}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="email-password">
-          <input
-            className={errors.Email ? "error-input" : ""}
-            type="Email"
-            placeholder="Email"
-            name="Email"
-            value={userData.Email}
-            onChange={handleChange}
-          />
-          {errors.Email && <p className="error">{errors.Email}</p>}
+          <div className="email-password">
+            <input
+              type="email"
+              placeholder="Email"
+              name="Email"
+              value={userData.Email}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            className={errors.Password ? "error-input" : ""}
-            type={visible ? "text" : "password"}
-            placeholder="Password"
-            name="Password"
-            value={userData.Password}
-            onChange={handleChange}
-          />
-          {errors.Password && <p className="error">{errors.Password}</p>}
-        </div>
-        <div className="register-eye">
-          <Eye visible={visible} setVisible={setVisible} />
-        </div>
-        <div className="NIC">
-          <input
-            className={errors.NIC ? "error-input" : ""}
-            type="text"
-            placeholder="NIC Number"
-            name="NIC"
-            value={userData.NIC}
-            onChange={handleChange}
-          />
-          {errors.NIC && <p className="error">{errors.NIC}</p>}
-        </div>
+            <input
+              type={visible ? "text" : "password"}
+              placeholder="Password"
+              name="Password"
+              value={userData.Password}
+              onChange={handleChange}
+              required
+              minLength={6}
+            />
+            <div className="register-eye">
+              <Eye visible={visible} setVisible={setVisible} />
+            </div>
+          </div>
 
-        <div className="address">
-          <input
-            className={errors.Address ? "error-input" : ""}
-            type="text"
-            placeholder="Address"
-            name="Address"
-            value={userData.Address}
-            onChange={handleChange}
-          />
-          {errors.Address && <p className="error">{errors.Address}</p>}
-        </div>
+          <div className="NIC">
+            <input
+              type="text"
+              placeholder="NIC Number"
+              name="NIC"
+              value={userData.NIC}
+              onChange={handleChange}
+              required
+              pattern="\d{9}[vVxX]|\d{12}" // Regex to validate NIC format.
+            />
+          </div>
 
-        <div className="mobile">
-          <input
-            className={errors.Mobile ? "error-input" : ""}
-            type="text"
-            placeholder="Mobile"
-            name="Mobile"
-            value={userData.Mobile}
-            onChange={handleChange}
-          />
-          {errors.Mobile && <p className="error">{errors.Mobile}</p>}
-        </div>
-        <div className="register-button">
-          <button onClick={handleSubmit}>Register</button>
-        </div>
+          <div className="address">
+            <input
+              type="text"
+              placeholder="Address"
+              name="Address"
+              value={userData.Address}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mobile">
+            <input
+              type="text"
+              placeholder="Mobile"
+              name="Mobile"
+              value={userData.Mobile}
+              onChange={handleChange}
+              required
+              pattern="\d{10}" // Simple pattern to accept 10 digit mobile numbers.
+            />
+          </div>
+
+          <div className="register-button">
+            <button type="submit">Register</button>
+          </div>
+        </form>
       </div>
       <ToastContainer />
     </div>

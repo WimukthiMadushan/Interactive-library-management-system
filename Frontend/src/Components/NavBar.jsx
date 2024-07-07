@@ -8,9 +8,8 @@ import Profile_pic from "./../Images/Profile_pic.jpg";
 function NavBar() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
-
+  console.log(dropdownVisible);
   const toggleDropdown = () => {
-    console.log("Dropdown clicked, visibility:", !dropdownVisible);
     setDropdownVisible(!dropdownVisible);
   };
 
@@ -66,11 +65,16 @@ function NavBar() {
               <img src={Profile_pic} alt="Profile" />
             </button>
             {dropdownVisible && (
-              <div className="dropdown-menu">
-                <Link to={"/profile"}>Profile</Link>
-                <Link to={"/"} onClick={handleLogout}>
-                  Logout
+              <div
+                className="dropdown-menu"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                <Link to={"/profile"} className="dropdown-item">
+                  Profile
                 </Link>
+                <button className="dropdown-item" onClick={handleLogout}>
+                  Logout
+                </button>
               </div>
             )}
           </div>

@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         role: decoded.Role,
         token: token,
       });
-      localStorage.setItem("authToken", token); // Save the token in local storage
+      localStorage.setItem("authToken", token);
     } catch (error) {
       console.error("Invalid token", error);
     }

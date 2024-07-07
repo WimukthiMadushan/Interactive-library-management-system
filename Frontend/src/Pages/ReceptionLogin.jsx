@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { validate } from "../Validation/LoginValidation";
 import axios from "axios";
+import { useAuth } from "../Hooks/AuthContext";
+import { validate } from "../Validation/LoginValidation";
 import Eye from "../Components/Eye";
 import "../Styles/AdminLogin.css";
-import AdminLoginImg from "./../Images/user.png";
+import ReceptionLoginImg from "./../Images/user.png";
 import { useNavigate } from "react-router-dom";
-import Star from "./../Images/Star.png";
-import { useAuth } from "../Hooks/AuthContext";
+import Star from "./../Images/blue_star.png";
 
-function AdminLogin() {
+function ReceptionLogin() {
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -37,8 +37,9 @@ function AdminLogin() {
     const { isValid, newErrors } = validate(userData);
     if (isValid) {
       try {
+        //console.log(userData);
         const response = await axios.post(
-          "http://localhost:5000/api/auth/adminlogin",
+          "http://localhost:5000/api/auth/receptionlogin",
           {
             Username: userData.username,
             Password: userData.password,
@@ -60,9 +61,13 @@ function AdminLogin() {
   return (
     <div className="adminlogin-container">
       <div className="admin-login-upper">
-        <img src={AdminLoginImg} alt="Admin" className="admin-login-img" />
+        <img
+          src={ReceptionLoginImg}
+          alt="Reception"
+          className="admin-login-img"
+        />
         <img className="star" src={Star} alt="" />
-        <h1 className="admin-login-heading">Admin Login</h1>
+        <h1 className="admin-login-heading">Reception Login</h1>
       </div>
       <form className="admin-login-form" onSubmit={handleSubmit}>
         <div className="input-group">
@@ -102,4 +107,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default ReceptionLogin;

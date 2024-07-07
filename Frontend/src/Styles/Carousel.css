@@ -44,58 +44,50 @@
 
 .carousel-image-container::after {
   right: 0;
-  background: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0)
-  ); /* Gradient from right */
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
 }
 
-/* Ensure captions appear above the gradient */
 .carousel-caption {
-  z-index: 2; /* Higher than gradient */
-  color: #fff; /* Optional: Ensure text is readable on gradient */
+  z-index: 2;
+  color: #fff;
 }
 .carousel-button {
-  font-size: 1.5rem; /* Adjusted font size */
-  width: 180px; /* Adjusted width */
-  height: 50px; /* Fixed height */
-  border: none; /* Removed default border */
-  background-color: #fbb033; /* Button background color */
-  color: white; /* Text color */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  transition: all 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
-  cursor: pointer; /* Pointer cursor on hover */
-  outline: none; /* Remove default outline */
-  text-align: center; /* Center text horizontally */
-  line-height: 50px; /* Center text vertically */
-  position: relative; /* Relative positioning for pseudo-elements */
-  overflow: hidden; /* Hide overflow for the animation effects */
+  font-size: 1.5rem;
+  width: 180px;
+  height: 50px;
+  border: none;
+  background-color: #fbb033;
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  line-height: 50px;
+  position: relative;
+  overflow: hidden;
   position: relative;
   right: 13rem;
+  z-index: 1;
 }
 
-/* Hover effect with scaling, background color change, and box-shadow */
 .carousel-button:hover {
-  background-color: #e0a025; /* Slightly darker shade */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow */
-  transform: translateY(-5px); /* Slight upward movement */
+  background-color: #e0a025;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
 }
 
-/* Pressed state with darker color and reduced shadow */
 .carousel-button:active {
-  background-color: #cc9200; /* Even darker shade */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow */
-  transform: translateY(0); /* Reset translation */
+  background-color: #cc9200;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
 }
 
-/* Focus state with an outline ring */
 .carousel-button:focus {
-  outline: none; /* Remove default outline */
+  outline: none;
 }
 
-/* Pseudo-element for glowing effect */
 .carousel-button::before {
   content: "";
   position: absolute;
@@ -108,16 +100,78 @@
     rgba(255, 255, 255, 0.2),
     transparent 60%
   );
-  transition: all 0.6s ease; /* Smooth transition */
-  opacity: 0; /* Initial opacity */
-  pointer-events: none; /* Ignore pointer events */
-  transform: rotate(45deg); /* Rotate for better visual effect */
+  transition: all 0.6s ease;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(45deg);
 }
 
-/* Hover effect for pseudo-element */
 .carousel-button:hover::before {
-  opacity: 1; /* Increase opacity */
+  opacity: 1;
   top: -70%;
   left: -70%;
-  transition: all 0.4s ease; /* Faster transition */
+  transition: all 0.4s ease;
+}
+
+/* Added hover effect with a gradient border */
+.carousel-button:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  border: 2px solid transparent;
+  background: linear-gradient(#fbb033, #fbb033) padding-box,
+    linear-gradient(45deg, #fbb033, #e0a025) border-box;
+  opacity: 0;
+  animation: borderFade 0.5s forwards ease-in-out;
+  z-index: -1; /* Place it below the text */
+}
+
+/* Keyframes for border fade effect */
+@keyframes borderFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Added subtle pulsing animation */
+.carousel-button:active::after {
+  animation: pulse 0.6s ease-in-out;
+}
+
+/* Keyframes for pulsing effect */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Initial background animation on hover */
+.carousel-button:hover::after {
+  animation: hoverBg 0.6s forwards ease-in-out;
+}
+
+/* Keyframes for the background hover animation */
+@keyframes hoverBg {
+  from {
+    background: #fbb033;
+  }
+  to {
+    background: #e0a025;
+  }
 }

@@ -63,17 +63,6 @@ input:focus {
   box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);
   outline: none;
 }
-
-.error-input {
-  border-color: #e74c3c;
-}
-
-.error {
-  color: #e74c3c;
-  font-size: 12px;
-}
-
-/* Eye icon container */
 .login-eye {
   position: absolute;
   left: 300px;

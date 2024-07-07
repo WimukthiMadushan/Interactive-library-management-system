@@ -1,0 +1,215 @@
+.user-managment-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+}
+
+/* Animation and styling for image and title */
+.user-managment-above {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  animation: fadeInQuick 0.2s forwards ease-in-out;
+}
+
+.user-managment-above img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  animation: zoomInQuick 0.5s forwards ease-in-out;
+  animation-delay: 0.5s;
+}
+
+.user-managment-above h2 {
+  margin-left: 10px;
+  font-size: 1.7rem;
+  color: #333;
+}
+
+/* Buttons animation and styling */
+.user-managment-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInQuick 0.2s forwards ease-in-out;
+  animation-delay: 0.3s;
+}
+
+.book-add {
+  width: 15rem;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #3b3c3b;
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, transform 0.2s;
+  animation: bounceInQuick 0.3s forwards ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.book-add:hover {
+  background-color: #646464;
+  transform: translateY(-2px);
+}
+
+/* Search container animation */
+.user-managment-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  width: 90%;
+  margin: 0 auto;
+  animation: fadeInQuick 0.3s forwards ease-in-out;
+  animation-delay: 0.4s;
+  margin-bottom: 20px;
+}
+
+.role-search,
+.name-search {
+  width: 50%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 10px;
+  transition: border-color 0.2s ease, background-color 0.2s;
+}
+
+.role-search:focus,
+.name-search:focus {
+  border-color: #4caf50;
+  background-color: #f9f9f9;
+}
+
+.role-search::placeholder,
+.name-search::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* Table styling */
+.user-managment-table {
+  width: 90%;
+  margin: 0 auto;
+  overflow-x: auto;
+  opacity: 0;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.user-managment-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-managment-table th,
+.user-managment-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-managment-table th {
+  background-color: #f2f2f2;
+  color: #333;
+  width: 13rem;
+}
+
+.user-managment-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Action buttons in table */
+.user-managment-table .action-column {
+  display: flex;
+  gap: 15px;
+  width: 12rem;
+}
+
+.user-managment-table .action-button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.user-update-button {
+  background-color: #3b3c3b;
+  color: white;
+}
+
+.user-update-button:hover {
+  background-color: #565656;
+  transform: translateY(-2px);
+}
+
+.user-delete-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.user-delete-button:hover {
+  background-color: #f44336;
+  transform: translateY(-2px);
+}
+
+/* Pagination styling */
+.user-managment-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  opacity: 0;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.5s;
+}
+
+.pagination-button {
+  border: none;
+  margin: 0 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.pagination-button.active {
+  background-color: #3b3c3b;
+  color: #fff;
+  font-weight: bold;
+}
+
+.pagination-button:hover {
+  background-color: #3b3c3b;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.pagination-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
