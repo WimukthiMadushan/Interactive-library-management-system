@@ -1,0 +1,155 @@
+*{
+    
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.sidebar{
+    font-family: Inter !important;
+    margin-top: 2px;
+    min-height: 100vh;
+    width: 16%;
+    background: #f7f9fc; /*dsfsdfsf*/
+    display: flex;
+    transition: all 0.5s; /*dsfsdfsf*/
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /*dsfsdfsf*/
+}
+.sidebar ul{
+    background: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    list-style: none;
+}
+.sidebar ul .sidebar-options{
+    line-height: 45px;
+    
+}
+.sidebar ul .sidebar-options p{
+    position: relative;
+    color: black;
+    text-decoration: none;
+    font-size: 15px;
+    padding-left: 40px;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    border-left: 3px solid transparent;
+}
+.sidebar ul .sidebar-options p:hover{
+    color:#52616B;
+    background: #F0F5F9;
+    border-left-color:#52616B;
+}
+.sidebar ul .sub-menu{
+    position: static;
+    display: block;
+}
+.sidebar ul .sub-menu .sidebar-option{
+    line-height: 40px;
+    border-bottom: none;
+}
+.sidebar ul .sub-menu .sidebar-option p{
+    font-size: 15px;
+    color: black;
+    padding-left: 60px;
+}
+.sidebar ul .sub-menu .sidebar-option p:hover{
+    color:#52616B;
+    background: #F0F5F9;
+}
+.sidebar ul .sidebar-options p span{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    transition: transform 0.4s;
+}
+.sidebar ul .sidebar-options p span:hover{
+    transform: translateY(-50%) rotate(-180deg);
+    color:#52616B;
+}
+
+
+
+/* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.sidebar{
+    position: fixed;
+    top: 55px; 
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background: black; 
+    z-index: 1000; 
+    transition: all 0.5s; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+.sidebar .text{
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 65px;
+    text-align: center;
+    background: #1e1e1e;
+    letter-spacing: 1px;
+}
+nav ul{
+    background: #1b1b1b;
+    height: 100%;
+    width: 100%;
+    list-style: none;
+}
+nav ul div{
+    line-height: 60px;
+    border-bottom: 1px solid gray;
+}
+nav ul div a{
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding-left: 40px;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    border-left: 3px solid transparent;
+}
+nav ul div a:hover{
+    color:cyan;
+    background: #1e1e1e;
+    border-left-color:cyan;
+}
+nav ul ul{
+    position: static;
+    display: block;
+}
+nav ul ul li{
+    line-height: 42px;
+    border-bottom: none;
+}
+nav ul ul li a{
+    font-size: 17px;
+    color: #e6e6e6;
+    padding-left: 80px;
+}
+nav ul div a span{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    transition: transform 0.4s;
+    
+}
+nav ul div a span:hover{
+    transform: translateY(-50%) rotate(-180deg);
+    color:cyan;
+}  */

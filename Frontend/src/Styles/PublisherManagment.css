@@ -1,0 +1,311 @@
+/* Publisher Management Container */
+.publisher-management-container {
+  width: 95%;
+  margin: 0 auto;
+  opacity: 0;
+  padding: 10px;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.6s;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background-color: #fff; /* Optional: Set a background color */
+}
+
+/* Fade-in and Slide-up Animation */
+@keyframes fadeInSlideUpQuick {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Left Section (Image and Buttons) */
+.publisher-management-left {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.publisher-management-image {
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: zoomInQuick 0.5s forwards ease-in-out;
+  animation-delay: 0.5s;
+}
+.publisher-management-image img {
+  width: 15%;
+}
+
+/* Quick Zoom-in Animation */
+@keyframes zoomInQuick {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.publisher-management-buttons {
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.add-publisher-button {
+  padding: 10px 20px;
+  background-color: #3b3c3b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.add-publisher-button:hover {
+  background-color: #565656;
+  transform: translateY(-2px);
+}
+
+.action-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.update-publisher-button,
+.delete-publisher-button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.update-publisher-button {
+  background-color: #3b3c3b;
+  color: white;
+}
+
+.update-publisher-button:hover {
+  background-color: #565656;
+  transform: translateY(-2px);
+}
+
+.delete-publisher-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.delete-publisher-button:hover {
+  background-color: #f44336;
+  transform: translateY(-2px);
+}
+
+.publisher-management-right {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.publisher-management-search {
+  margin-bottom: 20px;
+}
+
+.search-publisher {
+  padding: 10px;
+  width: 300px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease;
+}
+
+.search-publisher:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.publishers-table {
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.publishers-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.publishers-table th,
+.publishers-table td {
+  width: 10rem;
+  padding: 9px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.publishers-table th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: 700;
+}
+
+.publishers-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.action-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 10rem;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 80%;
+  width: 400px;
+  position: relative;
+  animation: zoomInQuick 0.3s forwards ease;
+}
+
+.popup h1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.container {
+  margin: 20px 0;
+}
+
+.multi-fields {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.popup input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  width: calc(100% - 20px);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
+
+.popup input:focus {
+  outline: none;
+  border-color: #3b3c3b;
+}
+
+.add-button {
+  padding: 10px 20px;
+  background-color: #3b3c3b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.add-button:hover {
+  background-color: #565656;
+  transform: translateY(-2px);
+}
+
+.close-button {
+  position: absolute;
+  top: 25px;
+  left: 10rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.close-button:hover {
+  background: none;
+  transform: rotate(180deg);
+}
+
+.close-button img {
+  width: 30px;
+  height: 30px;
+  background-color: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  opacity: 0;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.5s;
+}
+
+.pagination-list {
+  display: flex;
+  list-style: none;
+  gap: 5px;
+}
+
+.pagination-item {
+  background: inherit;
+}
+
+/* Pagination Button */
+.pagination-button {
+  background-color: inherit;
+  border: none;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Active Pagination Button */
+.pagination-button.active {
+  background-color: #3b3c3b;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Hover Effect */
+.pagination-button:hover {
+  background-color: #3b3c3b;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Focus Effect */
+.pagination-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

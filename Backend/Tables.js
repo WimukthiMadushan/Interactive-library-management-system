@@ -1,4 +1,4 @@
-const dropTables = `DROP TABLE IF EXISTS Borrow, Reserve, Review, Staff, Book, Book_Copy,  Location, Publisher, Category, Author, User`;
+const dropTables = `DROP TABLE IF EXISTS Borrow, Reserve, Review, Staff, Book, Book_Copy,  Location, Language, Publisher, Category, Author, User`;
 
 const User = `CREATE TABLE IF NOT EXISTS User (
     User_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -18,7 +18,7 @@ const Author = `CREATE TABLE IF NOT EXISTS Author (
     First_Name VARCHAR(50) NOT NULL,
     Last_Name VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
-    Address VARCHAR(50),
+    Address VARCHAR(100),
     Mobile VARCHAR(20),
     NIC VARCHAR(20) NOT NULL
 )`;
@@ -33,8 +33,13 @@ const Publisher = `CREATE TABLE IF NOT EXISTS Publisher (
     Publisher_First_Name VARCHAR(50) NOT NULL,
     Publisher_Last_Name VARCHAR(50) NOT NULL,
     Email VARCHAR(50) NOT NULL,
-    Address VARCHAR(50),
+    Address VARCHAR(100),
     Mobile VARCHAR(20)
+)`;
+
+const Language = `CREATE TABLE IF NOT EXISTS Language (
+    Language_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    Language_Name VARCHAR(50) NOT NULL
 )`;
 
 const Location = `CREATE TABLE IF NOT EXISTS Location (
@@ -47,35 +52,39 @@ const Location = `CREATE TABLE IF NOT EXISTS Location (
 )`;
 
 const Book = `CREATE TABLE IF NOT EXISTS Book (
-    Book_ID INT AUTO_INCREMENT PRIMARY KEY,
-    ISBN_Number VARCHAR(13) NOT NULL, 
+    Book_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
+    ISBN_Number VARCHAR(20) NOT NULL, 
     Title VARCHAR(50) NOT NULL,
     Author INTEGER NOT NULL,
     Description VARCHAR(300) NOT NULL,
-    Language VARCHAR(50) NOT NULL,
     Published_Date DATE,
     Category SMALLINT NOT NULL,
     Publisher INTEGER NOT NULL,
-    FOREIGN KEY (Author) REFERENCES Author(Author_ID),
-    FOREIGN KEY (Category) REFERENCES Category(Cat_ID),
-    FOREIGN KEY (Publisher) REFERENCES Publisher(Publisher_ID)
+    Image_Path VARCHAR(500),
+    Image_Name VARCHAR(500),
+    PDF_Link VARCHAR(500),
+    FOREIGN KEY (Author) REFERENCES Author(Author_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Category) REFERENCES Category(Cat_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Publisher) REFERENCES Publisher(Publisher_ID) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 
 const Book_Copy = `CREATE TABLE IF NOT EXISTS Book_Copy (
-    Copy_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Copy_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     Book_ID INTEGER NOT NULL,
+    Language INTEGER NOT NULL,
     isReserved BOOLEAN NOT NULL,
     isBorrowed BOOLEAN NOT NULL,
     Book_Location INTEGER NOT NULL,
-    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
-    FOREIGN KEY (Book_Location) REFERENCES Location(Loca_ID)
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Book_Location) REFERENCES Location(Loca_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Language) REFERENCES Language(Language_ID) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 
 const Staff = `CREATE TABLE IF NOT EXISTS Staff (
     Staff_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     User_ID INTEGER NOT NULL,
     Role VARCHAR(20) NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES User(User_ID)
+    FOREIGN KEY (User_ID) REFERENCES User(User_ID) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 
 const Review = `CREATE TABLE IF NOT EXISTS Review (
@@ -83,32 +92,34 @@ const Review = `CREATE TABLE IF NOT EXISTS Review (
     User_ID INTEGER NOT NULL,
     Book_ID INTEGER NOT NULL,
     Rating SMALLINT NOT NULL,
-    Review VARCHAR(200),
+    Review VARCHAR(300),
     Review_Date DATE NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES User(User_ID),
-    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
+    FOREIGN KEY (User_ID) REFERENCES User(User_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 
-//here Book_ID means Copy_ID
 const Borrow = `CREATE TABLE IF NOT EXISTS Borrow (
     Borrow_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     User_ID INTEGER NOT NULL,
-    Book_ID INTEGER NOT NULL,  -- This references Copy_ID in Book_Copy table
+    Book_ID INTEGER NOT NULL, 
     Borrow_Date DATE NOT NULL,
-    Return_Time TIME NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES User(User_ID),
-    FOREIGN KEY (Book_ID) REFERENCES Book_Copy(Copy_ID)
+    Borrow_Time TIME NOT NULL,
+    Return_Date DATE DEFAULT NULL,
+    isComplete BOOLEAN NOT NULL,
+    FOREIGN KEY (User_ID) REFERENCES User(User_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Book_ID) REFERENCES Book_Copy(Copy_ID) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 
 const Reserve = `CREATE TABLE IF NOT EXISTS Reserve (
     Reserve_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
     User_ID INTEGER NOT NULL,
-    Book_ID INTEGER NOT NULL,  -- This references Copy_ID in Book_Copy table
+    Book_ID INTEGER NOT NULL,
     isComplete BOOLEAN NOT NULL,
     Reserve_Date DATE NOT NULL,
     Reserve_Time TIME NOT NULL,
-    FOREIGN KEY (User_ID) REFERENCES User(User_ID),
-    FOREIGN KEY (Book_ID) REFERENCES Book_Copy(Copy_ID)
+    Reserve_End_Time TIME NOT NULL,
+    FOREIGN KEY (User_ID) REFERENCES User(User_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Book_ID) REFERENCES Book_Copy(Copy_ID) ON DELETE CASCADE ON UPDATE CASCADE
 )`;
 
 export {
@@ -117,11 +128,12 @@ export {
   Author,
   Category,
   Publisher,
+  Language,
   Location,
   Book,
   Staff,
   Review,
+  Book_Copy,
   Borrow,
   Reserve,
-  Book_Copy,
 };

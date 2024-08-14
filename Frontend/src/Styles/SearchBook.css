@@ -1,62 +1,101 @@
+/* SearchBook.css */
 .search-container {
+  padding: 20px;
+  margin: 20px auto;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.search-boxes {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
-.left {
-  flex: 2;
-}
-.right {
-  flex: 7;
-}
-/* Container for the search box */
-.search-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.search-input {
+  width: calc(50% - 10px);
   padding: 10px;
-  gap: 10px; /* Space between input and button */
-  margin: 20px 0; /* Space around the search box */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
 }
 
-/* Styling for the input field */
-.search-books {
-  flex: 2;
-  width: 100%;
-  padding: 10px 15px;
-  border: 2px solid #ccc;
-  border-radius: 25px;
-  font-size: 16px;
+.search-input:focus {
   outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border-color: #fbb033;
 }
 
-/* Input field focus effect */
-.search-books:focus {
-  border-color: #0069d9;
-  box-shadow: 0 0 10px rgba(0, 105, 217, 0.5);
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 7rem;
+  margin-left: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* Styling for the button */
-.search-books-button {
-  flex: 1;
-  padding: 10px 20px; /* Padding inside the button */
-  background-color: #0069d9; /* Button background color */
-  color: #fff; /* Button text color */
-  border: none; /* Remove default border */
-  border-radius: 25px; /* Rounded corners to match the input field */
-  font-size: 16px;
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+.filters:hover {
+  transform: scale(1.1);
 }
 
-/* Button hover effect */
-.search-books-button:hover {
-  background-color: #0056b3; /* Darker background color on hover */
-  box-shadow: 0 0 10px rgba(0, 86, 179, 0.5); /* Subtle shadow on hover */
+.filters.animated {
+  animation: borderAnimation 1.5s infinite;
 }
 
-/* Button focus effect */
-.search-books-button:focus {
-  outline: none; /* Remove default focus outline */
-  background-color: #004b99; /* Even darker color on focus */
-  box-shadow: 0 0 10px rgba(0, 75, 153, 0.5); /* Subtle shadow on focus */
+@keyframes borderAnimation {
+  0% {
+    box-shadow: 0 0 0 0 rgba(240, 221, 96, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 1rem rgba(0, 123, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 1rem rgba(0, 123, 255, 0);
+  }
+}
+
+.filters p {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+}
+
+.filters-container {
+  position: relative;
+  display: inline-block;
+}
+
+.filter-options {
+  position: absolute;
+  left: 12rem;
+  top: 0.1rem;
+  display: flex;
+  padding: 10px;
+  width: 10rem;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.animated {
+  transform: translateX(10px); /* Adjust for any animation effect */
+}
+.display-blocks {
+  width: 10rem;
+}
+
+.searchpage-select {
+  width: 50rem;
+  height: 2rem;
 }

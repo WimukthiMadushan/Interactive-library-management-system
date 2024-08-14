@@ -1,0 +1,502 @@
+Review_ID,User_ID,Book_ID,Rating,Review,Review_Date
+,,,,,
+1,1005,100001,4,"Great book, loved the characters!",6/15/2024
+2,1012,100002,5,"Amazing storyline, couldn't put it down.",6/15/2024
+3,1017,100003,3,"Interesting read, but the ending was disappointing.",6/15/2024
+4,1020,100004,4,Well-written and engaging.,6/16/2024
+5,1028,100005,2,"Not my favorite book, quite boring actually.",6/16/2024
+6,1030,100006,5,"Absolutely loved it, highly recommend!",6/17/2024
+7,1035,100007,3,"Decent book, but felt too predictable.",6/17/2024
+8,1038,100008,4,"Enjoyable read, especially the twist midway.",6/18/2024
+9,1042,100009,5,One of the best books I've read recently!,6/18/2024
+10,1044,100010,2,"Struggled to finish it, not worth the hype.",6/19/2024
+11,1046,100011,4,"Compelling story, kept me engaged throughout.",6/20/2024
+12,1048,100012,3,"Liked the plot, but the writing style wasn't for me.",6/20/2024
+13,1050,100013,5,"Couldn't stop reading, absolutely fantastic!",6/21/2024
+14,1052,100014,2,"Disappointed with the characters, lacked depth.",6/21/2024
+15,1054,100015,4,Enjoyed the setting and atmosphere.,6/22/2024
+16,1056,100016,3,"Average book, had its moments.",6/22/2024
+17,1058,100017,5,Masterpiece! Captivating from start to finish.,6/23/2024
+18,1060,100018,4,"Well-developed characters, engaging plot.",6/23/2024
+19,1062,100019,3,"Interesting concept, execution fell short.",6/24/2024
+20,1064,100020,2,"Couldn't connect with the story, felt disjointed.",6/24/2024
+21,1066,100021,4,"Kept me guessing, loved the twists.",6/25/2024
+22,1068,100022,5,"Couldn't put it down, stayed up all night reading!",6/25/2024
+23,1070,100023,3,Slow start but picked up towards the end.,6/26/2024
+24,1072,100024,4,"Engaging narrative, well worth the read.",6/26/2024
+25,1074,100025,5,"One of those books you can't forget, loved it!",6/27/2024
+26,1076,100026,2,"Expected more, didn't live up to the hype.",6/27/2024
+27,1078,100027,4,"Solid story, enjoyed the character development.",6/28/2024
+28,1080,100028,3,"Interesting premise, execution could be better.",6/28/2024
+29,1082,100029,5,"Absolutely captivating, would read again.",6/29/2024
+30,1084,100030,4,"Well-written, kept me engaged throughout.",6/29/2024
+31,1086,100031,3,"Mediocre, didn't leave a lasting impression.",6/30/2024
+32,1088,100032,5,"Couldn't recommend it enough, a must-read!",6/30/2024
+33,1090,100033,4,"Enjoyed the plot twists, kept me guessing.",7/1/2024
+34,1092,100034,3,"Okay read, expected more from the storyline.",7/1/2024
+35,1094,100035,5,"Brilliantly written, emotional rollercoaster!",7/2/2024
+36,1096,100036,4,"Kept me hooked, loved the unexpected ending.",7/2/2024
+37,1098,100037,3,"Good read, but pacing was a bit slow.",7/3/2024
+38,1100,100038,5,Outstanding! Couldn't stop thinking about it.,7/3/2024
+39,1102,100039,4,"Interesting characters, well-developed.",7/4/2024
+40,1104,100040,3,"Average storyline, didn't stand out.",7/4/2024
+41,1106,100041,5,"Incredible book, a new favorite!",7/5/2024
+42,1108,100042,4,"Enjoyed the plot twists, kept me guessing.",7/5/2024
+43,1110,100043,3,"Liked the concept, execution was lacking.",7/6/2024
+44,1112,100044,5,"Couldn't put it down, highly recommend!",7/6/2024
+45,1114,100045,4,"Solid read, engaging storyline.",7/7/2024
+46,1116,100046,3,Expected more depth from the characters.,7/7/2024
+47,1118,100047,5,"Amazing book, loved every page of it!",7/8/2024
+48,1120,100048,4,"Well-written, kept me interested throughout.",7/8/2024
+49,1122,100049,3,Good plot but didn't connect with the characters.,7/9/2024
+50,1124,100050,5,"Couldn't stop reading, so gripping!",7/9/2024
+51,1126,100051,4,"Enjoyed the twists and turns, well-paced.",7/10/2024
+52,1128,100052,3,"Interesting read, but lacked depth.",7/10/2024
+53,1130,100053,5,"Absolutely loved it, couldn't put it down!",7/11/2024
+54,1132,100054,4,"Engaging plot, well-developed characters.",7/11/2024
+55,1134,100055,3,"Okay storyline, nothing particularly special.",7/12/2024
+56,1136,100056,5,Captivating from the first page to the last!,7/12/2024
+57,1138,100057,4,"Solid story, enjoyed the writing style.",7/13/2024
+58,1140,100058,3,Expected more from the plot development.,7/13/2024
+59,1140,100059,5,A must-read! Couldn't recommend it enough.,7/14/2024
+60,1144,100060,4,"Well-crafted story, kept me engaged.",7/14/2024
+61,1146,100061,3,"Average read, didn't leave a strong impression.",7/15/2024
+62,1055,100062,5,"Absolutely brilliant, exceeded expectations!",7/15/2024
+63,1050,100063,4,"Interesting characters, enjoyed the journey.",7/16/2024
+64,1052,100064,3,"Good concept, execution fell short.",7/16/2024
+65,1054,100065,5,Masterpiece! A book that stays with you.,7/17/2024
+66,1056,100066,4,"Kept me guessing, loved the suspense.",7/17/2024
+67,1058,100067,3,"Not my favorite, struggled to connect with it.",7/18/2024
+68,1060,100068,5,"Couldn't put it down, thrilling from start to finish!",7/18/2024
+69,1062,100069,4,"Solid read, enjoyable storyline.",7/19/2024
+70,1064,100070,3,"Interesting premise, execution was okay.",7/19/2024
+71,1066,100071,5,"Absolutely stunning, loved every moment!",7/20/2024
+72,1068,100072,4,"Well-paced, kept me engaged throughout.",7/20/2024
+73,1070,100073,3,"Average book, didn't stand out.",7/21/2024
+74,1072,100074,5,Incredible! A must-read for all book lovers.,7/21/2024
+75,1074,100075,4,"Enjoyed the characters, interesting dynamics.",7/22/2024
+76,1076,100076,3,Expected more depth from the storyline.,7/22/2024
+77,1078,100077,4,"Compelling narrative, highly recommend!",7/23/2024
+78,1080,100078,3,"Liked the concept, execution was lacking.",7/23/2024
+79,1082,100079,5,"Couldn't put it down, captivating storyline!",7/24/2024
+80,1084,100080,4,"Well-written, engaging from start to finish.",7/24/2024
+81,1086,100081,3,"Interesting premise, but pacing was off.",7/25/2024
+82,1088,100082,5,"Absolutely loved it, one of my favorites!",7/25/2024
+83,1090,100083,4,"Enjoyable read, liked the character development.",7/26/2024
+84,1092,100084,3,"Average book, didn't live up to expectations.",7/26/2024
+85,1094,100085,5,"Captivating story, couldn't stop reading!",7/27/2024
+86,1096,100086,4,"Kept me hooked, loved the plot twists.",7/27/2024
+87,1098,100087,3,"Good storyline, but the ending was predictable.",7/28/2024
+88,1117,100088,5,Outstanding! A must-read for everyone.,7/28/2024
+89,1002,100089,4,"Engaging characters, well-crafted narrative.",7/29/2024
+90,1004,100090,3,"Liked the setting, plot could be stronger.",7/29/2024
+91,1006,100091,5,"Absolutely fantastic, couldn't put it down!",7/30/2024
+92,1008,100092,4,"Enjoyed the twists, kept me guessing.",7/30/2024
+93,1010,100093,3,"Average read, didn't leave a lasting impression.",7/31/2024
+94,1012,100094,5,"Incredible book, emotional and captivating.",7/31/2024
+95,1014,100095,4,"Well-paced, enjoyed the character development.",8/1/2024
+96,1016,100096,3,Expected more depth from the storyline.,8/1/2024
+97,1018,100097,5,"A book that stays with you, absolutely loved it!",8/2/2024
+98,1020,100098,4,"Interesting plot, kept me engaged.",8/2/2024
+99,1002,100099,3,"Okay read, lacked strong character arcs.",8/3/2024
+100,1024,100100,5,"Couldn't stop reading, so gripping!",8/3/2024
+101,1026,100101,4,"Well-crafted story, intriguing characters.",8/4/2024
+102,1028,100102,3,"Decent read, but nothing extraordinary.",8/4/2024
+103,1030,100103,5,"Absolutely loved it, highly recommend!",8/5/2024
+104,1032,100104,4,"Engaging plot, well-developed characters.",8/5/2024
+105,1034,100105,3,Expected more depth from the storyline.,8/6/2024
+106,1036,100106,5,"Couldn't put it down, captivating from start to finish!",8/6/2024
+107,1038,100107,4,"Interesting storyline, kept me hooked.",8/7/2024
+108,1040,100108,3,"Liked the premise, execution was lacking.",8/7/2024
+109,1042,100109,5,"Absolutely brilliant, a new favorite!",8/8/2024
+110,1044,100110,4,"Well-written, enjoyed the character dynamics.",8/8/2024
+111,1046,100111,3,"Average read, didn't leave a strong impression.",8/9/2024
+112,1048,100112,5,"Incredible book, couldn't put it down!",8/9/2024
+113,1050,100113,4,"Engaging storyline, loved the twists.",8/10/2024
+114,1052,100114,3,Expected more depth from the characters.,8/10/2024
+115,1054,100115,5,Masterpiece! A book that stays with you.,8/11/2024
+116,1056,100116,4,"Kept me guessing, loved the suspense.",8/11/2024
+117,1058,100117,3,"Not my favorite, struggled to connect with it.",8/12/2024
+118,1060,100118,5,"Couldn't put it down, thrilling from start to finish!",8/12/2024
+119,1062,100119,4,"Solid read, enjoyable storyline.",8/13/2024
+120,1064,100120,3,"Interesting premise, execution was okay.",8/13/2024
+121,1066,100121,5,"Absolutely stunning, loved every moment!",8/14/2024
+122,1068,100122,4,"Well-paced, kept me engaged throughout.",8/14/2024
+123,1070,100123,3,"Average book, didn't stand out.",8/15/2024
+124,1072,100124,5,Incredible! A must-read for all book lovers.,8/15/2024
+125,1074,100125,4,"Enjoyed the characters, interesting dynamics.",8/16/2024
+126,1076,100126,3,Expected more depth from the storyline.,8/16/2024
+127,1078,100127,5,"Amazing book, compelling narrative!",8/17/2024
+128,1080,100128,4,"Compelling storyline, well-developed characters.",8/17/2024
+129,1082,100129,3,"Interesting read, but pacing was off.",8/18/2024
+130,1084,100130,5,"Couldn't put it down, captivating storyline!",8/18/2024
+131,1086,100131,4,"Well-written, engaging from start to finish.",8/19/2024
+132,1088,100132,3,"Interesting premise, but pacing was off.",8/19/2024
+133,1090,100133,5,"Absolutely loved it, one of my favorites!",8/20/2024
+134,1092,100134,4,"Enjoyable read, liked the character development.",8/20/2024
+135,1094,100135,3,"Average book, didn't live up to expectations.",8/21/2024
+136,1096,100136,5,"Captivating story, couldn't stop reading!",8/21/2024
+137,1098,100137,4,"Kept me hooked, loved the plot twists.",8/22/2024
+138,1109,100138,3,"Good storyline, but the ending was predictable.",8/22/2024
+139,1002,100139,5,Outstanding! A must-read for everyone.,8/23/2024
+140,1004,100140,4,"Engaging characters, well-crafted narrative.",8/23/2024
+141,1006,100141,3,"Liked the setting, plot could be stronger.",8/24/2024
+142,1008,100142,5,"Absolutely fantastic, couldn't put it down!",8/24/2024
+143,1010,100143,4,"Enjoyed the twists, kept me guessing.",8/25/2024
+144,1012,100144,3,"Average read, didn't leave a lasting impression.",8/25/2024
+145,1014,100145,5,"Incredible book, emotional and captivating.",8/26/2024
+146,1016,100146,4,"Well-paced, enjoyed the character development.",8/26/2024
+147,1018,100147,3,Expected more depth from the storyline.,8/27/2024
+148,1020,100148,5,"A book that stays with you, absolutely loved it!",8/27/2024
+149,1022,100149,4,"Interesting plot, kept me engaged.",8/28/2024
+150,1024,100150,3,"Okay read, lacked strong character arcs.",8/28/2024
+151,1026,100151,5,"Couldn't stop reading, so gripping!",8/29/2024
+152,1028,100152,4,"Well-crafted story, intriguing characters.",8/29/2024
+153,1030,100153,3,"Decent read, but nothing extraordinary.",8/30/2024
+154,1032,100154,5,"Absolutely loved it, highly recommend!",8/30/2024
+155,1034,100155,3,Expected more depth from the storyline.,8/31/2024
+156,1036,100156,5,"Couldn't put it down, captivating from start to finish!",8/31/2024
+157,1038,100157,4,"Interesting storyline, kept me hooked.",9/1/2024
+158,1040,100158,3,"Liked the premise, execution was lacking.",9/1/2024
+159,1042,100159,5,"Absolutely brilliant, a new favorite!",9/2/2024
+160,1044,100160,4,"Well-written, enjoyed the character dynamics.",9/2/2024
+161,1046,100161,3,"Average read, didn't leave a strong impression.",9/3/2024
+162,1048,100162,5,"Incredible book, couldn't put it down!",9/3/2024
+163,1050,100163,4,"Engaging storyline, loved the twists.",9/4/2024
+164,1052,100164,3,Expected more depth from the characters.,9/4/2024
+165,1054,100165,5,Masterpiece! A book that stays with you.,9/5/2024
+166,1056,100166,4,"Kept me guessing, loved the suspense.",9/5/2024
+167,1058,100167,3,"Not my favorite, struggled to connect with it.",9/6/2024
+168,1060,100168,5,"Couldn't put it down, thrilling from start to finish!",9/6/2024
+169,1062,100169,4,"Solid read, enjoyable storyline.",9/7/2024
+170,1064,100170,3,"Interesting premise, execution was okay.",9/7/2024
+171,1066,100171,5,"Absolutely stunning, loved every moment!",9/8/2024
+172,1068,100172,4,"Well-paced, kept me engaged throughout.",9/8/2024
+173,1070,100173,3,"Average book, didn't stand out.",9/9/2024
+174,1072,100174,5,Incredible! A must-read for all book lovers.,9/9/2024
+175,1074,100175,4,"Enjoyed the characters, interesting dynamics.",9/10/2024
+176,1076,100176,3,Expected more depth from the storyline.,9/10/2024
+177,1078,100177,5,"Amazing book, compelling narrative!",9/11/2024
+178,1080,100178,4,"Compelling storyline, well-developed characters.",9/11/2024
+179,1082,100179,3,"Interesting read, but pacing was off.",9/12/2024
+180,1084,100180,5,"Couldn't put it down, captivating storyline!",9/12/2024
+181,1086,100181,4,"Well-written, engaging from start to finish.",9/13/2024
+182,1088,100182,3,"Interesting premise, but pacing was off.",9/13/2024
+183,1090,100183,5,"Absolutely loved it, one of my favorites!",9/14/2024
+184,1092,100184,4,"Enjoyable read, liked the character development.",9/14/2024
+185,1094,100185,3,"Average book, didn't live up to expectations.",9/15/2024
+186,1096,100186,5,"Captivating story, couldn't stop reading!",9/15/2024
+187,1098,100187,4,"Kept me hooked, loved the plot twists.",9/16/2024
+188,1100,100188,3,"Good storyline, but the ending was predictable.",9/16/2024
+189,1002,100189,5,Outstanding! A must-read for everyone.,9/17/2024
+190,1004,100190,4,"Engaging characters, well-crafted narrative.",9/17/2024
+191,1006,100191,3,"Liked the setting, plot could be stronger.",9/18/2024
+192,1008,100192,5,"Absolutely fantastic, couldn't put it down!",9/18/2024
+193,1010,100193,4,"Enjoyed the twists, kept me guessing.",9/19/2024
+194,1012,100194,3,"Average read, didn't leave a lasting impression.",9/19/2024
+195,1014,100195,5,"Incredible book, emotional and captivating.",9/20/2024
+196,1016,100196,4,"Well-paced, enjoyed the character development.",9/20/2024
+197,1018,100197,3,Expected more depth from the storyline.,9/21/2024
+198,1020,100198,5,"A book that stays with you, absolutely loved it!",9/21/2024
+199,1022,100199,4,"Interesting plot, kept me engaged.",9/22/2024
+200,1024,100200,3,"Okay read, lacked strong character arcs.",9/22/2024
+201,1026,100201,5,"Couldn't stop reading, so gripping!",9/23/2024
+202,1028,100202,4,"Well-crafted story, intriguing characters.",9/23/2024
+203,1030,100203,3,"Decent read, but nothing extraordinary.",9/24/2024
+204,1032,100204,5,"Absolutely loved it, highly recommend!",9/24/2024
+205,1034,100205,4,"Engaging plot, well-developed characters.",9/25/2024
+206,1036,100206,3,Expected more depth from the storyline.,9/25/2024
+207,1038,100207,5,"Couldn't put it down, captivating from start to finish!",9/26/2024
+208,1040,100208,4,"Interesting storyline, kept me hooked.",9/26/2024
+209,1042,100209,3,"Liked the premise, execution was lacking.",9/27/2024
+210,1044,100210,5,"Absolutely brilliant, a new favorite!",9/27/2024
+211,1046,100211,4,"Well-written, enjoyed the character dynamics.",9/28/2024
+212,1048,100212,3,"Average read, didn't leave a strong impression.",9/28/2024
+213,1050,100213,5,"Incredible book, couldn't put it down!",9/29/2024
+214,1052,100214,4,"Engaging storyline, loved the twists.",9/29/2024
+215,1054,100215,3,Expected more depth from the characters.,9/30/2024
+216,1056,100216,5,Masterpiece! A book that stays with you.,9/30/2024
+217,1058,100217,4,"Kept me guessing, loved the suspense.",10/1/2024
+218,1060,100218,3,"Not my favorite, struggled to connect with it.",10/1/2024
+219,1062,100219,5,"Couldn't put it down, thrilling from start to finish!",10/2/2024
+220,1064,100220,4,"Solid read, enjoyable storyline.",10/2/2024
+221,1066,100221,3,"Interesting premise, execution was okay.",10/3/2024
+222,1068,100222,5,"Absolutely stunning, loved every moment!",10/3/2024
+223,1070,100223,4,"Well-paced, kept me engaged throughout.",10/4/2024
+224,1072,100224,3,"Average book, didn't stand out.",10/4/2024
+225,1074,100225,5,Incredible! A must-read for all book lovers.,10/5/2024
+226,1076,100226,4,"Enjoyed the characters, interesting dynamics.",10/5/2024
+227,1078,100227,3,Expected more depth from the storyline.,10/6/2024
+228,1080,100228,5,"Amazing book, compelling narrative!",10/6/2024
+229,1082,100229,4,"Compelling storyline, well-developed characters.",10/7/2024
+230,1084,100230,3,"Interesting read, but pacing was off.",10/7/2024
+231,1086,100231,5,"Couldn't put it down, captivating storyline!",10/8/2024
+232,1088,100232,4,"Well-written, engaging from start to finish.",10/8/2024
+233,1090,100233,3,"Interesting premise, but pacing was off.",10/9/2024
+234,1090,100234,5,"Absolutely loved it, one of my favorites!",10/9/2024
+235,1092,100235,4,"Enjoyable read, liked the character development.",10/9/2024
+236,1094,100236,3,"Average book, didn't live up to expectations.",10/10/2024
+237,1096,100237,5,"Captivating story, couldn't stop reading!",10/10/2024
+238,1098,100238,4,"Kept me hooked, loved the plot twists.",10/11/2024
+239,1004,100239,3,"Good storyline, but the ending was predictable.",10/11/2024
+240,1103,100240,5,Outstanding! A must-read for everyone.,10/12/2024
+241,1004,100241,4,"Engaging characters, well-crafted narrative.",10/12/2024
+242,1006,100242,3,"Liked the setting, plot could be stronger.",10/13/2024
+243,1008,100243,5,"Absolutely fantastic, couldn't put it down!",10/13/2024
+244,1010,100244,4,"Enjoyed the twists, kept me guessing.",10/14/2024
+245,1012,100245,3,"Average read, didn't leave a lasting impression.",10/14/2024
+246,1014,100246,5,"Incredible book, emotional and captivating.",10/15/2024
+247,1016,100247,4,"Well-paced, enjoyed the character development.",10/15/2024
+248,1018,100248,3,Expected more depth from the storyline.,10/16/2024
+249,1020,100249,5,"A book that stays with you, absolutely loved it!",10/16/2024
+250,1022,100250,4,"Interesting plot, kept me engaged.",10/17/2024
+251,1024,100251,3,"Okay read, lacked strong character arcs.",10/17/2024
+252,1026,100252,5,"Couldn't stop reading, so gripping!",10/18/2024
+253,1028,100253,4,"Well-crafted story, intriguing characters.",10/18/2024
+254,1030,100254,3,"Decent read, but nothing extraordinary.",10/19/2024
+255,1032,100255,5,"Absolutely loved it, highly recommend!",10/19/2024
+256,1034,100256,4,"Engaging plot, well-developed characters.",10/20/2024
+257,1036,100257,3,Expected more depth from the storyline.,10/20/2024
+258,1038,100258,5,"Couldn't put it down, captivating from start to finish!",10/21/2024
+259,1040,100259,4,"Interesting storyline, kept me hooked.",10/21/2024
+260,1042,100260,3,"Liked the premise, execution was lacking.",10/22/2024
+261,1044,100261,5,"Absolutely brilliant, a new favorite!",10/22/2024
+262,1046,100262,4,"Well-written, enjoyed the character dynamics.",10/23/2024
+263,1048,100263,3,"Average read, didn't leave a strong impression.",10/23/2024
+264,1050,100264,5,"Incredible book, couldn't put it down!",10/24/2024
+265,1052,100265,4,"Engaging storyline, loved the twists.",10/24/2024
+266,1054,100266,3,Expected more depth from the characters.,10/25/2024
+267,1056,100267,5,Masterpiece! A book that stays with you.,10/25/2024
+268,1058,100268,4,"Kept me guessing, loved the suspense.",10/26/2024
+269,1060,100269,3,"Not my favorite, struggled to connect with it.",10/26/2024
+270,1062,100270,5,"Couldn't put it down, thrilling from start to finish!",10/27/2024
+271,1064,100271,4,"Solid read, enjoyable storyline.",10/27/2024
+272,1066,100272,3,"Interesting premise, execution was okay.",10/28/2024
+273,1068,100273,5,"Absolutely stunning, loved every moment!",10/28/2024
+274,1070,100274,4,"Well-paced, kept me engaged throughout.",10/29/2024
+275,1072,100275,3,"Average book, didn't stand out.",10/29/2024
+276,1074,100276,5,Incredible! A must-read for all book lovers.,10/30/2024
+277,1076,100277,4,"Enjoyed the characters, interesting dynamics.",10/30/2024
+278,1078,100278,3,Expected more depth from the storyline.,10/31/2024
+279,1080,100279,5,"Amazing book, compelling narrative!",10/31/2024
+280,1082,100280,4,"Compelling storyline, well-developed characters.",11/1/2024
+281,1084,100281,3,"Interesting read, but pacing was off.",11/1/2024
+282,1086,100282,5,"Couldn't put it down, captivating storyline!",11/2/2024
+283,1088,100283,4,"Well-written, engaging from start to finish.",11/2/2024
+284,1090,100284,3,"Interesting premise, but pacing was off.",11/3/2024
+285,1092,100285,5,"Absolutely loved it, one of my favorites!",11/3/2024
+286,1094,100286,4,"Enjoyable read, liked the character development.",11/4/2024
+287,1096,100287,3,"Average book, didn't live up to expectations.",11/4/2024
+288,1098,100288,5,"Captivating story, couldn't stop reading!",11/5/2024
+289,1006,100289,4,"Kept me hooked, loved the plot twists.",11/5/2024
+290,1142,100290,3,"Good storyline, but the ending was predictable.",11/6/2024
+291,1004,100291,5,Outstanding! A must-read for everyone.,11/6/2024
+292,1006,100292,4,"Engaging characters, well-crafted narrative.",11/7/2024
+293,1008,100293,3,"Liked the setting, plot could be stronger.",11/7/2024
+294,1010,100294,5,"Absolutely fantastic, couldn't put it down!",11/8/2024
+295,1012,100295,4,"Enjoyed the twists, kept me guessing.",11/8/2024
+296,1014,100296,3,"Average read, didn't leave a lasting impression.",11/9/2024
+297,1016,100297,5,"Incredible book, emotional and captivating.",11/9/2024
+298,1018,100298,4,"Well-paced, enjoyed the character development.",11/10/2024
+299,1020,100299,3,Expected more depth from the storyline.,11/10/2024
+300,1022,100100,5,"A book that stays with you, absolutely loved it!",11/11/2024
+301,1100,100101,4,"Well-written, engaging storyline.",11/12/2024
+302,1102,100102,3,"Interesting characters, slow pacing.",11/12/2024
+303,1104,100103,5,"Couldn't put it down, loved every page!",11/13/2024
+304,1106,100104,4,"Enjoyable read, recommended for mystery fans.",11/13/2024
+305,1108,100105,3,"Average book, didn't meet expectations.",11/14/2024
+306,1110,100106,5,"Absolutely captivating, a new favorite!",11/14/2024
+307,1112,100107,4,"Compelling storyline, well-developed characters.",11/15/2024
+308,1114,100108,3,"Interesting premise, execution fell short.",11/15/2024
+309,1116,100109,5,"Kept me guessing, couldn't predict the ending!",11/16/2024
+310,1118,100110,4,"Well-paced, enjoyed the twists and turns.",11/16/2024
+311,1120,100111,3,Expected more depth from the characters.,11/17/2024
+312,1122,100112,5,"Incredible book, emotional and thought-provoking.",11/17/2024
+313,1124,100113,4,"Engaging plot, liked the historical references.",11/18/2024
+314,1126,100114,3,"Interesting concept, but the execution was lacking.",11/18/2024
+315,1128,100115,5,"Couldn't put it down, so suspenseful!",11/19/2024
+316,1130,100116,4,"Well-crafted story, loved the character development.",11/19/2024
+317,1132,100117,3,"Average read, didn't leave a lasting impression.",11/20/2024
+318,1134,100118,5,"Absolutely loved it, highly recommend!",11/20/2024
+319,1136,100119,4,"Great storyline, enjoyed the plot twists.",11/21/2024
+320,1138,100120,3,"Liked the premise, but the pacing was off.",11/21/2024
+321,1140,100121,5,Outstanding! A must-read for everyone.,11/22/2024
+322,1142,100122,4,"Interesting characters, well-developed.",11/22/2024
+323,1144,100123,3,Expected more depth from the storyline.,11/23/2024
+324,1146,100124,5,"Couldn't stop reading, captivating from start to finish!",11/23/2024
+325,1135,100125,4,"Engaging plot, kept me guessing.",11/24/2024
+326,1141,100126,3,"Okay read, lacked strong character development.",11/24/2024
+327,1052,100127,5,"Incredible book, emotional and captivating.",11/25/2024
+328,1054,100128,4,"Well-paced, enjoyed the character dynamics.",11/25/2024
+329,1056,100129,3,Expected more depth from the storyline.,11/26/2024
+330,1058,100130,5,"A book that stays with you, absolutely loved it!",11/26/2024
+331,1060,100131,4,"Engaging plot, well-developed characters.",11/27/2024
+332,1062,100132,3,"Interesting premise, execution was lacking.",11/27/2024
+333,1064,100133,5,"Couldn't put it down, gripping narrative.",11/28/2024
+334,1066,100134,4,"Enjoyed the twists, kept me hooked.",11/28/2024
+335,1068,100135,3,"Average read, didn't leave a strong impression.",11/29/2024
+336,1070,100136,5,"Absolutely brilliant, a new favorite!",11/29/2024
+337,1072,100137,4,"Well-written, engaging storyline.",11/30/2024
+338,1074,100138,3,"Interesting characters, slow pacing.",11/30/2024
+339,1076,100139,5,"Couldn't put it down, loved every page!",12/1/2024
+340,1078,100140,4,"Enjoyable read, recommended for mystery fans.",12/1/2024
+341,1080,100141,3,"Average book, didn't meet expectations.",12/2/2024
+342,1082,100142,5,"Absolutely captivating, a new favorite!",12/2/2024
+343,1084,100143,4,"Compelling storyline, well-developed characters.",12/3/2024
+344,1086,100144,3,"Interesting premise, execution fell short.",12/3/2024
+345,1088,100145,5,"Kept me guessing, couldn't predict the ending!",12/4/2024
+346,1090,100146,4,"Well-paced, enjoyed the twists and turns.",12/4/2024
+347,1092,100147,3,Expected more depth from the characters.,12/5/2024
+348,1094,100148,5,"Incredible book, emotional and thought-provoking.",12/5/2024
+349,1096,100149,4,"Engaging plot, liked the historical references.",12/6/2024
+350,1098,100150,3,"Interesting concept, but the execution was lacking.",12/6/2024
+351,1138,100151,5,"Couldn't put it down, so suspenseful!",12/7/2024
+352,1108,100152,4,"Well-crafted story, loved the character development.",12/7/2024
+353,1004,100153,3,"Average read, didn't leave a lasting impression.",12/8/2024
+354,1006,100154,5,"Absolutely loved it, highly recommend!",12/8/2024
+355,1008,100155,4,"Great storyline, enjoyed the plot twists.",12/9/2024
+356,1010,100156,3,"Liked the premise, but the pacing was off.",12/9/2024
+357,1012,100157,5,Outstanding! A must-read for everyone.,12/10/2024
+358,1014,100158,4,"Interesting characters, well-developed.",12/10/2024
+359,1016,100159,3,Expected more depth from the storyline.,12/11/2024
+360,1018,100160,5,"Couldn't stop reading, captivating from start to finish!",12/11/2024
+361,1020,100161,4,"Engaging plot, kept me guessing.",12/12/2024
+362,1022,100162,3,"Okay read, lacked strong character development.",12/12/2024
+363,1024,100163,5,"Incredible book, emotional and captivating.",12/13/2024
+364,1026,100164,4,"Well-paced, enjoyed the character dynamics.",12/13/2024
+365,1028,100165,3,Expected more depth from the storyline.,12/14/2024
+366,1030,100166,5,"A book that stays with you, absolutely loved it!",12/14/2024
+367,1032,100167,4,"Engaging plot, well-developed characters.",12/15/2024
+368,1034,100168,3,"Interesting premise, execution was lacking.",12/15/2024
+369,1036,100169,5,"Couldn't put it down, gripping narrative.",12/16/2024
+370,1038,100170,4,"Enjoyed the twists, kept me hooked.",12/16/2024
+371,1040,100171,3,"Average read, didn't leave a strong impression.",12/17/2024
+372,1042,100172,5,"Absolutely brilliant, a new favorite!",12/17/2024
+373,1044,100173,4,"Well-written, engaging storyline.",12/18/2024
+374,1046,100174,3,"Interesting characters, slow pacing.",12/18/2024
+375,1048,100175,5,"Couldn't put it down, loved every page!",12/19/2024
+376,1050,100176,4,"Enjoyable read, recommended for mystery fans.",12/19/2024
+377,1052,100177,3,"Average book, didn't meet expectations.",12/20/2024
+378,1054,100178,5,"Absolutely captivating, a new favorite!",12/20/2024
+379,1056,100179,4,"Compelling storyline, well-developed characters.",12/1/2024
+380,1058,100180,3,"Interesting premise, execution fell short.",12/1/2024
+381,1060,100181,5,"Kept me guessing, couldn't predict the ending!",12/2/2024
+382,1062,100182,4,"Well-paced, enjoyed the twists and turns.",12/2/2024
+383,1064,100183,3,Expected more depth from the characters.,12/3/2024
+384,1066,100184,5,"Incredible book, emotional and thought-provoking.",12/3/2024
+385,1068,100185,4,"Engaging plot, liked the historical references.",12/4/2024
+386,1070,100186,3,"Interesting concept, but the execution was lacking.",12/4/2024
+387,1072,100187,5,"Couldn't put it down, so suspenseful!",12/5/2024
+388,1074,100188,4,"Well-crafted story, loved the character development.",12/5/2024
+389,1076,100189,3,"Average read, didn't leave a lasting impression.",12/6/2024
+390,1078,100190,5,"Absolutely loved it, highly recommend!",12/6/2024
+391,1080,100191,4,"Great storyline, enjoyed the plot twists.",12/7/2024
+392,1082,100192,3,"Liked the premise, but the pacing was off.",12/7/2024
+393,1084,100193,5,Outstanding! A must-read for everyone.,12/8/2024
+394,1086,100194,4,"Interesting characters, well-developed.",12/8/2024
+395,1088,100195,3,Expected more depth from the storyline.,12/9/2024
+396,1090,100196,5,"Couldn't stop reading, captivating from start to finish!",12/9/2024
+397,1092,100197,4,"Engaging plot, kept me guessing.",12/10/2024
+398,1094,100198,3,"Okay read, lacked strong character development.",12/10/2024
+399,1096,100199,5,"Incredible book, emotional and captivating.",12/11/2024
+400,1098,100200,4,"Well-paced, enjoyed the character dynamics.",12/11/2024
+401,1125,100201,3,Expected more depth from the storyline.,12/12/2024
+402,1002,100202,5,"A book that stays with you, absolutely loved it!",12/12/2024
+403,1004,100203,4,"Engaging plot, well-developed characters.",12/13/2024
+404,1006,100204,3,"Interesting premise, execution was lacking.",12/13/2024
+405,1008,100205,5,"Couldn't put it down, gripping narrative.",12/14/2024
+406,1010,100206,4,"Enjoyed the twists, kept me hooked.",12/14/2024
+407,1012,100207,3,"Average read, didn't leave a strong impression.",12/15/2024
+408,1014,100208,5,"Absolutely brilliant, a new favorite!",12/15/2024
+409,1016,100209,4,"Well-written, engaging storyline.",12/16/2024
+410,1018,100210,3,"Interesting characters, slow pacing.",12/16/2024
+411,1020,100211,5,"Couldn't put it down, loved every page!",12/17/2024
+412,1022,100212,4,"Enjoyable read, recommended for mystery fans.",12/17/2024
+413,1024,100213,3,"Average book, didn't meet expectations.",12/18/2024
+414,1026,100214,5,"Absolutely captivating, a new favorite!",12/18/2024
+415,1028,100215,4,"Compelling storyline, well-developed characters.",12/19/2024
+416,1030,100216,3,"Interesting premise, execution fell short.",12/19/2024
+417,1032,100217,5,"Kept me guessing, couldn't predict the ending!",12/20/2024
+418,1034,100218,4,"Well-paced, enjoyed the twists and turns.",12/20/2024
+419,1036,100219,3,Expected more depth from the characters.,12/21/2024
+420,1038,100220,5,"Incredible book, emotional and thought-provoking.",12/21/2024
+421,1040,100221,4,"Engaging plot, liked the historical references.",12/22/2024
+422,1042,100222,3,"Interesting concept, but the execution was lacking.",12/22/2024
+423,1044,100223,5,"Couldn't put it down, so suspenseful!",12/23/2024
+424,1046,100224,4,"Well-crafted story, loved the character development.",12/23/2024
+425,1048,100225,3,"Average read, didn't leave a lasting impression.",12/24/2024
+426,1050,100226,5,"Absolutely loved it, highly recommend!",12/24/2024
+427,1052,100227,4,"Great storyline, enjoyed the plot twists.",12/25/2024
+428,1054,100228,3,"Liked the premise, but the pacing was off.",12/25/2024
+429,1056,100229,5,Outstanding! A must-read for everyone.,12/26/2024
+430,1058,100230,4,"Interesting characters, well-developed.",12/26/2024
+431,1060,100231,3,Expected more depth from the storyline.,12/27/2024
+432,1062,100232,5,"Couldn't stop reading, captivating from start to finish!",12/27/2024
+433,1064,100233,4,"Engaging plot, kept me guessing.",12/28/2024
+434,1066,100234,3,"Okay read, lacked strong character development.",12/28/2024
+435,1068,100235,5,"Incredible book, emotional and captivating.",12/29/2024
+436,1070,100236,4,"Well-paced, enjoyed the character dynamics.",12/29/2024
+437,1072,100237,3,Expected more depth from the storyline.,12/30/2024
+438,1074,100238,5,"A book that stays with you, absolutely loved it!",12/30/2024
+439,1076,100239,4,"Engaging plot, well-developed characters.",12/31/2024
+440,1078,100240,3,"Interesting premise, execution was lacking.",12/31/2024
+441,1080,100241,5,"Couldn't put it down, gripping narrative.",1/1/2025
+442,1082,100242,4,"Enjoyed the twists, kept me hooked.",1/1/2025
+443,1084,100243,3,"Average read, didn't leave a strong impression.",1/2/2025
+444,1086,100244,5,"Absolutely brilliant, a new favorite!",1/2/2025
+445,1088,100245,4,"Well-written, engaging storyline.",1/3/2025
+446,1090,100246,3,"Interesting characters, slow pacing.",1/3/2025
+447,1092,100247,5,"Couldn't put it down, loved every page!",1/4/2025
+448,1094,100248,4,"Enjoyable read, recommended for mystery fans.",1/4/2025
+449,1096,100249,3,"Average book, didn't meet expectations.",1/5/2025
+450,1098,100250,5,"Absolutely captivating, a new favorite!",1/5/2025
+451,1114,100251,4,"Compelling storyline, well-developed characters.",1/6/2025
+452,1002,100252,3,"Interesting premise, execution fell short.",1/6/2025
+453,1004,100253,5,"Kept me guessing, couldn't predict the ending!",1/7/2025
+454,1006,100254,4,"Well-paced, enjoyed the twists and turns.",1/7/2025
+455,1008,100255,3,Expected more depth from the characters.,1/8/2025
+456,1010,100256,5,"Incredible book, emotional and thought-provoking.",1/8/2025
+457,1012,100257,4,"Engaging plot, liked the historical references.",1/9/2025
+458,1014,100258,3,"Interesting concept, but the execution was lacking.",1/9/2025
+459,1016,100259,5,"Couldn't put it down, so suspenseful!",1/10/2025
+460,1018,100260,4,"Well-crafted story, loved the character development.",1/10/2025
+461,1020,100261,3,"Average read, didn't leave a lasting impression.",1/11/2025
+462,1022,100262,5,"Absolutely loved it, highly recommend!",1/11/2025
+463,1024,100263,4,"Great storyline, enjoyed the plot twists.",1/12/2025
+464,1026,100264,3,"Liked the premise, but the pacing was off.",1/12/2025
+465,1028,100265,5,Outstanding! A must-read for everyone.,1/13/2025
+466,1030,100266,4,"Interesting characters, well-developed.",1/13/2025
+467,1032,100267,3,Expected more depth from the storyline.,1/14/2025
+468,1034,100268,5,"Couldn't stop reading, captivating from start to finish!",1/14/2025
+469,1036,100269,4,"Engaging plot, kept me guessing.",1/15/2025
+470,1038,100270,3,"Okay read, lacked strong character development.",1/15/2025
+471,1040,100271,5,"Incredible book, emotional and captivating.",1/16/2025
+472,1042,100272,4,"Well-paced, enjoyed the character dynamics.",1/16/2025
+473,1044,100273,3,Expected more depth from the storyline.,1/17/2025
+474,1046,100274,5,"A book that stays with you, absolutely loved it!",1/17/2025
+475,1048,100275,4,"Engaging plot, well-developed characters.",1/18/2025
+476,1050,100276,3,"Interesting premise, execution was lacking.",1/18/2025
+477,1052,100277,5,"Couldn't put it down, gripping narrative.",1/19/2025
+478,1054,100278,4,"Enjoyed the twists, kept me hooked.",1/19/2025
+479,1056,100279,3,"Average read, didn't leave a strong impression.",1/20/2025
+480,1058,100280,5,"Absolutely brilliant, a new favorite!",1/20/2025
+481,1060,100281,4,"Well-written, engaging storyline.",1/21/2025
+482,1062,100282,3,"Interesting characters, slow pacing.",1/21/2025
+483,1064,100283,5,"Couldn't put it down, loved every page!",1/22/2025
+484,1066,100284,4,"Enjoyable read, recommended for mystery fans.",1/22/2025
+485,1068,100285,3,"Average book, didn't meet expectations.",1/23/2025
+486,1070,100286,5,"Absolutely captivating, a new favorite!",1/23/2025
+487,1072,100287,4,"Compelling storyline, well-developed characters.",1/24/2025
+488,1074,100288,3,"Interesting premise, execution fell short.",1/24/2025
+489,1076,100289,5,"Kept me guessing, couldn't predict the ending!",1/25/2025
+490,1078,100290,4,"Well-paced, enjoyed the twists and turns.",1/25/2025
+491,1080,100291,3,Expected more depth from the characters.,1/26/2025
+492,1082,100292,5,"Incredible book, emotional and thought-provoking.",1/26/2025
+493,1084,100293,4,"Engaging plot, liked the historical references.",1/27/2025
+494,1086,100294,3,"Interesting concept, but the execution was lacking.",1/27/2025
+495,1088,100295,5,"Couldn't put it down, so suspenseful!",1/28/2025
+496,1090,100296,4,"Well-crafted story, loved the character development.",1/28/2025
+497,1092,100297,3,"Average read, didn't leave a lasting impression.",1/29/2025
+498,1094,100298,5,"Absolutely loved it, highly recommend!",1/29/2025
+499,1096,100299,4,"Great storyline, enjoyed the plot twists.",1/30/2025
+500,1098,100300,3,"Liked the premise, but the pacing was off.",1/30/2025

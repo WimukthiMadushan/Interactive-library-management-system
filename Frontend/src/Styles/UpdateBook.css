@@ -1,0 +1,220 @@
+/* UpdateBook component specific styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeInQuick 0.4s ease-in-out;
+}
+
+.popup {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transform: scale(0);
+  animation: scaleUpQuick 0.2s forwards;
+  overflow: visible;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.multi-fields {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.multi-fields input,
+.container input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.multi-fields input:focus,
+.container input:focus {
+  border-color: #fbb034;
+  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus {
+  border-color: #fbb034;
+  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
+}
+
+.multi-select {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.multi-select .select {
+  flex: 1;
+  display: flex;
+  height: 4rem;
+}
+
+.multi-select .select__control {
+  padding: 8px;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  min-width: 120px;
+}
+
+.multi-select .select__control--is-focused {
+  border-color: #fbb034;
+  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
+}
+
+.date {
+  width: 100%;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.date:focus {
+  border-color: #fbb034;
+  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
+}
+
+.add-button {
+  background: #fbb034;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-button:hover {
+  background: #f79c4e;
+}
+
+.add-books-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.add-books-close-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.add-img-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-img-upload p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.add-img-upload label {
+  cursor: pointer;
+}
+
+.add-img-upload img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px dashed #ddd;
+  transition: border-color 0.3s ease;
+}
+
+.add-img-upload img:hover {
+  border-color: #fbb034;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .multi-fields,
+  .multi-select {
+    flex-direction: column;
+  }
+
+  .multi-fields input,
+  .multi-select .select {
+    width: 100%;
+  }
+}
+.update-books-close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  height: 40px; /* Ensure the button has a defined height */
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease; /* Smooth transition for the rotation */
+}
+
+/* Define the initial rotation state */
+.update-books-close-button svg {
+  transition: transform 0.3s ease;
+  background: none;
+}
+
+/* Hover effect: rotate the icon */
+.update-books-close-button:hover {
+  cursor: pointer;
+  background: none;
+  transform: rotate(180deg);
+}
+
+.update-books .add-books-close-button:hover svg {
+  transform: rotate(180deg);
+  background: none;
+}
+.select {
+  overflow: visible;
+}

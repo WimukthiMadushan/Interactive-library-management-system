@@ -1,34 +1,33 @@
 import express from "express";
 const router = express.Router();
+import multer from "multer";
 
 import {
-  getBooks,
   getBook,
-  updateBook,
-  deleteBook,
-  addBook,
-  getBooksFromAuthor,
-  getBooksFromCategory,
-  getBooksFromISBN,
-  getBooksFromPublisher,
-  getBooksFromYear,
   getBooksFromFilters,
-  getBooksFromTitle,
-  getBooksFromLanguage,
+  addBook,
+  deleteBook,
+  getBookNames,
+  getBookList,
+  updateBook,
 } from "../Controllers/Book.js";
 
-router.get("/", getBooks);
-router.get("/:id", getBook);
-router.get("/title/:title", getBooksFromTitle);
-router.get("/author/:author", getBooksFromAuthor);
-router.get("/category/:category", getBooksFromCategory);
-router.get("/isbn/:isbn", getBooksFromISBN);
-router.get("/language/:language", getBooksFromLanguage);
-router.get("/publisher/:publisher", getBooksFromPublisher);
-router.get("/year/:year", getBooksFromYear);
+// image storage engine for store images at uploads
+const storage = multer.diskStorage({
+  destination: "books",
+  filename: (req, file, cb) => {
+    return cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+router.put("/:id", upload.single("uploaded_file"), updateBook);
+router.post("/", upload.single("uploaded_file"), addBook);
 router.get("/filters", getBooksFromFilters);
-router.post("/", addBook);
-router.put("/:id", updateBook);
+router.get("/list", getBookList);
+router.get("/:id", getBook);
+router.get("/", getBookNames);
 router.delete("/:id", deleteBook);
 
 export default router;

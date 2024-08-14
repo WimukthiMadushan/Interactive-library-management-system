@@ -1,0 +1,159 @@
+/* AddBookCopy.css */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: block;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 10px;
+  position: relative;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container {
+  width: 80vw;
+  margin: 0 auto;
+  padding: 20px;
+  height: 97%;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.book-copy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.book-copy-table th,
+.book-copy-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.book-copy-table td {
+  text-align: left;
+}
+
+.book-copy-table .delete-column {
+  text-align: center;
+}
+
+.book-copy-table th {
+  background-color: #f2f2f2;
+}
+
+.book-copy-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.book-copy-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.book-copy-table td input,
+.book-copy-table td .basic-multi-select {
+  width: 100%;
+}
+
+.book-copy-table th:nth-child(1),
+.book-copy-table td:nth-child(1) {
+  width: 25%;
+}
+
+.book-copy-table th:nth-child(2),
+.book-copy-table td:nth-child(2) {
+  width: 30%;
+}
+
+.book-copy-table th:nth-child(3),
+.book-copy-table td:nth-child(3) {
+  width: 30%;
+}
+
+.book-copy-table th:nth-child(4),
+.book-copy-table td:nth-child(4) {
+  width: 10%;
+}
+
+.language-copies {
+  margin-bottom: 10px;
+}
+.add-book-copy-buttons {
+  display: flex;
+  gap: 2rem;
+}
+.add-book-copy-buttons button {
+  width: 100%;
+}
+
+.add-button {
+  width: 30%;
+  gap: 2rem;
+  margin-top: 20px 1px 0 1px;
+  padding: 10px 20px;
+  background-color: #242624;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #222422;
+}
+
+.delete-button {
+  border-radius: 0.3rem;
+  padding: 5px 10px;
+
+  color: white;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,270 @@
+.book-management-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+}
+
+.book-management-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  animation: fadeInQuick 0.2s forwards ease-in-out;
+}
+
+.book-management-image img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  animation: zoomInQuick 0.5s forwards ease-in-out;
+  animation-delay: 0.5s;
+}
+
+.book-management-image h2 {
+  margin-left: 10px;
+  font-size: 1.7rem;
+  color: #333;
+}
+.book-management-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  opacity: 0;
+  gap: 1rem;
+  animation: fadeInQuick 0.2s forwards ease-in-out;
+  animation-delay: 0.3s;
+}
+
+.book-add {
+  width: 15rem;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #3b3c3b;
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, transform 0.2s;
+  animation: bounceInQuick 0.3s forwards ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.book-add:hover {
+  background-color: #646464;
+  transform: translateY(-2px);
+}
+
+/* Search container animation */
+.book-management-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeInQuick 0.3s forwards ease-in-out;
+  animation-delay: 0.4s;
+  margin-bottom: 20px;
+}
+
+.book-management-search input[type="text"] {
+  width: 60%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, background-color 0.2s;
+}
+
+.book-management-search input[type="text"]:focus {
+  border-color: #4caf50;
+  background-color: #f9f9f9;
+}
+
+.book-management-search input[type="text"]::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+.book-management-table {
+  width: 95%;
+  margin: 0 auto;
+  overflow-x: auto;
+  opacity: 0;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.book-management-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-management-table th,
+.book-management-table td {
+  width: 10rem;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.book-management-table th {
+  background-color: #f2f2f2;
+  color: #333;
+  width: 20rem;
+  font-weight: 700;
+}
+
+.book-management-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Action buttons in table */
+.action-column {
+  display: flex;
+  text-align: center;
+  gap: 5px;
+}
+
+.book-image {
+  width: 50px;
+  height: 40px;
+  object-fit: cover;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-image:hover {
+  transform: scale(1.1);
+  z-index: 1;
+  position: absolute;
+  overflow: visible;
+  width: 200px;
+  height: auto;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation for initial appearance */
+@keyframes zoomInQuick {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.action-button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.update-button {
+  background-color: #3b3c3b;
+  color: white;
+}
+
+.update-button:hover {
+  background-color: #565656;
+  transform: translateY(-2px);
+}
+
+.delete-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #f44336;
+  transform: translateY(-2px);
+}
+
+/* Pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  opacity: 0;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.5s;
+}
+
+.pagination-button {
+  border: none;
+  margin: 0 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.pagination-button.active {
+  background-color: #3b3c3b;
+  color: #fff;
+  font-weight: bold;
+}
+
+.pagination-button:hover {
+  background-color: #3b3c3b;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.pagination-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Pagination Container */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  width: 4rem;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover {
+  background-color: #ccc;
+}
+
+.pagination-button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination-button[disabled] {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}

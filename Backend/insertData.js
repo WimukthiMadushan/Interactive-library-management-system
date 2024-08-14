@@ -68,7 +68,7 @@ function insertDataFromFile(table, filePath) {
           .reduce((obj, key) => {
             let value = row[key];
             // Convert date fields to the correct format
-            if (key.includes("Date") && value) {
+            if (key.includes("Date") && value && !value.includes("-")) {
               value = convertDate(value);
             }
             obj[key] = value;
@@ -106,7 +106,7 @@ function insertDataFromFile(table, filePath) {
             console.error(`Error inserting data into ${table}:`, err.message);
             return;
           }
-          // console.log(`Inserted data into ${table} successfully`);
+          //console.log(`Inserted data into ${table} successfully`);
         });
       })
       .on("end", () => {
