@@ -1,9 +1,7 @@
 import connection from "./../DataBase.js";
 
 export const getBookCopy = (req, res) => {
-  const {
-    BookID
-  } = req.params;
+  const { BookID } = req.params;
   const query = `
     SELECT 
       Book_Copy.Copy_ID,
@@ -28,7 +26,7 @@ export const getBookCopy = (req, res) => {
     if (err) {
       console.error("Error executing query:", err);
       return res.status(500).json({
-        error: "Internal server error"
+        error: "Internal server error",
       });
     }
     res.status(200).json(results);
@@ -37,7 +35,6 @@ export const getBookCopy = (req, res) => {
 
 // Add book copies for admin
 export const addBookCopies = (req, res) => {
-  
   const bookCopies = req.body;
   console.log(bookCopies);
 
@@ -47,25 +44,26 @@ export const addBookCopies = (req, res) => {
   `;
 
   for (const bookCopy of bookCopies) {
-    const {
-      bookID,
-      languages
-    } = bookCopy;
-    console.log(bookID, languages);
+    const { bookID, languages } = bookCopy;
+    //console.log(bookID, languages);
 
     for (const [languageCode, copies] of Object.entries(languages)) {
       for (let i = 0; i < Number(copies); i++) {
         console.log(bookID, languageCode, copies);
-        connection.query(query, [Number(bookID), Number(languageCode)], (err, results) => {
-          if (err) {
-            console.error("Error executing query:", err);
-            return res.status(500).json({
-              error: "Internal server error"
-            });
+        connection.query(
+          query,
+          [Number(bookID), Number(languageCode)],
+          (err, results) => {
+            if (err) {
+              console.error("Error executing query:", err);
+              return res.status(500).json({
+                error: "Internal server error",
+              });
+            }
           }
-        });
+        );
       }
     }
   }
-  return res.json({success: true, message: "Book copies added successfully"})
+  return res.json({ success: true, message: "Book copies added successfully" });
 };

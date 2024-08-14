@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./../Styles/UserProfile.css";
 import userImage from "./../Images/Profile_pic.jpg";
+import Hello from "./../Images/Hello.png";
 
 function UserProfile() {
   const [userDetails, setUserDetails] = useState({});
@@ -19,7 +20,7 @@ function UserProfile() {
           `http://localhost:5000/api/user/${userId}`
         );
         setUserDetails(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error("Error fetching user details: ", error);
       }
@@ -34,7 +35,7 @@ function UserProfile() {
           `http://localhost:5000/api/borrow/${userId}`
         );
         setBorrowedBooks(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error("Error fetching borrowed books: ", error);
       }
@@ -49,7 +50,7 @@ function UserProfile() {
           `http://localhost:5000/api/reserve/${userId}`
         );
         setReservedBooks(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error("Error fetching reserved books: ", error);
       }
@@ -61,12 +62,15 @@ function UserProfile() {
     <div className="profile-container">
       <div className="profile-above">
         <div className="profile-left">
-          <p className="welcome-message">
-            Hello {username}! <br />
-            {role === "Administrator" || role === "Receptionist" ? (
-              <p>You are a {role}</p>
-            ) : null}
-          </p>
+          <div className="welcome-message">
+            <p>
+              Hello {username}! <br />
+              {role === "Administrator" || role === "Receptionist" ? (
+                <>You are a {role}</>
+              ) : null}
+            </p>
+            <img src={Hello} alt="" />
+          </div>
           <img src={userImage} alt="Profile" className="profile-image" />
           <p className="profile-username">@{userDetails.Username}</p>
         </div>
@@ -74,16 +78,16 @@ function UserProfile() {
           <h2 className="profile-name">
             {userDetails.First_Name} {userDetails.Last_Name}
           </h2>
-          <p className="profile-email" style={{ width: "175px" }}>
-            {userDetails.Email}
-          </p>
-          <p className="profile-address" style={{ width: "175px" }}>
-            {userDetails.Address}
-          </p>
-          <p className="profile-registered" style={{ width: "175px" }}>
+          <span className="profile-email">
+            {userDetails.Email} <br />
+          </span>
+          <span className="profile-address">
+            {userDetails.Address} <br />
+          </span>
+          <span className="profile-registered">
             Joined on:{" "}
             {new Date(userDetails.Registered_Date).toLocaleDateString()}
-          </p>
+          </span>
         </div>
       </div>
 
@@ -107,11 +111,11 @@ function UserProfile() {
 
         {role === "Receptionist" && (
           <div className="button-list">
-            <Link to="/borrowbook">
+            <Link to="/borrowbookmanagement">
               <button className="profile-button">Borrow Book</button>
             </Link>
-            <Link to="/returnbook">
-              <button className="profile-button">Return Book</button>
+            <Link to="/reseravtionbookmanagment">
+              <button className="profile-button">Reservation Book</button>
             </Link>
           </div>
         )}
@@ -156,6 +160,7 @@ function UserProfile() {
                           <th>Borrow Date</th>
                           <th>Location</th>
                           <th>Return Date</th>
+                          <th>Renew Book</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -163,13 +168,16 @@ function UserProfile() {
                           <tr key={book.Borrow_ID}>
                             <td>{book.Borrow_ID}</td>
                             <td>{book.Title}</td>
-                            <td>{book.Language_Name.trim()}</td>
+                            <td>{book.Language}</td>
                             <td>
                               {new Date(book.Borrow_Date).toLocaleDateString()}
                             </td>
                             <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
                             <td>
                               {new Date(book.Return_Date).toLocaleDateString()}
+                            </td>
+                            <td>
+                              <button className="update-button">Renew</button>
                             </td>
                           </tr>
                         ))}
@@ -216,6 +224,7 @@ function UserProfile() {
                           <th>Language</th>
                           <th>Reservation Date</th>
                           <th>Location</th>
+                          <th>Cancel Reservation</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -223,13 +232,18 @@ function UserProfile() {
                           <tr key={book.Reserve_ID}>
                             <td>{book.Reserve_ID}</td>
                             <td>{book.Title}</td>
-                            <td>{book.Language_Name.trim()}</td>
+                            <td>{book.Language}</td>
                             <td>
                               {new Date(
                                 book.Reservation_Date
                               ).toLocaleDateString()}
                             </td>
                             <td>{`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}</td>
+                            <td>
+                              <button className="delete-button">
+                                Cancel Reservation
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

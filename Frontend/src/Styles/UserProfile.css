@@ -1,3 +1,4 @@
+/* Container for the entire profile section */
 .profile-container {
   width: 80%;
   margin: 2rem auto;
@@ -17,6 +18,7 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
+/* Section above the profile containing main details */
 .profile-above {
   display: flex;
   justify-content: space-between;
@@ -38,6 +40,7 @@
   }
 }
 
+/* Left part of the profile containing the image and welcome message */
 .profile-left {
   display: flex;
   flex-direction: column;
@@ -47,11 +50,26 @@
 }
 
 .welcome-message {
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
   color: #333;
   margin-bottom: 1rem;
 }
+.welcome-message p {
+  width: fit-content;
+}
+.welcome-message img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 1rem;
+}
+.profile-username {
+  width: fit-content;
+}
 
+/* Profile image styling with hover effects */
 .profile-image {
   width: 120px;
   height: 120px;
@@ -67,11 +85,17 @@
 }
 
 .profile-username {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #777;
-  margin-right: 3rem;
+  margin-top: 10px auto;
+  transition: color 0.3s ease;
 }
 
+.profile-username:hover {
+  color: #4caf50;
+}
+
+/* Right part of the profile with detailed information */
 .profile-right {
   text-align: left;
   transition: all 0.3s ease;
@@ -80,7 +104,7 @@
 }
 
 .profile-name {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #333;
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
@@ -107,33 +131,7 @@
   color: #333;
 }
 
-.profile-middle,
-.profile-bottom {
-  padding: 1rem 0;
-  text-align: center;
-}
-
-.profile-middle {
-  border-top: 1px solid #e0e0e0;
-}
-
-.profile-bottom {
-  border-top: 1px solid #e0e0e0;
-  margin-top: 1rem;
-}
-
-@media (max-width: 768px) {
-  .profile-above {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .profile-left,
-  .profile-right {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-}
+/* Middle section styling */
 .profile-middle {
   margin-top: 1.5rem;
   padding: 1rem;
@@ -179,14 +177,17 @@
   box-shadow: 0 0 0 4px rgba(251, 176, 52, 0.4);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-above {
+    flex-direction: column;
+    text-align: center;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .profile-left,
+  .profile-right {
+    width: 100%;
+    margin-bottom: 1rem;
   }
 }
 
@@ -201,13 +202,17 @@
   }
 }
 
-/* UserProfile.css */
+/* Additional styling for profile sections */
+.profile-bottom {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 1rem;
+}
 
-/* General table styling */
 .user-table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 10px;
+  margin-top: 20px;
 }
 
 .user-table thead {
@@ -217,9 +222,9 @@
 
 .user-table th,
 .user-table td {
+  width: 10rem;
   padding: 12px;
   border-bottom: 1px solid #ddd;
-  width: 16.67%;
 }
 
 .user-table tbody tr:nth-child(even) {
@@ -230,7 +235,6 @@
   background-color: #eaeaea;
 }
 
-/* Header and body specific styling */
 .card-body h3 {
   color: #e0a025;
   margin-top: 20px;
@@ -246,7 +250,6 @@
   margin-bottom: 20px;
 }
 
-/* Other existing styles for profile */
 .profile-left {
   display: flex;
   flex-direction: column;
@@ -282,7 +285,6 @@
   object-fit: cover;
 }
 
-.profile-username,
 .profile-name,
 .profile-email,
 .profile-address,

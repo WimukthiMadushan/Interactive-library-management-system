@@ -4,10 +4,13 @@ import First from "./../Images/First.jpg";
 import Second from "./../Images/Second.jpg";
 import Third from "./../Images/Third.jpg";
 import "./../Styles/Carousel.css";
-import NavBar from "./NavBar";
 import { Link } from "react-router-dom";
+import { useAuth } from "./../Hooks/AuthContext.jsx";
 
 function CarouselPage() {
+  const { authState } = useAuth();
+  const { userId } = authState;
+
   return (
     <>
       <div>
@@ -36,9 +39,13 @@ function CarouselPage() {
                 <br /> Seamless book discovery and management at your
                 fingertips.
               </p>
-              <Link to={"/register"}>
-                <button className="carousel-button">Sign Up</button>
-              </Link>
+              {!userId ? (
+                <Link to={"/login"}>
+                  <button className="carousel-button">Sign In</button>
+                </Link>
+              ) : (
+                ""
+              )}
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -66,9 +73,13 @@ function CarouselPage() {
                 collection. Simplify borrowing and returning with our intuitive
                 system.
               </p>
-              <Link to={"/login"}>
-                <button className="carousel-button">Sign In</button>
-              </Link>
+              {!userId ? (
+                <Link to={"/register"}>
+                  <button className="carousel-button">Sign Up</button>
+                </Link>
+              ) : (
+                ""
+              )}
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -96,9 +107,6 @@ function CarouselPage() {
                 to your library. Enhance your reading journey with our
                 user-friendly platform.
               </p>
-              <Link to={"/adminlogin"}>
-                <button className="carousel-button">Admin Login</button>
-              </Link>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>

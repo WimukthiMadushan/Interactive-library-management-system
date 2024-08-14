@@ -19,10 +19,11 @@ const Pagination = ({ Data, itemsPerPage }) => {
     return Data.slice(startIndex, endIndex);
   };
 
+  // Function to render the pagination buttons
   const renderPages = () => {
     const pages = [];
-    const start = Math.max(1, currentPage - 2);
-    const end = Math.min(totalPages, start + 4);
+    const start = Math.max(1, currentPage - 1);
+    const end = Math.min(totalPages, start + 2);
 
     for (let i = start; i <= end; i++) {
       pages.push(
@@ -39,6 +40,7 @@ const Pagination = ({ Data, itemsPerPage }) => {
     return pages;
   };
 
+  // Function to render items based on current page
   const renderItems = () => {
     const currentItems = getCurrentItems();
 
@@ -49,13 +51,31 @@ const Pagination = ({ Data, itemsPerPage }) => {
         style={{ textDecoration: "none", color: "inherit" }}
       >
         <div key={index} className="item">
-          <img src={item.Image_Path} alt={item.Title} />
+          <div className="item-image-container">
+            {item.Image_Path ? (
+              <img
+                src={item.Image_Path}
+                alt={item.Title}
+                className="item-image"
+              />
+            ) : item.Image_Name ? (
+              <img
+                src={`http://localhost:5000/books/${item.Image_Name}`}
+                alt={item.Title}
+                className="item-image"
+              />
+            ) : (
+              <div className="no-image">
+                <p>No image</p>
+              </div>
+            )}
+          </div>
           <div className="item-details">
             <h3>{item.Title}</h3>
-            <p>
+            <p className="author-name">
               By {item.Author_First_Name} {item.Author_Last_Name}
             </p>
-            <p>Category: {item.Category_Name}</p>
+            <p className="category">Category: {item.Category_Name}</p>
           </div>
         </div>
       </Link>

@@ -1,18 +1,17 @@
-/* Main container styling with animation */
+/* Publisher Management Container */
 .publisher-management-container {
-  display: flex;
-  flex-direction: column; /* Arrange left above right */
+  width: 95%;
+  margin: 0 auto;
+  opacity: 0;
+  padding: 10px;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.6s;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  margin: 0 auto;
   background-color: #fff; /* Optional: Set a background color */
-  opacity: 0; /* Start transparent */
-  transform: translateY(20px); /* Start slightly lower */
-  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out; /* Apply animation */
 }
 
-/* Keyframes for fade-in and slide-up effect */
+/* Fade-in and Slide-up Animation */
 @keyframes fadeInSlideUpQuick {
   from {
     opacity: 0;
@@ -24,53 +23,28 @@
   }
 }
 
-/* Staggered animation for child elements */
-.publisher-management-left,
-.publisher-management-right {
-  padding: 20px;
-  opacity: 0; /* Start transparent */
-  animation: fadeInQuick 0.2s forwards ease-in-out;
-}
-
+/* Left Section (Image and Buttons) */
 .publisher-management-left {
-  animation-delay: 0.1s; /* Slight delay */
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.publisher-management-right {
-  animation-delay: 0.2s; /* Slightly more delay */
-}
-
-/* Keyframes for quick fade-in effect */
-@keyframes fadeInQuick {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Left section styling */
-.publisher-management-left {
+.publisher-management-image {
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-}
-
-/* Image animation */
-.publisher-management-image {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
+  align-items: center;
   animation: zoomInQuick 0.5s forwards ease-in-out;
-  animation-delay: 0.5s; /* Delay to appear after container */
+  animation-delay: 0.5s;
+}
+.publisher-management-image img {
+  width: 15%;
 }
 
-/* Keyframes for quick zoom-in effect */
+/* Quick Zoom-in Animation */
 @keyframes zoomInQuick {
   from {
     transform: scale(0.7);
@@ -80,201 +54,154 @@
   }
 }
 
-.publisher-management-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .publisher-management-buttons {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 20px;
 }
-
-.add-publisher-button,
-.update-publisher-button {
-  width: 20rem;
-  padding: 10px;
+.add-publisher-button {
+  padding: 10px 20px;
+  background-color: #3b3c3b;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #3b3c3b; /* Green color for buttons */
-  color: white;
-  font-size: 1rem;
-  margin-bottom: 10px;
   transition: background-color 0.2s ease, transform 0.2s;
-  animation: bounceInQuick 0.3s forwards ease-in-out; /* Apply animation */
-  animation-delay: 0.6s; /* Delay to appear after image */
 }
 
-.add-publisher-button:hover,
-.update-publisher-button:hover {
-  background-color: #646464; /* Darker shade on hover */
-  transform: translateY(-2px); /* Lift button slightly */
+.add-publisher-button:hover {
+  background-color: #565656;
+  transform: translateY(-2px);
 }
 
-/* Keyframes for quick bounce-in effect */
-@keyframes bounceInQuick {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Right section styling */
-.publisher-management-right {
-  padding: 20px;
-}
-
-/* Animation for search container */
-.publisher-management-search {
+.action-column {
   display: flex;
-  align-items: center;
   justify-content: center;
-  opacity: 0;
-  animation: fadeInQuick 0.3s forwards ease-in-out;
-  animation-delay: 0.4s;
+  align-items: center;
+  gap: 5px;
+}
+
+.update-publisher-button,
+.delete-publisher-button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.update-publisher-button {
+  background-color: #3b3c3b;
+  color: white;
+}
+
+.update-publisher-button:hover {
+  background-color: #565656;
+  transform: translateY(-2px);
+}
+
+.delete-publisher-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.delete-publisher-button:hover {
+  background-color: #f44336;
+  transform: translateY(-2px);
+}
+
+.publisher-management-right {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.publisher-management-search {
   margin-bottom: 20px;
 }
 
 .search-publisher {
-  width: 60%;
-  margin: 0 auto;
-  padding: 10px 10px 10px 35px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
+  padding: 10px;
+  width: 300px;
   border-radius: 4px;
-  transition: border-color 0.2s ease, background-color 0.2s;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease;
 }
 
 .search-publisher:focus {
+  outline: none;
   border-color: #4caf50;
-  background-color: #f9f9f9; /* Light background on focus */
 }
 
-.search-publisher::placeholder {
-  color: #888;
-  font-style: italic;
-}
-
-/* Table styling */
 .publishers-table {
-  width: 90%;
-  margin: 0 auto;
-  overflow-x: auto; /* Enable horizontal scrolling if needed */
-  opacity: 0; /* Start transparent */
-  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
-  animation-delay: 0.6s; /* Delay to appear after search container */
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
-table {
+.publishers-table table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for table */
 }
 
-th,
-td {
-  padding: 12px;
+.publishers-table th,
+.publishers-table td {
+  width: 10rem;
+  padding: 9px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-  width: 4rem;
 }
 
-th {
-  background-color: #f2f2f2; /* Light gray background for header */
+.publishers-table th {
+  background-color: #f2f2f2;
   color: #333;
+  font-weight: 700;
 }
 
-tr:hover {
-  background-color: #f5f5f5; /* Lighter background on hover */
+.publishers-table tr:hover {
+  background-color: #f5f5f5;
 }
 
-/* Popup styling */
+.action-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 10rem;
+}
+
 .popup-overlay {
   position: fixed;
-  top: -250px;
+  top: 0rem;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
-  animation: fadeInQuick 0.4s ease-in-out;
+  align-items: center;
+  z-index: 999;
 }
 
 .popup {
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  width: 500px;
-  max-width: 90%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 80%;
+  width: 400px;
   position: relative;
-  transform: scale(0);
-  animation: scaleUpQuick 0.2s forwards;
-  overflow: hidden;
+  animation: zoomInQuick 0.3s forwards ease;
 }
 
-/* Keyframes for quick scale-up effect */
-@keyframes scaleUpQuick {
-  from {
-    transform: scale(0.6);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-.popup .close-button {
-  position: absolute;
-  top: 30px;
-  right: -180px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.popup .close-button img {
-  width: 24px;
-  transition: transform 0.2s;
-}
-
-.popup .close-button img:hover {
-  transform: rotate(90deg) scale(1.1);
+.popup h1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
-}
-
-.container h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #555;
+  margin: 20px 0;
 }
 
 .multi-fields {
@@ -283,52 +210,64 @@ tr:hover {
   margin-bottom: 10px;
 }
 
-.multi-fields input,
-.container input {
-  flex: 1;
+.popup input {
+  width: calc(100% - 20px);
   padding: 10px;
-  border: 1px solid #ddd;
+  width: calc(100% - 20px);
+  border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
-.multi-fields input:focus,
-.container input:focus {
-  border-color: #fbb034;
-  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
+.popup input:focus {
+  outline: none;
+  border-color: #3b3c3b;
 }
 
-.add-button,
-.update-button {
-  padding: 10px;
+.add-button {
+  padding: 10px 20px;
   background-color: #3b3c3b;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s;
 }
 
-.add-button:hover,
-.update-button:hover {
+.add-button:hover {
   background-color: #565656;
   transform: translateY(-2px);
 }
 
-/* Pagination Container */
+.close-button {
+  position: absolute;
+  top: 25px;
+  left: 10rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.close-button:hover {
+  background: none;
+  transform: rotate(180deg);
+}
+
+.close-button img {
+  width: 30px;
+  height: 30px;
+  background-color: none;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 20px auto;
-  opacity: 0; /* Start transparent */
+  opacity: 0;
   animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
-  animation-delay: 0.5s; /* Delay to appear after table */
+  animation-delay: 0.5s;
 }
 
-/* Pagination List */
 .pagination-list {
   display: flex;
   list-style: none;
@@ -369,16 +308,4 @@ tr:hover {
 .pagination-button:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* Animation Keyframes */
-@keyframes fadeInSlideUpQuick {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }

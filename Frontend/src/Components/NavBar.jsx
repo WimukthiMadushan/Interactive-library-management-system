@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "./../Hooks/AuthContext.jsx";
 import "./../Styles/NavBar.css";
@@ -8,7 +9,9 @@ import Profile_pic from "./../Images/Profile_pic.jpg";
 function NavBar() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
-  console.log(dropdownVisible);
+  //console.log(dropdownVisible);
+  const navigate = useNavigate();
+
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
@@ -31,6 +34,7 @@ function NavBar() {
   const handleLogout = () => {
     logout();
     setDropdownVisible(false);
+    navigate("/");
   };
 
   return (

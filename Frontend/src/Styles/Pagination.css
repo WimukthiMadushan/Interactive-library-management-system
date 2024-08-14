@@ -7,36 +7,47 @@
 
 .items-container {
   display: grid;
-  grid-template-columns: repeat(5, minmax(200px, 1fr));
-  gap: 5px;
-  width: 90%;
-  margin-left: 6%;
+  grid-template-columns: repeat(7, minmax(200px, 1fr));
+  width: 100%;
+  row-gap: 1rem;
 }
-
 .item {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 350px;
-  width: 200px;
+  height: 300px;
+  width: 190px;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
 }
-
+.item-image-container {
+  margin: 0 auto;
+  width: 90%;
+  height: 60%;
+}
 .item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgb(251, 176, 51, 0.2);
+}
+.item img {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .item h3 {
-  margin: 10px 0;
-  font-size: 18px; /* Adjust font size */
+  margin: 5px 0;
+  font-size: 18px;
   color: #333333;
-  text-align: center; /* Center align heading */
+  text-align: center;
+}
+.item h3:hover {
+  color: #fbb033;
 }
 
 .item p {
@@ -45,53 +56,34 @@
   text-align: center;
 }
 
-.item img {
-  max-width: 70%;
-  height: 230px;
-  border-radius: 8px;
-  margin-top: 16px;
-  object-fit: cover;
-}
-
-.item-details {
-  padding: 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  width: 35%;
+  margin: 20px auto;
+  width: 20%;
 }
 
 .pagination-item {
   cursor: pointer;
   padding: 8px 16px;
+  width: 6rem;
   margin: 0 4px;
   margin-bottom: 20px;
   border-radius: 4px;
   transition: background-color 0.3s ease;
-  color: #007bff;
+  color: #242525;
   background-color: #ffffff;
 }
 
-.pagination-item {
-  background-color: #f0f0f0;
-}
-
 .pagination-item.active {
-  background-color: #007bff;
+  background-color: #333434;
   color: white;
-  border: 1px solid #007bff;
+  border: 1px solid #3c3b3b;
 }
 
 .pagination-item.disabled {
   pointer-events: none;
   opacity: 0.6;
   color: #cccccc;
-  border: 1px solid #cccccc;
+  border: 1px solid #3c3b3b;
 }

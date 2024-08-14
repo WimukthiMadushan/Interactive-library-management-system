@@ -61,7 +61,7 @@ function LoginPage() {
           <h1>User Login</h1>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="input-group">
+          <div className="input-group" style={{ marginBottom: "1rem" }}>
             <input
               type="text"
               placeholder="Username"

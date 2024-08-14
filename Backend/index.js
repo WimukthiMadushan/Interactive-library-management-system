@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import session from "express-session";
 import authRoutes from "./Routes/Auth.js";
 import userRoutes from "./Routes/User.js";
 import bookRoutes from "./Routes/Book.js";
@@ -18,7 +19,14 @@ const app = express();
 const port = 5000;
 app.use(express.json());
 app.use(bodyParser.json());
-
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 60000 * 60 },
+  })
+);
 app.use(
   cors({
     origin: "http://localhost:5173", // Allow requests from this origin

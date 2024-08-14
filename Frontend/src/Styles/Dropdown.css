@@ -1,0 +1,20 @@
+.primereact .p-multiselect {
+  width: 100%;
+}
+.p-multiselect-panel {
+  width: 10rem;
+  padding: 0;
+  margin-left: 0;
+}
+
+.primereact .p-multiselect .p-multiselect-label-container {
+  width: 50%;
+}
+
+.primereact .p-multiselect .p-multiselect-label {
+  width: 50%;
+}
+
+.small-dropdown .p-multiselect-panel {
+  width: 10rem;
+}

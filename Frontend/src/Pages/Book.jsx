@@ -17,6 +17,7 @@ function Book() {
   const [reservationDate, setReservationDate] = useState(new Date());
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showReservationPopup, setShowReservationPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { authState } = useAuth();
   const { userId } = authState;
@@ -77,6 +78,7 @@ function Book() {
   };
 
   const confirmReservation = async () => {
+    setLoading(true);
     try {
       const reserveDate = reservationDate.toISOString().split("T")[0];
       const reserveTime = reservationDate.toTimeString().slice(0, 5);
@@ -100,15 +102,18 @@ function Book() {
         )
       );
 
-      setShowReservationPopup(false);
-      toast.success("Reservation Succesfull..", {
+      toast.success("Reservation Successful", {
         closeButton: false,
       });
+
+      setShowReservationPopup(false);
     } catch (error) {
       console.error("Error reserving book:", error.message);
       toast.error("Error reserving book.", {
         closeButton: false,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -127,9 +132,13 @@ function Book() {
     <div className="book-page-container">
       <div className="book-details">
         <div className="book-content">
+          <div className="bookpage-book-image">
+            <img src={book.Image_Path} alt="" />
+          </div>
+
           <div className="book-text">
             <h1>{book.Title}</h1>
-            <p>{book.Description}</p>
+            <p className="book-description">{book.Description}</p>
             <div className="book-meta">
               <p>
                 <strong>ISBN:</strong> {book.ISBN_Number}
@@ -145,9 +154,45 @@ function Book() {
               </p>
             </div>
           </div>
-          <div className="book-image">
-            <img src={book.Image_Path} alt="" />
-          </div>
+        </div>
+        <h2 style={{ marginTop: "2rem" }}>Available Copies</h2>
+        <div className="book-copy-details">
+          {bookCopy.map((copy) => (
+            <div key={copy.Copy_ID} className="book-copy-card">
+              <ul>
+                <li>
+                  <strong>Language:</strong> {copy.Language}
+                </li>
+                <li>
+                  <strong>Location:</strong> You can pick the book up from the{" "}
+                  <em>{copy.Floor} Floor</em>, <em>{copy.Section} Section</em>,{" "}
+                  <em>Shelf {copy.Shelf_Number}</em>, Row <em>{copy.RowNum}</em>
+                  .
+                </li>
+                <li>
+                  <strong>Status:</strong>
+                  {copy.isReserved ? (
+                    <span className="status reserved">Reserved</span>
+                  ) : copy.isBorrowed ? (
+                    <span className="status borrowed">Borrowed</span>
+                  ) : (
+                    <span className="status available">
+                      Available for borrowing or reservation
+                    </span>
+                  )}
+                </li>
+              </ul>
+              <button
+                className="reserve-button"
+                disabled={copy.isReserved || copy.isBorrowed}
+                onClick={() => handleReserve(copy.Copy_ID)}
+              >
+                {copy.isReserved || copy.isBorrowed
+                  ? "Not Available"
+                  : "Reserve Book"}
+              </button>
+            </div>
+          ))}
         </div>
         <div className="reviews">
           <h2>Reviews</h2>
@@ -170,51 +215,12 @@ function Book() {
             ))
           )}
         </div>
-        {/* 
-        <div className="pdf">
-          <PdfViewer pdfLink={book.PDF_Link} />
-        </div>*/}
         <ToastContainer />
       </div>
+      {/*
+      
 
-      <div className="book-copy-details">
-        <h2>Available Copies</h2>
-        {bookCopy.map((copy) => (
-          <div key={copy.Copy_ID} className="book-copy-card">
-            <ul>
-              <li>
-                <strong>Language:</strong> {copy.Language}
-              </li>
-              <li>
-                <strong>Location:</strong> You can pick the book up from the{" "}
-                <em>{copy.Floor} Floor</em>, <em>{copy.Section} Section</em>,{" "}
-                <em>Shelf {copy.Shelf_Number}</em>, Row <em>{copy.RowNum}</em>.
-              </li>
-              <li>
-                <strong>Status:</strong>
-                {copy.isReserved ? (
-                  <span className="status reserved">Reserved</span>
-                ) : copy.isBorrowed ? (
-                  <span className="status borrowed">Borrowed</span>
-                ) : (
-                  <span className="status available">
-                    Available for borrowing or reservation
-                  </span>
-                )}
-              </li>
-            </ul>
-            <button
-              className="reserve-button"
-              disabled={copy.isReserved || copy.isBorrowed}
-              onClick={() => handleReserve(copy.Copy_ID)}
-            >
-              {copy.isReserved || copy.isBorrowed
-                ? "Not Available"
-                : "Reserve Book"}
-            </button>
-          </div>
-        ))}
-      </div>
+       */}
 
       {/* Reservation Popup */}
       {showReservationPopup && (
@@ -234,8 +240,9 @@ function Book() {
               <button
                 className="confirm-reservation"
                 onClick={confirmReservation}
+                disabled={loading}
               >
-                Confirm Reservation
+                {loading ? "Reserving..." : "Confirm Reservation"}
               </button>
               <button
                 className="cancel-reservation"

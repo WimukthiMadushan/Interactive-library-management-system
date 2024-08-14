@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import "./../Styles/PublisherManagment.css";
 import Close from "./../Images/close.png";
 import User from "./../Images/user.png";
-import { useParams } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify"; // Assuming you are using toast notifications
+import PaginationButtons from "../Components/PaginationButtons";
+import DeleteModal from "../Components/DeleteModal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PublisherManagement = () => {
-  const { id } = useParams();
   const [publishers, setPublishers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [newPublisherData, setNewPublisherData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    street: "",
-    city: "",
-    country: "",
-    phone: "",
+    Publisher_ID: "",
+    Publisher_First_Name: "",
+    Publisher_Last_Name: "",
+    Email: "",
+    Address: "",
+    Mobile: "",
   });
   const [updatePublisherData, setUpdatePublisherData] = useState({
     Publisher_ID: "",
@@ -25,31 +25,27 @@ const PublisherManagement = () => {
     Publisher_Last_Name: "",
     Email: "",
     Address: "",
-    Phone: "",
+    Mobile: "",
   });
   const [isAddPopupOpen, setAddPopupOpen] = useState(false);
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [publishersPerPage] = useState(10); // Adjust as per your needs
+  const [publisherIdToDelete, setPublisherIdToDelete] = useState(null);
+  const [publishersPerPage] = useState(10);
 
   useEffect(() => {
-    const fetchPublishers = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/publisher/"
-        );
-        setPublishers(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching publishers:", error);
-      }
-    };
     fetchPublishers();
-  }, []);
+  }, [searchQuery]);
 
-  useEffect(() => {
-    fetchPublisher();
-  }, [id]);
+  const fetchPublishers = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/publisher");
+      setPublishers(response.data);
+    } catch (error) {
+      console.error("Error fetching publishers:", error);
+    }
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -73,16 +69,13 @@ const PublisherManagement = () => {
 
   const handleAddSubmit = async (event) => {
     event.preventDefault();
-    const address = `${newPublisherData.street}, ${newPublisherData.city}, ${newPublisherData.country}`;
-
     const formDataObject = {
-      Publisher_First_Name: newPublisherData.firstName,
-      Publisher_Last_Name: newPublisherData.lastName,
-      Email: newPublisherData.email,
-      Address: address,
-      Phone: newPublisherData.phone,
+      Publisher_First_Name: newPublisherData.Publisher_First_Name,
+      Publisher_Last_Name: newPublisherData.Publisher_Last_Name,
+      Email: newPublisherData.Email,
+      Address: newPublisherData.Address,
+      Mobile: newPublisherData.Mobile,
     };
-
     try {
       const response = await axios.post(
         `http://localhost:5000/api/publisher`,
@@ -90,28 +83,24 @@ const PublisherManagement = () => {
       );
       if (response.status === 201) {
         setNewPublisherData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          street: "",
-          city: "",
-          country: "",
-          phone: "",
+          Publisher_First_Name: "",
+          Publisher_Last_Name: "",
+          Email: "",
+          Address: "",
+          Mobile: "",
         });
-        toast.success(response.data.message);
-        // Assuming response.data includes the newly added publisher object
+        console.log(response.data);
         setPublishers((prevPublishers) => [...prevPublishers, response.data]);
-        // Close the popup after adding
         setAddPopupOpen(false);
       } else {
-        toast.error(response.data.message);
+        console.log("error");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
-  const fetchPublisher = async () => {
+  const fetchPublisherById = async (id) => {
     try {
       const response = await axios.get(
         `http://localhost:5000/api/publisher/${id}`
@@ -126,10 +115,9 @@ const PublisherManagement = () => {
     event.preventDefault();
     try {
       await axios.put(
-        `http://localhost:5000/api/publisher/${id}`,
+        `http://localhost:5000/api/publisher/${updatePublisherData.Publisher_ID}`,
         updatePublisherData
       );
-      toast.success("Publisher updated successfully");
       setPublishers((prevPublishers) =>
         prevPublishers.map((publisher) =>
           publisher.Publisher_ID === updatePublisherData.Publisher_ID
@@ -137,10 +125,37 @@ const PublisherManagement = () => {
             : publisher
         )
       );
-      // Close the popup after updating
       setUpdatePopupOpen(false);
     } catch (error) {
       console.error("Error updating publisher:", error);
+    }
+  };
+
+  const handleDeletePublisher = (id) => {
+    setPublisherIdToDelete(id);
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/publisher/${publisherIdToDelete}`
+      );
+      if (response.status === 200) {
+        toast.success("Publisher deleted successfully.");
+        setPublishers((prevPublishers) =>
+          prevPublishers.filter(
+            (publisher) => publisher.Publisher_ID !== publisherIdToDelete
+          )
+        );
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      toast.error("Failed to delete publisher. Please try again.");
+    } finally {
+      setShowModal(false);
+      setPublisherIdToDelete(null);
     }
   };
 
@@ -154,28 +169,29 @@ const PublisherManagement = () => {
 
   // Filtering publishers based on search query
   const filteredPublishers = publishers.filter((publisher) => {
-    const firstName = publisher.Publisher_First_Name
+    const Publisher_First_Name = publisher.Publisher_First_Name
       ? publisher.Publisher_First_Name.toLowerCase()
       : "";
-    const lastName = publisher.Publisher_Last_Name
+    const Publisher_Last_Name = publisher.Publisher_Last_Name
       ? publisher.Publisher_Last_Name.toLowerCase()
       : "";
 
     return (
-      firstName.includes(searchQuery.toLowerCase()) ||
-      lastName.includes(searchQuery.toLowerCase())
+      Publisher_First_Name.includes(searchQuery.toLowerCase()) ||
+      Publisher_Last_Name.includes(searchQuery.toLowerCase())
     );
   });
 
-  // Pagination logic
   const indexOfLastPublisher = currentPage * publishersPerPage;
   const indexOfFirstPublisher = indexOfLastPublisher - publishersPerPage;
   const currentPublishers = filteredPublishers.slice(
     indexOfFirstPublisher,
     indexOfLastPublisher
   );
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const totalPages = Math.ceil(filteredPublishers.length / publishersPerPage);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="publisher-management-container">
@@ -187,12 +203,6 @@ const PublisherManagement = () => {
         <div className="publisher-management-buttons">
           <button className="add-publisher-button" onClick={toggleAddPopup}>
             Add Publisher
-          </button>
-          <button
-            className="update-publisher-button"
-            onClick={toggleUpdatePopup}
-          >
-            Update Publisher
           </button>
         </div>
       </div>
@@ -215,7 +225,8 @@ const PublisherManagement = () => {
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Phone</th>
+                <th>Mobile</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -226,59 +237,61 @@ const PublisherManagement = () => {
                   <td>{publisher.Publisher_Last_Name}</td>
                   <td>{publisher.Email}</td>
                   <td>{publisher.Address}</td>
-                  <td>{publisher.Phone}</td>
+                  <td>{publisher.Mobile}</td>
+                  <td className="action-column">
+                    <button
+                      className="update-publisher-button"
+                      onClick={() => {
+                        fetchPublisherById(publisher.Publisher_ID);
+                        toggleUpdatePopup();
+                      }}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-publisher-button"
+                      onClick={() =>
+                        handleDeletePublisher(publisher.Publisher_ID)
+                      }
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         {/* Pagination */}
-        {filteredPublishers.length > publishersPerPage && (
+        {totalPages > 1 && (
           <div className="pagination">
-            <ul className="pagination-list">
-              {Array.from(
-                {
-                  length: Math.ceil(
-                    filteredPublishers.length / publishersPerPage
-                  ),
-                },
-                (_, index) => (
-                  <li key={index} className="pagination-item">
-                    <button
-                      onClick={() => paginate(index + 1)}
-                      className={`pagination-button ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
-                    >
-                      {index + 1}
-                    </button>
-                  </li>
-                )
-              )}
-            </ul>
+            <PaginationButtons
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
         )}
       </div>
-      {/* Add Publisher Popup */}
       {isAddPopupOpen && (
         <div className="popup-overlay">
-          <div className="popup">
+          <div className="popup add-publisher-popup-container">
             <form className="container" onSubmit={handleAddSubmit}>
               <div className="add">
                 <h1>Add Publisher</h1>
                 <div className="multi-fields">
                   <input
                     onChange={handleAddPublisherDataChange}
-                    value={newPublisherData.firstName}
-                    name="firstName"
+                    value={newPublisherData.Publisher_First_Name}
+                    name="Publisher_First_Name"
                     type="text"
                     placeholder="First Name"
                     required
                   />
                   <input
                     onChange={handleAddPublisherDataChange}
-                    value={newPublisherData.lastName}
-                    name="lastName"
+                    value={newPublisherData.Publisher_Last_Name}
+                    name="Publisher_Last_Name"
                     type="text"
                     placeholder="Last Name"
                     required
@@ -286,45 +299,26 @@ const PublisherManagement = () => {
                 </div>
                 <input
                   onChange={handleAddPublisherDataChange}
-                  value={newPublisherData.email}
-                  name="email"
-                  type="email"
+                  value={newPublisherData.Email}
+                  name="Email"
+                  type="Email"
                   placeholder="Email address"
                   required
                 />
-                <h3>Address Details</h3>
                 <input
                   onChange={handleAddPublisherDataChange}
-                  value={newPublisherData.street}
-                  name="street"
+                  value={newPublisherData.Address}
+                  name="Address"
                   type="text"
-                  placeholder="Street"
+                  placeholder="Address"
                   required
                 />
-                <div className="multi-fields">
-                  <input
-                    onChange={handleAddPublisherDataChange}
-                    value={newPublisherData.city}
-                    name="city"
-                    type="text"
-                    placeholder="City"
-                    required
-                  />
-                  <input
-                    onChange={handleAddPublisherDataChange}
-                    value={newPublisherData.country}
-                    name="country"
-                    type="text"
-                    placeholder="Country"
-                    required
-                  />
-                </div>
                 <input
                   onChange={handleAddPublisherDataChange}
-                  value={newPublisherData.phone}
-                  name="phone"
+                  value={newPublisherData.Mobile}
+                  name="Mobile"
                   type="text"
-                  placeholder="Phone Number"
+                  placeholder="Mobile Number"
                   required
                 />
                 <button type="submit" className="add-button">
@@ -387,7 +381,7 @@ const PublisherManagement = () => {
                       onChange={handleUpdatePublisherDataChange}
                       value={updatePublisherData.Email}
                       name="Email"
-                      type="email"
+                      type="Email"
                       placeholder="Email address"
                     />
                   </label>
@@ -406,13 +400,13 @@ const PublisherManagement = () => {
                 </div>
                 <div className="input-div">
                   <label>
-                    Phone Number:
+                    Mobile Number:
                     <input
                       onChange={handleUpdatePublisherDataChange}
-                      value={updatePublisherData.Phone}
-                      name="Phone"
+                      value={updatePublisherData.Mobile}
+                      name="Mobile"
                       type="text"
-                      placeholder="Phone Number"
+                      placeholder="Mobile Number"
                     />
                   </label>
                 </div>
@@ -427,6 +421,13 @@ const PublisherManagement = () => {
           </div>
         </div>
       )}
+      <DeleteModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={handleConfirmDelete}
+        value={"publisher"}
+      />
+      <ToastContainer />
     </div>
   );
 };

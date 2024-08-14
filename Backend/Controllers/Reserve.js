@@ -1,4 +1,5 @@
 import connection from "./../DataBase.js";
+import { sendMail } from "./../emailService.js";
 
 // Get reserved books of a user
 export const getReserveBooksOfUser = (req, res) => {
@@ -103,19 +104,50 @@ export const reserveBook = (req, res) => {
             return res.status(500).json({ error: "Internal server error" });
           }
 
-          res.status(201).json({ message: "Book reserved successfully" });
+          const emailQuery = `
+          SELECT Email
+          FROM User
+          WHERE User_ID = ?
+        `;
+          connection.query(emailQuery, [UserID], async (err, emailResults) => {
+            if (err) {
+              console.error("Error executing query:", err);
+              return res.status(500).json({ error: "Internal server error" });
+            }
+
+            if (emailResults.length === 0) {
+              return res.status(404).json({ error: "User not found" });
+            }
+
+            const { Email } = emailResults[0];
+            const userName = Email.split("@")[0];
+
+            const from = '"Infopulse Library" <maddison53@ethereal.email>';
+            const to = Email; // Corrected from userEmail to Email
+            const subject = "Book Reservation Confirmation";
+            const text = `Hello ${userName},\n\nYour reservation for the book copy (ID: ${Copy_ID}) has been confirmed.`;
+            const html = `<b>Hello ${userName},</b><br><br>Your reservation for the book copy (ID: ${Copy_ID}) has been confirmed.`;
+
+            try {
+              await sendMail({ from, to, subject, text, html });
+              res.status(201).json({ message: "Book reserved successfully" });
+            } catch (error) {
+              console.error("Error sending email:", error);
+              res.status(500).json({
+                error: "Reservation successful, but failed to send email",
+              });
+            }
+          });
         });
       }
     );
   });
 };
 
-// Get all reservations for the admin
 export const getReserves = (req, res) => {
   const query = `
     SELECT * FROM Reserve
   `;
-
   connection.query(query, (err, results) => {
     if (err) {
       console.error("Error executing query:", err);

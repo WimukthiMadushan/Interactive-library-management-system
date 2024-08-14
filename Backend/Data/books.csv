@@ -1,9 +1,9 @@
 Book_ID,ISBN_Number,Title,Author,Description,Published_Date,Category,Publisher,Image_Path,
 ,,,,,,,,
 100001," 978-3-16-148410-0"," Pride and Prejudice",1," A classic novel about the manners and matrimonial machinations among the British middle class."," 1813-01-28",1,1,"https://www.whitcoulls.co.nz/content/products/6381517_MAIN.jpg?enable=upscale&canvas=2:3&auto=webp&optimize=high&width=580"
-100002," 978-0-14-043912-0"," Great Expectations",2," The story of the orphan Pip and his growth and personal development."," 1861-08-01",1,2
-100003," 978-0-19-283398-3"," War and Peace",3," A historical novel that tells the story of French invasion of Russia."," 1869-01-01",12,3
-100004," 978-0-7432-7356-5"," The Adventures of Tom Sawyer",4," A novel about a young boy growing up along the Mississippi River."," 1876-12-10",18,4
+100002," 978-0-14-043912-0"," Great Expectations",2," The story of the orphan Pip and his growth and personal development."," 1861-08-01",1,2,"https://cdn.kobo.com/book-images/d1d264bb-edf9-4405-ab53-eb13f82342ab/353/569/90/False/great-expectations-398.jpg"
+100003," 978-0-19-283398-3"," War and Peace",3," A historical novel that tells the story of French invasion of Russia."," 1869-01-01",12,3,"https://www.imdb.com/title/tt3910804/mediaviewer/rm3121537536/?ref_=tt_ov_i"
+100004," 978-0-7432-7356-5"," The Adventures of Tom Sawyer",4," A novel about a young boy growing up along the Mississippi River."," 1876-12-10",18,4,"https://mpd-biblio-covers.imgix.net/9781429959278.jpg?w=900dpr=1"
 100005," 978-0-15-603008-3"," Mrs Dalloway",5," A novel that details a day in the life of Clarissa Dalloway."," 1925-05-14",23,5
 100006," 978-0-684-80152-9"," The Old Man and the Sea",6," The story of an aging Cuban fisherman who struggles with a giant marlin far out in the Gulf Stream."," 1952-09-01",5,6
 100007," 978-0-452-28423-4",1984,7," A dystopian social science fiction novel and cautionary tale about the future."," 1949-06-08",1,7
