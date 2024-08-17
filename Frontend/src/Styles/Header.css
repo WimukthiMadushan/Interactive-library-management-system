@@ -93,14 +93,6 @@
   animation: bounce 1s infinite alternate;
 }
 
-.search-button:hover {
-  background-color: #fab43c;
-}
-
-.search-button:active {
-  transform: translateY(1px);
-}
-
 @keyframes bounce {
   0% {
     transform: translateY(0);

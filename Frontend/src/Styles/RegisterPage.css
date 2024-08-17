@@ -70,18 +70,18 @@ input:focus {
 }
 
 .register-button button {
-  background-color: #fbb033;
+  background-color: #2a2a2a;
   color: #fff;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
-  border-radius: 25px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .register-button button:hover {
-  background-color: #d9915a;
+  background-color: #000000;
   transform: scale(1.05);
 }
 
@@ -103,18 +103,6 @@ form .email-password {
   margin-bottom: 10px;
 }
 
-.register-eye {
-  position: absolute;
-  left: 310px;
-  top: 130px;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: #ff7e5f;
-  z-index: 1;
-  transition: color 0.3s ease, transform 0.3s ease;
-  animation: pulse 1.5s infinite;
-}
-
 @keyframes pulse {
   0%,
   100% {
@@ -127,6 +115,7 @@ form .email-password {
 
 /* Hover effect */
 .register-eye:hover {
-  color: #feb47b;
+  scale: 1.1;
+  transition: 0.3s ease;
   transform: translateY(-50%) rotate(10deg);
 }

@@ -20,7 +20,7 @@ function Book() {
   const [loading, setLoading] = useState(false);
 
   const { authState } = useAuth();
-  const { userId } = authState;
+  const { userId, role } = authState;
 
   const bookId = location.pathname.split("/").pop();
 
@@ -155,6 +155,7 @@ function Book() {
             </div>
           </div>
         </div>
+
         <h2 style={{ marginTop: "2rem" }}>Available Copies</h2>
         <div className="book-copy-details">
           {bookCopy.map((copy) => (
@@ -193,6 +194,9 @@ function Book() {
               </button>
             </div>
           ))}
+        </div>
+        <div className="book-preview">
+          <h1>Book Preview</h1>
         </div>
         <div className="reviews">
           <h2>Reviews</h2>

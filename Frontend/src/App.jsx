@@ -20,6 +20,9 @@ import PublisherManagment from "./Pages/PublisherManagment.jsx";
 import UserManagment from "./Pages/UserManagment.jsx";
 import BorrowBookManagment from "./Pages/BorrowBookManagment.jsx";
 import ReservationManagment from "./Pages/ReservationManagment.jsx";
+import BookDetails from "./Pages/BookDetails.jsx";
+import AdminButtons from "./Pages/AdminButtons.jsx";
+import ReceptionDashboard from "./Pages/ReceptionDashboard.jsx";
 
 function App() {
   const { authState } = useAuth();
@@ -65,6 +68,9 @@ function App() {
             (role === "Receptionist" && <ReservationManagment />)
           }
         />
+        <Route path="/bookdetails" element={<BookDetails />} />
+        <Route path="/adminbuttons" element={<AdminButtons />} />
+        <Route path="/receptionbuttons" element={<ReceptionDashboard />} />
       </Routes>
     </div>
   );

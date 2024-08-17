@@ -5,13 +5,12 @@ export const getBorrowBooksOfUser = (req, res) => {
   const { id } = req.params;
   const sqlQuery = `
     SELECT 
-    Book.Title,
+      Book.Title,
       Borrow.Borrow_ID,
       Borrow.Book_ID,
       Borrow.Borrow_Date,
-      Book_Copy.Copy_ID,
-      Book_Copy.Book_ID,
-      Book_Copy.Language,
+      Borrow.Borrow_Time,
+      Borrow.Return_Date,
       Book_Copy.Book_Location,
       Language.Language_Name,
       Location.Floor,
@@ -271,12 +270,11 @@ export const returnBook = (req, res) => {
 export const renewBook = (req, res) => {
   const { id } = req.params;
 
-  // Update the Borrow table
   const updateBorrowQuery = `
     UPDATE Borrow
     SET Borrow_Date = CURDATE(), 
     Borrow_Time = CURTIME(),
-    Return_Date = DATE_ADD(CURDATE(), INTERVAL 2 WEEK)
+    Return_Date = DATE_ADD(CURDATE(), INTERVAL 14 DAY)
     WHERE Borrow_ID = ?
   `;
 
@@ -328,12 +326,10 @@ export const renewBook = (req, res) => {
             .json({ success: true, message: "Book renewed successfully" });
         } catch (error) {
           console.error("Error sending email:", error);
-          res
-            .status(500)
-            .json({
-              success: true,
-              message: "Book renewed successfully, but failed to send email",
-            });
+          res.status(500).json({
+            success: true,
+            message: "Book renewed successfully, but failed to send email",
+          });
         }
       });
     }

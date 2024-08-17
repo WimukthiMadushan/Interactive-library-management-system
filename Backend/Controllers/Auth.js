@@ -1,10 +1,31 @@
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
-import connection from "./../DataBase.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import connection from "./../DataBase.js";
 
-export const register = (req, res) => {
+dotenv.config(); // Load environment variables
+
+const { JWT_SECRET } = process.env;
+
+// Helper function for handling database queries with Promises
+const queryDatabase = (query, values) => {
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+// Helper function for sending formatted responses
+const sendResponse = (res, status, message, data = {}) => {
+  return res.status(status).json({ message, ...data });
+};
+
+export const register = async (req, res) => {
   const {
     First_Name,
     Last_Name,
@@ -16,108 +37,96 @@ export const register = (req, res) => {
     Mobile,
   } = req.body;
 
+  // Validate request body
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return sendResponse(res, 400, "Validation errors", {
+      errors: errors.array(),
+    });
   }
-  connection.query(
-    "SELECT * FROM User WHERE Username = ?",
-    [Username],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      if (result.length > 0) {
-        return res.status(400).json({ message: "User already exists" });
-      }
 
-      const hashedPassword = bcrypt.hashSync(Password, 10);
-
-      connection.query(
-        "INSERT INTO User ( First_Name, Last_Name,Username, Password, Email,Address, NIC, Mobile, Registered_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-          First_Name,
-          Last_Name,
-          Username,
-          hashedPassword,
-          Email,
-          Address,
-          NIC,
-          Mobile,
-          new Date().toISOString().slice(0, 19).replace("T", " "),
-        ],
-        (err, result) => {
-          if (err) {
-            console.error("Database error: ", err);
-            return res.status(500).json({ message: "Internal server error" });
-          }
-
-          return res.status(201).json({ message: "User created successfully" });
-        }
-      );
+  try {
+    // Check if user already exists
+    const existingUser = await queryDatabase(
+      "SELECT * FROM User WHERE Username = ?",
+      [Username]
+    );
+    if (existingUser.length > 0) {
+      return sendResponse(res, 400, "User already exists");
     }
-  );
+
+    // Hash password and insert new user
+    const hashedPassword = bcrypt.hashSync(Password, 10);
+    const result = await queryDatabase(
+      "INSERT INTO User (First_Name, Last_Name, Username, Password, Email, Address, NIC, Mobile, Registered_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        First_Name,
+        Last_Name,
+        Username,
+        hashedPassword,
+        Email,
+        Address,
+        NIC,
+        Mobile,
+        new Date().toISOString().slice(0, 19).replace("T", " "),
+      ]
+    );
+
+    return sendResponse(res, 201, "User created successfully");
+  } catch (error) {
+    console.error("Database error: ", error);
+    return sendResponse(res, 500, "Internal server error");
+  }
 };
 
-export const login = (req, res) => {
+export const login = async (req, res) => {
   const { Username, Password } = req.body;
-  //validate requesr body
+
+  // Validate request body
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return sendResponse(res, 400, "Validation errors", {
+      errors: errors.array(),
+    });
   }
-  // Check if the user exists
-  connection.query(
-    "SELECT * FROM User WHERE Username = ?",
-    [Username],
-    (err, result) => {
-      if (err) {
-        console.error("Database error: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
-      if (result.length === 0) {
-        return res
-          .status(400)
-          .json({ message: "Invalid username or password" });
-      }
 
-      // Check if the password is correct
-      //console.log(result);
-      const user = result[0];
-      if (!bcrypt.compareSync(Password, user.Password)) {
-        return res
-          .status(400)
-          .json({ message: "Invalid username or password" });
-      }
-
-      connection.query(
-        "SELECT Role FROM Staff WHERE User_ID = ?",
-        [user.User_ID],
-        (err, roleResult) => {
-          if (err) {
-            console.error("Database error: ", err);
-            return res.status(500).json({ message: "Internal server error" });
-          }
-
-          const role = roleResult.length > 0 ? roleResult[0].Role : "default";
-
-          // User authenticated, generate JWT token
-          const token = jwt.sign(
-            { Username: user.Username, ID: user.User_ID, Role: role },
-            "process.env.JWT_SECRET",
-            { expiresIn: "10min" } // Token expiration time
-          );
-
-          // Return token to client
-          return res.status(200).json({
-            message: "User logged in successfully",
-            token: token,
-            userId: user.User_ID,
-            role: role,
-          });
-        }
-      );
+  try {
+    // Check if the user exists
+    const users = await queryDatabase("SELECT * FROM User WHERE Username = ?", [
+      Username,
+    ]);
+    if (users.length === 0) {
+      return sendResponse(res, 400, "Invalid username or password");
     }
-  );
+
+    const user = users[0];
+
+    // Check if the password is correct
+    if (!bcrypt.compareSync(Password, user.Password)) {
+      return sendResponse(res, 400, "Invalid username or password");
+    }
+
+    // Fetch user role
+    const roles = await queryDatabase(
+      "SELECT Role FROM Staff WHERE User_ID = ?",
+      [user.User_ID]
+    );
+    const role = roles.length > 0 ? roles[0].Role : "default";
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { Username: user.Username, ID: user.User_ID, Role: role },
+      JWT_SECRET,
+      { expiresIn: "10m" }
+    );
+
+    return sendResponse(res, 200, "User logged in successfully", {
+      token,
+      userId: user.User_ID,
+      role,
+    });
+  } catch (error) {
+    console.error("Database error: ", error);
+    return sendResponse(res, 500, "Internal server error");
+  }
 };

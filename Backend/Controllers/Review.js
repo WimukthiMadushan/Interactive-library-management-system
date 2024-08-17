@@ -16,18 +16,34 @@ export const getReview = (req, res) => {
 };
 
 export const createReview = (req, res) => {
-  const { BookID, User_ID, Rating, Review } = req.body;
+  const { BookID, Borrow_ID, Rating, Review } = req.body;
+  //find userID using Borrow ID
   connection.query(
-    "INSERT INTO Review (Book_ID, User_ID, Rating, Review) VALUES (?, ?, ?, ?)",
-    [BookID, User_ID, Rating, Review],
+    "SELECT User_ID FROM Borrow WHERE Borrow_ID = ?",
+    [Borrow_ID],
     (err, results) => {
       if (err) {
         console.error("Error executing query:", err);
         return res.status(500).json({ error: "Internal server error" });
       }
-      res.status(200).json({ message: "Review created successfully" });
+      const User_ID = results[0].User_ID;
+      insertReview(User_ID);
     }
   );
+
+  const insertReview = (User_ID) => {
+    connection.query(
+      "INSERT INTO Review (Book_ID, User_ID, Rating, Review, Review_Date) VALUES (?, ?, ?, ?, ?)",
+      [BookID, User_ID, Rating, Review, new Date()],
+      (err, results) => {
+        if (err) {
+          console.error("Error executing query:", err);
+          return res.status(500).json({ error: "Internal server error" });
+        }
+        res.status(201).json({ message: "Review added successfully" });
+      }
+    );
+  };
 };
 
 export const updateReview = (req, res) => {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import User from "./../Images/user.png";
 import "./../Styles/BorrowBookManagment.css";
 import PaginationButtons from "../Components/PaginationButtons";
 import AddBorrows from "./../Components/AddBorrows";
@@ -10,28 +9,31 @@ function BorrowBookManagement() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isAddBorrowOpen, setIsAddBorrowOpen] = useState(false);
+  const [showReturnModal, setShowReturnModal] = useState(false);
+  const [showRenewModal, setShowRenewModal] = useState(false);
+  const [selectedBorrowId, setSelectedBorrowId] = useState(null);
 
   const itemsPerPage = 10;
 
-  useEffect(() => {
-    const fetchBorrows = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/borrow");
-        const formattedData = response.data.map((borrow) => ({
-          ...borrow,
-          Borrow_Date: new Date(borrow.Borrow_Date).toISOString().split("T")[0],
-          Return_Date: borrow.Return_Date
-            ? new Date(borrow.Return_Date).toISOString().split("T")[0]
-            : null,
-        }));
-        setBorrows(formattedData);
-      } catch (error) {
-        console.error("Error fetching borrows:", error);
-      }
-    };
+  const fetchBorrows = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/borrow");
+      const formattedData = response.data.map((borrow) => ({
+        ...borrow,
+        Borrow_Date: new Date(borrow.Borrow_Date).toISOString().split("T")[0],
+        Return_Date: borrow.Return_Date
+          ? new Date(borrow.Return_Date).toISOString().split("T")[0]
+          : null,
+      }));
+      setBorrows(formattedData);
+    } catch (error) {
+      console.error("Error fetching borrows:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchBorrows();
-  }, [searchQuery]);
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -56,13 +58,20 @@ function BorrowBookManagement() {
     setCurrentPage(pageNumber);
   };
 
-  const handleReturn = async (id) => {
+  const confirmReturn = (id) => {
+    setSelectedBorrowId(id);
+    setShowReturnModal(true);
+  };
+
+  const handleConfirmReturn = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/borrow/return/${id}`
+        `http://localhost:5000/api/borrow/return/${selectedBorrowId}`
       );
       if (response.data.success) {
         console.log("Book returned successfully");
+        setShowReturnModal(false);
+        fetchBorrows(); // Fetch updated data
       } else {
         console.log("Error returning the book");
       }
@@ -71,13 +80,15 @@ function BorrowBookManagement() {
     }
   };
 
-  const handleRenew = async (id) => {
+  const handleRenew = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/borrow/renew/${id}`
+        `http://localhost:5000/api/borrow/renew/${selectedBorrowId}`
       );
       if (response.data.success) {
         console.log("Book renewed successfully");
+        setShowRenewModal(false);
+        fetchBorrows(); // Fetch updated data
       } else {
         console.log("Error renewing the book");
       }
@@ -90,10 +101,45 @@ function BorrowBookManagement() {
     setIsAddBorrowOpen(!isAddBorrowOpen);
   };
 
+  const confirmRenew = (id) => {
+    setSelectedBorrowId(id);
+    setShowRenewModal(true);
+  };
+
+  const renderModal = (modalType, showModal, onClose, onConfirm) => (
+    <div
+      className={`modal fade ${showModal ? "show d-block" : ""}`}
+      tabIndex="-1"
+      role="dialog"
+      aria-labelledby={`${modalType}ModalLabel`}
+      aria-hidden={!showModal}
+    >
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id={`${modalType}ModalLabel`}>
+              Confirm {modalType.charAt(0).toUpperCase() + modalType.slice(1)}
+            </h5>
+          </div>
+          <div className="modal-body">
+            Are you sure you want to {modalType} this book?
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-danger" onClick={onClose}>
+              Cancel
+            </button>
+            <button type="button" className="btn btn-dark" onClick={onConfirm}>
+              Confirm {modalType.charAt(0).toUpperCase() + modalType.slice(1)}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="view-authors-container">
       <div className="book-management-image">
-        <img src={User} alt="User Icon" />
         <h2>Borrow Books Management</h2>
       </div>
       <div className="book-management-buttons">
@@ -133,18 +179,19 @@ function BorrowBookManagement() {
                 <td>{borrow.Borrow_Time}</td>
                 <td>{borrow.Return_Date}</td>
                 <td>
-                  {borrow.isComplete === 1 ? "Complete" : "Not yet Return"}
+                  {borrow.isComplete === 1 ? "Complete" : "Not yet Returned"}
                 </td>
                 <td className="action-column">
                   <button
                     className="action-button return-button"
-                    onClick={() => handleReturn(borrow.Borrow_ID)}
+                    onClick={() => confirmReturn(borrow.Borrow_ID)}
+                    disabled={borrow.isComplete === 1}
                   >
                     Return
                   </button>
                   <button
                     className="action-button renew-button"
-                    onClick={() => handleRenew(borrow.Borrow_ID)}
+                    onClick={() => confirmRenew(borrow.Borrow_ID)}
                   >
                     Renew
                   </button>
@@ -162,6 +209,19 @@ function BorrowBookManagement() {
         />
       </div>
       {isAddBorrowOpen && <AddBorrows onClose={toggleAddPopup} />}
+
+      {renderModal(
+        "return",
+        showReturnModal,
+        () => setShowReturnModal(false),
+        handleConfirmReturn
+      )}
+      {renderModal(
+        "renew",
+        showRenewModal,
+        () => setShowRenewModal(false),
+        handleRenew
+      )}
     </div>
   );
 }

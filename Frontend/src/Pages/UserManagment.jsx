@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./../Styles/UserManagment.css";
-import User from "./../Images/user.png";
 import PaginationButtons from "../Components/PaginationButtons";
-import DeleteModal from "../Components/DeleteModal";
+import DeleteModal from "./../Components/Modals/DeleteModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -84,7 +83,6 @@ function UserManagment() {
     <div className="user-managment-container">
       <div className="user-managment-above">
         <div className="book-managment-image">
-          <img src={User} alt="User" />
           <h2>User Management</h2>
         </div>
       </div>
@@ -125,7 +123,7 @@ function UserManagment() {
                 <td>{formatDate(user.Registered_Date)}</td>
                 <td>
                   <button
-                    className="action-button user-delete-button"
+                    className="user-managment-delete-button"
                     onClick={() => handleDelete(user.User_ID)}
                   >
                     Delete

@@ -1,92 +1,70 @@
-* {
+.footer {
+  background-color: #000;
+  color: white;
+  padding: 2rem 0;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 600px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.footer-list {
+  list-style: none;
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
 }
 
-footer {
-  background-color: #111;
-  bottom: 0px;
-  width: 100vw;
-}
-
-.footerContainer {
-  width: 100vw;
-  padding: 50px 30px 20px;
-  bottom: 0px;
-}
-
-.socialIcons {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.socialIcons a {
+.footer-link {
+  color: white;
   text-decoration: none;
-  padding: 10px;
-  background-color: inherit;
-  margin: 10px;
-  border-radius: 50%;
-  justify-content: center;
+  font-size: 0.975rem;
 }
 
-.socialIcons a svg {
-  font-size: 40px;
-  color: #ffffff;
-  opacity: 0.9;
-  margin: 10px;
-}
-
-/* Hover effect on social media icon */
-.socialIcons a:hover {
-  background-color: #111;
-  transition: 0.5s;
-}
-
-.socialIcons a:hover svg {
+.footer-link:hover {
+  text-decoration: underline;
   color: #fbb033;
-  transition: 0.5s;
+  transform: 0.3s ease;
 }
 
-.footerNav {
-  margin: 30px 0;
-  margin-left: 100px;
-}
-
-.footerNav ul {
-  display: flex;
-  justify-content: center;
-  list-style-type: none;
-}
-
-.footerNav ul li a {
-  color: #ffffff;
-  margin: 20px;
-  text-decoration: none;
-  font-size: 1.3em;
-  opacity: 0.7;
-  transition: 0.5s;
-}
-
-.footerNav ul li a:hover {
-  opacity: 1;
-}
-
-.footerBottom {
-  background-color: #000;
-  padding: 20px;
-  text-align: center;
-}
-
-.footerBottom p {
+.footer-text {
+  font-size: 0.975rem;
+  line-height: 1.5;
   color: white;
 }
 
-.designer {
-  opacity: 0.7;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 400;
-  margin: 0px 5px;
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 2rem;
 }

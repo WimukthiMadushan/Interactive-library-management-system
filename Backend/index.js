@@ -15,27 +15,32 @@ import reserveRoutes from "./Routes/Reserve.js";
 import authorRoutes from "./Routes/Author.js";
 import languageRoutes from "./Routes/Language.js";
 
+dotenv.config(); // Load environment variables
+
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
+
 app.use(express.json());
 app.use(bodyParser.json());
+
 app.use(
   session({
-    secret: "secret",
+    secret: process.env.SESSION_SECRET || "default_secret",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 * 60 },
-  })
-);
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Allow requests from this origin
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+    cookie: { maxAge: 60 * 60 * 1000 }, // 1 hour
   })
 );
 
-//Routes....
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// Route handlers
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/book", bookRoutes);
@@ -47,7 +52,15 @@ app.use("/api/borrow", borrowRoutes);
 app.use("/api/reserve", reserveRoutes);
 app.use("/api/author", authorRoutes);
 app.use("/api/language", languageRoutes);
+
+// Serve static files
 app.use("/books", express.static("books"));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);

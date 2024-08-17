@@ -138,7 +138,7 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
   return (
     <div className={`modal ${showPopup ? "show" : ""}`}>
       <div className="modal-content">
-        <span className="close" onClick={togglePopup}>
+        <span className="book-copy-close" onClick={togglePopup}>
           &times;
         </span>
         <form className="container" onSubmit={handleSubmit}>

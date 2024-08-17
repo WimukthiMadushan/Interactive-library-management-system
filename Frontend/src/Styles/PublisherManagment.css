@@ -5,9 +5,7 @@
   opacity: 0;
   padding: 10px;
   animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
-  animation-delay: 0.6s;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  animation-delay: 0.2s;
   background-color: #fff; /* Optional: Set a background color */
 }
 
@@ -23,46 +21,26 @@
   }
 }
 
-/* Left Section (Image and Buttons) */
 .publisher-management-left {
   text-align: center;
   margin-bottom: 20px;
 }
-
-.publisher-management-image {
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  animation: zoomInQuick 0.5s forwards ease-in-out;
-  animation-delay: 0.5s;
-}
-.publisher-management-image img {
-  width: 15%;
-}
-
-/* Quick Zoom-in Animation */
-@keyframes zoomInQuick {
-  from {
-    transform: scale(0.7);
-  }
-  to {
-    transform: scale(1);
-  }
+.publisher-management-image h2 {
+  font-size: 3rem;
+  margin-top: 5rem;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .publisher-management-buttons {
-  width: 40%;
+  width: 30%;
   margin: 0 auto;
   text-align: center;
   margin-bottom: 20px;
 }
 .add-publisher-button {
   padding: 10px 20px;
-  background-color: #3b3c3b;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 4px;
@@ -118,6 +96,7 @@
 
 .publisher-management-search {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .search-publisher {

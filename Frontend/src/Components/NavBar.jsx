@@ -29,7 +29,7 @@ function NavBar() {
   }, [dropdownRef]);
 
   const { authState, logout } = useAuth();
-  const { userId } = authState;
+  const { userId, role } = authState;
 
   const handleLogout = () => {
     logout();
@@ -60,6 +60,16 @@ function NavBar() {
           <li>
             <a href="#contact">Contact</a>
           </li>
+          {role === "Administrator" && (
+            <li>
+              <Link to={"/adminbuttons"}>Admin</Link>
+            </li>
+          )}
+          {role === "Receptionist" && (
+            <li>
+              <Link to={"/receptionbuttons"}>Reception</Link>
+            </li>
+          )}
         </ul>
       </div>
       <div className="navbar-right">
@@ -75,6 +85,9 @@ function NavBar() {
               >
                 <Link to={"/profile"} className="dropdown-item">
                   Profile
+                </Link>
+                <Link to={"/bookdetails"} className="dropdown-item">
+                  Book Details
                 </Link>
                 <button className="dropdown-item" onClick={handleLogout}>
                   Logout

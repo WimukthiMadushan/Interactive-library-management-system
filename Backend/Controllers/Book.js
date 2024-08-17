@@ -19,7 +19,7 @@ export const getBook = (req, res) => {
       Book.PDF_Link,
       Book.Image_Path,
       Book.Image_Name,
-      CONCAT(Publisher.Publisher_First_Name, ' ', Publisher_Last_Name) AS Publisher_Name,
+      CONCAT(Publisher.Publisher_First_Name, ' ', Publisher.Publisher_Last_Name) AS Publisher_Name,
       Category.Cat_Name AS Category_Name
     FROM 
       Book
@@ -33,36 +33,18 @@ export const getBook = (req, res) => {
   connection.query(query, [id], (err, results) => {
     if (err) {
       console.error("Error executing query:", err);
-      return res.status(500).json({
-        error: "Internal server error",
-      });
+      return res.status(500).json({ error: "Internal server error" });
     }
     if (results.length === 0) {
-      return res.status(404).json({
-        error: "Book not found",
-      });
+      return res.status(404).json({ error: "Book not found" });
     }
-
     res.status(200).json(results[0]);
   });
 };
 
-export const getBooks = (req, res) => {
-  connection.query("SELECT * FROM Book", (err, results) => {
-    if (err) {
-      console.error("Error executing query:", err);
-      return res.status(500).json({
-        error: "Internal server error",
-      });
-    }
-    res.status(200).json(results);
-  });
-};
-
-// for the add book in receptionist
+//.........................................not work..............................................................................
 export const addBook = (req, res) => {
-  let Image_Name = `${req.file.filename}`;
-
+  const { filename: Image_Name } = req.file || {};
   const {
     ISBN_Number,
     Title,
@@ -85,41 +67,34 @@ export const addBook = (req, res) => {
       Publisher,
       Image_Name,
     ],
-    (err, result) => {
+    (err) => {
       if (err) {
         console.error("Error executing query:", err);
-        return res.status(500).json({
-          error: "Internal server error",
-        });
+        return res.status(500).json({ error: "Internal server error" });
       }
-      res.status(201).json({
-        message: "Book added successfully",
-      });
+      res.status(201).json({ message: "Book added successfully" });
     }
   );
 };
+//...........................................................................................................................
 
-// for the add book copies in receptionist
 export const getBookNames = (req, res) => {
   connection.query("SELECT Book_ID, Title FROM Book", (err, results) => {
     if (err) {
       console.error("Error executing query:", err);
-      return res.status(500).json({
-        error: "Internal server error",
-      });
+      return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json(results);
   });
 };
 
-// for view books in receptionist
 export const getBookList = (req, res) => {
   const query = `
     SELECT 
       Book.Book_ID,
       Book.ISBN_Number,
       Book.Title,
-      CONCAT(Author.First_Name, '', Author.Last_Name) AS Author,
+      CONCAT(Author.First_Name, ' ', Author.Last_Name) AS Author,
       Book.Description,
       Book.Published_Date,
       Category.Cat_Name AS Category,
@@ -129,23 +104,20 @@ export const getBookList = (req, res) => {
       Book
     JOIN Author ON Book.Author = Author.Author_ID
     JOIN Category ON Book.Category = Category.Cat_ID
-    `;
+  `;
   connection.query(query, (err, results) => {
     if (err) {
       console.error("Error executing query:", err);
-      return res.json({
-        success: false,
-        message: "Error fetching items",
-      });
+      return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json(results);
   });
 };
 
+//......................have to check........................................................
 export const getBooksFromFilters = (req, res) => {
   const { title, author, category } = req.query;
 
-  // Construct SQL query with joins and filters
   let sqlQuery = `
     SELECT b.*, a.First_Name AS Author_First_Name, a.Last_Name AS Author_Last_Name,
            p.Publisher_First_Name, p.Publisher_Last_Name,
@@ -156,24 +128,24 @@ export const getBooksFromFilters = (req, res) => {
     INNER JOIN Category c ON b.Category = c.Cat_ID
     WHERE 1=1`;
 
-  // Add filters to SQL query dynamically
+  const params = [];
   if (title) {
-    sqlQuery += ` AND b.Title LIKE '%${title}%'`;
+    sqlQuery += ` AND b.Title LIKE ?`;
+    params.push(`%${title}%`);
   }
   if (author) {
-    sqlQuery += ` AND (a.First_Name LIKE '%${author}%' OR a.Last_Name LIKE '%${author}%')`;
+    sqlQuery += ` AND (a.First_Name LIKE ? OR a.Last_Name LIKE ?)`;
+    params.push(`%${author}%`, `%${author}%`);
   }
   if (category) {
-    sqlQuery += ` AND c.Cat_Name = '${category}'`;
+    sqlQuery += ` AND c.Cat_Name = ?`;
+    params.push(category);
   }
 
-  // Execute SQL query
-  connection.query(sqlQuery, (err, results) => {
+  connection.query(sqlQuery, params, (err, results) => {
     if (err) {
       console.error("Error executing query:", err);
-      return res.status(500).json({
-        error: "Internal server error",
-      });
+      return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json(results);
   });
@@ -182,102 +154,120 @@ export const getBooksFromFilters = (req, res) => {
 export const deleteBook = (req, res) => {
   const { id } = req.params;
 
-  connection.query(
-    "SELECT Image_Path FROM Book WHERE Book_ID = ?",
-    [id],
-    (err, results) => {
-      if (err) {
-        console.error("Error fetching book details: ", err);
-        return res.status(500).json({ message: "Internal server error" });
-      }
+  // Check if the book is borrowed or reserved
+  const checkQueries = [
+    {
+      sql: "SELECT COUNT(*) AS count FROM Borrow WHERE Book_ID IN (SELECT Copy_ID FROM Book_Copy WHERE Book_ID = ?)",
+      params: [id],
+    },
+    {
+      sql: "SELECT COUNT(*) AS count FROM Reserve WHERE Book_ID IN (SELECT Copy_ID FROM Book_Copy WHERE Book_ID = ?)",
+      params: [id],
+    },
+  ];
 
-      if (results.length === 0) {
-        return res.status(404).json({ message: "Book not found" });
-      }
+  let borrowedOrReserved = false;
 
-      const imagePath = results[0].Image_Path;
-      console.log("Image path: ", imagePath);
-
-      const queries = [
-        {
-          sql: "DELETE FROM Borrow WHERE Book_ID IN (SELECT Copy_ID FROM Book_copy WHERE Book_ID = ?)",
-          params: [id],
-        },
-        {
-          sql: "DELETE FROM Reserve WHERE Book_ID IN (SELECT Copy_ID FROM Book_copy WHERE Book_ID = ?)",
-          params: [id],
-        },
-        { sql: "DELETE FROM Book_copy WHERE Book_ID = ?", params: [id] },
-        { sql: "DELETE FROM Review WHERE Book_ID = ?", params: [id] },
-        { sql: "DELETE FROM Book WHERE Book_ID = ?", params: [id] },
-      ];
-
-      connection.beginTransaction((err) => {
+  const checkStatus = (index) => {
+    if (index < checkQueries.length) {
+      const { sql, params } = checkQueries[index];
+      connection.query(sql, params, (err, results) => {
         if (err) {
-          console.error("Error starting transaction: ", err);
+          console.error("Database error:", err);
           return res.status(500).json({ message: "Internal server error" });
         }
+        if (results[0].count > 0) {
+          borrowedOrReserved = true;
+        }
+        checkStatus(index + 1);
+      });
+    } else {
+      if (borrowedOrReserved) {
+        return res.status(400).json({
+          message:
+            "Book is currently borrowed or reserved and cannot be deleted",
+        });
+      } else {
+        // Proceed with the deletion of the book
+        connection.query(
+          "SELECT Image_Path FROM Book WHERE Book_ID = ?",
+          [id],
+          (err, results) => {
+            if (err) {
+              console.error("Error fetching book details:", err);
+              return res.status(500).json({ message: "Internal server error" });
+            }
 
-        const executeQuery = (index) => {
-          if (index < queries.length) {
-            const { sql, params } = queries[index];
-            connection.query(sql, params, (err, result) => {
+            if (results.length === 0) {
+              return res.status(404).json({ message: "Book not found" });
+            }
+
+            const imagePath = results[0].Image_Path;
+
+            connection.beginTransaction((err) => {
               if (err) {
-                return connection.rollback(() => {
-                  console.error("Database error: ", err);
-                  return res
-                    .status(500)
-                    .json({ message: "Internal server error" });
-                });
-              }
-              executeQuery(index + 1);
-            });
-          } else {
-            connection.commit((err) => {
-              if (err) {
-                return connection.rollback(() => {
-                  console.error("Error committing transaction: ", err);
-                  return res
-                    .status(500)
-                    .json({ message: "Internal server error" });
-                });
+                console.error("Error starting transaction:", err);
+                return res
+                  .status(500)
+                  .json({ message: "Internal server error" });
               }
 
-              // Unlink the image file after successful deletion of the book
-              if (imagePath) {
-                // Convert the URL to a local file path, assuming all images are stored under the 'books/' directory
-                const localImagePath = path.join(
-                  __dirname,
-                  "books",
-                  path.basename(imagePath)
-                );
-
-                fs.unlink(localImagePath, (err) => {
+              connection.query(
+                "DELETE FROM Book WHERE Book_ID = ?",
+                [id],
+                (err) => {
                   if (err) {
-                    console.error("Error deleting image file: ", err);
-                  } else {
-                    console.log("Image file deleted successfully");
+                    return connection.rollback(() => {
+                      console.error("Database error:", err);
+                      return res
+                        .status(500)
+                        .json({ message: "Internal server error" });
+                    });
                   }
-                });
-              }
 
-              return res
-                .status(200)
-                .json({ message: "Book deleted successfully" });
+                  connection.commit((err) => {
+                    if (err) {
+                      return connection.rollback(() => {
+                        console.error("Error committing transaction:", err);
+                        return res
+                          .status(500)
+                          .json({ message: "Internal server error" });
+                      });
+                    }
+
+                    if (imagePath) {
+                      const localImagePath = path.join(
+                        __dirname,
+                        "books",
+                        path.basename(imagePath)
+                      );
+                      fs.unlink(localImagePath, (err) => {
+                        if (err) {
+                          console.error("Error deleting image file:", err);
+                        } else {
+                          console.log("Image file deleted successfully");
+                        }
+                      });
+                    }
+
+                    res
+                      .status(200)
+                      .json({ message: "Book deleted successfully" });
+                  });
+                }
+              );
             });
           }
-        };
-
-        executeQuery(0);
-      });
+        );
+      }
     }
-  );
+  };
+
+  checkStatus(0);
 };
 
+//...........................not work ..........................................
 export const updateBook = (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
-
   const { id } = req.params;
   const Image_Name = req.file ? req.file.filename : null;
   const {
@@ -310,7 +300,7 @@ export const updateBook = (req, res) => {
   query += " WHERE Book_ID = ?";
   queryParams.push(id);
 
-  connection.query(query, queryParams, (err, result) => {
+  connection.query(query, queryParams, (err) => {
     if (err) {
       console.error("Error executing query:", err);
       return res.status(500).json({ error: "Internal server error" });

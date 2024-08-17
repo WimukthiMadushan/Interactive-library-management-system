@@ -1,11 +1,29 @@
-/* General Popup Styles */
+/* Card Container */
+.popup {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: box-shadow 0.3s ease-in-out;
+  transform: none;
+  animation: none;
+  overflow: visible;
+}
 
+.popup:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Popup Overlay */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh; /* Adjusted to fit the viewport */
+  height: 100vh;
   background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
@@ -14,97 +32,117 @@
   animation: fadeInQuick 0.4s ease-in-out;
 }
 
-.rs-picker-popup-date {
-  width: 320px;
-}
-.rs-stack {
-  width: 100%;
+/* Popup Header */
+.popup-header {
+  margin-bottom: 16px;
 }
 
-.date-picker {
-  border: none;
-  background: none;
-  box-shadow: none;
-  margin-bottom: 10px;
-  padding: 0;
-}
-.popup {
-  position: absolute;
-  top: -7rem;
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  position: relative;
-  transform: scale(0);
-  animation: scaleUpQuick 0.2s forwards;
-  overflow: visible;
+.popup-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
 }
 
-/* Container and Form Fields */
-.container {
+.popup-description {
+  color: #777;
+  font-size: 16px;
+}
+
+/* Popup Content */
+.popup-content {
+  margin-bottom: 24px;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Form Fields */
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 6px;
 }
 
-.container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
+.label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
 }
 
-.multi-fields {
-  display: flex;
-  gap: 10px;
+.input,
+.textarea,
+.select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 10px;
   margin-bottom: 10px;
+  width: 97%;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.multi-fields input,
-.container input {
-  flex: 1;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.input:hover,
+.textarea:hover,
+.select:hover {
+  border-color: #000000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.multi-fields input:focus,
-.container input:focus {
-  border-color: #fbb034;
-  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: #000000;
+  outline: none;
+  box-shadow: 0 2px 10px rgba(37, 37, 37, 0.2);
 }
 
-textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-textarea:focus {
-  border-color: #fbb034;
-  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
+.textarea {
+  resize: vertical;
 }
 
 /* Button Styles */
 .add-button {
-  padding: 10px;
-  background-color: #3b3c3b;
-  color: white;
+  padding: 12px 24px;
+  background-color: #000000;
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s;
+  width: 100%;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .add-button:hover {
-  background-color: #565656;
+  background-color: #000000;
   transform: translateY(-2px);
+}
+
+.add-button:active {
+  background-color: #242424;
+  transform: translateY(1px);
+}
+
+.multi-select {
+  margin-top: 10px;
+}
+/* Additional Styles */
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin-top: 10px;
+}
+
+.select::-ms-expand {
+  display: none;
 }
 
 /* Image Upload Section */
@@ -124,9 +162,10 @@ textarea:focus {
 }
 
 .add-img-upload img:hover {
-  border-color: #fbb034;
+  border-color: #000000;
 }
 
+/* Close Button */
 .add-books-close-button {
   display: inline-block;
   position: absolute;
@@ -138,26 +177,12 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease; /* Smooth transition for the rotation */
-}
-.add-books-close-button img {
-  width: 30px;
-  height: 30px;
-}
-
-/* Define the initial rotation state */
-.add-books-close-button svg {
   transition: transform 0.3s ease;
-  background: none;
 }
 
-@keyframes fadeInQuick {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.add-books-close-button:hover {
+  background-color: white;
+  transform: scale(1.5);
 }
 
 /* Responsive adjustments */
@@ -167,11 +192,13 @@ textarea:focus {
     padding: 20px;
   }
 }
-.multi-select {
-  display: flex;
-  gap: 10px; /* Adjust the gap between selects */
-}
 
-.addbook-select {
-  width: 200px; /* Ensure this matches your customStyles width */
+/* Keyframes */
+@keyframes fadeInQuick {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

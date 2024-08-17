@@ -95,8 +95,8 @@ connection.connect((err) => {
     return;
   }
   console.log("Database connection established");
-  DropTables();
-  createTable(
+  //DropTables();
+  /*createTable(
     User,
     Author,
     Category,
@@ -111,6 +111,7 @@ connection.connect((err) => {
     Reserve
   );
   insertData();
+  */
   console.log("Database connected");
 });
 

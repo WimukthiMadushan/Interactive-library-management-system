@@ -1,0 +1,76 @@
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #000000, #363636);
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-container h1 {
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.main-content {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.reception-card-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin-top: 4rem;
+  margin-left: 18rem;
+}
+
+.reception-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.8rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 20rem;
+  align-items: center;
+}
+
+.reception-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+  font-size: 2rem;
+  color: #000000;
+}
+
+.reception-text-content {
+  margin-top: 1rem;
+}
+
+.reception-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.reception-description {
+  color: #555;
+  margin: 1rem 0;
+}
+
+.reception-card-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.reception-card-link:hover {
+  background-color: #222222;
+}

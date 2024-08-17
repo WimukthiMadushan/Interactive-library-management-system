@@ -3,10 +3,12 @@ import axios from "axios";
 import { DatePicker } from "rsuite";
 import Select from "react-select";
 import "rsuite/DatePicker/styles/index.css";
-import "./../Styles/AddBooks.css"; // Reusing the same styles as AddBooks
+import "./../Styles/AddBooks.css";
 import upload_area from "./../Images/upload_area.png";
-import Close from "./../Images/close.png";
+import { MdClose } from "react-icons/md";
 import { StoreContext } from "./../Hooks/StoreContext.jsx";
+import { Modal, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const UpdateBook = ({ id, togglePopup }) => {
   const { publisherOptions, authorOptions, categoryOptions } =
@@ -25,6 +27,10 @@ const UpdateBook = ({ id, togglePopup }) => {
     Category: "",
   });
 
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [messageContent, setMessageContent] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" or "error"
+
   useEffect(() => {
     const fetchBook = async () => {
       try {
@@ -32,9 +38,10 @@ const UpdateBook = ({ id, togglePopup }) => {
           `http://localhost:5000/api/book/${id}`
         );
         setBook(response.data);
-        //console.log(response.data);
       } catch (error) {
-        console.error("Error fetching book:", error);
+        setMessageContent("Error fetching book details.");
+        setMessageType("error");
+        setShowMessageModal(true);
       }
     };
 
@@ -88,11 +95,14 @@ const UpdateBook = ({ id, togglePopup }) => {
         `http://localhost:5000/api/book/${id}`,
         formData
       );
-      setBook(response.data);
-
-      togglePopup();
+      setMessageContent("Book updated successfully.");
+      setMessageType("success");
     } catch (error) {
       console.error("Error updating book:", error);
+      setMessageContent("Failed to update book. Please try again.");
+      setMessageType("error");
+    } finally {
+      setShowMessageModal(true);
     }
   };
 
@@ -107,7 +117,7 @@ const UpdateBook = ({ id, togglePopup }) => {
           <div className="add-books">
             <h1>Update Book</h1>
             <button className="add-books-close-button" onClick={togglePopup}>
-              <img src={Close} alt="Close" />
+              <MdClose />
             </button>
             <div className="add-img-upload flex-col">
               <p>Upload Book Image</p>
@@ -236,6 +246,24 @@ const UpdateBook = ({ id, togglePopup }) => {
           </div>
         </form>
       </div>
+
+      {/* Message Modal */}
+      <Modal show={showMessageModal} onHide={() => setShowMessageModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {messageType === "success" ? "Success" : "Error"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{messageContent}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowMessageModal(false)}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

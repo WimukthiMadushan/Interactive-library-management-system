@@ -1,59 +1,15 @@
 import React, { useState, useContext } from "react";
-import { DatePicker } from "rsuite";
-import Select from "react-select";
-import "rsuite/DatePicker/styles/index.css";
-import "./../Styles/AddBooks.css";
-import upload_area from "./../Images/upload_area.png";
-import Close from "./../Images/close.png";
+import { MdClose } from "react-icons/md";
 import { StoreContext } from "./../Hooks/StoreContext.jsx";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Modal, Button } from "react-bootstrap";
+import "./../Styles/AddBooks.css";
 
-const AddBooks = ({ showPopup, togglePopup }) => {
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      display: "flex",
-      flexDirection: "row-reverse",
-      minHeight: "36px",
-      height: "36px",
-    }),
-    indicatorsContainer: (provided) => ({
-      ...provided,
-      display: "none",
-
-      height: "36px",
-    }),
-    valueContainer: (provided) => ({
-      ...provided,
-      display: "flex",
-      padding: "0 0 0 12px",
-    }),
-    input: (provided) => ({
-      ...provided,
-      margin: "0",
-      padding: "0",
-    }),
-    placeholder: (provided) => ({
-      ...provided,
-      margin: "0",
-      padding: "0",
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      margin: "0",
-      padding: "0",
-      lineHeight: "36px",
-    }),
-    container: (provided) => ({
-      ...provided,
-      width: "250px", // Set your desired width here
-    }),
-  };
+export default function AddBook({ showPopup, togglePopup }) {
   const { publisherOptions, authorOptions, categoryOptions } =
     useContext(StoreContext);
 
+  const [selectedDate, setSelectedDate] = useState("");
   const [image, setImage] = useState(null);
   const [data, setData] = useState({
     title: "",
@@ -65,56 +21,40 @@ const AddBooks = ({ showPopup, togglePopup }) => {
     pdate: "",
   });
 
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   const handleChange = (event) => {
-    if (event.target) {
-      const { name, value } = event.target;
-      setData((data) => ({ ...data, [name]: value }));
-    } else {
-      const { name, value } = event;
-      setData((data) => ({ ...data, [name]: value }));
-    }
+    const { name, value } = event.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const authorIdMatch = data.author.match(/^\d+/);
-  const authorId = authorIdMatch ? authorIdMatch[0] : "";
-  const categoryIdMatch = data.category.match(/^\d+/);
-  const categoryId = categoryIdMatch ? categoryIdMatch[0] : "";
-  const publisherIdMatch = data.publisher.match(/^\d+/);
-  const publisherId = publisherIdMatch ? publisherIdMatch[0] : "";
-
-  const formatDate = (date) => {
-    const d = new Date(date);
-    let month = "" + (d.getMonth() + 1);
-    let day = "" + d.getDate();
-    const year = d.getFullYear();
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return [year, month, day].join("-");
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+    setData((prevData) => ({ ...prevData, pdate: event.target.value }));
   };
-
-  const formattedDate = formatDate(data.pdate);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("ISBN_Number", data.isbn);
     formData.append("Title", data.title);
-    formData.append("Author", Number(authorId));
+    formData.append("Author", data.author);
     formData.append("Description", data.description);
-    formData.append("Published_Date", formattedDate);
-    formData.append("Category", Number(categoryId));
-    formData.append("Publisher", Number(publisherId));
+    formData.append("Published_Date", data.pdate);
+    formData.append("Category", data.category);
+    formData.append("Publisher", data.publisher);
     formData.append("uploaded_file", image);
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/book`,
+        "http://localhost:5000/api/book",
         formData
       );
       if (response.status === 201) {
-        toast.success("Book Added Succesfully.");
+        setModalMessage("Book Added Successfully.");
+        setShowSuccess(true);
         setData({
           title: "",
           isbn: "",
@@ -127,14 +67,17 @@ const AddBooks = ({ showPopup, togglePopup }) => {
         setImage(null);
         togglePopup();
       } else {
-        toast.error("Faild to add book.");
-        console.log(error);
+        setModalMessage("Failed to add book.");
+        setShowError(true);
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to add book.");
+      setModalMessage("Failed to add book.");
+      setShowError(true);
     }
   };
+
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
 
   return (
     <>
@@ -148,13 +91,16 @@ const AddBooks = ({ showPopup, togglePopup }) => {
             <div className="add-books">
               <h1>Add Books</h1>
               <button className="add-books-close-button" onClick={togglePopup}>
-                <img src={Close} alt="Close" />
+                <MdClose />
               </button>
+
               <div className="add-img-upload flex-col">
                 <p>Upload Book Image</p>
                 <label htmlFor="uploaded_file">
                   <img
-                    src={image ? URL.createObjectURL(image) : upload_area}
+                    src={
+                      image ? URL.createObjectURL(image) : "default_image_url"
+                    }
                     alt="Upload Area"
                   />
                 </label>
@@ -164,7 +110,6 @@ const AddBooks = ({ showPopup, togglePopup }) => {
                   type="file"
                   id="uploaded_file"
                   hidden
-                  required
                 />
               </div>
 
@@ -197,84 +142,53 @@ const AddBooks = ({ showPopup, togglePopup }) => {
               />
 
               <div className="multi-select">
-                <Select
-                  className="addbook-select"
-                  options={[
-                    { value: "", label: "Select Author", isDisabled: true },
-                    ...authorOptions,
-                  ]}
-                  onChange={(option) =>
-                    handleChange({
-                      name: "author",
-                      value: option ? option.value : "",
-                    })
-                  }
-                  value={
-                    authorOptions.find(
-                      (option) => option.value === data.author
-                    ) || { value: "", label: "Select Author", isDisabled: true }
-                  }
-                  placeholder="Select Author"
-                  styles={customStyles}
-                />
-                <Select
-                  options={[
-                    { value: "", label: "Select Publisher", isDisabled: true },
-                    ...publisherOptions,
-                  ]}
-                  onChange={(option) =>
-                    handleChange({
-                      name: "publisher",
-                      value: option ? option.value : "",
-                    })
-                  }
-                  value={
-                    publisherOptions.find(
-                      (option) => option.value === data.publisher
-                    ) || {
-                      value: "",
-                      label: "Select Publisher",
-                      isDisabled: true,
-                    }
-                  }
-                  placeholder="Select Publisher"
-                  styles={customStyles}
-                />
-                <Select
-                  options={[
-                    { value: "", label: "Select Category", isDisabled: true },
-                    ...categoryOptions,
-                  ]}
-                  onChange={(option) =>
-                    handleChange({
-                      name: "category",
-                      value: option ? option.value : "",
-                    })
-                  }
-                  value={
-                    categoryOptions.find(
-                      (option) => option.value === data.category
-                    ) || {
-                      value: "",
-                      label: "Select Category",
-                      isDisabled: true,
-                    }
-                  }
-                  placeholder="Select Category"
-                  styles={customStyles}
-                />
+                <select
+                  name="author"
+                  onChange={handleChange}
+                  value={data.author}
+                  className="select"
+                >
+                  <option value="">Select author</option>
+                  {authorOptions.map((author) => (
+                    <option key={author.value} value={author.value}>
+                      {author.label}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  name="publisher"
+                  onChange={handleChange}
+                  value={data.publisher}
+                  className="select"
+                >
+                  <option value="">Select publisher</option>
+                  {publisherOptions.map((publisher) => (
+                    <option key={publisher.value} value={publisher.value}>
+                      {publisher.label}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  name="category"
+                  onChange={handleChange}
+                  value={data.category}
+                  className="select"
+                >
+                  <option value="">Select category</option>
+                  {categoryOptions.map((category) => (
+                    <option key={category.value} value={category.value}>
+                      {category.label}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <DatePicker
-                className="date-picker"
-                selected={data.pdate}
-                onChange={(date) =>
-                  handleChange({ name: "pdate", value: date })
-                }
-                name="pdate"
-                appearance="default"
-                placeholder="Published Date"
-                size="lg"
+              <input
+                type="date"
+                id="publication-date"
+                value={selectedDate}
+                onChange={handleDateChange}
+                className="input"
                 required
               />
 
@@ -285,9 +199,30 @@ const AddBooks = ({ showPopup, togglePopup }) => {
           </form>
         </div>
       </div>
-      <ToastContainer />
+
+      <Modal show={showSuccess} onHide={handleCloseSuccess}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseSuccess}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showError} onHide={handleCloseError}>
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseError}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-};
-
-export default AddBooks;
+}

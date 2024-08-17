@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./../Styles/PublisherManagment.css";
-import Close from "./../Images/close.png";
-import User from "./../Images/user.png";
+import { MdClose } from "react-icons/md";
+
 import axios from "axios";
 import PaginationButtons from "../Components/PaginationButtons";
-import DeleteModal from "../Components/DeleteModal";
+import DeleteModal from "../Components/Modals/DeleteModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -197,7 +197,6 @@ const PublisherManagement = () => {
     <div className="publisher-management-container">
       <div className="publisher-management-left">
         <div className="publisher-management-image">
-          <img src={User} alt="Publisher" />
           <h2>Publisher Management</h2>
         </div>
         <div className="publisher-management-buttons">
@@ -279,6 +278,9 @@ const PublisherManagement = () => {
             <form className="container" onSubmit={handleAddSubmit}>
               <div className="add">
                 <h1>Add Publisher</h1>
+                <button className="close-button" onClick={toggleAddPopup}>
+                  <MdClose />
+                </button>
                 <div className="multi-fields">
                   <input
                     onChange={handleAddPublisherDataChange}
@@ -326,9 +328,6 @@ const PublisherManagement = () => {
                 </button>
               </div>
             </form>
-            <button className="close-button" onClick={toggleAddPopup}>
-              <img src={Close} alt="Close" />
-            </button>
           </div>
         </div>
       )}
@@ -416,7 +415,7 @@ const PublisherManagement = () => {
               </div>
             </form>
             <button className="close-button" onClick={toggleUpdatePopup}>
-              <img src={Close} alt="Close" />
+              <MdClose />
             </button>
           </div>
         </div>

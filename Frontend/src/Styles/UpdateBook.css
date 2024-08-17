@@ -198,23 +198,6 @@ textarea:focus {
   transition: transform 0.3s ease; /* Smooth transition for the rotation */
 }
 
-/* Define the initial rotation state */
-.update-books-close-button svg {
-  transition: transform 0.3s ease;
-  background: none;
-}
-
-/* Hover effect: rotate the icon */
-.update-books-close-button:hover {
-  cursor: pointer;
-  background: none;
-  transform: rotate(180deg);
-}
-
-.update-books .add-books-close-button:hover svg {
-  transform: rotate(180deg);
-  background: none;
-}
 .select {
   overflow: visible;
 }

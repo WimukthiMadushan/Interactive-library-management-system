@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "./../Styles/SearchBook.css";
 import Pagination from "../Components/Pagination";
-import SpeechRecognition from "../Components/SpeechRecognition";
 import { FcFilledFilter } from "react-icons/fc";
 import Select from "react-select";
 import { StoreContext } from "../Hooks/StoreContext";

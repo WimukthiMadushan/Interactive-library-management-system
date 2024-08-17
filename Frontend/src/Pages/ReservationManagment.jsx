@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./../Styles/ReservationManagment.css";
-import User from "./../Images/user.png";
 import PaginationButtons from "../Components/PaginationButtons";
 
 function ReservationManagment() {
@@ -68,8 +67,7 @@ function ReservationManagment() {
   return (
     <div className="view-publishers-container">
       <div className="book-management-image">
-        <img src={User} alt="User Icon" />
-        <h2>Reservation Management</h2>
+        <h2>Book Reservation Management</h2>
       </div>
       <div className="book-management-search">
         <input
@@ -106,7 +104,8 @@ function ReservationManagment() {
                 {reservation.isComplete === 1 ? "Complete" : "In progress"}
               </td>
               <td className="action-column">
-                <button className="action-button update-button">Update</button>
+                <button className="reservation-update-button">Update</button>
+                <button className="reservation-delete-button">Cancel</button>
               </td>
             </tr>
           ))}

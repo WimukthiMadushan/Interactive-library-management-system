@@ -1,4 +1,11 @@
 /* Container for the entire profile section */
+
+.user-profile-background {
+  background: linear-gradient(to bottom right, #000000, #313131);
+  padding: 2rem;
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+}
+
 .profile-container {
   width: 80%;
   margin: 2rem auto;
@@ -6,7 +13,7 @@
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   background-color: #fff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   top: 1rem;
@@ -51,25 +58,29 @@
 
 .welcome-message {
   display: flex;
+  gap: 1rem;
+}
+.welcome-message p {
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
   color: #333;
   margin-bottom: 1rem;
+  text-align: center;
 }
-.welcome-message p {
-  width: fit-content;
-}
+
 .welcome-message img {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  right: 2rem;
   margin-bottom: 1rem;
 }
 .profile-username {
   width: fit-content;
 }
 
-/* Profile image styling with hover effects */
 .profile-image {
   width: 120px;
   height: 120px;
@@ -110,7 +121,7 @@
   transition: color 0.3s ease;
 }
 
-.profile-right:hover .profile-name {
+.profile-name:hover {
   color: #fbb034;
 }
 
@@ -130,51 +141,21 @@
   transform: translateX(10px);
   color: #333;
 }
-
-/* Middle section styling */
-.profile-middle {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-top: 1px solid #e0e0e0;
-  display: flex;
-  justify-content: center;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.button-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.profile-button {
-  padding: 0.8rem 1.2rem;
-  background-color: #fbb034;
+.book-details-button button {
+  background-color: #000;
   color: #fff;
+  padding: 10px 15px;
+  width: 80%;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease,
-    box-shadow 0.3s ease;
-  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
 }
-
-.profile-button:hover {
-  background-color: #e0a025;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.profile-button:active {
-  background-color: #cc9200;
-  transform: translateY(1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.profile-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(251, 176, 52, 0.4);
+.book-details-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
 }
 
 /* Responsive adjustments */
@@ -202,44 +183,6 @@
   }
 }
 
-/* Additional styling for profile sections */
-.profile-bottom {
-  border-top: 1px solid #e0e0e0;
-  margin-top: 1rem;
-}
-
-.user-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-
-.user-table thead {
-  background-color: #424141;
-  color: white;
-}
-
-.user-table th,
-.user-table td {
-  width: 10rem;
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-.user-table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.user-table tbody tr:hover {
-  background-color: #eaeaea;
-}
-
-.card-body h3 {
-  color: #e0a025;
-  margin-top: 20px;
-}
-
 .profile-container {
   padding: 20px;
 }
@@ -264,18 +207,6 @@
 .profile-middle .button-list {
   display: flex;
   justify-content: space-around;
-}
-
-.profile-button {
-  background-color: #fbb034;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-}
-
-.profile-button:hover {
-  background-color: #fbb034;
 }
 
 .profile-image {

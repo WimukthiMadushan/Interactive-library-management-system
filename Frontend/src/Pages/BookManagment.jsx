@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import User from "./../Images/user.png";
+import { Link } from "react-router-dom";
 import "./../Styles/BookManagment.css";
 import UpdateBook from "./../Components/UpdateBook";
 import AddBooks from "../Components/AddBooks";
 import PaginationButtons from "../Components/PaginationButtons";
 import AddBookCopy from "../Components/AddBookCopy";
-import DeleteModal from "../Components/DeleteModal";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import DeleteModal from "./../Components/Modals/DeleteModal";
+import { Modal, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function BookManagement() {
   const [books, setBooks] = useState([]);
@@ -18,7 +18,10 @@ function BookManagement() {
   const [isUpdateBookOpen, setIsUpdateBookOpen] = useState(false);
   const [isAddBookCopyOpen, setIsAddBookCopyOpen] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [messageContent, setMessageContent] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" or "error"
   const [bookIdToDelete, setBookIdToDelete] = useState(null);
 
   useEffect(() => {
@@ -33,8 +36,12 @@ function BookManagement() {
         }));
         setBooks(formattedData);
       } catch (error) {
-        console.error("Error fetching books:", error);
-        toast.error("Failed to fetch books. Please try again.");
+        setMessageContent(
+          error.response?.data?.message ||
+            "Failed to fetch books. Please try again."
+        );
+        setMessageType("error");
+        setShowMessageModal(true);
       }
     };
 
@@ -75,20 +82,27 @@ function BookManagement() {
 
   const handleDelete = (id) => {
     setBookIdToDelete(id);
-    setShowModal(true);
+    setShowDeleteModal(true);
   };
 
   const handleConfirmDelete = async () => {
+    //console.log(bookIdToDelete);
     try {
       await axios.delete(`http://localhost:5000/api/book/${bookIdToDelete}`);
       setBooks((prevBooks) =>
         prevBooks.filter((book) => book.Book_ID !== bookIdToDelete)
       );
-      toast.success("Book deleted successfully.");
+      setMessageContent("Book deleted successfully.");
+      setMessageType("success");
     } catch (error) {
-      toast.error("Failed to delete book. Please try again.");
+      setMessageContent(
+        error.response?.data?.message ||
+          "Failed to delete book. Please try again."
+      );
+      setMessageType("error");
     } finally {
-      setShowModal(false);
+      setShowDeleteModal(false);
+      setShowMessageModal(true);
       setBookIdToDelete(null);
     }
   };
@@ -96,8 +110,7 @@ function BookManagement() {
   return (
     <div className="book-management-container">
       <div className="book-management-image">
-        <img src={User} alt="User Icon" />
-        <h2>Books Management</h2>
+        <h2>Books Management.</h2>
       </div>
       <div className="book-management-buttons">
         <button className="book-add" onClick={toggleAddPopup}>
@@ -133,24 +146,34 @@ function BookManagement() {
               <tr key={book.Book_ID}>
                 <td>{book.Book_ID}</td>
                 <td>
-                  {book.Image_Path ? (
-                    <img
-                      src={book.Image_Path}
-                      alt={book.Title}
-                      className="book-image"
-                    />
-                  ) : book.Image_Name ? (
-                    <img
-                      src={`http://localhost:5000/books/${book.Image_Name}`}
-                      alt={book.Title}
-                      className="book-image"
-                    />
-                  ) : (
-                    <p>No image</p>
-                  )}
+                  <Link to={`/book/${book.Book_ID}`}>
+                    {book.Image_Path ? (
+                      <img
+                        src={book.Image_Path}
+                        alt={book.Title}
+                        className="book-image"
+                      />
+                    ) : book.Image_Name ? (
+                      <img
+                        src={`http://localhost:5000/books/${book.Image_Name}`}
+                        alt={book.Title}
+                        className="book-image"
+                      />
+                    ) : (
+                      <p>No image</p>
+                    )}
+                  </Link>
                 </td>
+
                 <td>{book.ISBN_Number}</td>
-                <td>{book.Title}</td>
+                <td>
+                  <Link
+                    to={"/"}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    {book.Title}
+                  </Link>
+                </td>
                 <td>{book.Category}</td>
                 <td>{book.Author}</td>
                 <td
@@ -158,14 +181,14 @@ function BookManagement() {
                   className="action-column"
                 >
                   <button
-                    className="action-button update-button"
+                    className="action-button book-managment-update-button"
                     onClick={() => toggleUpdatePopup(book.Book_ID)}
                     id={book.Book_ID}
                   >
                     Update
                   </button>
                   <button
-                    className="action-button delete-button"
+                    className="book-managment-delete-button"
                     onClick={() => handleDelete(book.Book_ID)}
                   >
                     Delete
@@ -200,12 +223,27 @@ function BookManagement() {
         />
       )}
       <DeleteModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
+        show={showDeleteModal}
+        handleClose={() => setShowDeleteModal(false)}
         handleConfirm={handleConfirmDelete}
         value={"book"}
       />
-      <ToastContainer />
+      <Modal show={showMessageModal} onHide={() => setShowMessageModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {messageType === "success" ? "Success" : "Error"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{messageContent}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowMessageModal(false)}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

@@ -1,63 +1,74 @@
 import React from "react";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaGooglePlusG,
-  FaYoutube,
-} from "react-icons/fa";
+
 import "./../Styles/Footer.css";
 
 function Footer() {
   return (
-    <div>
-      <footer>
-        <div className="footerContainer">
-          <div className="socialIcons">
-            <a href="#">
-              <FaFacebook />
-            </a>
-            <a href="#">
-              <FaInstagram />
-            </a>
-            <a href="#">
-              <FaTwitter />
-            </a>
-            <a href="#">
-              <FaGooglePlusG />
-            </a>
-            <a href="#">
-              <FaYoutube />
-            </a>
-          </div>
-          <div className="footerNav">
-            <ul>
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">News</a>
-              </li>
-              <li>
-                <a href="#">About</a>
-              </li>
-              <li>
-                <a href="#">Contact Us</a>
-              </li>
-              <li>
-                <a href="#">Our Team</a>
-              </li>
-            </ul>
-          </div>
+    <footer className="footer">
+      <div className="footer-container">
+        <div className="footer-section">
+          <h4 className="footer-title">InfoPulse Library</h4>
+          <ul className="footer-list">
+            <li>
+              <a href="#" className="footer-link">
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-link">
+                Terms of Service
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-link">
+                Borrowing Policy
+              </a>
+            </li>
+          </ul>
         </div>
-        <div className="footerBottom">
-          <p>
-            Copyright &copy;2024; Designed by{" "}
-            <span className="designer">CSE|UOM</span>
+        <div className="footer-section">
+          <h4 className="footer-title">Contact</h4>
+          <p className="footer-text">
+            123 Main St, Anytown USA
+            <br />
+            Phone: (555) 555-5555
+            <br />
+            Email: info@infopulselibrary.com
           </p>
         </div>
-      </footer>
-    </div>
+        <div className="footer-section">
+          <h4 className="footer-title">Social</h4>
+          <ul className="footer-list">
+            <li>
+              <a href="#" className="footer-link">
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-link">
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a href="#" className="footer-link">
+                Instagram
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h4 className="footer-title">About</h4>
+          <p className="footer-text">
+            Our InfoPulse Library has been serving the community for over 50
+            years. We are dedicated to providing access to knowledge and
+            resources for all.
+          </p>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        &copy; 2024 InfoPulse Library. All rights reserved.
+      </div>
+    </footer>
   );
 }
 

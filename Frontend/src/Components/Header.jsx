@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { TiArrowRightThick } from "react-icons/ti";
 import "./../Styles/Header.css";
-import Header_image from "./../Images/Header_Image.jpg";
 import Book1 from "./../Images/Img_01.jpg";
 import Book2 from "./../Images/Img_02.jpeg";
 import Book3 from "./../Images/Img_03.jpg";
@@ -23,12 +21,11 @@ function Header() {
             You Deserve <br />
             The Best Books <br />
           </h1>
-
           <h5>
             Being involved in education dedicatedly <br />
             is a good meditation for years.
           </h5>
-          <div className="header-button">
+          <div className="header-page-button">
             <Link to={"/searchbooks"} className="button-link">
               <button className="header-search-button">Search Books</button>
             </Link>

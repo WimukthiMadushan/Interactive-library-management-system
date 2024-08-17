@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Eye from "../Components/Eye";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./../Styles/RegisterPage.css";
-import Register_Img from "./../Images/user.png";
 
 function Register() {
   const [userData, setUserData] = useState({
@@ -18,7 +16,6 @@ function Register() {
     NIC: "",
     Mobile: "",
   });
-  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -49,8 +46,6 @@ function Register() {
         NIC: "",
         Mobile: "",
       });
-
-      // Navigate to login page
       navigate("/login");
     } catch (error) {
       console.error("Registration failed", error);
@@ -64,10 +59,8 @@ function Register() {
     <div className="center-wrapper">
       <div className="register-container">
         <div className="upper">
-          <div className="user_icon">
-            <img src={Register_Img} alt="User" />
-          </div>
-          <h1>Member Sign Up</h1>
+          <h1>Sign Up</h1>
+          <p>Create your account to get started.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -115,7 +108,7 @@ function Register() {
             />
 
             <input
-              type={visible ? "text" : "password"}
+              type="password"
               placeholder="Password"
               name="Password"
               value={userData.Password}
@@ -123,9 +116,6 @@ function Register() {
               required
               minLength={6}
             />
-            <div className="register-eye">
-              <Eye visible={visible} setVisible={setVisible} />
-            </div>
           </div>
 
           <div className="NIC">
@@ -136,7 +126,7 @@ function Register() {
               value={userData.NIC}
               onChange={handleChange}
               required
-              pattern="\d{9}[vVxX]|\d{12}" // Regex to validate NIC format.
+              pattern="\d{9}[vVxX]|\d{12}"
             />
           </div>
 
@@ -159,7 +149,7 @@ function Register() {
               value={userData.Mobile}
               onChange={handleChange}
               required
-              pattern="\d{10}" // Simple pattern to accept 10 digit mobile numbers.
+              pattern="\d{10}"
             />
           </div>
 
