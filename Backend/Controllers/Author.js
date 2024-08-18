@@ -28,7 +28,6 @@ export const addAuthors = async (req, res) => {
     INSERT INTO Author (First_Name, Last_Name, Email, Address, Mobile, NIC)
     VALUES (?, ?, ?, ?, ?, ?)
   `;
-
   try {
     await query(queryStr, [
       First_Name,
@@ -38,7 +37,9 @@ export const addAuthors = async (req, res) => {
       Mobile,
       NIC,
     ]);
-    return sendResponse(res, 201, "Author added successfully");
+    return res.status(201).json({
+      message: "Author added successfully",
+    });
   } catch (err) {
     console.error("Database error: ", err);
     return sendResponse(res, 500, "Internal server error");
