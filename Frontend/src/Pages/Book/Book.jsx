@@ -213,7 +213,6 @@ function Book() {
             ))
           )}
         </div>
-        <ToastContainer />
       </div>
       {/*
       

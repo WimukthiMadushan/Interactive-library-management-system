@@ -10,6 +10,7 @@ const StoreContextProvider = ({ children }) => {
   const [publisherOptions, setPublisherOptions] = useState([]);
   const [authorOptions, setAuthorOptions] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
+  const [categoryFilters, setCategoryFilters] = useState([]);
   const [languageOptions, setLanguageOptions] = useState([]);
   const [bookOptions, setBookOptions] = useState([]);
   const [loading, setLoading] = useState(true); // Optional loading state
@@ -58,6 +59,13 @@ const StoreContextProvider = ({ children }) => {
         }))
       );
 
+      setCategoryFilters(
+        categoryResponse.data.map((category) => ({
+          value: category.Cat_Name,
+          label: category.Cat_Name,
+        }))
+      );
+
       setLanguageOptions(
         languageResponse.data.map((language) => ({
           value: language.Language_ID,
@@ -94,6 +102,7 @@ const StoreContextProvider = ({ children }) => {
         bookOptions,
         loading,
         error,
+        categoryFilters,
       }}
     >
       {children}
