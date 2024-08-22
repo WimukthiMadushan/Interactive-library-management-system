@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 import PaginationButtons from "../../Components/Pagination/PaginationButtons/PaginationButtons";
 import "./AuthorManagment.css";
 import AddAuthorPopup from "./../../Components/Popup/AddAuthorPopup/AddAuthorPopup";
 import UpdateAuthorPopup from "./../../Components/Popup/UpdataAuthorPopup/UpdateAuthorPopup";
+import NotificationModal from "../../Components/Modals/NotificationModal";
 
 function AuthorManagment() {
   const [authors, setAuthors] = useState([]);
@@ -12,6 +14,12 @@ function AuthorManagment() {
   const [isAddAuthorOpen, setIsAddAuthorOpen] = useState(false);
   const [isUpdateAuthorOpen, setIsUpdateAuthorOpen] = useState(false);
   const [selectedAuthorId, setSelectedAuthorId] = useState(null);
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
 
   useEffect(() => {
     fetchAuthors();
@@ -38,10 +46,23 @@ function AuthorManagment() {
   const toggleAddAuthorPopup = () => {
     setIsAddAuthorOpen(!isAddAuthorOpen);
   };
+
   const toggleUpdateAuthorPopup = (authorId) => {
-    //console.log(authorId);
     setIsUpdateAuthorOpen(!isUpdateAuthorOpen);
     setSelectedAuthorId(authorId);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/author/${id}`);
+      setModalMessage("Author Deleted Successfully.");
+      setShowSuccess(true);
+      fetchAuthors();
+    } catch (error) {
+      setModalMessage("Error Deleting Author.");
+      setShowError(true);
+      console.error("Error deleting author:", error);
+    }
   };
 
   const filteredAuthors = authors.filter(
@@ -58,11 +79,6 @@ function AuthorManagment() {
     indexOfLastAuthor
   );
   const totalPages = Math.ceil(filteredAuthors.length / authorsPerPage);
-
-  const handleDelete = (id) => {
-    setAuthorIdToDelete(id);
-    //console.log(authorIdToDelete);
-  };
 
   return (
     <div className="author-managment-outer">
@@ -145,6 +161,20 @@ function AuthorManagment() {
             authorId={selectedAuthorId}
           />
         )}
+        <NotificationModal
+          show={showSuccess}
+          handleClose={handleCloseSuccess}
+          title={"sucess"}
+          message={modalMessage}
+          isSuccess={true}
+        />
+        <NotificationModal
+          show={showError}
+          handleClose={handleCloseError}
+          title={"failed"}
+          message={modalMessage}
+          isSuccess={false}
+        />
       </div>
     </div>
   );

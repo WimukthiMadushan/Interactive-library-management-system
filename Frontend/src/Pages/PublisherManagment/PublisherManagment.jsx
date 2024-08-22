@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./PublisherManagment.css";
-import { MdClose } from "react-icons/md";
 import axios from "axios";
 import PaginationButtons from "../../Components/Pagination/PaginationButtons/PaginationButtons";
+import AddPublisherPopup from "../../Components/Popup/AddPublisherPopup/AddPublisherPopup";
+import UpdatePublisherPopup from "./../../Components/Popup/UpdatePublisherpopup/UpdatePublisherPopup";
+import NotificationModal from "../../Components/Modals/NotificationModal";
 
 const PublisherManagement = () => {
   const [publishers, setPublishers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [newPublisherData, setNewPublisherData] = useState({
-    Publisher_First_Name: "",
-    Publisher_Last_Name: "",
-    Email: "",
-    Address: "",
-    Mobile: "",
-  });
-  const [updatePublisherData, setUpdatePublisherData] = useState({
-    Publisher_ID: "",
-    Publisher_First_Name: "",
-    Publisher_Last_Name: "",
-    Email: "",
-    Address: "",
-    Mobile: "",
-  });
   const [isAddPopupOpen, setAddPopupOpen] = useState(false);
   const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
+  const [currentPublisherId, setCurrentPublisherId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [publisherIdToDelete, setPublisherIdToDelete] = useState(null);
   const [publishersPerPage] = useState(10);
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
 
   useEffect(() => {
     fetchPublishers();
@@ -45,102 +38,20 @@ const PublisherManagement = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleAddPublisherDataChange = (e) => {
-    const { name, value } = e.target;
-    setNewPublisherData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleUpdatePublisherDataChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatePublisherData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleAddSubmit = async (event) => {
-    event.preventDefault();
-    const formDataObject = {
-      Publisher_First_Name: newPublisherData.Publisher_First_Name,
-      Publisher_Last_Name: newPublisherData.Publisher_Last_Name,
-      Email: newPublisherData.Email,
-      Address: newPublisherData.Address,
-      Mobile: newPublisherData.Mobile,
-    };
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/api/publisher`,
-        formDataObject
-      );
-      if (response.status === 201) {
-        setNewPublisherData({
-          Publisher_First_Name: "",
-          Publisher_Last_Name: "",
-          Email: "",
-          Address: "",
-          Mobile: "",
-        });
-        setPublishers((prevPublishers) => [...prevPublishers, response.data]);
-        setAddPopupOpen(false);
-      } else {
-        console.log("Error adding publisher.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-
-  const fetchPublisherById = async (id) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/publisher/${id}`
-      );
-      setUpdatePublisherData(response.data);
-    } catch (error) {
-      console.error("Error fetching publisher:", error);
-    }
-  };
-
-  const handleUpdateSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.put(
-        `http://localhost:5000/api/publisher/${updatePublisherData.Publisher_ID}`,
-        updatePublisherData
-      );
-      setPublishers((prevPublishers) =>
-        prevPublishers.map((publisher) =>
-          publisher.Publisher_ID === updatePublisherData.Publisher_ID
-            ? updatePublisherData
-            : publisher
-        )
-      );
-      setUpdatePopupOpen(false);
-    } catch (error) {
-      console.error("Error updating publisher:", error);
-    }
-  };
-
   const handleDeletePublisher = async (id) => {
-    setPublisherIdToDelete(id);
     try {
       const response = await axios.delete(
         `http://localhost:5000/api/publisher/${id}`
       );
-      if (response.status === 200) {
-        setPublishers((prevPublishers) =>
-          prevPublishers.filter((publisher) => publisher.Publisher_ID !== id)
-        );
-      } else {
-        console.log("Error deleting publisher.");
-      }
+      setPublishers((prevPublishers) =>
+        prevPublishers.filter((publisher) => publisher.Publisher_ID !== id)
+      );
+      setModalMessage("Publisher Deleted Successfully.");
+      setShowSuccess(true);
     } catch (error) {
       console.error("Error deleting publisher:", error);
-    } finally {
-      setPublisherIdToDelete(null);
+      setModalMessage("Failed to Delete Publisher.");
+      setShowError(true);
     }
   };
 
@@ -148,22 +59,22 @@ const PublisherManagement = () => {
     setAddPopupOpen(!isAddPopupOpen);
   };
 
-  const toggleUpdatePopup = () => {
+  const toggleUpdatePopup = (id = null) => {
+    setCurrentPublisherId(id);
     setUpdatePopupOpen(!isUpdatePopupOpen);
   };
 
-  // Filtering publishers based on search query
   const filteredPublishers = publishers.filter((publisher) => {
-    const Publisher_First_Name = publisher.Publisher_First_Name
+    const firstName = publisher.Publisher_First_Name
       ? publisher.Publisher_First_Name.toLowerCase()
       : "";
-    const Publisher_Last_Name = publisher.Publisher_Last_Name
+    const lastName = publisher.Publisher_Last_Name
       ? publisher.Publisher_Last_Name.toLowerCase()
       : "";
 
     return (
-      Publisher_First_Name.includes(searchQuery.toLowerCase()) ||
-      Publisher_Last_Name.includes(searchQuery.toLowerCase())
+      firstName.includes(searchQuery.toLowerCase()) ||
+      lastName.includes(searchQuery.toLowerCase())
     );
   });
 
@@ -226,10 +137,9 @@ const PublisherManagement = () => {
                     <td className="action-column">
                       <button
                         className="update-publisher-button"
-                        onClick={() => {
-                          fetchPublisherById(publisher.Publisher_ID);
-                          toggleUpdatePopup();
-                        }}
+                        onClick={() =>
+                          toggleUpdatePopup(publisher.Publisher_ID)
+                        }
                       >
                         Update
                       </button>
@@ -259,124 +169,33 @@ const PublisherManagement = () => {
           )}
         </div>
         {isAddPopupOpen && (
-          <div className="popup-overlay">
-            <div className="popup add-publisher-popup-container">
-              <form className="container" onSubmit={handleAddSubmit}>
-                <div className="add">
-                  <h1>Add Publisher</h1>
-                  <button className="close-button" onClick={toggleAddPopup}>
-                    <MdClose />
-                  </button>
-                  <div className="multi-fields">
-                    <input
-                      onChange={handleAddPublisherDataChange}
-                      value={newPublisherData.Publisher_First_Name}
-                      name="Publisher_First_Name"
-                      type="text"
-                      placeholder="First Name"
-                      required
-                    />
-                    <input
-                      onChange={handleAddPublisherDataChange}
-                      value={newPublisherData.Publisher_Last_Name}
-                      name="Publisher_Last_Name"
-                      type="text"
-                      placeholder="Last Name"
-                      required
-                    />
-                  </div>
-                  <input
-                    onChange={handleAddPublisherDataChange}
-                    value={newPublisherData.Email}
-                    name="Email"
-                    type="email"
-                    placeholder="Email"
-                    required
-                  />
-                  <input
-                    onChange={handleAddPublisherDataChange}
-                    value={newPublisherData.Address}
-                    name="Address"
-                    type="text"
-                    placeholder="Address"
-                    required
-                  />
-                  <input
-                    onChange={handleAddPublisherDataChange}
-                    value={newPublisherData.Mobile}
-                    name="Mobile"
-                    type="tel"
-                    placeholder="Mobile"
-                    required
-                  />
-                  <button type="submit" className="add-publisher-submit">
-                    Add Publisher
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <AddPublisherPopup
+            toggleAddPopup={toggleAddPopup}
+            fetchPublishers={fetchPublishers}
+          />
         )}
 
         {isUpdatePopupOpen && (
-          <div className="popup-overlay">
-            <div className="popup update-publisher-popup-container">
-              <form className="container" onSubmit={handleUpdateSubmit}>
-                <div className="update">
-                  <h1>Update Publisher</h1>
-                  <button className="close-button" onClick={toggleUpdatePopup}>
-                    <MdClose />
-                  </button>
-                  <div className="multi-fields">
-                    <input
-                      onChange={handleUpdatePublisherDataChange}
-                      value={updatePublisherData.Publisher_First_Name}
-                      name="Publisher_First_Name"
-                      type="text"
-                      placeholder="First Name"
-                      required
-                    />
-                    <input
-                      onChange={handleUpdatePublisherDataChange}
-                      value={updatePublisherData.Publisher_Last_Name}
-                      name="Publisher_Last_Name"
-                      type="text"
-                      placeholder="Last Name"
-                      required
-                    />
-                  </div>
-                  <input
-                    onChange={handleUpdatePublisherDataChange}
-                    value={updatePublisherData.Email}
-                    name="Email"
-                    type="email"
-                    placeholder="Email"
-                    required
-                  />
-                  <input
-                    onChange={handleUpdatePublisherDataChange}
-                    value={updatePublisherData.Address}
-                    name="Address"
-                    type="text"
-                    placeholder="Address"
-                    required
-                  />
-                  <input
-                    onChange={handleUpdatePublisherDataChange}
-                    value={updatePublisherData.Mobile}
-                    name="Mobile"
-                    type="tel"
-                    placeholder="Mobile"
-                    required
-                  />
-                  <button type="submit" className="update-publisher-submit">
-                    Update Publisher
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <UpdatePublisherPopup
+            toggleUpdatePopup={toggleUpdatePopup}
+            fetchPublishers={fetchPublishers}
+            publisherId={currentPublisherId}
+          />
         )}
+        <NotificationModal
+          show={showSuccess}
+          handleClose={handleCloseSuccess}
+          title={"sucess"}
+          message={modalMessage}
+          isSuccess={true}
+        />
+        <NotificationModal
+          show={showError}
+          handleClose={handleCloseError}
+          title={"failed"}
+          message={modalMessage}
+          isSuccess={false}
+        />
       </div>
     </div>
   );

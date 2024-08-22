@@ -149,7 +149,6 @@ function Register() {
           </div>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 }

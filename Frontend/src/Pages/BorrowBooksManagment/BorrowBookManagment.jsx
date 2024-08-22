@@ -3,6 +3,7 @@ import axios from "axios";
 import "./BorrowBookManagment.css";
 import PaginationButtons from "./../../Components/Pagination/PaginationButtons/PaginationButtons";
 import AddBorrows from "./../../Components/AddBorrow/AddBorrows";
+import ReturnBookPopup from "../../Components/Popup/ReturnBook/ReturnBookPopup";
 
 function BorrowBookManagement() {
   const [borrows, setBorrows] = useState([]);
@@ -63,22 +64,7 @@ function BorrowBookManagement() {
     setShowReturnModal(true);
   };
 
-  const handleConfirmReturn = async () => {
-    try {
-      const response = await axios.put(
-        `http://localhost:5000/api/borrow/return/${selectedBorrowId}`
-      );
-      if (response.data.success) {
-        console.log("Book returned successfully");
-        setShowReturnModal(false);
-        fetchBorrows(); // Fetch updated data
-      } else {
-        console.log("Error returning the book");
-      }
-    } catch (error) {
-      console.error("Error returning the book:", error);
-    }
-  };
+  
 
   const handleRenew = async () => {
     try {
@@ -105,37 +91,6 @@ function BorrowBookManagement() {
     setSelectedBorrowId(id);
     setShowRenewModal(true);
   };
-
-  const renderModal = (modalType, showModal, onClose, onConfirm) => (
-    <div
-      className={`modal fade ${showModal ? "show d-block" : ""}`}
-      tabIndex="-1"
-      role="dialog"
-      aria-labelledby={`${modalType}ModalLabel`}
-      aria-hidden={!showModal}
-    >
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id={`${modalType}ModalLabel`}>
-              Confirm {modalType.charAt(0).toUpperCase() + modalType.slice(1)}
-            </h5>
-          </div>
-          <div className="modal-body">
-            Are you sure you want to {modalType} this book?
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-danger" onClick={onClose}>
-              Cancel
-            </button>
-            <button type="button" className="btn btn-dark" onClick={onConfirm}>
-              Confirm {modalType.charAt(0).toUpperCase() + modalType.slice(1)}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <div className="view-authors-container">
@@ -209,19 +164,7 @@ function BorrowBookManagement() {
         />
       </div>
       {isAddBorrowOpen && <AddBorrows onClose={toggleAddPopup} />}
-
-      {renderModal(
-        "return",
-        showReturnModal,
-        () => setShowReturnModal(false),
-        handleConfirmReturn
-      )}
-      {renderModal(
-        "renew",
-        showRenewModal,
-        () => setShowRenewModal(false),
-        handleRenew
-      )}
+      {showReturnModal && <ReturnBookPopup />}
     </div>
   );
 }

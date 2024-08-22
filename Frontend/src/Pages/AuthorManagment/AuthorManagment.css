@@ -7,7 +7,7 @@
 }
 .author-managment-container {
   width: 95%;
-  margin: 0 auto;
+  margin: 0rem auto;
   animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
   animation-delay: 0.6s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

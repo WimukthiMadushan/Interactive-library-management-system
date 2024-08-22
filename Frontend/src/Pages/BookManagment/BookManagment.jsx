@@ -6,6 +6,7 @@ import UpdateBook from "./../../Components/UpdateBook/UpdateBook";
 import AddBooks from "./../../Components/Popup/AddBookPopup/AddBooks";
 import PaginationButtons from "../../Components/Pagination/PaginationButtons/PaginationButtons";
 import AddBookCopy from "./../../Components/AddBookCopy/AddBookCopy";
+import NotificationModal from "../../Components/Modals/NotificationModal";
 
 function BookManagement() {
   const [books, setBooks] = useState([]);
@@ -15,6 +16,10 @@ function BookManagement() {
   const [isUpdateBookOpen, setIsUpdateBookOpen] = useState(false);
   const [isAddBookCopyOpen, setIsAddBookCopyOpen] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -62,9 +67,23 @@ function BookManagement() {
     setSelectedBookId(bookId);
   };
 
-  const handleDelete = (id) => {
-    setBookIdToDelete(id);
+  const handleDelete = async (id) => {
+    console.log(id);
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/book/${id}`
+      );
+      setModalMessage("Book deleted successfully.");
+      setShowSuccess(true);
+      setBooks(books.filter((book) => book.Book_ID !== id));
+    } catch (error) {
+      setModalMessage("Book has copies. Cannot delete.");
+      setShowError(true);
+      console.log(error);
+    }
   };
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
 
   return (
     <div className="book-managment-outer">
@@ -182,6 +201,20 @@ function BookManagement() {
             togglePopup={toggleAddCopyPopup}
           />
         )}
+        <NotificationModal
+          show={showSuccess}
+          handleClose={handleCloseSuccess}
+          title={"Success"}
+          message={modalMessage}
+          isSuccess={true}
+        />
+        <NotificationModal
+          show={showError}
+          handleClose={handleCloseError}
+          title={"Error"}
+          message={modalMessage}
+          isSuccess={false}
+        />
       </div>
     </div>
   );

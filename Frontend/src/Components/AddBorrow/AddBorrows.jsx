@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
+import NotificationModal from "../Modals/NotificationModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./AddBorrows.css";
-import Close from "./../../Images/close.png";
 
 const AddBorrows = ({ onClose }) => {
   const [data, setData] = useState({
     userId: "",
     bookId: "",
   });
-  const [showModal, setShowModal] = useState(false);
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
+
   const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
@@ -24,39 +30,37 @@ const AddBorrows = ({ onClose }) => {
       UserID: data.userId,
       Copy_ID: data.bookId,
     };
-
     setLoading(true);
-
     try {
       const response = await axios.post(
         `http://localhost:5000/api/borrow`,
         formDataObject
       );
-
-      if (response.data.success) {
-        setData({
-          userId: "",
-          bookId: "",
-        });
-        onClose();
-      } else {
-        setShowModal(true);
-      }
+      setData({
+        userId: "",
+        bookId: "",
+      });
+      setModalMessage(response.data.message);
+      setShowSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
+      setModalMessage(error.response.data.message);
+      setShowError(true);
     } finally {
-      setLoading(false); // Set loading to false when request finishes
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <div className="popup-container">
-        <div className="popup">
-          <form className="container" onSubmit={onSubmitHandler}>
-            <div className="borrow">
+      <div className="add-borrow-popup-container">
+        <div className="add-borrow-popup">
+          <button className="close-button" onClick={onClose}>
+            &times;
+          </button>
+          <form className="add-borrow-container" onSubmit={onSubmitHandler}>
+            <div className="add-borrow-borrow">
               <h1>Borrow Book</h1>
-
               <div className="input-div">
                 <input
                   onChange={handleChange}
@@ -79,53 +83,30 @@ const AddBorrows = ({ onClose }) => {
                 />
               </div>
 
-              <button type="submit" className="add-button" disabled={loading}>
-                {loading ? "Borrowing..." : "Borrow Book"}
-              </button>
               <button
-                type="button"
-                className="close-button"
-                onClick={onClose}
-                style={{ position: "absolute", top: "-2rem" }}
+                type="submit"
+                className="add-borrow-add-button"
+                disabled={loading}
               >
-                <img src={Close} alt="Close" />
+                {loading ? "Borrowing..." : "Borrow Book"}
               </button>
             </div>
           </form>
         </div>
-      </div>
-
-      {/* Bootstrap Modal */}
-      <div
-        className={`modal fade ${showModal ? "show d-block" : ""}`}
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden={!showModal}
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Book Already Borrowed
-              </h5>
-            </div>
-            <div className="modal-body">
-              This book has already been borrowed. Please select a different
-              book.
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-                onClick={() => setShowModal(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+        <NotificationModal
+          show={showSuccess}
+          handleClose={handleCloseSuccess}
+          title={"Success"}
+          message={modalMessage}
+          isSuccess={true}
+        />
+        <NotificationModal
+          show={showError}
+          handleClose={handleCloseError}
+          title={"Failed"}
+          message={modalMessage}
+          isSuccess={false}
+        />
       </div>
     </>
   );

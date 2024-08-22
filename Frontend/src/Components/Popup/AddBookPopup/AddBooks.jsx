@@ -54,7 +54,6 @@ export default function AddBook({ togglePopup }) {
       );
       setModalMessage("Book Added Successfully.");
       setShowSuccess(true);
-      setShowError(false); // Ensure error modal is hidden
       setImage(null);
       setData({
         title: "",
@@ -65,12 +64,9 @@ export default function AddBook({ togglePopup }) {
         category: "",
         pdate: "",
       });
-
-      togglePopup();
     } catch (error) {
       setModalMessage("Failed to add book.");
       setShowError(true);
-      setShowSuccess(false); // Ensure success modal is hidden
     }
   };
 
@@ -213,20 +209,6 @@ export default function AddBook({ togglePopup }) {
         message={modalMessage}
         isSuccess={false}
       />
-
-      {/* 
-      <Modal show={showSuccess} onHide={handleCloseSuccess}>
-        <Modal.Header closeButton>
-          <Modal.Title>Success</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{modalMessage}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseSuccess}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      */}
     </>
   );
 }
