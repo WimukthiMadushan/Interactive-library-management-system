@@ -1,0 +1,225 @@
+/* Container for the entire profile section */
+
+.user-profile-background {
+  background: linear-gradient(to bottom right, #000000, #313131);
+  padding: 2rem;
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+}
+
+.profile-container {
+  width: 80%;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  top: 1rem;
+  overflow: hidden;
+}
+
+.profile-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Section above the profile containing main details */
+.profile-above {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Left part of the profile containing the image and welcome message */
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.welcome-message {
+  display: flex;
+  gap: 1rem;
+}
+.welcome-message p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.welcome-message img {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  right: 2rem;
+  margin-bottom: 1rem;
+}
+.profile-username {
+  width: fit-content;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-left:hover .profile-image {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.profile-username {
+  font-size: 1.5rem;
+  color: #777;
+  margin-top: 10px auto;
+  transition: color 0.3s ease;
+}
+
+.profile-username:hover {
+  color: #4caf50;
+}
+
+/* Right part of the profile with detailed information */
+.profile-right {
+  text-align: left;
+  transition: all 0.3s ease;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.profile-name {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.profile-name:hover {
+  color: #fbb034;
+}
+
+.profile-email,
+.profile-address,
+.profile-registered {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0.3rem 0;
+  width: 175px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.profile-right:hover .profile-email,
+.profile-right:hover .profile-address,
+.profile-right:hover .profile-registered {
+  transform: translateX(10px);
+  color: #333;
+}
+.book-details-button button {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 15px;
+  width: 80%;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
+}
+.book-details-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-above {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-left,
+  .profile-right {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .button-list {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .profile-button {
+    flex: 1;
+  }
+}
+
+.profile-container {
+  padding: 20px;
+}
+
+.profile-above,
+.profile-middle,
+.profile-bottom {
+  margin-bottom: 20px;
+}
+
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.profile-right {
+  flex-grow: 1;
+}
+
+.profile-middle .button-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.profile-name,
+.profile-email,
+.profile-address,
+.profile-registered {
+  width: 2rem;
+  flex: 1;
+}

@@ -1,0 +1,204 @@
+/* Card Container */
+.popup {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: box-shadow 0.3s ease-in-out;
+  transform: none;
+  animation: none;
+  overflow: visible;
+}
+
+.popup:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeInQuick 0.4s ease-in-out;
+}
+
+/* Popup Header */
+.popup-header {
+  margin-bottom: 16px;
+}
+
+.popup-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.popup-description {
+  color: #777;
+  font-size: 16px;
+}
+
+/* Popup Content */
+.popup-content {
+  margin-bottom: 24px;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Form Fields */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+}
+
+.input,
+.textarea,
+.select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 97%;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.input:hover,
+.textarea:hover,
+.select:hover {
+  border-color: #000000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: #000000;
+  outline: none;
+  box-shadow: 0 2px 10px rgba(37, 37, 37, 0.2);
+}
+
+.textarea {
+  resize: vertical;
+}
+
+/* Button Styles */
+.add-button {
+  padding: 12px 24px;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.add-button:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+}
+
+.add-button:active {
+  background-color: #242424;
+  transform: translateY(1px);
+}
+
+.multi-select {
+  margin-top: 10px;
+}
+/* Additional Styles */
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin-top: 10px;
+}
+
+.select::-ms-expand {
+  display: none;
+}
+
+/* Image Upload Section */
+.add-img-upload {
+  text-align: center;
+}
+
+.add-img-upload img {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.add-img-upload img:hover {
+  border-color: #000000;
+}
+
+/* Close Button */
+.add-books-close-button {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.add-books-close-button:hover {
+  background-color: white;
+  transform: scale(1.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .popup {
+    width: 90%; /* Adjust width for smaller screens */
+    padding: 20px;
+  }
+}
+
+/* Keyframes */
+@keyframes fadeInQuick {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

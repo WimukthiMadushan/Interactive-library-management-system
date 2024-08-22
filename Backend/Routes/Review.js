@@ -8,8 +8,8 @@ import {
   deleteReview,
 } from "../Controllers/Review.js";
 
+router.post("/", createReview);
 router.get("/:BookID", getReview);
-router.post("/:BookID", createReview);
 router.put("/:BookID", updateReview);
 router.delete("/:BookID", deleteReview);
 

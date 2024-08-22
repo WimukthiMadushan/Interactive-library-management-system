@@ -1,0 +1,65 @@
+.reservation-table {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+.book-management-image h2 {
+  font-size: 2.5rem;
+}
+
+.reservation-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reservation-table th,
+.reservation-table td {
+  width: 10rem;
+  padding: 9px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.reservation-table th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: 700;
+}
+
+.reservation-table tr:hover {
+  background-color: #f5f5f5;
+}
+.reservation-update-button {
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.reservation-delete-button {
+  background-color: #a10303;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.reservation-update-button:hover {
+  background-color: #000000;
+}
+.reservation-delete-button:hover {
+  background-color: #a10303;
+}

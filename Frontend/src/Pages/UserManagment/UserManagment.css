@@ -1,0 +1,189 @@
+.user-managment-outer {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  height: 110%;
+  background: linear-gradient(to bottom right, #000000, #313131);
+}
+
+.user-managment-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 2rem auto;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  border-radius: 5px;
+  transform: translateY(20px);
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+}
+
+.user-managment-above {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  animation: fadeInQuick 0.2s forwards ease-in-out;
+}
+
+.user-managment-above h2 {
+  margin-left: 10px;
+  font-size: 2.5rem;
+  color: #000000;
+}
+
+/* Buttons animation and styling */
+.user-managment-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInQuick 0.2s forwards ease-in-out;
+  animation-delay: 0.3s;
+}
+
+.user-managment-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  width: 90%;
+  margin: 0 auto;
+  animation: fadeInQuick 0.3s forwards ease-in-out;
+  animation-delay: 0.4s;
+  margin-bottom: 20px;
+}
+
+.name-search {
+  width: 50%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 10px;
+  transition: border-color 0.2s ease, background-color 0.2s;
+}
+
+.name-search:focus {
+  border-color: #4caf50;
+  background-color: #f9f9f9;
+}
+
+.name-search::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* Table styling */
+.user-managment-table {
+  width: 95%;
+  margin: 0 auto;
+  overflow-x: auto;
+  opacity: 0;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.user-managment-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-managment-table th,
+.user-managment-table td {
+  width: 10rem;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-managment-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+.user-managment-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Action buttons in table */
+.user-managment-table .action-column {
+  display: flex;
+  gap: 15px;
+  width: 12rem;
+}
+
+.user-managment-table .action-button {
+  padding: 7px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.user-managment-delete-button {
+  background-color: #870909;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 1.1rem;
+  color: white;
+}
+
+.user-managment-delete-button:hover {
+  background-color: #f44336;
+  transform: translateY(-2px);
+  transition: 0.3s ease;
+}
+.user-management-container {
+  padding: 20px;
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+}
+
+.user-management-search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.user-management-search input {
+  margin: 0 10px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.user-management-table {
+  margin-top: 20px;
+}
+
+.user-management-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-management-table th,
+.user-management-table td {
+  width: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.action-column {
+  display: flex;
+  justify-content: space-around;
+  width: 100px;
+}
+
+.action-button {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}

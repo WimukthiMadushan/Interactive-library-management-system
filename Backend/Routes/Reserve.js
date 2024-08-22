@@ -1,11 +1,16 @@
 import express from "express";
 const router = express.Router();
 
-import { getReserveBooksOfUser, reserveBook, getReserves} from "../Controllers/Reserve.js";
+import {
+  getReserveBooksOfUser,
+  reserveBook,
+  getReserves,
+  deleteReserve,
+} from "../Controllers/Reserve.js";
 
 router.get("/", getReserves);
 router.get("/:UserID", getReserveBooksOfUser);
 router.post("/", reserveBook);
-
+router.put("/cancel/:id", deleteReserve);
 
 export default router;

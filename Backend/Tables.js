@@ -1,4 +1,4 @@
-const dropTables = `DROP TABLE IF EXISTS Borrow, Reserve, Review, Staff, Book, Book_Copy,  Location, Language, Publisher, Category, Author, User`;
+const dropTables = `DROP TABLE IF EXISTS Borrow, Reserve, Review, Staff, Book, Book_Copy, Location, Language, Publisher, Category, Author, User`;
 
 const User = `CREATE TABLE IF NOT EXISTS User (
     User_ID INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -61,11 +61,11 @@ const Book = `CREATE TABLE IF NOT EXISTS Book (
     Category SMALLINT NOT NULL,
     Publisher INTEGER NOT NULL,
     Image_Path VARCHAR(500),
+    PDF_Link VARCHAR(1000),
     Image_Name VARCHAR(500),
-    PDF_Link VARCHAR(500),
-    FOREIGN KEY (Author) REFERENCES Author(Author_ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (Category) REFERENCES Category(Cat_ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (Publisher) REFERENCES Publisher(Publisher_ID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (Author) REFERENCES Author(Author_ID) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (Category) REFERENCES Category(Cat_ID) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (Publisher) REFERENCES Publisher(Publisher_ID) ON UPDATE CASCADE
 )`;
 
 const Book_Copy = `CREATE TABLE IF NOT EXISTS Book_Copy (

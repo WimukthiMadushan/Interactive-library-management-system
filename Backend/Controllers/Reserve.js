@@ -156,3 +156,18 @@ export const getReserves = (req, res) => {
     res.status(200).json(results);
   });
 };
+
+export const deleteReserve = (req, res) => {
+  const { Reserve_ID } = req.params;
+  const query = `
+    DELETE FROM Reserve
+    WHERE Reserve_ID = ?
+  `;
+  connection.query(query, [Reserve_ID], (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    res.status(200).json({ message: "Reservation deleted successfully" });
+  });
+};

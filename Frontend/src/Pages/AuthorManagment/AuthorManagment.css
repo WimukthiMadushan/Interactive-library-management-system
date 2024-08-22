@@ -1,0 +1,132 @@
+.author-managment-outer {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  height: 110%;
+  background: linear-gradient(to bottom right, #000000, #313131);
+}
+.author-managment-container {
+  width: 95%;
+  margin: 0rem auto;
+  animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+  animation-delay: 0.6s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-top: 2px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.author-managment-container h2 {
+  font-size: 3rem;
+  margin-top: 5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.author-managment-buttons {
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-author-button {
+  padding: 10px 20px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.add-author-button:hover {
+  background-color: #2e2e2e;
+  transform: translateY(-2px);
+}
+
+.author-managment-search {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-author {
+  padding: 10px;
+  width: 80rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease;
+}
+
+.search-author:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.authors-table {
+  width: 95%;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.authors-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.authors-table th,
+.authors-table td {
+  width: 10rem;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.authors-table th {
+  background-color: #f2f2f2;
+  color: #333;
+  width: 20rem;
+  font-weight: 700;
+}
+
+.authors-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Action buttons in table */
+.action-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.update-author-button,
+.delete-author-button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s;
+}
+
+.update-author-button {
+  background-color: #000000;
+  color: white;
+}
+
+.update-author-button:hover {
+  background-color: #2e2e2e;
+  transform: translateY(-2px);
+}
+
+.delete-author-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.delete-author-button:hover {
+  background-color: #f44336;
+  transform: translateY(-2px);
+}

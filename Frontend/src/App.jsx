@@ -6,20 +6,24 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import NavBar from "./Components/NavBar";
-import HomePage from "./Pages/HomePage";
-import Register from "./Pages/Register";
-import LoginPage from "./Pages/LoginPage";
-import Book from "./Pages/Book";
-import UserProfile from "./Pages/UserProfile";
-import SearchBook from "./Pages/SearchBook";
+import NavBar from "./Components/NavBar/NavBar";
+import HomePage from "./Pages/HomePage/HomePage";
+import Register from "./Pages/Register/Register";
+import LoginPage from "./Pages/Login/LoginPage";
+import Book from "./Pages/Book/Book.jsx";
+import UserProfile from "./Pages/UserProfile/UserProfile.jsx";
+import SearchBook from "./Pages/SearchBook/SearchBook.jsx";
 import { useAuth } from "./Hooks/AuthContext.jsx";
-import BookManagment from "./Pages/BookManagment.jsx";
-import AuthorManagment from "./Pages/AuthorManagment.jsx";
-import PublisherManagment from "./Pages/PublisherManagment.jsx";
-import UserManagment from "./Pages/UserManagment.jsx";
-import BorrowBookManagment from "./Pages/BorrowBookManagment.jsx";
-import ReservationManagment from "./Pages/ReservationManagment.jsx";
+import BookManagment from "./Pages/BookManagment/BookManagment.jsx";
+import AuthorManagment from "./Pages/AuthorManagment/AuthorManagment.jsx";
+import PublisherManagment from "./Pages/PublisherManagment/PublisherManagment.jsx";
+import UserManagment from "./Pages/UserManagment/UserManagment.jsx";
+import BorrowBookManagment from "./Pages/BorrowBooksManagment/BorrowBookManagment.jsx";
+import ReservationManagment from "./Pages/ReservationManagment/ReservationManagment.jsx";
+import BookDetails from "./Pages/BookDetails/BookDetails.jsx";
+import AdminButtons from "./Pages/AdminDashboard/AdminButtons.jsx";
+import ReceptionDashboard from "./Pages/ReceptionDashboard/ReceptionDashboard.jsx";
+import ProfileDetails from "./Pages/ProfileDetails/ProfileDetails.jsx";
 
 function App() {
   const { authState } = useAuth();
@@ -33,7 +37,8 @@ function App() {
         <Route path="/register" element={!userId && <Register />} />
         <Route path="/login" element={!userId && <LoginPage />} />
         <Route path="/searchbooks" element={<SearchBook />} />
-        <Route path="/profile" element={userId && <UserProfile />} />
+        <Route path="/profile/:id" element={userId && <UserProfile />} />
+        <Route path="/profiledetails/:id" element={<ProfileDetails />} />
         <Route path="/book/:bookID" element={<Book />} />
         <Route
           path="/bookmanagement"
@@ -65,6 +70,9 @@ function App() {
             (role === "Receptionist" && <ReservationManagment />)
           }
         />
+        <Route path="/bookdetails" element={<BookDetails />} />
+        <Route path="/adminbuttons" element={<AdminButtons />} />
+        <Route path="/receptionbuttons" element={<ReceptionDashboard />} />
       </Routes>
     </div>
   );
