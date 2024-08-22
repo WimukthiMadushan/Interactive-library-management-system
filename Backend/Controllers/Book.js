@@ -151,6 +151,7 @@ export const getBooksFromFilters = (req, res) => {
   });
 };
 
+
 export const deleteBook = (req, res) => {
   const { id } = req.params;
 
@@ -306,5 +307,65 @@ export const updateBook = (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json({ message: "Book updated successfully" });
+  });
+};
+
+
+//.............................for advanced filters................................
+export const getBooksFromAdvancedFilters = (req, res) => {
+  const {
+    start,
+    end,
+    category,
+    range
+  } = req.body;
+  console.log(req.body);
+
+
+  // Initialize query and conditions
+  let sqlquery = `
+    SELECT b.*, a.First_Name AS Author_First_Name, a.Last_Name AS Author_Last_Name,
+           p.Publisher_First_Name, p.Publisher_Last_Name,
+           c.Cat_Name AS Category_Name
+    FROM Book b
+    INNER JOIN Author a ON b.Author = a.Author_ID
+    INNER JOIN Publisher p ON b.Publisher = p.Publisher_ID
+    INNER JOIN Category c ON b.Category = c.Cat_ID
+    LEFT JOIN Review r ON b.Book_ID = r.Book_ID
+    WHERE 1=1
+  `;
+
+  let conditions = [];
+
+  // Add date range condition
+  if (start && end) {
+    sqlquery += ` AND b.Published_Date BETWEEN '${start}' AND '${end}'`;
+  }
+
+  // Add category condition
+  if (category && category.length > 0) {
+    const categoryValues = category.map(cat => `'${cat.value}'`).join(',');
+    sqlquery += ` AND c.Cat_Name IN (${categoryValues})`;
+  }
+
+  // Add review rating range condition
+  if (range && range.length === 2) {
+    sqlquery += ` AND r.Rating BETWEEN ${range[0]} AND ${range[1]}`;
+  }
+
+  // Combine conditions
+  if (conditions.length > 0) {
+    sqlquery += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  // Execute the query
+  // Assuming you have a database connection available as `db`
+  connection.query(sqlquery, (error, results) => {
+    if (error) {
+      return res.status(500).json({
+        error: 'Database query error'
+      });
+    }
+    res.status(200).json(results);
   });
 };

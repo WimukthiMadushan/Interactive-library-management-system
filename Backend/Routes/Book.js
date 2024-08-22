@@ -10,6 +10,7 @@ import {
   getBookNames,
   getBookList,
   updateBook,
+  getBooksFromAdvancedFilters
 } from "../Controllers/Book.js";
 
 // image storage engine for store images at uploads
@@ -24,6 +25,7 @@ const upload = multer({ storage: storage });
 
 router.put("/:id", upload.single("uploaded_file"), updateBook);
 router.post("/", upload.single("uploaded_file"), addBook);
+router.post("/advanced", getBooksFromAdvancedFilters);
 router.get("/filters", getBooksFromFilters);
 router.get("/list", getBookList);
 router.get("/:id", getBook);

@@ -5,6 +5,9 @@ import Pagination from "../../Components/Pagination/Pagination";
 import { FcFilledFilter } from "react-icons/fc";
 import Select from "react-select";
 import { StoreContext } from "../../Hooks/StoreContext";
+import Filters from "../../Components/Filters/Filters";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const customStyles = {
   control: (provided) => ({
@@ -58,10 +61,61 @@ function SearchBook() {
   const [clickFilters, setClickFilters] = useState(false);
   const { publisherOptions, authorOptions, categoryOptions } =
     useContext(StoreContext);
+  const [appliedFilters, setAppliedFilters] = useState({
+    category: [],
+    start: null,
+    end: null,
+    range: null,
+  });
 
   const handleChange = (selected) => {
     setSelectedCategories(selected || []);
   };
+
+  const toggleFilterPopup = () => {
+    setClickFilters(!clickFilters);
+  };
+
+  const handleFilterSubmit = async (data) => {
+    setAppliedFilters((prevFilters) => {
+      const mergedFilters = {
+        ...prevFilters,
+        ...data,
+        category: [...prevFilters.category, ...(data.category || [])],
+      };
+      return mergedFilters;
+    });
+  };
+
+  const removeFilter = (filterType, value) => {
+    setAppliedFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+      if (filterType === 'category') {
+        updatedFilters.category = updatedFilters.category.filter(cat => cat.value !== value);
+      } else if (filterType === 'date') {
+        updatedFilters.start = null;
+        updatedFilters.end = null;
+      } else if (filterType === 'rating') {
+        updatedFilters.range = null;
+      }
+      return updatedFilters;
+    });
+  };
+
+  // for advanced filters
+  useEffect(() => {
+    const fetchBooks = async (filters) => {
+      try {
+        const response = await axios.post('http://localhost:5000/api/book/advanced', filters);
+        setBooks(response.data);
+      } catch (error) {
+        console.log("Error fetching data:", error.message);
+      }
+    };
+    if (appliedFilters) {
+      fetchBooks(appliedFilters);
+    }
+  }, [appliedFilters]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -131,16 +185,49 @@ function SearchBook() {
         </div>
         {clickFilters && (
           <div className="filter-options">
-            <Select
-              isMulti
-              options={categoryOptions}
-              styles={customStyles}
-              onChange={handleChange}
-              placeholder="Select Category"
-              value={selectedCategories}
-            />
+            <Filters togglePopup={toggleFilterPopup} onApply={handleFilterSubmit} />
           </div>
         )}
+
+        {appliedFilters && (
+          <div className="applied-filters">
+            
+            {appliedFilters.start && appliedFilters.end && (
+              <div className="filter-item">
+                Date Range: {appliedFilters.start} to {appliedFilters.end}
+                <span className="cross-icon">
+                  <FontAwesomeIcon 
+                    icon={faXmark} 
+                    onClick={() => removeFilter('date')} 
+                  />
+                </span>
+              </div>
+            )}
+            {appliedFilters.category.map(cat => (
+              <div className="filter-item" key={cat.value}>
+                {cat.label}
+                <span className="cross-icon">
+                  <FontAwesomeIcon 
+                    icon={faXmark}  
+                    onClick={() => removeFilter('category', cat.value)} 
+                  />
+                </span>
+              </div>
+            ))}
+            {appliedFilters.range && (
+              <div className="filter-item">
+                Rating: {appliedFilters.range[0]} to {appliedFilters.range[1]}
+                <span className="cross-icon">
+                  <FontAwesomeIcon 
+                    icon={faXmark} 
+                    onClick={() => removeFilter('rating')} 
+                  />
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
       </div>
       <div className="display-books">
         <Pagination Data={Books} itemsPerPage={49} />
