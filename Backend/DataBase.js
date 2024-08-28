@@ -21,7 +21,7 @@ import insertDataFromFile from "./insertData.js";
 const connection = mysql2.createConnection({
   host: "localhost",
   user: "root",
-  password: "dulanga1234",
+  password: "#WM@b2000#",
   database: "library_database",
 });
 
@@ -95,8 +95,8 @@ connection.connect((err) => {
     return;
   }
   console.log("Database connection established");
-  //DropTables();
-  /*createTable(
+  DropTables();
+  createTable(
     User,
     Author,
     Category,
@@ -111,7 +111,6 @@ connection.connect((err) => {
     Reserve
   );
   insertData();
-  */
   console.log("Database connected");
 });
 
