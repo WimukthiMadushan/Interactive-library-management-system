@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "./../../Hooks/AuthContext.jsx";
 import "./NavBar.css";
-import logo from "./../../Images/logo.png";
+import logo from "./../../Images/Logo.png";
 import Profile_pic from "./../../Images/Profile_pic.jpg";
 
 function NavBar() {

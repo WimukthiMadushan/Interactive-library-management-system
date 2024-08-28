@@ -59,9 +59,11 @@ function BookManagement() {
   const toggleAddPopup = () => {
     setIsAddBookOpen(!isAddBookOpen);
   };
+
   const toggleAddCopyPopup = () => {
     setIsAddBookCopyOpen(!isAddBookCopyOpen);
   };
+
   const toggleUpdatePopup = (bookId) => {
     setIsUpdateBookOpen(!isUpdateBookOpen);
     setSelectedBookId(bookId);
@@ -89,7 +91,7 @@ function BookManagement() {
     <div className="book-managment-outer">
       <div className="book-management-container">
         <div className="book-management-image">
-          <h2>Books Management.</h2>
+          <h2>Books Management</h2>
         </div>
         <div className="book-management-buttons">
           <button className="book-add" onClick={toggleAddPopup}>
@@ -188,7 +190,7 @@ function BookManagement() {
         {isAddBookOpen && (
           <AddBooks showPopup={isAddBookOpen} togglePopup={toggleAddPopup} />
         )}
-        {isUpdateBookOpen && selectedBookId && (
+        {isUpdateBookOpen && (
           <UpdateBook
             showPopup={isUpdateBookOpen}
             togglePopup={toggleUpdatePopup}

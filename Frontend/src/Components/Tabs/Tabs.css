@@ -1,0 +1,102 @@
+.tabs-container {
+    display: flex;
+    justify-content: start;
+    margin-bottom: 0;
+    width: 95%;
+    margin-left: 2.5%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    padding-left: 20px;
+    padding-right: 20px;
+    opacity: 0;
+    animation: fadeInSlideUpQuick 0.4s forwards ease-in-out;
+    animation-delay: 0.6s;
+  }
+  
+  .tab1 {
+    width: 10%;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    background-color: #f5f5f5;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    z-index: 1;
+    font-weight: 500;
+  }
+  
+  .tab1.active {
+    position: relative;
+    z-index: 4;
+    background-color: #eae9e9
+  }
+  
+  .tab {
+    transition: background-color 0.2s ease, color 0.2s ease;
+    position: relative;
+    padding: 10px 40px;
+  }
+  
+  .tab1::before,
+  .tab1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    background: white;
+    z-index: 3;
+  }
+  
+  .tab::before,
+  .tab::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    background: #eae9e9;
+    z-index: 2;
+  }
+  
+  .tab::before {
+    left: -20px;
+  }
+  
+  .tab::after {
+    right: -20px;
+  }
+  
+  /*left side */
+  .tab1::before {
+    left: -20px;
+    border-right: 1px solid #ddd;
+  }
+  
+  .tab1.active::before {
+    border-bottom-right-radius: 12px;
+  }
+  
+  /*right side */
+  .tab1::after {
+    right: -20px;
+    border-left: 1px solid #ddd;
+  }
+  
+  .tab1.active::after {
+    border-bottom-left-radius: 12px;
+    border-bottom: none;
+  }
+  
+  .tab1:last-child::before {
+    background-color: #f2f2f2;
+  }
+  
+  #first.active::after {
+    background-color: #eae9e9;
+  }
+  #first1.active::after{
+    background-color: #f2f2f2;
+  }
+  

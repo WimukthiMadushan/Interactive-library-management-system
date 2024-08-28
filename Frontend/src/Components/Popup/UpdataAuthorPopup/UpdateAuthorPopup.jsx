@@ -76,10 +76,10 @@ function UpdateAuthorPopup({
   };
 
   return (
-    <div className="overlay">
+    <div className="update-author-overlay">
       <div className="dialog-container">
         <header className="dialog-header">
-          <h2 className="dialog-title">Update Author</h2>
+          <h2 className="update-author-dialog-title">Update Author</h2>
           <button
             className="update-author-close-button"
             onClick={toggleUpdateAuthorPopup}
@@ -87,9 +87,9 @@ function UpdateAuthorPopup({
             ×
           </button>
         </header>
-        <form className="form-grid" onSubmit={handleUpdateSubmit}>
-          <div className="form-grid-two-columns">
-            <div className="form-field">
+        <form className="form-grid-update-auth" onSubmit={handleUpdateSubmit}>
+          <div className="form-grid-two-columns-update-auth">
+            <div className="form-field-update-auth">
               <label htmlFor="firstName">First Name</label>
               <input
                 id="firstName"
@@ -102,7 +102,7 @@ function UpdateAuthorPopup({
                 required
               />
             </div>
-            <div className="form-field">
+            <div className="form-field-update-auth">
               <label htmlFor="lastName">Last Name</label>
               <input
                 id="lastName"
@@ -116,7 +116,7 @@ function UpdateAuthorPopup({
               />
             </div>
           </div>
-          <div className="form-field">
+          <div className="form-field-update-auth">
             <label htmlFor="email">Email</label>
             <input
               id="email"
@@ -129,8 +129,8 @@ function UpdateAuthorPopup({
               required
             />
           </div>
-          <div className="form-grid-two-columns">
-            <div className="form-field">
+          <div className="form-grid-two-columns-update-auth">
+            <div className="form-field-update-auth">
               <label htmlFor="street">Street</label>
               <input
                 id="street"
@@ -143,7 +143,7 @@ function UpdateAuthorPopup({
                 required
               />
             </div>
-            <div className="form-field">
+            <div className="form-field-update-auth">
               <label htmlFor="city">City</label>
               <input
                 id="city"
@@ -157,8 +157,8 @@ function UpdateAuthorPopup({
               />
             </div>
           </div>
-          <div className="form-grid-two-columns">
-            <div className="form-field">
+          <div className="form-grid-two-columns-update-auth">
+            <div className="form-field-update-auth">
               <label htmlFor="country">Country</label>
               <input
                 id="country"
@@ -171,7 +171,7 @@ function UpdateAuthorPopup({
                 required
               />
             </div>
-            <div className="form-field">
+            <div className="form-field-update-auth">
               <label htmlFor="nic">NIC Number</label>
               <input
                 id="nic"
@@ -185,7 +185,7 @@ function UpdateAuthorPopup({
               />
             </div>
           </div>
-          <div className="form-field">
+          <div className="form-field-update-auth">
             <label htmlFor="mobile">Mobile Number</label>
             <input
               id="mobile"
@@ -198,7 +198,7 @@ function UpdateAuthorPopup({
               required
             />
           </div>
-          <footer className="dialog-footer">
+          <footer className="dialog-footer-update-auth">
             <button type="submit" className="button button-primary">
               Update
             </button>
