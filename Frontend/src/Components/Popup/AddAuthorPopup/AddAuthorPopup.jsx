@@ -82,10 +82,10 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
   };
 
   return (
-    <div data-testid="add-author-popup" className="add-author-overlay">
+    <div className="overlay">
       <div className="dialog-container">
-        <header className="add-author-dialog-header">
-          <h2 className="add-author-dialog-title">Add New Author</h2>
+        <header className="dialog-header">
+          <h2 className="dialog-title">Add New Author</h2>
           <p className="dialog-description">
             Fill out the form below to add a new author to your database.
           </p>
@@ -98,9 +98,9 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
             ×
           </button>
         </header>
-        <form className="form-grid-add-auth" onSubmit={handleAddSubmit}>
-          <div className="form-grid-two-columns-add-auth">
-            <div className="form-field-add-auth">
+        <form className="form-grid" onSubmit={handleAddSubmit}>
+          <div className="form-grid-two-columns">
+            <div className="form-field">
               <label htmlFor="firstName">First Name</label>
               <input
                 id="firstName"
@@ -113,7 +113,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
                 required
               />
             </div>
-            <div className="form-field-add-auth">
+            <div className="form-field">
               <label htmlFor="lastName">Last Name</label>
               <input
                 id="lastName"
@@ -127,7 +127,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
               />
             </div>
           </div>
-          <div className="form-field-add-auth">
+          <div className="form-field">
             <label htmlFor="email">Email</label>
             <input
               id="email"
@@ -140,8 +140,8 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
               required
             />
           </div>
-          <div className="form-grid-two-columns-add-auth">
-            <div className="form-field-add-auth">
+          <div className="form-grid-two-columns">
+            <div className="form-field">
               <label htmlFor="street">Street</label>
               <input
                 id="street"
@@ -154,7 +154,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
                 required
               />
             </div>
-            <div className="form-field-add-auth">
+            <div className="form-field">
               <label htmlFor="city">City</label>
               <input
                 id="city"
@@ -168,8 +168,8 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
               />
             </div>
           </div>
-          <div className="form-grid-two-columns-add-auth">
-            <div className="form-field-add-auth">
+          <div className="form-grid-two-columns">
+            <div className="form-field">
               <label htmlFor="country">Country</label>
               <input
                 id="country"
@@ -182,7 +182,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
                 required
               />
             </div>
-            <div className="form-field-add-auth">
+            <div className="form-field">
               <label htmlFor="nic">NIC Number</label>
               <input
                 id="nic"
@@ -196,7 +196,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
               />
             </div>
           </div>
-          <div className="form-field-add-auth">
+          <div className="form-field">
             <label htmlFor="mobile">Mobile Number</label>
             <input
               id="mobile"
@@ -209,7 +209,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
               required
             />
           </div>
-          <footer className="dialog-footer-add-auth">
+          <footer className="dialog-footer">
             <button
               type="submit"
               className="button button-primary"

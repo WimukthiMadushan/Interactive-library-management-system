@@ -1,7 +1,8 @@
 /* Card Container */
-.add-book-popup {
-  max-width: fit-content;
+.popup {
+  max-width: 800px;
   margin: 0 auto;
+  padding: 24px;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -10,7 +11,6 @@
   transform: none;
   animation: none;
   overflow: visible;
-  top: -250px;
 }
 
 .popup:hover {
@@ -18,18 +18,18 @@
 }
 
 /* Popup Overlay */
-.add-book-popup-overlay {
+.popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   animation: fadeInQuick 0.4s ease-in-out;
-  height: 100%;
-  width: 100%;
 }
 
 /* Popup Header */
@@ -54,13 +54,6 @@
   margin-bottom: 24px;
 }
 
-.add-book-container {
-  width: 90vw;
-  margin: 0 auto;
-  padding: 20px;
-  height: 97%;
-}
-
 /* Form Grid */
 .form-grid {
   display: grid;
@@ -82,43 +75,39 @@
 }
 
 .input,
-.add-book-textarea,
-.add-book-select {
+.textarea,
+.select {
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
   margin-top: 10px;
   margin-bottom: 10px;
+  width: 97%;
   transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .input:hover,
-.add-book-textarea:hover,
-.add-book-select:hover {
+.textarea:hover,
+.select:hover {
   border-color: #000000;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .input:focus,
-.add-book-textarea:focus,
-.add-book-select:focus {
+.textarea:focus,
+.select:focus {
   border-color: #000000;
   outline: none;
   box-shadow: 0 2px 10px rgba(37, 37, 37, 0.2);
 }
 
-.add-book-textarea {
-  margin-top: 0;
-  margin-bottom: 0;
+.textarea {
   resize: vertical;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
 }
 
 /* Button Styles */
-.add-book-button {
+.add-button {
   padding: 12px 24px;
   background-color: #000000;
   color: #fff;
@@ -131,42 +120,34 @@
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.add-book-button:hover {
+.add-button:hover {
   background-color: #000000;
   transform: translateY(-2px);
 }
 
-.add-book-button:active {
+.add-button:active {
   background-color: #242424;
   transform: translateY(1px);
 }
 
-.add-book-multi-select {
+.multi-select {
   margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
 }
 /* Additional Styles */
-.add-book-select {
+.select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   margin-top: 10px;
 }
 
-.add-book-select::-ms-expand {
+.select::-ms-expand {
   display: none;
 }
 
 /* Image Upload Section */
 .add-img-upload {
   text-align: center;
-  margin-bottom: 1rem;
-}
-
-.img-upload-text {
-  margin-bottom: 0;
 }
 
 .add-img-upload img {
@@ -182,10 +163,6 @@
 
 .add-img-upload img:hover {
   border-color: #000000;
-}
-
-.img-upload-icon {
-  cursor: pointer;
 }
 
 /* Close Button */

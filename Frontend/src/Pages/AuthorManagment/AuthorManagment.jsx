@@ -30,7 +30,7 @@ function AuthorManagment() {
       const response = await axios.get("http://localhost:5001/api/author/");
       setAuthors(response.data);
     } catch (error) {
-      console.log("Error fetching authors:", error);
+      console.error("Error fetching authors:", error);
     }
   };
 
@@ -61,7 +61,7 @@ function AuthorManagment() {
     } catch (error) {
       setModalMessage("Error Deleting Author.");
       setShowError(true);
-      console.log("Error deleting author:", error);
+      console.error("Error deleting author:", error);
     }
   };
 

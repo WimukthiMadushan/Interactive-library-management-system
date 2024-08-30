@@ -26,8 +26,5 @@
     "parser": "^0.1.4",
     "react-speech-recognition": "^3.10.0"
   },
-  "type": "module",
-  "devDependencies": {
-    "jest": "^29.7.0"
-  }
+  "type": "module"
 }

@@ -3,8 +3,6 @@ import "./AddBookCopy.css";
 import Select from "react-select";
 import { StoreContext } from "./../../Hooks/StoreContext";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const AddBookCopy = ({ showPopup, togglePopup }) => {
   const customStyles = {
@@ -63,15 +61,10 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
 
   const [rows, setRows] = useState(initialState);
 
-  // const handleInputChange = (index, event) => {
-  //   const { name, value } = event.target;
-  //   const newRows = [...rows];
-  //   newRows[index][name] = value.substring(0, 6); // Limit bookID input to 6 characters
-  //   setRows(newRows);
-  // };
-  const handleInputChange = (index, selectedOption) => {
+  const handleInputChange = (index, event) => {
+    const { name, value } = event.target;
     const newRows = [...rows];
-    newRows[index].bookID = selectedOption;
+    newRows[index][name] = value.substring(0, 6); // Limit bookID input to 6 characters
     setRows(newRows);
   };
 
@@ -122,7 +115,6 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
         {}
       ),
     }));
-    console.log(dataToSend);
 
     try {
       const response = await axios.post(
@@ -142,16 +134,13 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
 
   return (
     <div className={`modal ${showPopup ? "show" : ""}`}>
-      <div className="book-copy-modal-content">
-        <form className="book-copy-container" onSubmit={handleSubmit}>
+      <div className="modal-content">
+        <span className="book-copy-close" onClick={togglePopup}>
+          &times;
+        </span>
+        <form className="container" onSubmit={handleSubmit}>
           <div className="add">
             <h1>Add Book Copies</h1>
-            <FontAwesomeIcon
-              className="book-copy-close-button"
-              size="lg"
-              icon={faXmark}
-              onClick={togglePopup}
-            />
             <table className="book-copy-table">
               <thead>
                 <tr>
@@ -166,7 +155,7 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
                   <tr key={row.key}>
                     <td>
                       <Select
-                        className="book-copy-select"
+                        styles={customStyles}
                         options={[
                           { value: "", label: "Select Book", isDisabled: true },
                           ...bookOptions,
@@ -189,6 +178,7 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
                     </td>
                     <td>
                       <Select
+                        styles={customStyles}
                         name="languages"
                         options={languageOptions}
                         placeholder="Select Languages"
@@ -230,14 +220,10 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
               </tbody>
             </table>
             <div className="add-book-copy-buttons">
-              <button
-                type="button"
-                onClick={addRow}
-                className="add-copy-button"
-              >
+              <button type="button" onClick={addRow} className="add-button">
                 Add New Row
               </button>
-              <button type="submit" className="add-copy-button">
+              <button type="submit" className="add-button">
                 Submit
               </button>
             </div>
