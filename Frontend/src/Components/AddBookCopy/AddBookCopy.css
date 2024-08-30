@@ -154,7 +154,7 @@
   cursor: pointer;
 }
 
-.book-copy-close-button{
+.book-copy-close-button {
   display: inline-block;
   position: absolute;
   top: 5px;
@@ -167,9 +167,7 @@
   justify-content: center;
   transition: transform 0.3s ease;
 }
-.book-copy-close-button:hover{
+.book-copy-close-button:hover {
   background-color: white;
   transform: scale(1.5);
 }
-
-

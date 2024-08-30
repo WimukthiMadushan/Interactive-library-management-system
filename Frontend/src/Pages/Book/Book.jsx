@@ -5,6 +5,7 @@ import axios from "axios";
 import "./Book.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import NotificationModal from "../../Components/Modals/NotificationModal";
 
 function Book() {
   const location = useLocation();
@@ -99,13 +100,10 @@ function Book() {
           copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
         )
       );
-
-      toast.success("Reservation Successful", {
-        closeButton: false,
-      });
-
       setShowReservationPopup(false);
     } catch (error) {
+      console.log(error.message);
+      alert("Error reserving book. Please try again later.");
     } finally {
       setLoading(false);
     }

@@ -4,9 +4,8 @@ import { StoreContext } from "./../../../Hooks/StoreContext";
 import axios from "axios";
 import "./AddBooks.css";
 import NotificationModal from "../../Modals/NotificationModal";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCloudArrowUp} from "@fortawesome/free-solid-svg-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddBook({ togglePopup }) {
   const { publisherOptions, authorOptions, categoryOptions } =
@@ -79,7 +78,10 @@ export default function AddBook({ togglePopup }) {
   return (
     <>
       <div className="add-book-popup-overlay">
-        <div className="add-book-popup" style={{ width: "750px", overflow: "visible" }}>
+        <div
+          className="add-book-popup"
+          style={{ width: "750px", overflow: "visible" }}
+        >
           <form
             className="add-book-container"
             onSubmit={onSubmitHandler}
@@ -94,14 +96,18 @@ export default function AddBook({ togglePopup }) {
               <div className="add-img-upload flex-col">
                 <p className="img-upload-text">Upload Book Image</p>
                 <label htmlFor="uploaded_file">
-                {image ? (
-                  <img
-                    src={URL.createObjectURL(image)}
-                    alt="Uploaded Image"
-                  />
-                ) : (
-                  <FontAwesomeIcon icon={faCloudArrowUp} size="4x" className="img-upload-icon" />
-                )}
+                  {image ? (
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="Uploaded Image"
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faCloudArrowUp}
+                      size="4x"
+                      className="img-upload-icon"
+                    />
+                  )}
                 </label>
                 <input
                   onChange={(e) => setImage(e.target.files[0])}
@@ -131,7 +137,8 @@ export default function AddBook({ togglePopup }) {
                 />
               </div>
 
-              <textarea className="add-book-textarea"
+              <textarea
+                className="add-book-textarea"
                 onChange={handleChange}
                 value={data.description}
                 name="description"
@@ -191,11 +198,10 @@ export default function AddBook({ togglePopup }) {
                 required
               />
               <div className="add-button-container">
-                <button type="submit" className="add-button">
+                <button type="submit" className="add-book-button">
                   Add Book
                 </button>
               </div>
-              
             </div>
           </form>
         </div>

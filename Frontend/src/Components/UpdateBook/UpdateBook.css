@@ -114,19 +114,19 @@
   box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
 }
 
-.add-button {
-  background: #fbb034;
-  color: #fff;
-  border: none;
+.update-book-button {
   padding: 10px 20px;
-  border-radius: 4px;
+  border: none;
+  border-radius: 5px;
+  background-color: #000000;
+  color: #fff;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
-
-.add-button:hover {
-  background: #f79c4e;
+.update-book-button:hover {
+  background-color: #222422;
+  transform: translateY(-2px);
 }
 
 .add-books-close-button {
@@ -173,10 +173,10 @@
   border-color: #fbb034;
 }
 
-.rs-picker-popup{
+.rs-picker-popup {
   width: fit-content;
 }
-.rs-picker input{
+.rs-picker input {
   margin-bottom: 0;
 }
 

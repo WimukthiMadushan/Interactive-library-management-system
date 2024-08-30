@@ -4,13 +4,12 @@ import { Content, DatePicker } from "rsuite";
 import Select from "react-select";
 import "rsuite/DatePicker/styles/index.css";
 import "./UpdateBook.css";
-import upload_area from "./../../Images/upload_area.png";
 import { MdClose } from "react-icons/md";
 import { StoreContext } from "./../../Hooks/StoreContext";
 import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCloudArrowUp} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const UpdateBook = ({ id, togglePopup }) => {
   const { publisherOptions, authorOptions, categoryOptions } =
@@ -110,7 +109,10 @@ const UpdateBook = ({ id, togglePopup }) => {
 
   return (
     <div className="update-book-popup-overlay">
-      <div className="update-book-popup" style={{ width: "700px", overflow: "visible" }}>
+      <div
+        className="update-book-popup"
+        style={{ width: "700px", overflow: "visible" }}
+      >
         <form
           className="update-book-container"
           onSubmit={handleSubmit}
@@ -125,13 +127,14 @@ const UpdateBook = ({ id, togglePopup }) => {
               <p>Upload Book Image</p>
               <label htmlFor="uploaded_file">
                 {image ? (
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="Uploaded Image"
-                    />
-                  ) : (
-                    <FontAwesomeIcon icon={faCloudArrowUp} size="4x" className="img-upload-icon" />
-                  )}
+                  <img src={URL.createObjectURL(image)} alt="Uploaded Image" />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faCloudArrowUp}
+                    size="4x"
+                    className="img-upload-icon"
+                  />
+                )}
               </label>
               <input
                 onChange={(e) => setImage(e.target.files[0])}
@@ -161,7 +164,8 @@ const UpdateBook = ({ id, togglePopup }) => {
               />
             </div>
 
-            <textarea className="update-book-textarea"
+            <textarea
+              className="update-book-textarea"
               onChange={handleChange}
               value={book.Description}
               name="Description"
@@ -246,7 +250,7 @@ const UpdateBook = ({ id, togglePopup }) => {
               required
             />
 
-            <button type="submit" className="add-button">
+            <button type="submit" className="update-book-button">
               Update Book
             </button>
           </div>

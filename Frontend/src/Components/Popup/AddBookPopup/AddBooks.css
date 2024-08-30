@@ -54,13 +54,12 @@
   margin-bottom: 24px;
 }
 
-.add-book-container{
+.add-book-container {
   width: 90vw;
   margin: 0 auto;
   padding: 20px;
   height: 97%;
 }
-
 
 /* Form Grid */
 .form-grid {
@@ -119,8 +118,8 @@
 }
 
 /* Button Styles */
-.add-button {
-  margin:  0 34%;
+
+.add-book-button {
   padding: 12px 24px;
   background-color: #000000;
   color: #fff;
@@ -133,12 +132,7 @@
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.add-button:hover {
-  background-color: #000000;
-  transform: translateY(-2px);
-}
-
-.add-button:active {
+.add-book-button:active {
   background-color: #242424;
   transform: translateY(1px);
 }
@@ -167,7 +161,7 @@
   margin-bottom: 1rem;
 }
 
-.img-upload-text{
+.img-upload-text {
   margin-bottom: 0;
 }
 
@@ -186,7 +180,7 @@
   border-color: #000000;
 }
 
-.img-upload-icon{
+.img-upload-icon {
   cursor: pointer;
 }
 

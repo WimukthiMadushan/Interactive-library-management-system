@@ -41,7 +41,7 @@ function UserManagment() {
       }
     };
     fetchUsers();
-  }, [searchQuery,activeTab]);
+  }, [searchQuery, activeTab]);
 
   const fetchStaff = async () => {
     try {
@@ -55,7 +55,7 @@ function UserManagment() {
 
   useEffect(() => {
     fetchStaff();
-  },[searchQuery,activeTab]);
+  }, [searchQuery, activeTab]);
 
   const filterUsers = (users) => {
     return users.filter(
@@ -65,7 +65,8 @@ function UserManagment() {
     );
   };
 
-  const filteredUsers = activeTab === "users" ? filterUsers(users) : filterUsers(staff);
+  const filteredUsers =
+    activeTab === "users" ? filterUsers(users) : filterUsers(staff);
 
   const usersPerPage = 10;
   const indexOfLastUser = currentPage * usersPerPage;
@@ -104,7 +105,6 @@ function UserManagment() {
     return `${year}-${month}-${day}`;
   };
 
-
   // -------  For update Staff Members -------
   const toggleUpdateStaffPopup = (id) => {
     const userToUpdate = staff.find((user) => user.User_ID === id);
@@ -115,7 +115,6 @@ function UserManagment() {
   const togglePopup = () => {
     setIsUpdateStaffOpen(!isUpdateStaffOpen);
   };
-
 
   return (
     <div className="user-managment-outer">
@@ -138,99 +137,98 @@ function UserManagment() {
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
         <div className="user-managment-table">
-
           {activeTab === "users" ? (
-          <table>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>NIC</th>
-                <th>Mobile</th>
-                <th>Registration Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentUsers.map((user) => (
-                <tr key={user.User_ID}>
-                  <td>
-                    <Link
-                      style={{ textDecoration: "none", color: "black" }}
-                      to={`/profiledetails/${user.User_ID}`}
-                    >
-                      {user.User_ID}
-                    </Link>
-                  </td>
-                  <td>{user.First_Name}</td>
-                  <td>{user.Last_Name}</td>
-                  <td>{user.Email}</td>
-                  <td>{user.Address}</td>
-                  <td>{user.NIC}</td>
-                  <td>{user.Mobile}</td>
-                  <td>{formatDate(user.Registered_Date)}</td>
-                  <td>
-                    <button
-                      className="user-managment-delete-button"
-                      onClick={() => handleDelete(user.User_ID)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>NIC</th>
+                  <th>Mobile</th>
+                  <th>Registration Date</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentUsers.map((user) => (
+                  <tr key={user.User_ID}>
+                    <td>
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to={`/profiledetails/${user.User_ID}`}
+                      >
+                        {user.User_ID}
+                      </Link>
+                    </td>
+                    <td>{user.First_Name}</td>
+                    <td>{user.Last_Name}</td>
+                    <td>{user.Email}</td>
+                    <td>{user.Address}</td>
+                    <td>{user.NIC}</td>
+                    <td>{user.Mobile}</td>
+                    <td>{formatDate(user.Registered_Date)}</td>
+                    <td>
+                      <button
+                        className="user-managment-delete-button"
+                        onClick={() => handleDelete(user.User_ID)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>Staff ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Designation</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentUsers.map((user) => (
-                <tr key={user.User_ID}>
-                  <td>{user.User_ID}</td>
-                  <td>{user.Staff_ID}</td>
-                  <td>{user.First_Name}</td>
-                  <td>{user.Last_Name}</td>
-                  <td>{user.Role}</td>
-                  <td className="action-column">
-                    <button
-                      className="action-button user-delete-button"
-                      // onClick={() => handleDelete(user.User_ID)}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="action-button user-update-button"
-                      onClick={() => toggleUpdateStaffPopup(user.User_ID)}
-                    >
-                      Update
-                    </button>
-                  </td>
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Staff ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Designation</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentUsers.map((user) => (
+                  <tr key={user.User_ID}>
+                    <td>{user.User_ID}</td>
+                    <td>{user.Staff_ID}</td>
+                    <td>{user.First_Name}</td>
+                    <td>{user.Last_Name}</td>
+                    <td>{user.Role}</td>
+                    <td className="action-column">
+                      <button
+                        className="action-button user-delete-button"
+                        onClick={() => handleDelete(user.User_ID)}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        className="action-button user-update-button"
+                        onClick={() => toggleUpdateStaffPopup(user.User_ID)}
+                      >
+                        Update
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
 
         {isUpdateStaffOpen && (
-          <UpdateStaffPopup 
+          <UpdateStaffPopup
             showPopup={isUpdateStaffOpen}
             togglePopup={togglePopup}
             data={staffData}
-          / >
+          />
         )}
 
         <PaginationButtons
