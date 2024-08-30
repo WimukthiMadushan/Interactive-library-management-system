@@ -4,20 +4,18 @@
   align-items: center;
   margin-top: 20px;
 }
-
 .items-container {
   display: grid;
-  grid-template-columns: repeat(7, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem; /* Adjust the gap between cards */
   width: 100%;
-  row-gap: 1rem;
+  box-sizing: border-box;
 }
 .item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 190px;
+  height: 100%; /* Ensures items stretch to fill their grid cell */
+  width: 100%; /* Ensures items stretch to fill their grid cell */
+  max-width: 100%; /* Avoids overflow */
+  box-sizing: border-box;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
