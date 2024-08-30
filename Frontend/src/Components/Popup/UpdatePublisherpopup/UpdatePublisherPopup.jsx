@@ -42,7 +42,7 @@ function UpdatePublisherPopup({
     event.preventDefault();
     try {
       await axios.put(
-        `http://localhost:5001/api/publisher/${updatePublisherData.Publisher_ID}`,
+        `http://localhost:5000/api/publisher/${updatePublisherData.Publisher_ID}`,
         updatePublisherData
       );
       fetchPublishers();
@@ -58,7 +58,7 @@ function UpdatePublisherPopup({
   const fetchPublisherById = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:5001/api/publisher/${id}`
+        `http://localhost:5000/api/publisher/${id}`
       );
       setUpdatePublisherData(response.data);
     } catch (error) {

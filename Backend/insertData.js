@@ -106,7 +106,7 @@ function insertDataFromFile(table, filePath) {
             console.error(`Error inserting data into ${table}:`, err.message);
             return;
           }
-          console.log(`Inserted data into ${table} successfully`);
+          //console.log(`Inserted data into ${table} successfully`);
         });
       })
       .on("end", () => {

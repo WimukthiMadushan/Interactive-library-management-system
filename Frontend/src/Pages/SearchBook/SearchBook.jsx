@@ -106,7 +106,7 @@ function SearchBook() {
   useEffect(() => {
     const fetchBooks = async (filters) => {
       try {
-        const response = await axios.post('http://localhost:5001/api/book/advanced', filters);
+        const response = await axios.post('http://localhost:5000/api/book/advanced', filters);
         setBooks(response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
@@ -120,7 +120,7 @@ function SearchBook() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/book/list");
+        const response = await axios.get("http://localhost:5000/api/book/list");
         setBooks(response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
@@ -132,7 +132,7 @@ function SearchBook() {
   useEffect(() => {
     const fetchFilteredData = async () => {
       try {
-        let apiUrl = "http://localhost:5001/api/book/filters?";
+        let apiUrl = "http://localhost:5000/api/book/filters?";
         const params = [];
 
         if (searchTitleState.length > 0)

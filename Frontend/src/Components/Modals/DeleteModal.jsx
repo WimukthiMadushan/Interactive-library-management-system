@@ -13,7 +13,7 @@ function DeleteModal({
   const handleConfirmDelete = async () => {
     console.log("Deleting author with ID:", authorId);
     try {
-      await axios.delete(`http://localhost:5001/api/author/${authorId}`);
+      await axios.delete(`http://localhost:5000/api/author/${authorId}`);
       setShowModal(false);
       fetchAuthors();
     } catch (error) {

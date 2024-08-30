@@ -12,7 +12,7 @@ function AddReviewModal({ isOpen, setIsOpen, book }) {
 
   const handleSubmit = async () => {
     try {
-      await axios.post(`http://localhost:5001/api/review/`, {
+      await axios.post(`http://localhost:5000/api/review/`, {
         BookID: book.Book_ID,
         Borrow_ID: book.Borrow_ID,
         Rating: rating,

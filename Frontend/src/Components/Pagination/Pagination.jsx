@@ -60,7 +60,7 @@ const Pagination = ({ Data, itemsPerPage }) => {
               />
             ) : item.Image_Name ? (
               <img
-                src={`http://localhost:5001/books/${item.Image_Name}`}
+                src={`http://localhost:5000/books/${item.Image_Name}`}
                 alt={item.Title}
                 className="item-image"
               />

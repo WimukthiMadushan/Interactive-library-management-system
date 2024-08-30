@@ -27,15 +27,15 @@ function BookDetails() {
       }
     };
 
-    fetchBooks(`http://localhost:5001/api/borrow/${userId}`, setBorrowedBooks);
-    fetchBooks(`http://localhost:5001/api/reserve/${userId}`, setReservedBooks);
+    fetchBooks(`http://localhost:5000/api/borrow/${userId}`, setBorrowedBooks);
+    fetchBooks(`http://localhost:5000/api/reserve/${userId}`, setReservedBooks);
   }, [userId]);
 
   const handleRenew = async () => {
     setIsRenewing(true);
     try {
       const response = await axios.put(
-        `http://localhost:5001/api/borrow/renew/${bookToRenew.Book_ID}`
+        `http://localhost:5000/api/borrow/renew/${bookToRenew.Book_ID}`
       );
       if (response.data.success) {
         const updatedBorrowedBooks = borrowedBooks.map((book) =>

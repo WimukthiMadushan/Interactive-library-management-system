@@ -26,7 +26,7 @@ function CarouselPage() {
           <Carousel.Caption>
             <h3 style={{ fontSize: "3rem" }}>Online Library Management</h3>
             <p
-              style={{ marginLeft: "20rem",  marginRight: "1000px" }}
+              style={{ marginLeft: "27rem" }}
               className="carousel-caption-text"
             >
               Streamline your library with ease. Discover, borrow, and manage{" "}

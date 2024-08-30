@@ -35,7 +35,7 @@ const UpdateBook = ({ id, togglePopup }) => {
     const fetchBook = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/book/${id}`
+          `http://localhost:5000/api/book/${id}`
         );
         setBook(response.data);
       } catch (error) {
@@ -92,7 +92,7 @@ const UpdateBook = ({ id, togglePopup }) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5001/api/book/${id}`,
+        `http://localhost:5000/api/book/${id}`,
         formData
       );
       setMessageContent("Book updated successfully.");

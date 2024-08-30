@@ -18,7 +18,7 @@ function BorrowBookManagement() {
 
   const fetchBorrows = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/borrow");
+      const response = await axios.get("http://localhost:5000/api/borrow");
       const formattedData = response.data.map((borrow) => ({
         ...borrow,
         Borrow_Date: new Date(borrow.Borrow_Date).toISOString().split("T")[0],
@@ -69,7 +69,7 @@ function BorrowBookManagement() {
   const handleRenew = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5001/api/borrow/renew/${selectedBorrowId}`
+        `http://localhost:5000/api/borrow/renew/${selectedBorrowId}`
       );
       if (response.data.success) {
         console.log("Book renewed successfully");

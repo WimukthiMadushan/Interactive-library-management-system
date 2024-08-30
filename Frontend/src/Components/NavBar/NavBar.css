@@ -45,9 +45,9 @@ body {
 }
 
 .navbar-logo {
-  width: 60px; /* Set a fixed width */
-  height: auto; /* Let the height adjust automatically */
+  width: 40%;
   object-fit: cover;
+  transition: color 0.3s ease;
   padding-left: 10px;
   margin-left: 30px;
 }
@@ -87,6 +87,8 @@ body {
   flex: 2;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  text-align: center;
 }
 .navbar-right button:hover {
   background-color: inherit;
@@ -97,7 +99,6 @@ body {
   background: none;
   cursor: pointer;
   padding: 0;
-  left: 20px;
 }
 
 .profile-pic img {
@@ -224,15 +225,4 @@ body {
 
 .navbar-right:hover {
   background: none;
-}
-@media screen and (max-width: 1000px) {
-  .navbar-left p {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .navbar-center {
-    display: none;
-  }
 }

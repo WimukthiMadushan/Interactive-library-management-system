@@ -20,7 +20,7 @@ function UserManagment() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/user");
+        const response = await axios.get("http://localhost:5000/api/user");
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -47,7 +47,7 @@ function UserManagment() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/api/user/${id}`);
+      await axios.delete(`http://localhost:5000/api/user/${id}`);
       setModalMessage("Book deleted successfully.");
       setShowSuccess(true);
       setUsers((prevUsers) => prevUsers.filter((user) => user.User_ID !== id));

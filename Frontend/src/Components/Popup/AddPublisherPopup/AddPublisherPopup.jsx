@@ -37,7 +37,7 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
       Mobile: newPublisherData.Mobile,
     };
     try {
-      await axios.post(`http://localhost:5001/api/publisher`, formDataObject);
+      await axios.post(`http://localhost:5000/api/publisher`, formDataObject);
       setNewPublisherData({
         Publisher_First_Name: "",
         Publisher_Last_Name: "",

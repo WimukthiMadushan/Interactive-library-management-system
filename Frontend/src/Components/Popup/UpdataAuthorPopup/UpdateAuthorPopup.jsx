@@ -39,7 +39,7 @@ function UpdateAuthorPopup({
     //console.log(authorId);
     try {
       const response = await axios.put(
-        `http://localhost:5001/api/author/${authorId}`,
+        `http://localhost:5000/api/author/${authorId}`,
         updateData
       );
       if (response.status === 200) {

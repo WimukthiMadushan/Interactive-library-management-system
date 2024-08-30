@@ -26,7 +26,7 @@ function Book() {
     const fetchBook = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/book/${bookId}`
+          `http://localhost:5000/api/book/${bookId}`
         );
         setBook(response.data);
         console.log(response.data);
@@ -41,7 +41,7 @@ function Book() {
     const fetchBookCopy = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/bookcopy/${bookId}`
+          `http://localhost:5000/api/bookcopy/${bookId}`
         );
         setBookCopy(response.data);
       } catch (error) {
@@ -55,7 +55,7 @@ function Book() {
     const fetchReview = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/review/${bookId}`
+          `http://localhost:5000/api/review/${bookId}`
         );
         setReview(response.data);
       } catch (error) {
@@ -84,7 +84,7 @@ function Book() {
         .toTimeString()
         .slice(0, 5);
 
-      const response = await axios.post(`http://localhost:5001/api/reserve`, {
+      const response = await axios.post(`http://localhost:5000/api/reserve`, {
         UserID: userId,
         Copy_ID: selectedCopyId,
         isComplete: 0,

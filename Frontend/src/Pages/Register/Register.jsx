@@ -28,7 +28,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5001/api/auth/register", userData);
+      await axios.post("http://localhost:5000/api/auth/register", userData);
 
       setUserData({
         First_Name: "",

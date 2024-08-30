@@ -27,7 +27,7 @@ function AuthorManagment() {
 
   const fetchAuthors = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/author/");
+      const response = await axios.get("http://localhost:5000/api/author/");
       setAuthors(response.data);
     } catch (error) {
       console.error("Error fetching authors:", error);
@@ -54,7 +54,7 @@ function AuthorManagment() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/api/author/${id}`);
+      await axios.delete(`http://localhost:5000/api/author/${id}`);
       setModalMessage("Author Deleted Successfully.");
       setShowSuccess(true);
       fetchAuthors();

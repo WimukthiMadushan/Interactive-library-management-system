@@ -27,7 +27,7 @@ const PublisherManagement = () => {
 
   const fetchPublishers = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/publisher");
+      const response = await axios.get("http://localhost:5000/api/publisher");
       setPublishers(response.data);
     } catch (error) {
       console.error("Error fetching publishers:", error);
@@ -41,7 +41,7 @@ const PublisherManagement = () => {
   const handleDeletePublisher = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5001/api/publisher/${id}`
+        `http://localhost:5000/api/publisher/${id}`
       );
       setPublishers((prevPublishers) =>
         prevPublishers.filter((publisher) => publisher.Publisher_ID !== id)

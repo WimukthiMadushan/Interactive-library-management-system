@@ -12,7 +12,7 @@ function ReservationManagment() {
   // Fetch the data from the backend
   const fetchReservations = async () => {
     try {
-      const response = await axios.get(`http://localhost:5001/api/reserve`);
+      const response = await axios.get(`http://localhost:5000/api/reserve`);
       const formattedData = response.data.map((reserve) => {
         const addOneDay = (dateString) => {
           const date = new Date(dateString);

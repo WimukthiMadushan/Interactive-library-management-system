@@ -35,7 +35,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/author/",
+        "http://localhost:5000/api/author/",
         newData
       );
       if (response.status === 201) {

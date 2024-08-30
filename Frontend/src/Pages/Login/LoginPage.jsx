@@ -26,7 +26,7 @@ function LoginPage() {
     try {
       const { username, password } = userData;
       const response = await axios.post(
-        "http://localhost:5001/api/auth/login",
+        "http://localhost:5000/api/auth/login",
         {
           Username: username,
           Password: password,

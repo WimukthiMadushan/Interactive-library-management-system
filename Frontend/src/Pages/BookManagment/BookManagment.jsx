@@ -24,7 +24,7 @@ function BookManagement() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/book/list");
+        const response = await axios.get("http://localhost:5000/api/book/list");
         const formattedData = response.data.map((book) => ({
           ...book,
           Published_Date: new Date(book.Published_Date)
@@ -71,7 +71,7 @@ function BookManagement() {
     console.log(id);
     try {
       const response = await axios.delete(
-        `http://localhost:5001/api/book/${id}`
+        `http://localhost:5000/api/book/${id}`
       );
       setModalMessage("Book deleted successfully.");
       setShowSuccess(true);
@@ -134,7 +134,7 @@ function BookManagement() {
                         />
                       ) : book.Image_Name ? (
                         <img
-                          src={`http://localhost:5001/books/${book.Image_Name}`}
+                          src={`http://localhost:5000/books/${book.Image_Name}`}
                           alt={book.Title}
                           className="book-image"
                         />
