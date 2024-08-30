@@ -3,55 +3,10 @@ import axios from "axios";
 import "./SearchBook.css";
 import Pagination from "../../Components/Pagination/Pagination";
 import { FcFilledFilter } from "react-icons/fc";
-import Select from "react-select";
 import { StoreContext } from "../../Hooks/StoreContext";
 import Filters from "../../Components/Filters/Filters";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-
-const customStyles = {
-  control: (provided) => ({
-    ...provided,
-    display: "flex",
-    flexDirection: "row-reverse",
-    minHeight: "36px",
-    height: "36px",
-    width: "15rem",
-  }),
-  indicatorsContainer: (provided) => ({
-    ...provided,
-    height: "36px",
-    display: "none",
-  }),
-  valueContainer: (provided) => ({
-    ...provided,
-    display: "flex",
-    padding: "0 12px 0 0",
-    flexDirection: "row",
-  }),
-  input: (provided) => ({
-    ...provided,
-    margin: "0",
-    padding: "0",
-  }),
-  placeholder: (provided) => ({
-    ...provided,
-    margin: "2px 10px",
-    padding: "0",
-    flex: "1",
-  }),
-  singleValue: (provided) => ({
-    ...provided,
-    margin: "0px 10px 0px 10px",
-    padding: "0",
-    lineHeight: "36px",
-    width: "100%",
-  }),
-  container: (provided) => ({
-    ...provided,
-    width: "300px",
-  }),
-};
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function SearchBook() {
   const [Books, setBooks] = useState([]);
@@ -90,12 +45,14 @@ function SearchBook() {
   const removeFilter = (filterType, value) => {
     setAppliedFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-      if (filterType === 'category') {
-        updatedFilters.category = updatedFilters.category.filter(cat => cat.value !== value);
-      } else if (filterType === 'date') {
+      if (filterType === "category") {
+        updatedFilters.category = updatedFilters.category.filter(
+          (cat) => cat.value !== value
+        );
+      } else if (filterType === "date") {
         updatedFilters.start = null;
         updatedFilters.end = null;
-      } else if (filterType === 'rating') {
+      } else if (filterType === "rating") {
         updatedFilters.range = null;
       }
       return updatedFilters;
@@ -106,7 +63,10 @@ function SearchBook() {
   useEffect(() => {
     const fetchBooks = async (filters) => {
       try {
-        const response = await axios.post('http://localhost:5000/api/book/advanced', filters);
+        const response = await axios.post(
+          "http://localhost:5000/api/book/advanced",
+          filters
+        );
         setBooks(response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
@@ -185,31 +145,33 @@ function SearchBook() {
         </div>
         {clickFilters && (
           <div className="filter-options">
-            <Filters togglePopup={toggleFilterPopup} onApply={handleFilterSubmit} />
+            <Filters
+              togglePopup={toggleFilterPopup}
+              onApply={handleFilterSubmit}
+            />
           </div>
         )}
 
         {appliedFilters && (
           <div className="applied-filters">
-            
             {appliedFilters.start && appliedFilters.end && (
               <div className="filter-item">
                 Date Range: {appliedFilters.start} to {appliedFilters.end}
                 <span className="cross-icon">
-                  <FontAwesomeIcon 
-                    icon={faXmark} 
-                    onClick={() => removeFilter('date')} 
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    onClick={() => removeFilter("date")}
                   />
                 </span>
               </div>
             )}
-            {appliedFilters.category.map(cat => (
+            {appliedFilters.category.map((cat) => (
               <div className="filter-item" key={cat.value}>
                 {cat.label}
                 <span className="cross-icon">
-                  <FontAwesomeIcon 
-                    icon={faXmark}  
-                    onClick={() => removeFilter('category', cat.value)} 
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    onClick={() => removeFilter("category", cat.value)}
                   />
                 </span>
               </div>
@@ -218,16 +180,15 @@ function SearchBook() {
               <div className="filter-item">
                 Rating: {appliedFilters.range[0]} to {appliedFilters.range[1]}
                 <span className="cross-icon">
-                  <FontAwesomeIcon 
-                    icon={faXmark} 
-                    onClick={() => removeFilter('rating')} 
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    onClick={() => removeFilter("rating")}
                   />
                 </span>
               </div>
             )}
           </div>
         )}
-
       </div>
       <div className="display-books">
         <Pagination Data={Books} itemsPerPage={49} />

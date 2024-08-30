@@ -3,9 +3,8 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "./../../Hooks/AuthContext";
 import axios from "axios";
 import "./Book.css";
-import DatePicker from "react-datepicker";
+import AddReserve from "../../Components/AddReserve/AddReserve";
 import "react-datepicker/dist/react-datepicker.css";
-import NotificationModal from "../../Components/Modals/NotificationModal";
 
 function Book() {
   const location = useLocation();
@@ -13,14 +12,11 @@ function Book() {
   const [bookCopy, setBookCopy] = useState([]);
   const [selectedCopyId, setSelectedCopyId] = useState(null);
   const [reviews, setReview] = useState([]);
-  const [reservationDate, setReservationDate] = useState(new Date());
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showReservationPopup, setShowReservationPopup] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const { authState } = useAuth();
-  const { userId, role } = authState;
-
+  const { userId } = authState;
   const bookId = location.pathname.split("/").pop();
 
   useEffect(() => {
@@ -67,6 +63,7 @@ function Book() {
   }, [bookId]);
 
   const handleReserve = (copyId) => {
+    console.log(copyId);
     if (!userId) {
       setShowReservationPopup(false);
       setShowLoginPopup(true);
@@ -76,41 +73,13 @@ function Book() {
     setShowReservationPopup(true);
   };
 
-  const confirmReservation = async () => {
-    setLoading(true);
-    try {
-      const reserveDate = reservationDate.toISOString().split("T")[0];
-      const reserveTime = reservationDate.toTimeString().slice(0, 5);
-      const reserveEndTime = new Date(reservationDate.getTime() + 180 * 60000)
-        .toTimeString()
-        .slice(0, 5);
-
-      const response = await axios.post(`http://localhost:5000/api/reserve`, {
-        UserID: userId,
-        Copy_ID: selectedCopyId,
-        isComplete: 0,
-        Reserve_Date: reserveDate,
-        Reserve_Time: reserveTime,
-        Reserve_End_Time: reserveEndTime,
-      });
-
-      // Update the local state to mark the copy as reserved
-      setBookCopy((prevCopies) =>
-        prevCopies.map((copy) =>
-          copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
-        )
-      );
-      setShowReservationPopup(false);
-    } catch (error) {
-      console.log(error.message);
-      alert("Error reserving book. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleCancelReservation = () => {
     setShowReservationPopup(false);
+    setBookCopy((prevCopies) =>
+      prevCopies.map((copy) =>
+        copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
+      )
+    );
   };
 
   const closePopupOnOverlayClick = (event) => {
@@ -212,42 +181,15 @@ function Book() {
           )}
         </div>
       </div>
-      {/*
-      
-
-       */}
 
       {/* Reservation Popup */}
       {showReservationPopup && (
-        <div className="popup-background" onClick={closePopupOnOverlayClick}>
-          <div className="reservation-popup">
-            <h3>Choose Reservation Date and Time</h3>
-            <DatePicker
-              selected={reservationDate}
-              onChange={(date) => setReservationDate(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="yyyy-MM-dd HH:mm"
-              className="date-picker"
-            />
-            <div className="button-group">
-              <button
-                className="confirm-reservation"
-                onClick={confirmReservation}
-                disabled={loading}
-              >
-                {loading ? "Reserving..." : "Confirm Reservation"}
-              </button>
-              <button
-                className="cancel-reservation"
-                onClick={handleCancelReservation}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <AddReserve
+          selectedCopyId={selectedCopyId}
+          userId={userId}
+          closePopup={handleCancelReservation}
+          handleCancelReservation={handleCancelReservation}
+        />
       )}
 
       {/* Login Required Popup */}

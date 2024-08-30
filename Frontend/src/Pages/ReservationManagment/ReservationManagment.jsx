@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ReservationManagment.css";
 import PaginationButtons from "./../../Components/Pagination/PaginationButtons/PaginationButtons";
+import NotificationModal from "./../../Components/Modals/NotificationModal";
 
 function ReservationManagment() {
   const [reservations, setReservations] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
 
   // Fetch the data from the backend
   const fetchReservations = async () => {
@@ -38,6 +45,21 @@ function ReservationManagment() {
     fetchReservations();
   }, []);
 
+  const handleCancel = async (reserveId) => {
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/reserve/cancel/${reserveId}`
+      );
+      setModalMessage("Reservation cancelled successfully.");
+      setShowSuccess(true);
+      fetchReservations();
+    } catch (error) {
+      setModalMessage("Error cancelling reservation.");
+      setShowError(true);
+      console.error("Error deleting reservation:", error);
+    }
+  };
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
@@ -57,9 +79,7 @@ function ReservationManagment() {
     indexOfFirstItem,
     indexOfLastItem
   );
-
   const totalPages = Math.ceil(filteredReservations.length / itemsPerPage);
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -104,8 +124,12 @@ function ReservationManagment() {
                 {reservation.isComplete === 1 ? "Complete" : "In progress"}
               </td>
               <td className="action-column">
-                <button className="reservation-update-button">Update</button>
-                <button className="reservation-delete-button">Cancel</button>
+                <button
+                  className="reservation-delete-button"
+                  onClick={() => handleCancel(reservation.Reserve_ID)}
+                >
+                  Cancel
+                </button>
               </td>
             </tr>
           ))}
@@ -119,6 +143,22 @@ function ReservationManagment() {
           onPageChange={handlePageChange}
         />
       </div>
+
+      <NotificationModal
+        show={showSuccess}
+        handleClose={handleCloseSuccess}
+        title={"Success"}
+        message={modalMessage}
+        isSuccess={true}
+      />
+
+      <NotificationModal
+        show={showError}
+        handleClose={handleCloseError}
+        title={"Error"}
+        message={modalMessage}
+        isSuccess={false}
+      />
     </div>
   );
 }

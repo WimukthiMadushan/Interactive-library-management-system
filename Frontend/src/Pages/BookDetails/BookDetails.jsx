@@ -102,6 +102,21 @@ function BookDetails() {
       console.error("Error cancelling reservation:", error.message);
     }
   };
+  const handleExtendReservation = async (bookId) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/reserve/extend/${bookId}`
+      );
+      setModalMessage(response.data.message);
+      setShowSuccess(true);
+      console.log("Reservation extended successfully:", response.data.message);
+    } catch (error) {
+      setModalMessage(error.response?.data.message || error.message);
+      setShowError(true);
+      console.error("Error extending reservation:", error.message);
+    }
+  };
+
   console.log(reservedBooks);
 
   return (
@@ -186,6 +201,7 @@ function BookDetails() {
                     <th>Reservation End Time</th>
                     <th>Location</th>
                     <th>Cancel Reservation</th>
+                    <th>Extend Rservation</th>
                     {/*<th>Add Review</th> */}
                   </tr>
                 </thead>
@@ -216,6 +232,16 @@ function BookDetails() {
                           }
                         >
                           Cancel
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="add-review-button"
+                          onClick={() =>
+                            handleExtendReservation(book.Reserve_ID)
+                          }
+                        >
+                          Extend Reservation
                         </button>
                       </td>
                       {/* 

@@ -2,16 +2,30 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import AuthorManagment from "../Pages/AuthorManagment/AuthorManagment.jsx";
-import '@testing-library/jest-dom'
-import {act} from 'react-dom/test-utils';
-
+import "@testing-library/jest-dom";
+import { act } from "react-dom/test-utils";
 
 jest.mock("axios");
-jest.mock("../Components/Pagination/PaginationButtons/PaginationButtons.jsx", () => () => <div>PaginationButtons</div>);
-jest.mock("../Components/Popup/AddAuthorPopup/AddAuthorPopup.jsx", () => () => <div>AddAuthorPopup</div>);
-jest.mock("../Components/Popup/UpdataAuthorPopup/UpdateAuthorPopup.jsx", () => () => <div>UpdateAuthorPopup</div>);
-jest.mock("../Components/Modals/NotificationModal.jsx", () => ({ show, handleClose, title, message }) =>
-  show ? <div>{title}: {message}</div> : null
+jest.mock(
+  "../Components/Pagination/PaginationButtons/PaginationButtons.jsx",
+  () => () => <div>PaginationButtons</div>
+);
+jest.mock("../Components/Popup/AddAuthorPopup/AddAuthorPopup.jsx", () => () => (
+  <div>AddAuthorPopup</div>
+));
+jest.mock(
+  "../Components/Popup/UpdataAuthorPopup/UpdateAuthorPopup.jsx",
+  () => () => <div>UpdateAuthorPopup</div>
+);
+jest.mock(
+  "../Components/Modals/NotificationModal.jsx",
+  () =>
+    ({ show, handleClose, title, message }) =>
+      show ? (
+        <div>
+          {title}: {message}
+        </div>
+      ) : null
 );
 
 // Test to check if the Author Management component renders correctly
@@ -23,7 +37,6 @@ test("renders Author Management component", () => {
   expect(screen.getByPlaceholderText("Search authors...")).toBeInTheDocument();
   expect(screen.getByText("Add Author")).toBeInTheDocument();
 });
-
 
 test("fetches authors on component load", async () => {
   // Mock the axios GET request to return a list of authors
@@ -47,24 +60,34 @@ test("fetches authors on component load", async () => {
   });
 
   // Wait for the axios GET request to be called
-  await waitFor(() => {
-    expect(axios.get).toHaveBeenCalledTimes(1);
-  }, { timeout: 10000 }); // Increased timeout to 10 seconds
+  await waitFor(
+    () => {
+      expect(axios.get).toHaveBeenCalledTimes(1);
+    },
+    { timeout: 10000 }
+  ); // Increased timeout to 10 seconds
 
   // Check if author data is displayed
   expect(screen.getByText("John")).toBeInTheDocument();
 }, 10000); // Increase the test timeout to 10 seconds
-
-
-
 
 // Test to check if the search functionality filters authors correctly
 test("handles search query", async () => {
   // Mock the axios GET request to return a list of authors
   axios.get.mockResolvedValueOnce({
     data: [
-      { Author_ID: 1, First_Name: "John", Last_Name: "Doe", Email: "john@example.com" },
-      { Author_ID: 2, First_Name: "Jane", Last_Name: "Smith", Email: "jane@example.com" },
+      {
+        Author_ID: 1,
+        First_Name: "John",
+        Last_Name: "Doe",
+        Email: "john@example.com",
+      },
+      {
+        Author_ID: 2,
+        First_Name: "Jane",
+        Last_Name: "Smith",
+        Email: "jane@example.com",
+      },
     ],
   });
 
@@ -77,7 +100,7 @@ test("handles search query", async () => {
 
   // Wait for the filter to take effect and check if the correct author is displayed
   await waitFor(() => expect(screen.getByText("Jane")).toBeInTheDocument());
-  
+
   // Verify that the other author is not displayed
   expect(screen.queryByText("John")).toBeNull();
 });
@@ -86,7 +109,14 @@ test("handles search query", async () => {
 test("handles delete author", async () => {
   // Mock the axios GET request to return a list of authors
   axios.get.mockResolvedValueOnce({
-    data: [{ Author_ID: 1, First_Name: "John", Last_Name: "Doe", Email: "john@example.com" }],
+    data: [
+      {
+        Author_ID: 1,
+        First_Name: "John",
+        Last_Name: "Doe",
+        Email: "john@example.com",
+      },
+    ],
   });
 
   // Mock the axios DELETE request to simulate successful deletion
@@ -101,25 +131,35 @@ test("handles delete author", async () => {
   await waitFor(() => expect(axios.delete).toHaveBeenCalledTimes(1));
 
   // Verify that the success message is displayed
-  expect(screen.getByText("sucess: Author Deleted Successfully.")).toBeInTheDocument();
+  expect(
+    screen.getByText("sucess: Author Deleted Successfully.")
+  ).toBeInTheDocument();
 });
 
-// Test to check if the Add Author popup is toggled when the button is clicked
-test("handles add author popup toggle", () => {
-  render(<AuthorManagment />);
+test("handles add author popup toggle", async () => {
+  await act(async () => {
+    render(<AuthorManagment />);
 
-  // Simulate clicking the "Add Author" button
-  fireEvent.click(screen.getByText("Add Author"));
+    // Simulate clicking the "Add Author" button
+    fireEvent.click(screen.getByText("Add Author"));
 
-  // Verify that the AddAuthorPopup component is displayed
-  expect(screen.getByText("AddAuthorPopup")).toBeInTheDocument();
+    // Verify that the AddAuthorPopup component is displayed
+    expect(screen.getByText("AddAuthorPopup")).toBeInTheDocument();
+  });
 });
 
 // Test to check if the Update Author popup is toggled when the update button is clicked
 test("handles update author popup toggle", async () => {
   // Mock the axios GET request to return a list of authors
   axios.get.mockResolvedValueOnce({
-    data: [{ Author_ID: 1, First_Name: "John", Last_Name: "Doe", Email: "john@example.com" }],
+    data: [
+      {
+        Author_ID: 1,
+        First_Name: "John",
+        Last_Name: "Doe",
+        Email: "john@example.com",
+      },
+    ],
   });
 
   render(<AuthorManagment />);

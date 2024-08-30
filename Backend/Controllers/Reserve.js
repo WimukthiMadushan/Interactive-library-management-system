@@ -196,3 +196,20 @@ export const deleteReserve = (req, res) => {
     res.status(200).json({ message: "Reservation deleted successfully" });
   });
 };
+
+export const extendReserve = (req, res) => {
+  const { id } = req.params;
+  const { Reserve_End_Time } = req.body;
+  const query = `
+    UPDATE Reserve
+    SET Reserve_End_Time = ?
+    WHERE Reserve_ID = ?
+  `;
+  connection.query(query, [Reserve_End_Time, id], (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    res.status(200).json({ message: "Reservation extended successfully" });
+  });
+};
