@@ -13,6 +13,5 @@ router.get("/", getReserves);
 router.get("/:UserID", getReserveBooksOfUser);
 router.post("/", reserveBook);
 router.delete("/cancel/:id", deleteReserve);
-router.put("/extend/:id", extendReserve);
 
 export default router;

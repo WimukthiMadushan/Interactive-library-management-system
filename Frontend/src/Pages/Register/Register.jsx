@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NotificationModal from "../../Components/Modals/NotificationModal";
 import axios from "axios";
 import "./RegisterPage.css";
 
@@ -15,13 +14,6 @@ function Register() {
     NIC: "",
     Mobile: "",
   });
-
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const handleCloseSuccess = () => setShowSuccess(false);
-  const handleCloseError = () => setShowError(false);
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -48,13 +40,9 @@ function Register() {
         NIC: "",
         Mobile: "",
       });
-      setModalMessage("Registration Succesfull.");
-      setShowSuccess(true);
       navigate("/login");
     } catch (error) {
-      setModalMessage("Registration Failed");
-      setShowError(true);
-      //console.error("Registration failed", error);
+      console.error("Registration failed", error);
     }
   };
 
@@ -160,22 +148,6 @@ function Register() {
             <button type="submit">Register</button>
           </div>
         </form>
-
-        <NotificationModal
-          show={showSuccess}
-          handleClose={handleCloseSuccess}
-          title={"Success"}
-          message={modalMessage}
-          isSuccess={true}
-        />
-
-        <NotificationModal
-          show={showError}
-          handleClose={handleCloseError}
-          title={"Error"}
-          message={modalMessage}
-          isSuccess={false}
-        />
       </div>
     </div>
   );

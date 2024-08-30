@@ -4,8 +4,6 @@ import { StoreContext } from "./../../../Hooks/StoreContext";
 import axios from "axios";
 import "./AddBooks.css";
 import NotificationModal from "../../Modals/NotificationModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddBook({ togglePopup }) {
   const { publisherOptions, authorOptions, categoryOptions } =
@@ -77,15 +75,12 @@ export default function AddBook({ togglePopup }) {
 
   return (
     <>
-      <div className="add-book-popup-overlay">
-        <div
-          className="add-book-popup"
-          style={{ width: "750px", overflow: "visible" }}
-        >
+      <div className="popup-overlay">
+        <div className="popup" style={{ width: "800px", overflow: "visible" }}>
           <form
-            className="add-book-container"
+            className="container"
             onSubmit={onSubmitHandler}
-            style={{ width: "600px" }}
+            style={{ width: "740px" }}
           >
             <div className="add-books">
               <h1>Add Books</h1>
@@ -94,20 +89,14 @@ export default function AddBook({ togglePopup }) {
               </button>
 
               <div className="add-img-upload flex-col">
-                <p className="img-upload-text">Upload Book Image</p>
+                <p>Upload Book Image</p>
                 <label htmlFor="uploaded_file">
-                  {image ? (
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="Uploaded Image"
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faCloudArrowUp}
-                      size="4x"
-                      className="img-upload-icon"
-                    />
-                  )}
+                  <img
+                    src={
+                      image ? URL.createObjectURL(image) : "default_image_url"
+                    }
+                    alt="Upload Area"
+                  />
                 </label>
                 <input
                   onChange={(e) => setImage(e.target.files[0])}
@@ -138,21 +127,20 @@ export default function AddBook({ togglePopup }) {
               </div>
 
               <textarea
-                className="add-book-textarea"
                 onChange={handleChange}
                 value={data.description}
                 name="description"
-                rows="4"
+                rows="5"
                 placeholder="Write description here"
                 required
               />
 
-              <div className="add-book-multi-select">
+              <div className="multi-select">
                 <select
                   name="author"
                   onChange={handleChange}
                   value={data.author}
-                  className="add-book-select"
+                  className="select"
                 >
                   <option value="">Select author</option>
                   {authorOptions.map((author) => (
@@ -165,7 +153,7 @@ export default function AddBook({ togglePopup }) {
                   name="publisher"
                   onChange={handleChange}
                   value={data.publisher}
-                  className="add-book-select"
+                  className="select"
                 >
                   <option value="">Select publisher</option>
                   {publisherOptions.map((publisher) => (
@@ -178,7 +166,7 @@ export default function AddBook({ togglePopup }) {
                   name="category"
                   onChange={handleChange}
                   value={data.category}
-                  className="add-book-select"
+                  className="select"
                 >
                   <option value="">Select category</option>
                   {categoryOptions.map((category) => (
@@ -197,11 +185,10 @@ export default function AddBook({ togglePopup }) {
                 className="input"
                 required
               />
-              <div className="add-book-button-container">
-                <button type="submit" className="add-book-button">
-                  Add Book
-                </button>
-              </div>
+
+              <button type="submit" className="add-button">
+                Add Book
+              </button>
             </div>
           </form>
         </div>

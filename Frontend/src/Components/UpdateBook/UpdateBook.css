@@ -1,53 +1,50 @@
 /* UpdateBook component specific styles */
-.update-book-popup-overlay {
+.popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   animation: fadeInQuick 0.4s ease-in-out;
-  height: 100%;
-  width: 100%;
 }
 
-.update-book-popup {
-  max-width: fit-content;
-  margin: 0 auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  transition: box-shadow 0.3s ease-in-out;
-  transform: none;
-  animation: none;
+.popup {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transform: scale(0);
+  animation: scaleUpQuick 0.2s forwards;
   overflow: visible;
-  top: -250px;
 }
 
-.update-book-container {
-  width: 90vw;
-  margin: 0 auto;
-  padding: 20px;
-  height: 97%;
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.update-book-container h1 {
+.container h1 {
   font-size: 1.8rem;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #333;
   text-align: center;
 }
 
-.update-book-multi-fields {
+.multi-fields {
   display: flex;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
-.update-book-multi-fields input,
-.update-book-container input {
+.multi-fields input,
+.container input {
   flex: 1;
   padding: 8px;
   border-radius: 4px;
@@ -55,23 +52,22 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.update-book-multi-fields input:focus,
-.update-book-container input:focus {
-  border-color: #120e09;
-  box-shadow: 0 0 5px rgba(22, 21, 18, 0.5);
+.multi-fields input:focus,
+.container input:focus {
+  border-color: #fbb034;
+  box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
 }
 
-.update-book-textarea {
+textarea {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
   font-size: 1rem;
   border: 1px solid #ddd;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 10px;
 }
 
-.update-book-textarea:focus {
+textarea:focus {
   border-color: #fbb034;
   box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
 }
@@ -114,19 +110,19 @@
   box-shadow: 0 0 5px rgba(251, 176, 52, 0.5);
 }
 
-.update-book-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #000000;
+.add-button {
+  background: #fbb034;
   color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
-.update-book-button:hover {
-  background-color: #222422;
-  transform: translateY(-2px);
+
+.add-button:hover {
+  background: #f79c4e;
 }
 
 .add-books-close-button {
@@ -171,13 +167,6 @@
 
 .add-img-upload img:hover {
   border-color: #fbb034;
-}
-
-.rs-picker-popup {
-  width: fit-content;
-}
-.rs-picker input {
-  margin-bottom: 0;
 }
 
 @media (max-width: 768px) {

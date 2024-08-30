@@ -73,13 +73,41 @@ function Book() {
     setShowReservationPopup(true);
   };
 
+  const confirmReservation = async () => {
+    setLoading(true);
+    try {
+      const reserveDate = reservationDate.toISOString().split("T")[0];
+      const reserveTime = reservationDate.toTimeString().slice(0, 5);
+      const reserveEndTime = new Date(reservationDate.getTime() + 180 * 60000)
+        .toTimeString()
+        .slice(0, 5);
+
+      const response = await axios.post(`http://localhost:5000/api/reserve`, {
+        UserID: userId,
+        Copy_ID: selectedCopyId,
+        isComplete: 0,
+        Reserve_Date: reserveDate,
+        Reserve_Time: reserveTime,
+        Reserve_End_Time: reserveEndTime,
+      });
+
+      // Update the local state to mark the copy as reserved
+      setBookCopy((prevCopies) =>
+        prevCopies.map((copy) =>
+          copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
+        )
+      );
+      setShowReservationPopup(false);
+    } catch (error) {
+      console.log(error.message);
+      alert("Error reserving book. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleCancelReservation = () => {
     setShowReservationPopup(false);
-    setBookCopy((prevCopies) =>
-      prevCopies.map((copy) =>
-        copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
-      )
-    );
   };
 
   const closePopupOnOverlayClick = (event) => {
