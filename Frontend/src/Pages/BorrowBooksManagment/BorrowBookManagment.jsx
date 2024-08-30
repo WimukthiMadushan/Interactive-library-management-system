@@ -64,32 +64,8 @@ function BorrowBookManagement() {
     setShowReturnModal(true);
   };
 
-  
-
-  const handleRenew = async () => {
-    try {
-      const response = await axios.put(
-        `http://localhost:5000/api/borrow/renew/${selectedBorrowId}`
-      );
-      if (response.data.success) {
-        console.log("Book renewed successfully");
-        setShowRenewModal(false);
-        fetchBorrows(); // Fetch updated data
-      } else {
-        console.log("Error renewing the book");
-      }
-    } catch (error) {
-      console.error("Error renewing the book:", error);
-    }
-  };
-
   const toggleAddPopup = () => {
     setIsAddBorrowOpen(!isAddBorrowOpen);
-  };
-
-  const confirmRenew = (id) => {
-    setSelectedBorrowId(id);
-    setShowRenewModal(true);
   };
 
   return (
@@ -143,12 +119,6 @@ function BorrowBookManagement() {
                     disabled={borrow.isComplete === 1}
                   >
                     Return
-                  </button>
-                  <button
-                    className="action-button renew-button"
-                    onClick={() => confirmRenew(borrow.Borrow_ID)}
-                  >
-                    Renew
                   </button>
                 </td>
               </tr>

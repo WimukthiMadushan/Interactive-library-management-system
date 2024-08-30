@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "./../../Hooks/AuthContext";
 import axios from "axios";
 import "./Book.css";
-import DatePicker from "react-datepicker";
+import AddReserve from "../../Components/AddReserve/AddReserve";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Book() {
@@ -12,14 +12,11 @@ function Book() {
   const [bookCopy, setBookCopy] = useState([]);
   const [selectedCopyId, setSelectedCopyId] = useState(null);
   const [reviews, setReview] = useState([]);
-  const [reservationDate, setReservationDate] = useState(new Date());
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showReservationPopup, setShowReservationPopup] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const { authState } = useAuth();
-  const { userId, role } = authState;
-
+  const { userId } = authState;
   const bookId = location.pathname.split("/").pop();
 
   useEffect(() => {
@@ -66,6 +63,7 @@ function Book() {
   }, [bookId]);
 
   const handleReserve = (copyId) => {
+    console.log(copyId);
     if (!userId) {
       setShowReservationPopup(false);
       setShowLoginPopup(true);
@@ -99,13 +97,10 @@ function Book() {
           copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
         )
       );
-
-      toast.success("Reservation Successful", {
-        closeButton: false,
-      });
-
       setShowReservationPopup(false);
     } catch (error) {
+      console.log(error.message);
+      alert("Error reserving book. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -214,42 +209,15 @@ function Book() {
           )}
         </div>
       </div>
-      {/*
-      
-
-       */}
 
       {/* Reservation Popup */}
       {showReservationPopup && (
-        <div className="popup-background" onClick={closePopupOnOverlayClick}>
-          <div className="reservation-popup">
-            <h3>Choose Reservation Date and Time</h3>
-            <DatePicker
-              selected={reservationDate}
-              onChange={(date) => setReservationDate(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="yyyy-MM-dd HH:mm"
-              className="date-picker"
-            />
-            <div className="button-group">
-              <button
-                className="confirm-reservation"
-                onClick={confirmReservation}
-                disabled={loading}
-              >
-                {loading ? "Reserving..." : "Confirm Reservation"}
-              </button>
-              <button
-                className="cancel-reservation"
-                onClick={handleCancelReservation}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <AddReserve
+          selectedCopyId={selectedCopyId}
+          userId={userId}
+          closePopup={handleCancelReservation}
+          handleCancelReservation={handleCancelReservation}
+        />
       )}
 
       {/* Login Required Popup */}

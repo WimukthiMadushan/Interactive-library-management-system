@@ -77,6 +77,26 @@ function BookDetails() {
     setShowConfirmModal(true);
   };
 
+  const handleCancelReservation = async (reserveId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/reserve/cancel/${reserveId}`
+      );
+      setModalMessage(response.data.message);
+      setShowSuccess(true);
+      const updatedReservedBooks = reservedBooks.filter(
+        (book) => book.Reserve_ID !== reserveId
+      );
+      setReservedBooks(updatedReservedBooks);
+      console.log("Reservation canceled successfully:", reserveId);
+    } catch (error) {
+      setModalMessage(error.response?.data.message || error.message);
+      setShowError(true);
+      console.error("Error cancelling reservation:", error.message);
+    }
+  };
+  console.log(reservedBooks);
+
   return (
     <div className="book-details-container">
       <div className="book-details-header">
@@ -157,7 +177,7 @@ function BookDetails() {
                     <th>Reservation Date</th>
                     <th>Location</th>
                     <th>Cancel Reservation</th>
-                    <th>Add Review</th>
+                    {/*<th>Add Review</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -177,6 +197,7 @@ function BookDetails() {
                           Cancel
                         </button>
                       </td>
+                      {/* 
                       <td>
                         <button
                           className="add-review-button"
