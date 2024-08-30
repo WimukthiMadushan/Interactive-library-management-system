@@ -82,7 +82,7 @@ function AddAuthorPopup({ toggleAddAuthorPopup, fetchAuthors }) {
   };
 
   return (
-    <div className="add-author-overlay">
+    <div data-testid="add-author-popup" className="add-author-overlay">
       <div className="dialog-container">
         <header className="add-author-dialog-header">
           <h2 className="add-author-dialog-title">Add New Author</h2>

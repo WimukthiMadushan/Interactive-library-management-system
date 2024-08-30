@@ -197,7 +197,7 @@ export default function AddBook({ togglePopup }) {
                 className="input"
                 required
               />
-              <div className="add-button-container">
+              <div className="add-book-button-container">
                 <button type="submit" className="add-book-button">
                   Add Book
                 </button>
