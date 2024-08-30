@@ -4,6 +4,7 @@ import { useAuth } from "./../../Hooks/AuthContext.jsx";
 import { Modal, Button } from "react-bootstrap";
 import "./BookDetails.css";
 import AddReviewModal from "./../../Components/AddReview/AddReviewModal.jsx";
+import NotificationModal from "./../../Components/Modals/NotificationModal";
 
 function BookDetails() {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
@@ -13,6 +14,12 @@ function BookDetails() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [bookToRenew, setBookToRenew] = useState(null);
   const [isRenewing, setIsRenewing] = useState(false);
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
 
   const { authState } = useAuth();
   const { userId } = authState;
@@ -44,8 +51,8 @@ function BookDetails() {
             : book
         );
         setBorrowedBooks(updatedBorrowedBooks);
-        console.log(updatedBorrowedBooks);
-        console.log("Book renewed successfully:", response.data.message);
+        //console.log(updatedBorrowedBooks);
+        //console.log("Book renewed successfully:", response.data.message);
       } else {
         console.error("Error renewing book:", response.data.message);
       }
@@ -76,6 +83,26 @@ function BookDetails() {
     setBookToRenew(book);
     setShowConfirmModal(true);
   };
+
+  const handleCancelReservation = async (reserveId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/reserve/cancel/${reserveId}`
+      );
+      setModalMessage(response.data.message);
+      setShowSuccess(true);
+      const updatedReservedBooks = reservedBooks.filter(
+        (book) => book.Reserve_ID !== reserveId
+      );
+      setReservedBooks(updatedReservedBooks);
+      console.log("Reservation canceled successfully:", reserveId);
+    } catch (error) {
+      setModalMessage(error.response?.data.message || error.message);
+      setShowError(true);
+      console.error("Error cancelling reservation:", error.message);
+    }
+  };
+  console.log(reservedBooks);
 
   return (
     <div className="book-details-container">
@@ -155,9 +182,11 @@ function BookDetails() {
                     <th>Title</th>
                     <th>Language</th>
                     <th>Reservation Date</th>
+                    <th>Reservation time</th>
+                    <th>Reservation End Time</th>
                     <th>Location</th>
                     <th>Cancel Reservation</th>
-                    <th>Add Review</th>
+                    {/*<th>Add Review</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -167,16 +196,29 @@ function BookDetails() {
                       <td>{book.Title}</td>
                       <td>{book.Language}</td>
                       <td>
-                        {new Date(book.Reservation_Date).toLocaleDateString()}
+                        {book.Reservation_Date
+                          ? new Date(book.Reservation_Date).toLocaleDateString(
+                              undefined,
+                              { year: "numeric", month: "long", day: "numeric" }
+                            )
+                          : "N/A"}
                       </td>
+                      <td>{book.Reserve_Time}</td>
+                      <td>{book.Reserve_End_Time}</td>
                       <td>
                         {`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}
                       </td>
                       <td>
-                        <button className="cancel-reservation-button">
+                        <button
+                          className="cancel-reservation-button"
+                          onClick={() =>
+                            handleCancelReservation(book.Reserve_ID)
+                          }
+                        >
                           Cancel
                         </button>
                       </td>
+                      {/* 
                       <td>
                         <button
                           className="add-review-button"
@@ -185,6 +227,7 @@ function BookDetails() {
                           Add Review
                         </button>
                       </td>
+                      */}
                     </tr>
                   ))}
                 </tbody>
@@ -216,6 +259,22 @@ function BookDetails() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <NotificationModal
+        show={showSuccess}
+        handleClose={handleCloseSuccess}
+        title={"Success"}
+        message={modalMessage}
+        isSuccess={true}
+      />
+
+      <NotificationModal
+        show={showError}
+        handleClose={handleCloseError}
+        title={"Error"}
+        message={modalMessage}
+        isSuccess={false}
+      />
     </div>
   );
 }

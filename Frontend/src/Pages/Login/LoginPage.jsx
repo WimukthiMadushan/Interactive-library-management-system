@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./../../Hooks/AuthContext";
+import NotificationModal from "../../Components/Modals/NotificationModal";
 import axios from "axios";
 import "./LoginPage.css";
 
@@ -9,6 +10,11 @@ function LoginPage() {
     username: "",
     password: "",
   });
+
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const handleCloseError = () => setShowError(false);
+
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -39,7 +45,9 @@ function LoginPage() {
       login(response.data.token);
       navigate("/");
     } catch (error) {
-      console.error("Login error:", error);
+      setModalMessage("Login Failed");
+      setShowError(true);
+      //console.error("Login error:", error);
     }
   };
 
@@ -83,6 +91,14 @@ function LoginPage() {
             </button>
           </div>
         </form>
+
+        <NotificationModal
+          show={showError}
+          handleClose={handleCloseError}
+          title={"Error"}
+          message={modalMessage}
+          isSuccess={false}
+        />
       </div>
     </div>
   );

@@ -319,7 +319,6 @@ export const getBooksFromAdvancedFilters = (req, res) => {
     category,
     range
   } = req.body;
-  console.log(req.body);
 
 
   // Initialize query and conditions
@@ -346,6 +345,9 @@ export const getBooksFromAdvancedFilters = (req, res) => {
   if (category && category.length > 0) {
     const categoryValues = category.map(cat => `'${cat.value}'`).join(',');
     sqlquery += ` AND c.Cat_Name IN (${categoryValues})`;
+  }
+  else if (category && category.length ===  1){
+    sqlquery += ` AND c.Cat_Name = '${category[0].value}'`;
   }
 
   // Add review rating range condition

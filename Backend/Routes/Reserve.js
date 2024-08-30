@@ -11,6 +11,6 @@ import {
 router.get("/", getReserves);
 router.get("/:UserID", getReserveBooksOfUser);
 router.post("/", reserveBook);
-router.put("/cancel/:id", deleteReserve);
+router.delete("/cancel/:id", deleteReserve);
 
 export default router;

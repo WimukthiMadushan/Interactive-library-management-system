@@ -1,6 +1,6 @@
-.overlay {
+.add-author-overlay {
   position: fixed;
-  top: 0;
+  top: 0px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -20,17 +20,17 @@
   padding: 20px;
   z-index: 10000; /* Ensure this is above the overlay */
   position: relative;
+  top: -100px;
 }
 
 /* Header Styles */
-.dialog-header {
+.add-author-dialog-header {
   border-bottom: 1px solid #eaeaea;
   padding-bottom: 10px;
-  margin-bottom: 30px;
   position: relative;
 }
 
-.dialog-title {
+.add-author-dialog-title {
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -42,31 +42,31 @@
 }
 
 /* Form Grid Styles */
-.form-grid {
+.form-grid-add-auth {
   display: grid;
-  gap: 20px;
+  gap: 15px;
+  /* grid-template-columns: 1fr 1fr; */
 }
 
-.form-grid-two-columns {
-  grid-template-columns: repeat(2, 1fr);
+.form-grid-two-columns-add-auth {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 }
 
-.form-field {
-  margin-bottom: 16px;
-}
-
-.form-field label {
+.form-field-add-auth label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
-.form-field input {
+.form-field-add-auth input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  margin-bottom: 0;
 }
 
 /* Button Styles */
@@ -109,7 +109,7 @@
   width: fit-content;
   height: fit-content;
   position: absolute;
-  top: -30px;
+  top: 0px;
   right: 10px;
   background-color: transparent;
   border: none;
@@ -119,4 +119,11 @@
 .add-author-close-button:hover {
   color: #666;
   background-color: transparent;
+}
+
+.dialog-footer-add-auth {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
 }
