@@ -89,7 +89,7 @@ const UpdateStaffPopup = ({togglePopup,data}) => {
                 name="Role"
                 required
             >
-                <option value="" disabled>Select Role</option>
+                <option className='role-select-option' value="" disabled>Select Role</option>
                 <option value="Administrator">Administrator</option>
                 <option value="Receptionist">Receptionist</option>
             </select>

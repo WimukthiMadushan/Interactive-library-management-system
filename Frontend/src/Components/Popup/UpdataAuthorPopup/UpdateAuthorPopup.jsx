@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import NotificationModal from "./../../Modals/NotificationModal";
 import "./UpdataAuthorPopup.css";
@@ -32,6 +32,23 @@ function UpdateAuthorPopup({
       ...updateData,
       [name]: value,
     });
+  };
+
+  useEffect(() => {
+    if (authorId) {
+      fetchAuthorById(authorId);
+    }
+  }, [authorId]);
+
+  const fetchAuthorById = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/author/${id}`
+      );
+      setUpdateData(response.data);
+    } catch (error) {
+      console.error("Error fetching publisher:", error);
+    }
   };
 
   const handleUpdateSubmit = async (event) => {

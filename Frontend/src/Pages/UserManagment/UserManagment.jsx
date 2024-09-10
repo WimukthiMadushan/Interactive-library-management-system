@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import NotificationModal from "../../Components/Modals/NotificationModal";
 import Tabs from "../../Components/Tabs/Tabs";
 import UpdateStaffPopup from "../../Components/Popup/UpdateStaffPopup/UpdateStaffPopup";
+import AddStaffPopup from "../../Components/Popup/AddStaffPopup/AddStaffPopup";
 
 function UserManagment() {
   const [users, setUsers] = useState([]);
@@ -17,6 +18,7 @@ function UserManagment() {
   const [showError, setShowError] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
+  const [isAddPopupOpen, setAddPopupOpen] = useState(false);
   const [isUpdateStaffOpen, setIsUpdateStaffOpen] = useState(false);
   const [selectedStaffId, SetSelectedStaffId] = useState(null);
   const [activeTab, setActiveTab] = useState("users");
@@ -51,7 +53,6 @@ function UserManagment() {
       console.error("Error fetching users:", error);
     }
   };
-  fetchStaff();
 
   useEffect(() => {
     fetchStaff();
@@ -115,6 +116,12 @@ function UserManagment() {
   const togglePopup = () => {
     setIsUpdateStaffOpen(!isUpdateStaffOpen);
   };
+  // ------------------------------------------
+
+  // -------  For Add Staff Members -------
+  const toggleAddPopup = () => {
+    setAddPopupOpen(!isAddPopupOpen);
+  };
 
   return (
     <div className="user-managment-outer">
@@ -122,6 +129,11 @@ function UserManagment() {
         <div className="user-managment-above">
           <div className="book-managment-image">
             <h2>User Management</h2>
+          </div>
+          <div className="staff-management-buttons">
+            <button className="add-staff-button" onClick={toggleAddPopup}>
+              Add Staff Members
+            </button>
           </div>
         </div>
         <div className="user-managment-search">
@@ -222,6 +234,13 @@ function UserManagment() {
             </table>
           )}
         </div>
+
+        {isAddPopupOpen && (
+          <AddStaffPopup
+            toggleAddPopup={toggleAddPopup}
+            fetchStaff={fetchStaff}
+          />
+        )}
 
         {isUpdateStaffOpen && (
           <UpdateStaffPopup
