@@ -64,6 +64,7 @@ const PublisherManagement = () => {
     setUpdatePopupOpen(!isUpdatePopupOpen);
   };
 
+  // Filter publishers from search box
   const filteredPublishers = publishers.filter((publisher) => {
     const firstName = publisher.Publisher_First_Name
       ? publisher.Publisher_First_Name.toLowerCase()

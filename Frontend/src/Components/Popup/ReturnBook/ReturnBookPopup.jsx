@@ -1,79 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./ReturnBookPopup.css";
 
-function ReturnBookPopup() {
+function ReturnBookPopup({ onClose, borrowId, fetchBorrows }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleConfirmReturn = async () => {
+    setLoading(true);
+    setError(null);
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/borrow/return/${selectedBorrowId}`
+        `http://localhost:5000/api/borrow/return/${borrowId}`
       );
       if (response.data.success) {
         console.log("Book returned successfully");
-        setShowReturnModal(false);
-        fetchBorrows(); // Fetch updated data
+        fetchBorrows(); // Refresh borrows list
+        onClose(); // Close the modal
       } else {
-        console.log("Error returning the book");
+        setError("Error returning the book");
       }
-    } catch (error) {
-      console.error("Error returning the book:", error);
+    } catch (err) {
+      setError("Error returning the book");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="add-borrow-popup-container">
-      <div className="add-borrow-popup">
+    <div className="return-book-popup-container">
+      <div className="return-book-popup">
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
-        <form className="add-borrow-container" onSubmit={onSubmitHandler}>
-          <div className="add-borrow-borrow">
-            <h1>Borrow Book</h1>
-            <div className="input-div">
-              <input
-                onChange={handleChange}
-                value={data.userId}
-                name="userId"
-                type="text"
-                placeholder="User ID"
-                required
-              />
-            </div>
-
-            <div className="input-div">
-              <input
-                onChange={handleChange}
-                value={data.bookId}
-                name="bookId"
-                type="text"
-                placeholder="Book ID"
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="add-borrow-add-button"
-              disabled={loading}
-            >
-              {loading ? "Borrowing..." : "Borrow Book"}
-            </button>
-          </div>
-        </form>
+        <h2>Confirm Return</h2>
+        {error && <p className="error-message">{error}</p>}
+        <div className="return-book-actions">
+          <button
+            className="confirm-return-button"
+            onClick={handleConfirmReturn}
+            disabled={loading}
+          >
+            {loading ? "Returning..." : "Confirm Return"}
+          </button>
+        </div>
       </div>
-      <NotificationModal
-        show={showSuccess}
-        handleClose={handleCloseSuccess}
-        title={"Success"}
-        message={modalMessage}
-        isSuccess={true}
-      />
-      <NotificationModal
-        show={showError}
-        handleClose={handleCloseError}
-        title={"Failed"}
-        message={modalMessage}
-        isSuccess={false}
-      />
     </div>
   );
 }

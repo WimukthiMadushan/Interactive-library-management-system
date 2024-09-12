@@ -34,6 +34,42 @@ export const getBookCopy = (req, res) => {
 };
 
 // Add book copies for admin
+// export const addBookCopies = (req, res) => {
+//   const bookCopies = req.body;
+//   console.log(bookCopies);
+
+//   const query = `
+//     INSERT INTO Book_copy (Book_ID, Language, isReserved, isBorrowed, Book_Location)
+//     VALUES (?, ?, 0, 0, 10)
+//   `;
+
+//   for (const bookCopy of bookCopies) {
+//     const { bookID, languages } = bookCopy;
+//     console.log(bookID, languages);
+//     //console.log(bookID, languages);
+
+//     for (const [languageCode, copies] of Object.entries(languages)) {
+//       for (let i = 0; i < Number(copies); i++) {
+//         console.log(bookID, languageCode, copies);
+//         connection.query(
+//           query,
+//           [Number(bookID), Number(languageCode)],
+//           (err, results) => {
+//             if (err) {
+//               console.error("Error executing query:", err);
+//               return res.status(500).json({
+//                 error: "Internal server error",
+//               });
+//             }
+//           }
+//         );
+//       }
+//     }
+//   }
+//   return res.json({ success: true, message: "Book copies added successfully" });
+// };
+
+
 export const addBookCopies = (req, res) => {
   const bookCopies = req.body;
   console.log(bookCopies);
@@ -43,27 +79,36 @@ export const addBookCopies = (req, res) => {
     VALUES (?, ?, 0, 0, 10)
   `;
 
+  const errors = [];
+
   for (const bookCopy of bookCopies) {
-    const { bookID, languages } = bookCopy;
-    //console.log(bookID, languages);
+    const bookID = bookCopy.bookID?.target?.value || null; // Extract the actual value
+    const languages = bookCopy.languages;
+
+    if (!bookID || !languages) {
+      errors.push(`Invalid bookID or languages in bookCopy: ${JSON.stringify(bookCopy)}`);
+      continue;
+    }
 
     for (const [languageCode, copies] of Object.entries(languages)) {
       for (let i = 0; i < Number(copies); i++) {
-        console.log(bookID, languageCode, copies);
-        connection.query(
-          query,
-          [Number(bookID), Number(languageCode)],
-          (err, results) => {
-            if (err) {
-              console.error("Error executing query:", err);
-              return res.status(500).json({
-                error: "Internal server error",
-              });
-            }
+        connection.query(query, [Number(bookID), Number(languageCode)], (err, results) => {
+          if (err) {
+            console.error("Error executing query:", err);
+            errors.push(err.sqlMessage);
           }
-        );
+        });
       }
     }
   }
+
+  if (errors.length > 0) {
+    return res.status(500).json({
+      success: false,
+      message: "Errors occurred while adding book copies",
+      errors,
+    });
+  }
+
   return res.json({ success: true, message: "Book copies added successfully" });
 };

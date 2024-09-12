@@ -1,7 +1,6 @@
-/* Overlay styles, reuse from AddAuthorPopup */
-.overlay {
+.update-author-overlay {
   position: fixed;
-  top: 0;
+  top: 0px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -24,62 +23,50 @@
   position: relative;
 }
 
-/* Header styles */
-.dialog-header {
+/* Header Styles */
+.update-author-dialog-header {
   border-bottom: 1px solid #eaeaea;
   padding-bottom: 10px;
-  margin-bottom: 30px;
   position: relative;
 }
 
-.dialog-title {
+.update-author-dialog-title {
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-.update-author-close-button {
-  width: fit-content;
-  height: fit-content;
-  position: absolute;
-  right: 10px;
-  top: -10px;
-  background-color: transparent;
-  border: none;
-  font-size: 2.5rem;
-  cursor: pointer;
-}
-
-.update-author-close-button:hover {
+.dialog-description {
+  font-size: 1rem;
+  text-align: center;
   color: #666;
-  background-color: transparent;
 }
 
 /* Form Grid Styles */
-.form-grid {
+.form-grid-update-auth {
   display: grid;
-  gap: 20px;
+  gap: 15px;
+  /* grid-template-columns: 1fr 1fr; */
 }
 
-.form-grid-two-columns {
-  grid-template-columns: repeat(2, 1fr);
+.form-grid-two-columns-update-auth {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 }
 
-.form-field {
-  margin-bottom: 16px;
-}
-
-.form-field label {
+.form-field-update-auth label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
-.form-field input {
+.form-field-update-auth input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  margin-bottom: 0;
 }
 
 /* Button Styles */
@@ -108,7 +95,6 @@
 
 .button-cancel {
   background-color: #6f0202;
-  margin-bottom: 5px;
   border: none;
   color: #ffffff;
 }
@@ -118,12 +104,26 @@
   transition: 0.3s ease;
 }
 
-/* Footer styles */
-.dialog-footer {
+/* Close Button */
+.update-author-close-button {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+.update-author-close-button:hover {
+  color: #666;
+  background-color: transparent;
+}
+
+.dialog-footer-update-auth {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  border-top: 1px solid #eaeaea;
   padding-top: 20px;
-  margin-top: 20px;
 }

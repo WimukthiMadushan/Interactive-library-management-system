@@ -11,7 +11,7 @@ import Reception_05 from "./../../../Images/Reception_05.jpg";
 function OurTeam() {
   return (
     <section className="team-section">
-      <div className="container">
+      <div className="our-team-container">
         <div className="team-header">
           <h2 className="team-title">Our Team</h2>
           <p className="team-description">

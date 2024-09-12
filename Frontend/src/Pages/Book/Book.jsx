@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "./../../Hooks/AuthContext";
+import { useAuth } from "../../Hooks/AuthContext";
 import axios from "axios";
 import "./Book.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 function Book() {
   const location = useLocation();
   const [book, setBook] = useState({});
   const [bookCopy, setBookCopy] = useState([]);
   const [selectedCopyId, setSelectedCopyId] = useState(null);
-  const [reviews, setReview] = useState([]);
-  const [reservationDate, setReservationDate] = useState(new Date());
+  const [startDateTime, setStartDateTime] = useState("");
+  const [endDateTime, setEndDateTime] = useState("");
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showReservationPopup, setShowReservationPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { authState } = useAuth();
-  const { userId, role } = authState;
+  const { userId } = authState;
 
   const bookId = location.pathname.split("/").pop();
 
@@ -29,7 +27,6 @@ function Book() {
           `http://localhost:5000/api/book/${bookId}`
         );
         setBook(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log("Error fetching data:", error.message);
       }
@@ -51,20 +48,6 @@ function Book() {
     fetchBookCopy();
   }, [bookId]);
 
-  useEffect(() => {
-    const fetchReview = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/review/${bookId}`
-        );
-        setReview(response.data);
-      } catch (error) {
-        console.log("Error fetching data:", error.message);
-      }
-    };
-    fetchReview();
-  }, [bookId]);
-
   const handleReserve = (copyId) => {
     if (!userId) {
       setShowReservationPopup(false);
@@ -78,34 +61,34 @@ function Book() {
   const confirmReservation = async () => {
     setLoading(true);
     try {
-      const reserveDate = reservationDate.toISOString().split("T")[0];
-      const reserveTime = reservationDate.toTimeString().slice(0, 5);
-      const reserveEndTime = new Date(reservationDate.getTime() + 180 * 60000)
-        .toTimeString()
+      const startDate = new Date(startDateTime);
+      const endDate = new Date(endDateTime);
+
+      const reserveDate = startDate.toISOString().split("T")[0];
+      const reserveStartTime = startDate
+        .toISOString()
+        .split("T")[1]
         .slice(0, 5);
+      const reserveEndTime = endDate.toISOString().split("T")[1].slice(0, 5);
 
       const response = await axios.post(`http://localhost:5000/api/reserve`, {
         UserID: userId,
         Copy_ID: selectedCopyId,
         isComplete: 0,
         Reserve_Date: reserveDate,
-        Reserve_Time: reserveTime,
+        Reserve_Time: reserveStartTime,
         Reserve_End_Time: reserveEndTime,
       });
 
-      // Update the local state to mark the copy as reserved
       setBookCopy((prevCopies) =>
         prevCopies.map((copy) =>
           copy.Copy_ID === selectedCopyId ? { ...copy, isReserved: true } : copy
         )
       );
-
-      toast.success("Reservation Successful", {
-        closeButton: false,
-      });
-
       setShowReservationPopup(false);
     } catch (error) {
+      console.log(error.message);
+      alert("Error reserving book. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -115,11 +98,8 @@ function Book() {
     setShowReservationPopup(false);
   };
 
-  const closePopupOnOverlayClick = (event) => {
-    if (event.target.classList.contains("popup-background")) {
-      setShowReservationPopup(false);
-      setShowLoginPopup(false);
-    }
+  const handleCloseLoginPopup = () => {
+    setShowLoginPopup(false);
   };
 
   return (
@@ -189,78 +169,55 @@ function Book() {
             </div>
           ))}
         </div>
-        <div className="book-preview">
-          <h1>Book Preview</h1>
-        </div>
-        <div className="reviews">
-          <h2>Reviews</h2>
-          {reviews.length === 0 ? (
-            <p className="no-reviews">No reviews yet.</p>
-          ) : (
-            reviews.map((review) => (
-              <div key={review.Review_ID} className="review-card">
-                <div className="review-header">
-                  <span className="review-username">{review.Username}</span>
-                  <span className="review-rating">
-                    {Array(review.Rating).fill("⭐")}
-                  </span>
-                </div>
-                <p className="review-text">{review.Review}</p>
-                <p className="review-date">
-                  {new Date(review.Review_Date).toLocaleDateString()}
-                </p>
+
+        {/* Reservation Popup */}
+        {showReservationPopup && (
+          <div className="popup-background">
+            <div className="reservation-popup">
+              <h3>Select Reservation Start and End Time</h3>
+              <label htmlFor="start-time">Start Date & Time:</label>
+              <input
+                type="datetime-local"
+                id="start-time"
+                value={startDateTime}
+                onChange={(e) => setStartDateTime(e.target.value)}
+              />
+              <label htmlFor="end-time">End Date & Time:</label>
+              <input
+                type="datetime-local"
+                id="end-time"
+                value={endDateTime}
+                onChange={(e) => setEndDateTime(e.target.value)}
+              />
+              <div className="button-group">
+                <button
+                  className="confirm-reservation"
+                  onClick={confirmReservation}
+                  disabled={loading}
+                >
+                  {loading ? "Reserving..." : "Confirm Reservation"}
+                </button>
+                <button
+                  className="cancel-reservation"
+                  onClick={handleCancelReservation}
+                >
+                  Cancel
+                </button>
               </div>
-            ))
-          )}
-        </div>
-      </div>
-      {/*
-      
-
-       */}
-
-      {/* Reservation Popup */}
-      {showReservationPopup && (
-        <div className="popup-background" onClick={closePopupOnOverlayClick}>
-          <div className="reservation-popup">
-            <h3>Choose Reservation Date and Time</h3>
-            <DatePicker
-              selected={reservationDate}
-              onChange={(date) => setReservationDate(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="yyyy-MM-dd HH:mm"
-              className="date-picker"
-            />
-            <div className="button-group">
-              <button
-                className="confirm-reservation"
-                onClick={confirmReservation}
-                disabled={loading}
-              >
-                {loading ? "Reserving..." : "Confirm Reservation"}
-              </button>
-              <button
-                className="cancel-reservation"
-                onClick={handleCancelReservation}
-              >
-                Cancel
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Login Required Popup */}
-      {showLoginPopup && (
-        <div className="popup-background" onClick={closePopupOnOverlayClick}>
-          <div className="login-required-popup">
-            <p>You need to be logged in to make a reservation.</p>
-            <button onClick={() => setShowLoginPopup(false)}>Close</button>
+        {/* Login Required Popup */}
+        {showLoginPopup && (
+          <div className="popup-background">
+            <div className="login-required-popup">
+              <h3>You need to be logged in to reserve a book.</h3>
+              <button onClick={handleCloseLoginPopup}>Close</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

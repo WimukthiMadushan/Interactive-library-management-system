@@ -1,0 +1,146 @@
+/* UpdateBook component specific styles */
+.update-staff-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeInQuick 0.4s ease-in-out;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .update-staff-popup {
+    max-width: fit-content;
+    margin: 0 auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease-in-out;
+    transform: none;
+    animation: none;
+    overflow: visible;
+    top: -250px;
+  }
+  
+  .update-staff-container {
+    width: 90vw;
+    margin: 0 auto;
+    padding: 20px;
+    height: 97%;
+  }
+  
+  .update-staff-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .update-staff-multi-fields {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .update-staff-multi-fields input,
+  .update-staff-container input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .update-staff-multi-fields input:focus,
+  .update-staff-container input:focus,
+  .role-select:focus {
+    border-color: #120e09;
+    box-shadow: 0 0 5px rgba(22, 21, 18, 0.5);
+  }
+
+  .role-select{
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .role-select-option{
+    height: 20px;
+    padding: 12px;
+  }
+  
+  .add-button {
+    background: #fbb034;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .add-button:hover {
+    background: #f79c4e;
+  }
+  
+  .add-books-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-books-close-button img {
+    width: 20px;
+    height: 20px;
+  }
+ 
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+  
+    .multi-fields,
+    .multi-select {
+      flex-direction: column;
+    }
+  
+    .multi-fields input,
+    .multi-select .select {
+      width: 100%;
+    }
+  }
+  .update-staff-close-button{
+    display: inline-block;
+    position: absolute;
+    top: 28px;
+    right: 25px;
+    width: 40px;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+  .update-staff-close-button:hover{
+    background-color: white;
+    transform: scale(1.5);
+  }
+  
+  .select {
+    overflow: visible;
+  }
+  

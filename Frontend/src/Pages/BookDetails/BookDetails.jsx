@@ -4,6 +4,7 @@ import { useAuth } from "./../../Hooks/AuthContext.jsx";
 import { Modal, Button } from "react-bootstrap";
 import "./BookDetails.css";
 import AddReviewModal from "./../../Components/AddReview/AddReviewModal.jsx";
+import NotificationModal from "./../../Components/Modals/NotificationModal";
 
 function BookDetails() {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
@@ -13,9 +14,16 @@ function BookDetails() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [bookToRenew, setBookToRenew] = useState(null);
   const [isRenewing, setIsRenewing] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const { authState } = useAuth();
   const { userId } = authState;
+
+  // Close success and error modals
+  const handleCloseSuccess = () => setShowSuccess(false);
+  const handleCloseError = () => setShowError(false);
 
   useEffect(() => {
     const fetchBooks = async (url, setter) => {
@@ -23,7 +31,7 @@ function BookDetails() {
         const response = await axios.get(url);
         setter(response.data);
       } catch (error) {
-        console.error(`Error fetching books from ${url}:`, error);
+        console.error(`Error fetching books from ${url}:`, error.message);
       }
     };
 
@@ -31,6 +39,9 @@ function BookDetails() {
     fetchBooks(`http://localhost:5000/api/reserve/${userId}`, setReservedBooks);
   }, [userId]);
 
+  console.log(reservedBooks);
+
+  // Handle renewal of books
   const handleRenew = async () => {
     setIsRenewing(true);
     try {
@@ -44,17 +55,17 @@ function BookDetails() {
             : book
         );
         setBorrowedBooks(updatedBorrowedBooks);
-        console.log(updatedBorrowedBooks);
-        console.log("Book renewed successfully:", response.data.message);
+        setModalMessage("Book renewed successfully.");
+        setShowSuccess(true);
       } else {
-        console.error("Error renewing book:", response.data.message);
+        setModalMessage(response.data.message || "Unable to renew the book.");
+        setShowError(true);
       }
     } catch (error) {
       const errorMessage =
-        error.response?.data.message ||
-        error.response?.data.error ||
-        error.message;
-      console.error("Error renewing book:", errorMessage);
+        error.response?.data.message || "Error renewing the book.";
+      setModalMessage(errorMessage);
+      setShowError(true);
     } finally {
       setIsRenewing(false);
       setShowConfirmModal(false);
@@ -62,19 +73,42 @@ function BookDetails() {
     }
   };
 
+  // Handle opening review modal
   const handleAddReview = (book) => {
     setSelectedBook(book);
     setIsModalOpen(true);
   };
 
+  // Handle closing modals
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedBook(null);
   };
 
+  // Open confirmation modal for renewals
   const handleOpenConfirmModal = (book) => {
     setBookToRenew(book);
     setShowConfirmModal(true);
+  };
+
+  // Handle reservation cancellation
+  const handleCancelReservation = async (reserveId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/reserve/cancel/${reserveId}`
+      );
+      setModalMessage(response.data.message);
+      setShowSuccess(true);
+      const updatedReservedBooks = reservedBooks.filter(
+        (book) => book.Reserve_ID !== reserveId
+      );
+      setReservedBooks(updatedReservedBooks);
+    } catch (error) {
+      const errorMessage =
+        error.response?.data.message || "Error canceling reservation.";
+      setModalMessage(errorMessage);
+      setShowError(true);
+    }
   };
 
   return (
@@ -82,6 +116,7 @@ function BookDetails() {
       <div className="book-details-header">
         <h1>My Library</h1>
       </div>
+
       <div className="book-details-cards">
         <div className="book-details-card">
           <div className="book-details-card-header">
@@ -140,6 +175,7 @@ function BookDetails() {
             )}
           </div>
         </div>
+
         <div className="book-details-card">
           <div className="book-details-card-header">
             <h2>Reserved Books</h2>
@@ -155,6 +191,8 @@ function BookDetails() {
                     <th>Title</th>
                     <th>Language</th>
                     <th>Reservation Date</th>
+                    <th>Reservation Time</th>
+                    <th>Reservation End Time</th>
                     <th>Location</th>
                     <th>Cancel Reservation</th>
                     <th>Add Review</th>
@@ -167,13 +205,27 @@ function BookDetails() {
                       <td>{book.Title}</td>
                       <td>{book.Language}</td>
                       <td>
-                        {new Date(book.Reservation_Date).toLocaleDateString()}
+                        {new Date(book.Reserve_Date).toLocaleDateString(
+                          undefined,
+                          {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                          }
+                        )}
                       </td>
+                      <td>{book.Reserve_Time}</td>
+                      <td>{book.Reserve_End_Time}</td>
                       <td>
                         {`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}
                       </td>
                       <td>
-                        <button className="cancel-reservation-button">
+                        <button
+                          className="cancel-reservation-button"
+                          onClick={() =>
+                            handleCancelReservation(book.Reserve_ID)
+                          }
+                        >
                           Cancel
                         </button>
                       </td>
@@ -193,6 +245,7 @@ function BookDetails() {
           </div>
         </div>
       </div>
+
       {isModalOpen && (
         <AddReviewModal
           isOpen={isModalOpen}
@@ -216,6 +269,20 @@ function BookDetails() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* Success and Error Notification Modals */}
+      <NotificationModal
+        show={showSuccess}
+        handleClose={handleCloseSuccess}
+        title="Success"
+        message={modalMessage}
+      />
+      <NotificationModal
+        show={showError}
+        handleClose={handleCloseError}
+        title="Error"
+        message={modalMessage}
+      />
     </div>
   );
 }
