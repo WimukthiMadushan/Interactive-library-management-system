@@ -1,10 +1,18 @@
 .team-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensures the section takes full viewport height */
   padding: 2rem 1rem;
   text-align: center;
 }
+
 .our-team-container {
-  width: 100rem;
+  max-width: 1200px; /* Set a reasonable max-width */
+  width: 100%; /* Make sure the container uses available space */
+  padding: 0 1rem; /* Add some padding for small screens */
 }
+
 .team-header {
   margin-bottom: 2rem;
 }
@@ -41,6 +49,7 @@
   margin-bottom: 0.5rem;
   cursor: pointer;
 }
+
 .avatar:hover {
   transform: scale(1.1);
   transition: all 0.3s ease;

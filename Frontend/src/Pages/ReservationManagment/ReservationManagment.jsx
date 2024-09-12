@@ -88,7 +88,6 @@ function ReservationManagment() {
             <th>Reserve Time</th>
             <th>Reserve End Time</th>
             <th>Is Complete</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -102,10 +101,6 @@ function ReservationManagment() {
               <td>{reservation.Reserve_End_Time}</td>
               <td>
                 {reservation.isComplete === 1 ? "Complete" : "In progress"}
-              </td>
-              <td className="action-column">
-                <button className="reservation-update-button">Update</button>
-                <button className="reservation-delete-button">Cancel</button>
               </td>
             </tr>
           ))}

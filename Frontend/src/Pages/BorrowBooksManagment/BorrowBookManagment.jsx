@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./BorrowBookManagment.css";
-import PaginationButtons from "./../../Components/Pagination/PaginationButtons/PaginationButtons";
-import AddBorrows from "./../../Components/AddBorrow/AddBorrows";
-import ReturnBookPopup from "../../Components/Popup/ReturnBook/ReturnBookPopup";
+import PaginationButtons from "../../Components/Pagination/PaginationButtons/PaginationButtons";
+import AddBorrows from "../../Components/AddBorrow/AddBorrows";
+import ReturnBookPopup from "./../../Components/Popup/ReturnBook/ReturnBookPopup";
 
 function BorrowBookManagement() {
   const [borrows, setBorrows] = useState([]);
@@ -11,7 +11,6 @@ function BorrowBookManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isAddBorrowOpen, setIsAddBorrowOpen] = useState(false);
   const [showReturnModal, setShowReturnModal] = useState(false);
-  const [showRenewModal, setShowRenewModal] = useState(false);
   const [selectedBorrowId, setSelectedBorrowId] = useState(null);
 
   const itemsPerPage = 10;
@@ -52,7 +51,6 @@ function BorrowBookManagement() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredBorrows.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(filteredBorrows.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
@@ -64,32 +62,12 @@ function BorrowBookManagement() {
     setShowReturnModal(true);
   };
 
-  
-
-  const handleRenew = async () => {
-    try {
-      const response = await axios.put(
-        `http://localhost:5000/api/borrow/renew/${selectedBorrowId}`
-      );
-      if (response.data.success) {
-        console.log("Book renewed successfully");
-        setShowRenewModal(false);
-        fetchBorrows(); // Fetch updated data
-      } else {
-        console.log("Error renewing the book");
-      }
-    } catch (error) {
-      console.error("Error renewing the book:", error);
-    }
-  };
-
   const toggleAddPopup = () => {
     setIsAddBorrowOpen(!isAddBorrowOpen);
   };
 
-  const confirmRenew = (id) => {
-    setSelectedBorrowId(id);
-    setShowRenewModal(true);
+  const toggleReturnPopup = () => {
+    setShowReturnModal(!showReturnModal);
   };
 
   return (
@@ -144,12 +122,6 @@ function BorrowBookManagement() {
                   >
                     Return
                   </button>
-                  <button
-                    className="action-button renew-button"
-                    onClick={() => confirmRenew(borrow.Borrow_ID)}
-                  >
-                    Renew
-                  </button>
                 </td>
               </tr>
             ))}
@@ -164,7 +136,13 @@ function BorrowBookManagement() {
         />
       </div>
       {isAddBorrowOpen && <AddBorrows onClose={toggleAddPopup} />}
-      {showReturnModal && <ReturnBookPopup />}
+      {showReturnModal && (
+        <ReturnBookPopup
+          onClose={toggleReturnPopup}
+          borrowId={selectedBorrowId}
+          fetchBorrows={fetchBorrows} // Pass fetchBorrows to refresh data
+        />
+      )}
     </div>
   );
 }
