@@ -4,10 +4,17 @@ import { useState } from 'react';
 import './UpdateStaffPopup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import NotificationModal from "../../Modals/NotificationModal.jsx";
 
-const UpdateStaffPopup = ({togglePopup,data}) => {
+function UpdateStaffPopup ({togglePopup,fetchStaff,data}){
 
     const [staffData, setStaffData] = useState(data);
+
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    const handleCloseSuccess = () => setShowSuccess(false);
+    const handleCloseError = () => setShowError(false);
 
     const handleUpdateDataChange = (event) => {
         const { name, value } = event.target;
@@ -18,23 +25,26 @@ const UpdateStaffPopup = ({togglePopup,data}) => {
       };
       
     const handleUpdateStaff = async (e) => {
-    e.preventDefault();
-    const data = staffData;
-    const id = staffData.Staff_ID;
+        e.preventDefault();
+        const data = staffData;
+        const id = staffData.Staff_ID;
 
-    try {
-        const response = await axios.put(`http://localhost:5000/api/user/staff/${id}`, data);
+        try {
+            const response = await axios.put(`http://localhost:5000/api/user/staff/${id}`, data);
 
-        if(response.data.success){
-        togglePopup();
-        fetchStaff();
-        toast.success("Staff member updated successfully.");
-        } else {
-        toast.error("Failed to update staff member. Please try again.");
+            if(response.data.success){
+                togglePopup();
+                fetchStaff();
+                setModalMessage("Staff Member Updated Successfully.");
+                setShowSuccess(true);
+            } else {
+                setModalMessage("Failed to Update Staff.");
+                setShowError(true);
+            }
+        } catch (error) {
+            setModalMessage("Failed to Update Staff.");
+            setShowError(true);
         }
-    } catch (error) {
-        console.error("Error updating staff member:", error);
-    }
     };
 
 
@@ -98,10 +108,25 @@ const UpdateStaffPopup = ({togglePopup,data}) => {
             </button>
             </div>
         </form>
-        {/* <button className="close-button" onClick={toggleUpdateAuthorPopup}>
-            <img src={Close} alt="Close" />
-        </button> */}
         </div>
+
+        <NotificationModal
+            show={showSuccess}
+            handleClose={handleCloseSuccess}
+            title={"Success"}
+            message={modalMessage}
+            isSuccess={true}
+            data-testid="success-modal"
+        />
+
+        <NotificationModal
+            show={showError}
+            handleClose={handleCloseError}
+            title={"Failed"}
+            message={modalMessage}
+            isSuccess={false}
+            data-testid="error-modal"
+        />
     </div>
   )
 }

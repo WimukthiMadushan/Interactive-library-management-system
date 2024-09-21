@@ -5,12 +5,10 @@ import "./AddStaffPopup.css";
 import NotificationModal from "../../Modals/NotificationModal";
 
 const AddStaffPopup = ({ toggleAddPopup, fetchStaffs }) => {
+    const [user, setUser] = useState([]);
     const [newStaffData, setNewStaffData] = useState({
-        Staff_First_Name: "",
-        Staff_Last_Name: "",
-        Email: "",
-        Address: "",
-        Mobile: "",
+        User_ID: "",
+        Role: "",
       });
     
       const [showSuccess, setShowSuccess] = useState(false);
@@ -18,6 +16,7 @@ const AddStaffPopup = ({ toggleAddPopup, fetchStaffs }) => {
       const [modalMessage, setModalMessage] = useState("");
       const handleCloseSuccess = () => setShowSuccess(false);
       const handleCloseError = () => setShowError(false);
+      const [searchId, setSearchId] = useState("");
     
       const handleAddStaffDataChange = (e) => {
         const { name, value } = e.target;
@@ -26,28 +25,37 @@ const AddStaffPopup = ({ toggleAddPopup, fetchStaffs }) => {
           [name]: value,
         }));
       };
+
+      const fetchUser = async (searchId) => {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/user/${searchId}`);
+          if(response.data.message === "User retrieved successfully"){
+            setUser(response.data);
+          }else{
+            console.log("User not found");
+          }
+          
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      };
     
       const handleAddSubmit = async (event) => {
         event.preventDefault();
         const formDataObject = {
-          Staff_First_Name: newStaffData.Staff_First_Name,
-          Staff_Last_Name: newStaffData.Staff_Last_Name,
-          Email: newStaffData.Email,
-          Address: newStaffData.Address,
-          Mobile: newStaffData.Mobile,
+          User_ID: searchId,
+          Role: newStaffData.Role,
         };
-        try {
-          await axios.post(`http://localhost:5000/api/staff`, formDataObject);
+        try { 
+          const response = await axios.post(`http://localhost:5000/api/user/addstaff`, formDataObject);
           setNewStaffData({
-            Staff_First_Name: "",
-            Staff_Last_Name: "",
-            Email: "",
-            Address: "",
-            Mobile: "",
+            User_ID: "",
+            Role: "",
           });
+          setUser([]);
+          setSearchId("");
           setModalMessage("Staff Added Successfully.");
           setShowSuccess(true);
-          fetchStaffs();
         } catch (error) {
           console.error("Error submitting form:", error);
           setModalMessage("Failed to Add Staff.");
@@ -56,56 +64,77 @@ const AddStaffPopup = ({ toggleAddPopup, fetchStaffs }) => {
       };
     
       return (
-        <div className="add-staff-popup-overlay">
+        <div className="add-staff-popup-overlay" data-testid="add-staff-popup">
           <div className="add-staff-popup-container">
-            <button className="close-button" onClick={toggleAddPopup}>
+            <button className="close-button" onClick={toggleAddPopup} data-testid="close-button">
               <MdClose size={24} />
             </button>
             <h1>Add Staff</h1>
-            <form className="staff-form" onSubmit={handleAddSubmit}>
-              <div className="multi-fields">
+            <form className="staff-form" onSubmit={handleAddSubmit} data-testid="staff-form">
+
+              <div className="add-user">
                 <input
-                  onChange={handleAddStaffDataChange}
-                  value={newStaffData.Staff_First_Name}
+                  onChange={(e) => setSearchId(e.target.value)}
+                  value={searchId}
+                  name="User_ID"
+                  type="text"
+                  placeholder="Enter user ID"
+                  required
+                  data-testid="user-id-input"
+                />
+                <button
+                  type="button"
+                  className="add-user-submit"
+                  onClick={() => fetchUser(searchId)}
+                  data-testid="find-user-button"
+                >
+                  Find user
+                </button>
+              </div>
+              
+              <div className="add-staff-multi-fields">
+                <input
+                  
+                  value={user.First_Name || ""}
                   name="Staff_First_Name"
                   type="text"
                   placeholder="First Name"
-                  required
+                  readOnly
+                  data-testid="first-name-input"
                 />
                 <input
-                  onChange={handleAddStaffDataChange}
-                  value={newStaffData.Staff_Last_Name}
+                  
+                  value={user.Last_Name || ""}
                   name="Staff_Last_Name"
                   type="text"
                   placeholder="Last Name"
-                  required
+                  readOnly
+                  data-testid="last-name-input"
                 />
               </div>
               <input
-                onChange={handleAddStaffDataChange}
-                value={newStaffData.Email}
+                
+                value={user.Email || ""}
                 name="Email"
                 type="email"
                 placeholder="Email"
-                required
+                readOnly
+                data-testid="email-input"
               />
-              <input
+
+              <select className='role-select'
+                value={newStaffData.Role}
                 onChange={handleAddStaffDataChange}
-                value={newStaffData.Address}
-                name="Address"
-                type="text"
-                placeholder="Address"
+                name="Role"
                 required
-              />
-              <input
-                onChange={handleAddStaffDataChange}
-                value={newStaffData.Mobile}
-                name="Mobile"
-                type="tel"
-                placeholder="Mobile"
-                required
-              />
-              <button type="submit" className="add-staff-submit">
+                data-testid="role-select"
+              >
+                <option className='role-select-option' value="" disabled>Select Role</option>
+                <option value="Administrator">Administrator</option>
+                <option value="Receptionist">Receptionist</option>
+              </select>
+              
+              <button type="submit" className="add-staff-submit" data-testid="submit-button">
                 Add Staff
               </button>
             </form>
@@ -116,14 +145,16 @@ const AddStaffPopup = ({ toggleAddPopup, fetchStaffs }) => {
             title={"sucess"}
             message={modalMessage}
             isSuccess={true}
+            data-testid="success-modal"
           />
     
           <NotificationModal
             show={showError}
             handleClose={handleCloseError}
-            title={"failed"}
+            title={"Failed"}
             message={modalMessage}
             isSuccess={false}
+            data-testid="error-modal"
           />
         </div>
       );

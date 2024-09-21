@@ -71,12 +71,16 @@ function BorrowBookManagement() {
   };
 
   return (
-    <div className="view-authors-container">
+    <div className="view-authors-container" data-testid="borrow-management">
       <div className="book-management-image">
         <h2>Borrow Books Management</h2>
       </div>
       <div className="book-management-buttons">
-        <button className="book-add" onClick={toggleAddPopup}>
+        <button
+          className="book-add"
+          onClick={toggleAddPopup}
+          data-testid="add-borrow-button"
+        >
           Borrow Book
         </button>
       </div>
@@ -86,10 +90,11 @@ function BorrowBookManagement() {
           placeholder="Enter User ID"
           value={searchQuery}
           onChange={handleSearchChange}
+          data-testid="search-input"
         />
       </div>
       <div className="book-management-table">
-        <table>
+        <table data-testid="borrow-table">
           <thead>
             <tr>
               <th>Borrow ID</th>
@@ -104,14 +109,14 @@ function BorrowBookManagement() {
           </thead>
           <tbody>
             {currentItems.map((borrow) => (
-              <tr key={borrow.Borrow_ID}>
-                <td>{borrow.Borrow_ID}</td>
-                <td>{borrow.User_ID}</td>
-                <td>{borrow.Book_ID}</td>
-                <td>{borrow.Borrow_Date}</td>
-                <td>{borrow.Borrow_Time}</td>
-                <td>{borrow.Return_Date}</td>
-                <td>
+              <tr key={borrow.Borrow_ID} data-testid={`borrow-row-${borrow.Borrow_ID}`}>
+                <td data-testid={`borrow-id-${borrow.Borrow_ID}`}>{borrow.Borrow_ID}</td>
+                <td data-testid={`user-id-${borrow.Borrow_ID}`}>{borrow.User_ID}</td>
+                <td data-testid={`book-id-${borrow.Borrow_ID}`}>{borrow.Book_ID}</td>
+                <td data-testid={`borrow-date-${borrow.Borrow_ID}`}>{borrow.Borrow_Date}</td>
+                <td data-testid={`borrow-time-${borrow.Borrow_ID}`}>{borrow.Borrow_Time}</td>
+                <td data-testid={`return-date-${borrow.Borrow_ID}`}>{borrow.Return_Date}</td>
+                <td data-testid={`is-complete-${borrow.Borrow_ID}`}>
                   {borrow.isComplete === 1 ? "Complete" : "Not yet Returned"}
                 </td>
                 <td className="action-column">
@@ -119,6 +124,7 @@ function BorrowBookManagement() {
                     className="action-button return-button"
                     onClick={() => confirmReturn(borrow.Borrow_ID)}
                     disabled={borrow.isComplete === 1}
+                    data-testid={`return-button-${borrow.Borrow_ID}`}
                   >
                     Return
                   </button>
@@ -128,19 +134,22 @@ function BorrowBookManagement() {
           </tbody>
         </table>
       </div>
-      <div className="pagination">
+      <div className="pagination" data-testid="pagination">
         <PaginationButtons
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
         />
       </div>
-      {isAddBorrowOpen && <AddBorrows onClose={toggleAddPopup} />}
+      {isAddBorrowOpen && (
+        <AddBorrows onClose={toggleAddPopup} data-testid="add-borrow-popup" />
+      )}
       {showReturnModal && (
         <ReturnBookPopup
           onClose={toggleReturnPopup}
           borrowId={selectedBorrowId}
           fetchBorrows={fetchBorrows} // Pass fetchBorrows to refresh data
+          data-testid="return-book-popup"
         />
       )}
     </div>

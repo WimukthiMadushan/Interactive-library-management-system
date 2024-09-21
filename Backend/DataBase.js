@@ -21,7 +21,7 @@ import insertDataFromFile from "./insertData.js";
 const connection = mysql2.createConnection({
   host: "localhost",
   user: "root",
-  password: "#WM@b2000#",
+  password: "dulanga1234",
   database: "library_database",
 });
 

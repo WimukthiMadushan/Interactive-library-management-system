@@ -67,14 +67,19 @@ function UpdatePublisherPopup({
   };
 
   return (
-    <div className="update-publisher-popup-overlay">
+    <div className="update-publisher-popup-overlay" data-testid="popup-overlay">
       <div className="update-publisher-popup-container">
-        <form className="publisher-form" onSubmit={handleUpdateSubmit}>
+        <form
+          className="publisher-form"
+          onSubmit={handleUpdateSubmit}
+          data-testid="update-form"
+        >
           <h1>Update Publisher</h1>
           <button
             type="button"
             className="close-button"
             onClick={toggleUpdatePopup}
+            data-testid="close-button"
           >
             <MdClose />
           </button>
@@ -85,6 +90,7 @@ function UpdatePublisherPopup({
               name="Publisher_First_Name"
               type="text"
               placeholder="First Name"
+              data-testid="first-name-input"
               required
             />
             <input
@@ -93,6 +99,7 @@ function UpdatePublisherPopup({
               name="Publisher_Last_Name"
               type="text"
               placeholder="Last Name"
+              data-testid="last-name-input"
               required
             />
           </div>
@@ -102,6 +109,7 @@ function UpdatePublisherPopup({
             name="Email"
             type="email"
             placeholder="Email"
+            data-testid="email-input"
             required
           />
           <input
@@ -110,6 +118,7 @@ function UpdatePublisherPopup({
             name="Address"
             type="text"
             placeholder="Address"
+            data-testid="address-input"
             required
           />
           <input
@@ -118,9 +127,14 @@ function UpdatePublisherPopup({
             name="Mobile"
             type="tel"
             placeholder="Mobile"
+            data-testid="mobile-input"
             required
           />
-          <button type="submit" className="update-publisher-submit">
+          <button
+            type="submit"
+            className="update-publisher-submit"
+            data-testid="submit-button"
+          >
             Update Publisher
           </button>
         </form>
@@ -129,17 +143,19 @@ function UpdatePublisherPopup({
       <NotificationModal
         show={showSuccess}
         handleClose={handleCloseSuccess}
-        title={"sucess"}
+        title={"Success"}
         message={modalMessage}
         isSuccess={true}
+        data-testid="success-modal"
       />
 
       <NotificationModal
         show={showError}
         handleClose={handleCloseError}
-        title={"failed"}
+        title={"Failed"}
         message={modalMessage}
         isSuccess={false}
+        data-testid="error-modal"
       />
     </div>
   );

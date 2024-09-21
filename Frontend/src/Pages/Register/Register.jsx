@@ -59,14 +59,14 @@ function Register() {
   };
 
   return (
-    <div className="center-wrapper">
+    <div className="center-wrapper" data-testid="register-page">
       <div className="register-container">
         <div className="upper">
-          <h1>Sign Up</h1>
+          <h1 data-testid="register-title">Sign Up</h1>
           <p>Create your account to get started.</p>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="register-form">
           <div className="name">
             <input
               type="text"
@@ -76,6 +76,7 @@ function Register() {
               onChange={handleChange}
               required
               pattern="[A-Za-z]+"
+              data-testid="first-name-input"
             />
 
             <input
@@ -86,6 +87,7 @@ function Register() {
               onChange={handleChange}
               required
               pattern="[A-Za-z]+"
+              data-testid="last-name-input"
             />
           </div>
 
@@ -97,6 +99,7 @@ function Register() {
               value={userData.Username}
               onChange={handleChange}
               required
+              data-testid="username-input"
             />
           </div>
 
@@ -108,6 +111,7 @@ function Register() {
               value={userData.Email}
               onChange={handleChange}
               required
+              data-testid="email-input"
             />
 
             <input
@@ -118,6 +122,7 @@ function Register() {
               onChange={handleChange}
               required
               minLength={6}
+              data-testid="password-input"
             />
           </div>
 
@@ -130,6 +135,7 @@ function Register() {
               onChange={handleChange}
               required
               pattern="\d{9}[vVxX]|\d{12}"
+              data-testid="nic-input"
             />
           </div>
 
@@ -141,6 +147,7 @@ function Register() {
               value={userData.Address}
               onChange={handleChange}
               required
+              data-testid="address-input"
             />
           </div>
 
@@ -153,11 +160,14 @@ function Register() {
               onChange={handleChange}
               required
               pattern="\d{10}"
+              data-testid="mobile-input"
             />
           </div>
 
           <div className="register-button">
-            <button type="submit">Register</button>
+            <button type="submit" data-testid="submit-button">
+              Register
+            </button>
           </div>
         </form>
 
@@ -167,6 +177,7 @@ function Register() {
           title={"Success"}
           message={modalMessage}
           isSuccess={true}
+          data-testid="success-modal"
         />
 
         <NotificationModal
@@ -175,6 +186,7 @@ function Register() {
           title={"Error"}
           message={modalMessage}
           isSuccess={false}
+          data-testid="error-modal"
         />
       </div>
     </div>

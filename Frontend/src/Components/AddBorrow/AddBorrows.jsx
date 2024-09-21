@@ -53,12 +53,20 @@ const AddBorrows = ({ onClose }) => {
 
   return (
     <>
-      <div className="add-borrow-popup-container">
+      <div className="add-borrow-popup-container" data-testid="add-borrow-popup-container">
         <div className="add-borrow-popup">
-          <button className="close-button" onClick={onClose}>
+          <button
+            className="close-button"
+            onClick={onClose}
+            data-testid="close-button"
+          >
             &times;
           </button>
-          <form className="add-borrow-container" onSubmit={onSubmitHandler}>
+          <form
+            className="add-borrow-container"
+            onSubmit={onSubmitHandler}
+            data-testid="borrow-form"
+          >
             <div className="add-borrow-borrow">
               <h1>Borrow Book</h1>
               <div className="input-div">
@@ -69,6 +77,7 @@ const AddBorrows = ({ onClose }) => {
                   type="text"
                   placeholder="User ID"
                   required
+                  data-testid="user-id-input"
                 />
               </div>
 
@@ -80,6 +89,7 @@ const AddBorrows = ({ onClose }) => {
                   type="text"
                   placeholder="Book ID"
                   required
+                  data-testid="book-id-input"
                 />
               </div>
 
@@ -87,6 +97,7 @@ const AddBorrows = ({ onClose }) => {
                 type="submit"
                 className="add-borrow-add-button"
                 disabled={loading}
+                data-testid="submit-button"
               >
                 {loading ? "Borrowing..." : "Borrow Book"}
               </button>

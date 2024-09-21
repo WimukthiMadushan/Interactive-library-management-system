@@ -29,6 +29,7 @@ const Pagination = ({ Data, itemsPerPage }) => {
       pages.push(
         <div
           key={i}
+          data-testid={`page-${i}`}
           className={`pagination-item ${i === currentPage ? "active" : ""}`}
           onClick={() => handlePageChange(i)}
         >
@@ -49,33 +50,38 @@ const Pagination = ({ Data, itemsPerPage }) => {
         key={index}
         to={`/book/${item.Book_ID}`}
         style={{ textDecoration: "none", color: "inherit" }}
+        data-testid={`item-${index}`}
       >
-        <div key={index} className="item">
+        <div key={index} className="item" data-testid="item">
           <div className="item-image-container">
             {item.Image_Path ? (
               <img
                 src={item.Image_Path}
                 alt={item.Title}
                 className="item-image"
+                data-testid="item-image"
               />
             ) : item.Image_Name ? (
               <img
                 src={`http://localhost:5000/books/${item.Image_Name}`}
                 alt={item.Title}
                 className="item-image"
+                data-testid="item-image"
               />
             ) : (
-              <div className="no-image">
+              <div className="no-image" data-testid="no-image">
                 <p>No image</p>
               </div>
             )}
           </div>
           <div className="item-details">
-            <h3>{item.Title}</h3>
-            <p className="author-name">
+            <h3 data-testid="item-title">{item.Title}</h3>
+            <p className="author-name" data-testid="item-author">
               By {item.Author_First_Name} {item.Author_Last_Name}
             </p>
-            <p className="category">Category: {item.Category_Name}</p>
+            <p className="category" data-testid="item-category">
+              Category: {item.Category_Name}
+            </p>
           </div>
         </div>
       </Link>
@@ -87,6 +93,7 @@ const Pagination = ({ Data, itemsPerPage }) => {
       <div className="items-container">{renderItems()}</div>
       <div className="pagination">
         <div
+          data-testid="prev-button"
           className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
           onClick={() => handlePageChange(currentPage - 1)}
         >
@@ -94,6 +101,7 @@ const Pagination = ({ Data, itemsPerPage }) => {
         </div>
         {renderPages()}
         <div
+          data-testid="next-button"
           className={`pagination-item ${
             currentPage === totalPages ? "disabled" : ""
           }`}

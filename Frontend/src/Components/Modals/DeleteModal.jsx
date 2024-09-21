@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import axios from "axios";
 
 function DeleteModal({
   show,
@@ -22,16 +23,33 @@ function DeleteModal({
   };
 
   return (
-    <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Confirm Deletion</Modal.Title>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      centered
+      data-testid="delete-modal"
+    >
+      <Modal.Header closeButton data-testid="delete-modal-header">
+        <Modal.Title data-testid="delete-modal-title">
+          Confirm Deletion
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>Are you sure you want to delete this {value}?</Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleConfirm}>
+      <Modal.Body data-testid="delete-modal-body">
+        Are you sure you want to delete this {value}?
+      </Modal.Body>
+      <Modal.Footer data-testid="delete-modal-footer">
+        <Button
+          variant="secondary"
+          onClick={handleConfirm}
+          data-testid="cancel-button"
+        >
           Cancel
         </Button>
-        <Button variant="danger" onClick={handleConfirmDelete}>
+        <Button
+          variant="danger"
+          onClick={handleConfirmDelete}
+          data-testid="delete-button"
+        >
           Delete
         </Button>
       </Modal.Footer>

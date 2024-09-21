@@ -13,11 +13,24 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
     Mobile: "",
   });
 
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const handleCloseSuccess = () => setShowSuccess(false);
-  const handleCloseError = () => setShowError(false);
+  const [modalInfo, setModalInfo] = useState({
+    show: false,
+    title: "",
+    message: "",
+    isSuccess: true,
+  });
+
+  // const [showSuccess, setShowSuccess] = useState(false);
+  // const [showError, setShowError] = useState(false);
+  // const [modalMessage, setModalMessage] = useState("");
+  // const handleCloseSuccess = () => {
+  //   setShowSuccess(false);
+  //   toggleAddPopup();
+  // };
+  // const handleCloseError = () => {
+  //   setShowError(false);
+  //   toggleAddPopup();
+  // };
 
   const handleAddPublisherDataChange = (e) => {
     const { name, value } = e.target;
@@ -37,32 +50,69 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
       Mobile: newPublisherData.Mobile,
     };
     try {
-      await axios.post(`http://localhost:5000/api/publisher`, formDataObject);
-      setNewPublisherData({
-        Publisher_First_Name: "",
-        Publisher_Last_Name: "",
-        Email: "",
-        Address: "",
-        Mobile: "",
-      });
-      setModalMessage("Publisher Added Successfully.");
-      setShowSuccess(true);
-      fetchPublishers();
+      const response = await axios.post(`http://localhost:5000/api/publisher`, formDataObject);
+      
+      if (response.status === 201){
+        setNewPublisherData({
+          Publisher_First_Name: "",
+          Publisher_Last_Name: "",
+          Email: "",
+          Address: "",
+          Mobile: "",
+        });
+        //setModalMessage("Publisher Added Successfully.");
+        //setShowSuccess(true);
+  
+        setModalInfo({
+          show: true,
+          title: "Success",
+          message: "Publisher Added Successfully!",
+          isSuccess: true,
+        });
+  
+        fetchPublishers();
+      } else {
+        setModalInfo({
+          show: true,
+          title: "Failed!",
+          message: "There was an error adding the publisher.",
+          isSuccess: false,
+        });
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setModalMessage("Failed to Add Publisher.");
-      setShowError(true);
+      //setModalMessage("Failed to Add Publisher.");
+
+      setModalInfo({
+        show: true,
+        title: "Error",
+        message: `Failed to add publisher: ${error.message}`,
+        isSuccess: false,
+      });
+
+      //setShowError(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setModalInfo({ ...modalInfo, show: false });
+    if (modalInfo.isSuccess) {
+      toggleAddPopup();
     }
   };
 
   return (
-    <div className="add-publisher-popup-overlay">
+    <div className="add-publisher-popup-overlay" data-testid="add-publisher-popup">
       <div className="add-publisher-popup-container">
-        <button className="close-button" onClick={toggleAddPopup}>
+        <button
+          className="close-button"
+          onClick={toggleAddPopup}
+          data-testid="popup-close-button"
+        >
           <MdClose size={24} />
         </button>
         <h1>Add Publisher</h1>
-        <form className="publisher-form" onSubmit={handleAddSubmit}>
+        <form className="publisher-form" onSubmit={handleAddSubmit} data-testid="publisher-form">
           <div className="multi-fields">
             <input
               onChange={handleAddPublisherDataChange}
@@ -71,6 +121,7 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
               type="text"
               placeholder="First Name"
               required
+              data-testid="first-name-input"
             />
             <input
               onChange={handleAddPublisherDataChange}
@@ -79,6 +130,7 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
               type="text"
               placeholder="Last Name"
               required
+              data-testid="last-name-input"
             />
           </div>
           <input
@@ -88,6 +140,7 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
             type="email"
             placeholder="Email"
             required
+            data-testid="email-input"
           />
           <input
             onChange={handleAddPublisherDataChange}
@@ -96,6 +149,7 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
             type="text"
             placeholder="Address"
             required
+            data-testid="address-input"
           />
           <input
             onChange={handleAddPublisherDataChange}
@@ -104,27 +158,39 @@ function AddPublisherPopup({ toggleAddPopup, fetchPublishers }) {
             type="tel"
             placeholder="Mobile"
             required
+            data-testid="mobile-input"
           />
-          <button type="submit" className="add-publisher-submit">
+          <button type="submit" className="add-publisher-submit" data-testid="submit-button">
             Add Publisher
           </button>
         </form>
       </div>
-      <NotificationModal
+
+      {/* <NotificationModal
         show={showSuccess}
         handleClose={handleCloseSuccess}
-        title={"sucess"}
+        title={"success"}
         message={modalMessage}
         isSuccess={true}
+        data-testid="success-modal"
       />
 
       <NotificationModal
         show={showError}
         handleClose={handleCloseError}
-        title={"failed"}
+        title={"Failed"}
         message={modalMessage}
         isSuccess={false}
-      />
+        data-testid="error-modal"
+      /> */}
+
+        <NotificationModal
+          show={modalInfo.show}
+          handleClose={handleCloseModal}
+          title={modalInfo.title}
+          message={modalInfo.message}
+          isSuccess={modalInfo.isSuccess}
+        />
     </div>
   );
 }

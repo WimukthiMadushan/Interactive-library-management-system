@@ -17,6 +17,7 @@ function UpdateAuthorPopup({
     Country: "",
     NIC: "",
     Mobile: "",
+    Address: "",
   });
 
   const [modalInfo, setModalInfo] = useState({
@@ -25,6 +26,8 @@ function UpdateAuthorPopup({
     message: "",
     isSuccess: true,
   });
+
+  
 
   const handleUpdateDataChange = (event) => {
     const { name, value } = event.target;
@@ -45,7 +48,22 @@ function UpdateAuthorPopup({
       const response = await axios.get(
         `http://localhost:5000/api/author/${id}`
       );
-      setUpdateData(response.data);
+      if (response.data.Address) {
+      const [Street = "", City = "", Country = ""] = response.data.Address.split(", ");
+      setUpdateData({
+        ...response.data,
+        Street,
+        City,
+        Country,
+      });
+    } else {
+      setUpdateData({
+        ...response.data,
+        Street: "",
+        City: "",
+        Country: "",
+      });
+    }
     } catch (error) {
       console.error("Error fetching publisher:", error);
     }
@@ -53,11 +71,15 @@ function UpdateAuthorPopup({
 
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
-    //console.log(authorId);
+    const combinedAddress = `${updateData.Street}, ${updateData.City}, ${updateData.Country}`;
+    const updatedAuthorData = {
+    ...updateData,
+    Address: combinedAddress
+  };
     try {
       const response = await axios.put(
         `http://localhost:5000/api/author/${authorId}`,
-        updateData
+        updatedAuthorData
       );
       if (response.status === 200) {
         setModalInfo({
@@ -93,18 +115,28 @@ function UpdateAuthorPopup({
   };
 
   return (
-    <div className="update-author-overlay">
+    <div className="update-author-overlay" data-testid="update-author-popup">
       <div className="dialog-container">
         <header className="dialog-header">
-          <h2 className="update-author-dialog-title">Update Author</h2>
+          <h2
+            className="update-author-dialog-title"
+            data-testid="dialog-title"
+          >
+            Update Author
+          </h2>
           <button
             className="update-author-close-button"
             onClick={toggleUpdateAuthorPopup}
+            data-testid="close-button"
           >
             ×
           </button>
         </header>
-        <form className="form-grid-update-auth" onSubmit={handleUpdateSubmit}>
+        <form
+          className="form-grid-update-auth"
+          onSubmit={handleUpdateSubmit}
+          data-testid="update-author-form"
+        >
           <div className="form-grid-two-columns-update-auth">
             <div className="form-field-update-auth">
               <label htmlFor="firstName">First Name</label>
@@ -116,6 +148,7 @@ function UpdateAuthorPopup({
                 name="First_Name"
                 placeholder="John"
                 className="input-field"
+                data-testid="first-name-input"
                 required
               />
             </div>
@@ -129,6 +162,7 @@ function UpdateAuthorPopup({
                 value={updateData.Last_Name}
                 onChange={handleUpdateDataChange}
                 name="Last_Name"
+                data-testid="last-name-input"
                 required
               />
             </div>
@@ -143,6 +177,7 @@ function UpdateAuthorPopup({
               value={updateData.Email}
               onChange={handleUpdateDataChange}
               name="Email"
+              data-testid="email-input"
               required
             />
           </div>
@@ -157,6 +192,7 @@ function UpdateAuthorPopup({
                 value={updateData.Street}
                 onChange={handleUpdateDataChange}
                 name="Street"
+                data-testid="street-input"
                 required
               />
             </div>
@@ -170,6 +206,7 @@ function UpdateAuthorPopup({
                 value={updateData.City}
                 onChange={handleUpdateDataChange}
                 name="City"
+                data-testid="city-input"
                 required
               />
             </div>
@@ -185,6 +222,7 @@ function UpdateAuthorPopup({
                 value={updateData.Country}
                 onChange={handleUpdateDataChange}
                 name="Country"
+                data-testid="country-input"
                 required
               />
             </div>
@@ -198,6 +236,7 @@ function UpdateAuthorPopup({
                 value={updateData.NIC}
                 onChange={handleUpdateDataChange}
                 name="NIC"
+                data-testid="nic-input"
                 required
               />
             </div>
@@ -212,29 +251,35 @@ function UpdateAuthorPopup({
               value={updateData.Mobile}
               onChange={handleUpdateDataChange}
               name="Mobile"
+              data-testid="mobile-input"
               required
             />
           </div>
           <footer className="dialog-footer-update-auth">
-            <button type="submit" className="button button-primary">
+            <button
+              type="submit"
+              className="button button-primary"
+              data-testid="submit-button"
+            >
               Update
             </button>
             <button
               type="button"
               className="button button-cancel"
               onClick={toggleUpdateAuthorPopup}
+              data-testid="cancel-button"
             >
               Cancel
             </button>
           </footer>
         </form>
-        <NotificationModal
+        {modalInfo.show && (<NotificationModal
           show={modalInfo.show}
           handleClose={handleCloseModal}
           title={modalInfo.title}
           message={modalInfo.message}
           isSuccess={modalInfo.isSuccess}
-        />
+        />)}
       </div>
     </div>
   );

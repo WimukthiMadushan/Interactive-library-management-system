@@ -62,6 +62,7 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
   ];
 
   const [rows, setRows] = useState(initialState);
+  const [error, setError] = useState('');
 
   // const handleInputChange = (index, event) => {
   //   const { name, value } = event.target;
@@ -137,11 +138,12 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
       }
     } catch (error) {
       console.error("Error sending data", error);
+      setError('Error sending data');
     }
   };
 
   return (
-    <div className={`modal ${showPopup ? "show" : ""}`}>
+    <div className={`modal ${showPopup ? "show" : ""}`} data-testid="book-copy-modal">
       <div className="book-copy-modal-content">
         <form className="book-copy-container" onSubmit={handleSubmit}>
           <div className="add">
@@ -151,8 +153,9 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
               size="lg"
               icon={faXmark}
               onClick={togglePopup}
+              data-testid="close-button"
             />
-            <table className="book-copy-table">
+            <table className="book-copy-table" data-testid="book-copy-table">
               <thead>
                 <tr>
                   <th>Book ID</th>
@@ -163,28 +166,17 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
               </thead>
               <tbody>
                 {rows.map((row, index) => (
-                  <tr key={row.key}>
+                  <tr key={row.key} data-testid={`row-${index}`}>
                     <td>
                       <Select
                         className="book-copy-select"
-                        options={[
-                          { value: "", label: "Select Book", isDisabled: true },
-                          ...bookOptions,
-                        ]}
+                        options={[{ value: "", label: "Select Book", isDisabled: true }, ...bookOptions]}
                         name="bookID"
-                        value={bookOptions.find(
-                          (option) => option.value === row.bookID
-                        )}
-                        onChange={(option) =>
-                          handleInputChange(index, {
-                            target: {
-                              name: "bookID",
-                              value: option ? option.value : "",
-                            },
-                          })
-                        }
+                        value={bookOptions.find((option) => option.value === row.bookID)}
+                        onChange={(option) => handleInputChange(index, option)}
                         placeholder="Select Book"
                         required
+                        data-testid={`book-select-${index}`}
                       />
                     </td>
                     <td>
@@ -192,26 +184,24 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
                         name="languages"
                         options={languageOptions}
                         placeholder="Select Languages"
-                        onChange={(selectedOptions) =>
-                          handleLanguageChange(index, selectedOptions)
-                        }
+                        onChange={(selectedOptions) => handleLanguageChange(index, selectedOptions)}
                         value={row.languages}
                         isMulti
                         required
+                        data-testid={`language-select-${index}`}
                       />
                     </td>
                     <td>
                       {row.languages.map((language) => (
-                        <div key={language.value} className="language-copies">
+                        <div key={language.value} className="language-copies" data-testid={`copies-${language.value}-${index}`}>
                           <label>{language.label} Copies</label>
                           <input
                             type="number"
                             value={row.languageCopies[language.value] || ""}
-                            onChange={(event) =>
-                              handleCopiesChange(index, language.value, event)
-                            }
+                            onChange={(event) => handleCopiesChange(index, language.value, event)}
                             placeholder={`Number of ${language.label} copies`}
                             required
+                            data-testid={`copies-input-${language.value}-${index}`}
                           />
                         </div>
                       ))}
@@ -221,6 +211,7 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
                         type="button"
                         className="delete-button"
                         onClick={() => removeRow(index)}
+                        data-testid={`delete-button-${index}`}
                       >
                         Delete
                       </button>
@@ -230,14 +221,10 @@ const AddBookCopy = ({ showPopup, togglePopup }) => {
               </tbody>
             </table>
             <div className="add-book-copy-buttons">
-              <button
-                type="button"
-                onClick={addRow}
-                className="add-copy-button"
-              >
+              <button type="button" onClick={addRow} className="add-copy-button" data-testid="add-row-button">
                 Add New Row
               </button>
-              <button type="submit" className="add-copy-button">
+              <button type="submit" className="add-copy-button" data-testid="submit-button">
                 Submit
               </button>
             </div>

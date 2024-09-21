@@ -81,11 +81,15 @@ function AuthorManagment() {
   const totalPages = Math.ceil(filteredAuthors.length / authorsPerPage);
 
   return (
-    <div className="author-managment-outer">
-      <div className="author-managment-container">
-        <h2>Author Management</h2>
+    <div className="author-managment-outer" data-testid="author-management-outer">
+      <div className="author-managment-container" data-testid="author-management-container">
+        <h2 data-testid="author-management-title">Author Management</h2>
         <div className="author-managment-buttons">
-          <button className="add-author-button" onClick={toggleAddAuthorPopup}>
+          <button
+            className="add-author-button"
+            onClick={toggleAddAuthorPopup}
+            data-testid="add-author-button"
+          >
             Add Author
           </button>
         </div>
@@ -96,9 +100,10 @@ function AuthorManagment() {
             value={searchQuery}
             onChange={handleSearchChange}
             className="search-author"
+            data-testid="search-author-input"
           />
         </div>
-        <div className="authors-table">
+        <div className="authors-table" data-testid="authors-table">
           <table>
             <thead>
               <tr>
@@ -114,7 +119,7 @@ function AuthorManagment() {
             </thead>
             <tbody>
               {currentAuthors.map((author) => (
-                <tr key={author.Author_ID}>
+                <tr key={author.Author_ID} data-testid={`author-row-${author.Author_ID}`}>
                   <td>{author.Author_ID}</td>
                   <td>{author.First_Name}</td>
                   <td>{author.Last_Name}</td>
@@ -126,12 +131,14 @@ function AuthorManagment() {
                     <button
                       className="update-author-button"
                       onClick={() => toggleUpdateAuthorPopup(author.Author_ID)}
+                      data-testid={`update-author-button-${author.Author_ID}`}
                     >
                       Update
                     </button>
                     <button
                       className="delete-author-button"
                       onClick={() => handleDelete(author.Author_ID)}
+                      data-testid={`delete-author-button-${author.Author_ID}`}
                     >
                       Delete
                     </button>
@@ -141,17 +148,19 @@ function AuthorManagment() {
             </tbody>
           </table>
         </div>
-        <div className="pagination">
+        <div className="pagination" data-testid="pagination">
           <PaginationButtons
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
+            data-testid="pagination-buttons"
           />
         </div>
         {isAddAuthorOpen && (
           <AddAuthorPopup
             toggleAddAuthorPopup={toggleAddAuthorPopup}
             fetchAuthors={fetchAuthors}
+            data-testid="add-author-popup"
           />
         )}
         {isUpdateAuthorOpen && (
@@ -159,21 +168,24 @@ function AuthorManagment() {
             toggleUpdateAuthorPopup={toggleUpdateAuthorPopup}
             fetchAuthors={fetchAuthors}
             authorId={selectedAuthorId}
+            data-testid="update-author-popup"
           />
         )}
         <NotificationModal
           show={showSuccess}
           handleClose={handleCloseSuccess}
-          title={"sucess"}
+          title={"Success"}
           message={modalMessage}
           isSuccess={true}
+          data-testid="success-notification-modal"
         />
         <NotificationModal
           show={showError}
           handleClose={handleCloseError}
-          title={"failed"}
+          title={"Failed"}
           message={modalMessage}
           isSuccess={false}
+          data-testid="error-notification-modal"
         />
       </div>
     </div>

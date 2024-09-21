@@ -91,14 +91,14 @@ const PublisherManagement = () => {
   };
 
   return (
-    <div className="publisher-managment-outer">
-      <div className="publisher-management-container">
+    <div className="publisher-managment-outer" data-testid="publisher-management-outer">
+      <div className="publisher-management-container" data-testid="publisher-management-container">
         <div className="publisher-management-left">
-          <div className="publisher-management-image">
+          <div className="publisher-management-image" data-testid="publisher-management-title">
             <h2>Publisher Management</h2>
           </div>
           <div className="publisher-management-buttons">
-            <button className="add-publisher-button" onClick={toggleAddPopup}>
+            <button className="add-publisher-button" data-testid="add-publisher-button" onClick={toggleAddPopup}>
               Add Publisher
             </button>
           </div>
@@ -111,9 +111,10 @@ const PublisherManagement = () => {
               value={searchQuery}
               onChange={handleSearchChange}
               className="search-publisher"
+              data-testid="search-input"
             />
           </div>
-          <div className="publishers-table">
+          <div className="publishers-table" data-testid="publishers-table">
             <table>
               <thead>
                 <tr>
@@ -128,7 +129,7 @@ const PublisherManagement = () => {
               </thead>
               <tbody>
                 {currentPublishers.map((publisher) => (
-                  <tr key={publisher.Publisher_ID}>
+                  <tr key={publisher.Publisher_ID} data-testid={`publisher-row-${publisher.Publisher_ID}`}>
                     <td>{publisher.Publisher_ID}</td>
                     <td>{publisher.Publisher_First_Name}</td>
                     <td>{publisher.Publisher_Last_Name}</td>
@@ -138,17 +139,15 @@ const PublisherManagement = () => {
                     <td className="action-column">
                       <button
                         className="update-publisher-button"
-                        onClick={() =>
-                          toggleUpdatePopup(publisher.Publisher_ID)
-                        }
+                        data-testid={`update-button-${publisher.Publisher_ID}`}
+                        onClick={() => toggleUpdatePopup(publisher.Publisher_ID)}
                       >
                         Update
                       </button>
                       <button
                         className="delete-publisher-button"
-                        onClick={() =>
-                          handleDeletePublisher(publisher.Publisher_ID)
-                        }
+                        data-testid={`delete-button-${publisher.Publisher_ID}`}
+                        onClick={() => handleDeletePublisher(publisher.Publisher_ID)}
                       >
                         Delete
                       </button>
@@ -158,9 +157,8 @@ const PublisherManagement = () => {
               </tbody>
             </table>
           </div>
-          {/* Pagination */}
           {totalPages > 1 && (
-            <div className="pagination">
+            <div className="pagination" data-testid="pagination">
               <PaginationButtons
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -173,6 +171,7 @@ const PublisherManagement = () => {
           <AddPublisherPopup
             toggleAddPopup={toggleAddPopup}
             fetchPublishers={fetchPublishers}
+            data-testid="add-publisher-popup"
           />
         )}
 
@@ -181,6 +180,7 @@ const PublisherManagement = () => {
             toggleUpdatePopup={toggleUpdatePopup}
             fetchPublishers={fetchPublishers}
             publisherId={currentPublisherId}
+            data-testid="update-publisher-popup"
           />
         )}
         <NotificationModal
@@ -189,6 +189,7 @@ const PublisherManagement = () => {
           title={"sucess"}
           message={modalMessage}
           isSuccess={true}
+          data-testid="success-notification"
         />
         <NotificationModal
           show={showError}
@@ -196,6 +197,7 @@ const PublisherManagement = () => {
           title={"failed"}
           message={modalMessage}
           isSuccess={false}
+          data-testid="error-notification"
         />
       </div>
     </div>

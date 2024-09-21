@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "./../../Hooks/AuthContext.jsx";
 import "./NavBar.css";
-import logo from "./../../Images/logo.png";
+import logo from "./../../Images/Logo.png";
 import Profile_pic from "./../../Images/Profile_pic.jpg";
 
 function NavBar() {
@@ -38,69 +38,70 @@ function NavBar() {
   };
 
   return (
-    <div className="navbar">
-      <div className="navbar-left">
+    <div className="navbar" data-testid="navbar">
+      <div className="navbar-left" data-testid="navbar-left">
         <Link to={"/"}>
-          <img className="navbar-logo" src={logo} alt="Logo" />
+          <img className="navbar-logo" src={logo} alt="Logo" data-testid="logo" />
         </Link>
         <p>InfoPulse</p>
       </div>
 
-      <div className="navbar-center">
-        <ul className="nav-links">
+      <div className="navbar-center" data-testid="navbar-center">
+        <ul className="nav-links" data-testid="nav-links">
           <li>
-            <a href="#home">Home</a>
+            <a href="#home" data-testid="nav-home">Home</a>
           </li>
           <li>
-            <a href="#about">About</a>
+            <a href="#about" data-testid="nav-about">About</a>
           </li>
           <li>
-            <a href="#services">Services</a>
+            <a href="#services" data-testid="nav-services">Services</a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="#contact" data-testid="nav-contact">Contact</a>
           </li>
           {role === "Administrator" && (
             <li>
-              <Link to={"/adminbuttons"}>Admin</Link>
+              <Link to={"/adminbuttons"} data-testid="nav-admin">Admin</Link>
             </li>
           )}
           {role === "Receptionist" && (
             <li>
-              <Link to={"/receptionbuttons"}>Reception</Link>
+              <Link to={"/receptionbuttons"} data-testid="nav-reception">Reception</Link>
             </li>
           )}
         </ul>
       </div>
-      <div className="navbar-right">
+      <div className="navbar-right" data-testid="navbar-right">
         {userId ? (
-          <div className="dropdown-container" ref={dropdownRef}>
-            <button className="profile-pic" onClick={toggleDropdown}>
+          <div className="dropdown-container" ref={dropdownRef} data-testid="dropdown-container">
+            <button className="profile-pic" onClick={toggleDropdown} data-testid="profile-pic">
               <img src={Profile_pic} alt="Profile" />
             </button>
             {dropdownVisible && (
               <div
                 className="dropdown-menu"
                 style={{ display: "flex", flexDirection: "column" }}
+                data-testid="dropdown-menu"
               >
-                <Link to={`/profile/${userId}`} className="dropdown-item">
+                <Link to={`/profile/${userId}`} className="dropdown-item" data-testid="dropdown-profile">
                   Profile
                 </Link>
-                <Link to={"/bookdetails"} className="dropdown-item">
+                <Link to={"/bookdetails"} className="dropdown-item" data-testid="dropdown-bookdetails">
                   Book Details
                 </Link>
-                <button className="dropdown-item" onClick={handleLogout}>
+                <button className="dropdown-item" onClick={handleLogout} data-testid="dropdown-logout">
                   Logout
                 </button>
               </div>
             )}
           </div>
         ) : (
-          <div className="login-signup-container">
-            <Link to={"/register"} className="login">
+          <div className="login-signup-container" data-testid="login-signup-container">
+            <Link to={"/register"} className="login" data-testid="register-link">
               Register
             </Link>
-            <Link to={"/login"} className="login">
+            <Link to={"/login"} className="login" data-testid="login-link">
               Login
             </Link>
           </div>

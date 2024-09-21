@@ -52,15 +52,16 @@ function LoginPage() {
   };
 
   return (
-    <div className="center-wrapper">
+    <div className="center-wrapper" data-testid="login-page">
       <div className="login-container">
         <div className="login-upper">
           <h1>Welcome back!</h1>
           <p>Enter your credentials to access your account</p>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="login-form">
           <div className="input-group" style={{ marginBottom: "1rem" }}>
             <input
+              data-testid="username-input"
               type="text"
               placeholder="Username"
               name="username"
@@ -74,6 +75,7 @@ function LoginPage() {
 
           <div className="input-group">
             <input
+              data-testid="password-input"
               type="password"
               placeholder="Password"
               name="password"
@@ -86,7 +88,11 @@ function LoginPage() {
           </div>
 
           <div className="login-button-container">
-            <button className="login-button" type="submit">
+            <button
+              className="login-button"
+              type="submit"
+              data-testid="login-button"
+            >
               Login
             </button>
           </div>
@@ -98,6 +104,7 @@ function LoginPage() {
           title={"Error"}
           message={modalMessage}
           isSuccess={false}
+          data-testid="error-modal"
         />
       </div>
     </div>

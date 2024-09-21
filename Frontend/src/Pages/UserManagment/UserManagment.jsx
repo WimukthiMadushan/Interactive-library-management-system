@@ -91,6 +91,18 @@ function UserManagment() {
     }
   };
 
+  const handleDeleteStaff = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/user/staff/${id}`);
+      setModalMessage("User deleted successfully.");
+      setShowSuccess(true);
+      setStaff((prevStaff) => prevStaff.filter((staff) => staff.Staff_ID !== id));
+    } catch (error) {
+      setModalMessage("Failed to delete user.");
+      setShowError(true);
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -217,7 +229,7 @@ function UserManagment() {
                     <td className="action-column">
                       <button
                         className="action-button user-delete-button"
-                        onClick={() => handleDelete(user.User_ID)}
+                        onClick={() => handleDeleteStaff(user.Staff_ID)}
                       >
                         Delete
                       </button>
