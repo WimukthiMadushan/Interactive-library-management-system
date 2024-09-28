@@ -19,8 +19,6 @@ function Register() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
   const handleCloseSuccess = () => setShowSuccess(false);
   const handleCloseError = () => setShowError(false);
 
@@ -32,27 +30,14 @@ function Register() {
       ...prevData,
       [name]: value,
     }));
-  
-    // If the confirm password field is changed, update its state
-    if (name === "confirmPassword") {
-      setConfirmPassword(value);
-    }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (userData.Password !== confirmPassword) {
-      setModalMessage("Passwords do not match.");
-      setShowError(true);
-      return; // Exit the function if passwords don't match
-    }
-  
+
     try {
       await axios.post("http://localhost:5001/api/auth/register", userData);
-      
-      // Reset form after successful registration
+
       setUserData({
         First_Name: "",
         Last_Name: "",
@@ -63,16 +48,15 @@ function Register() {
         NIC: "",
         Mobile: "",
       });
-      setConfirmPassword(""); // Reset confirm password field
-      setModalMessage("Registration Successful.");
+      setModalMessage("Registration Succesfull.");
       setShowSuccess(true);
       navigate("/login");
     } catch (error) {
       setModalMessage("Registration Failed");
       setShowError(true);
+      //console.error("Registration failed", error);
     }
   };
-  
 
   return (
     <div className="center-wrapper" data-testid="register-page">
@@ -146,12 +130,12 @@ function Register() {
               <input
                 type="password"
                 placeholder="Confirm Password"
-                name="confirmPassword"
-                value={confirmPassword}
+                name="Password"
+                value={userData.Password}
                 onChange={handleChange}
                 required
                 minLength={6}
-                data-testid="confirm-password-input"
+                data-testid="password-input"
               />
           </div>
 

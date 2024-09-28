@@ -80,7 +80,6 @@ input:focus {
 }
 
 form .NIC,
-form .email,
 form .address,
 form .mobile {
   display: flex;
@@ -90,7 +89,7 @@ form .mobile {
 }
 
 form .name,
-form .password {
+form .email-password {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

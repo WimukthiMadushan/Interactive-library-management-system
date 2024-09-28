@@ -146,12 +146,12 @@ function Register() {
               <input
                 type="password"
                 placeholder="Confirm Password"
-                name="confirmPassword"
+                name="Password"
                 value={confirmPassword}
                 onChange={handleChange}
                 required
                 minLength={6}
-                data-testid="confirm-password-input"
+                data-testid="password-input"
               />
           </div>
 
