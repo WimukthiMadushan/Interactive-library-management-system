@@ -1,22 +1,13 @@
 /* Default button style */
-.return-button {
+.action-button {
   background-color: #4CAF50; /* Green */
   color: white;
 }
 
 /* Disabled button style */
-.return-button:disabled {
+.action-button:disabled {
   background-color: #d3d3d3; /* Light gray */
   color: #888888; /* Gray text */
-}
-
-.overdue-button {
-  background-color: #e70a0a; /* Light gray */
-  color: #080808; /* Gray text */
-}
-
-.overdue-button:hover {
-  color: #f7f4f4; /* Gray text */
 }
 
 .book-add {

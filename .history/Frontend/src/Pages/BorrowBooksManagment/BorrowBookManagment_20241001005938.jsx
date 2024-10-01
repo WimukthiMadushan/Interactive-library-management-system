@@ -33,8 +33,13 @@ function BorrowBookManagement() {
   };
 
   useEffect(() => {
-    fetchBorrows();
-  }, []);
+    if (!showExpiredList){
+      fetchBorrows();
+    }
+    else {
+      visibleExpiredBook();
+    }
+  }, [showExpiredList]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -72,59 +77,38 @@ function BorrowBookManagement() {
   };
 
 //Regarding expired book
-const fetchExpiredBooks = async () => {
-  try {
-    const response = await axios.get("http://localhost:5001/api/borrow/expired");
-    const formattedData = response.data.map((borrow) => ({
-      ...borrow,
-      Borrow_Date: new Date(borrow.Borrow_Date).toISOString().split("T")[0],
-      Return_Date: borrow.Return_Date
-        ? new Date(borrow.Return_Date).toISOString().split("T")[0]
-        : null,
-    }));
-    setBorrows(formattedData);
-  } catch (error) {
-    console.error("Error fetching expired borrows:", error);
-  }
-};
 
-const toggleExpiredList = () => {
-  if (showExpiredList) {
-    fetchBorrows();
-  } else {
-    fetchExpiredBooks();
-  }
-  setShowExpiredList(!showExpiredList);
-  setCurrentPage(1);
-};
 
+  const visibleExpiredBook = async () => {
+    if (showExpiredList) { // Only fetch if expired list is not already shown
+      try {
+        const response = await axios.get("http://localhost:5001/api/borrow/expired");
+        const formattedData = response.data.map((borrow) => ({
+          ...borrow,
+          Borrow_Date: new Date(borrow.Borrow_Date).toISOString().split("T")[0],
+          Return_Date: borrow.Return_Date
+            ? new Date(borrow.Return_Date).toISOString().split("T")[0]
+            : null,
+        }));
+        setBorrows(formattedData);
+      } catch (error) {
+        console.error("Error fetching borrows:", error);
+      }
+    }
+  };
 
   useEffect(() => {
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page on list toggle
   }, [showExpiredList]);
   
   
-//idetify borrowbook state
-const getBorrowStatusByDate = (borrow) => {
-  const currentDate = new Date();
-  const returnDate = new Date(borrow.Return_Date); // Assuming Return_Date is a string
-
-  if (borrow.isComplete === 1) {
-    return "Complete";
-  } else if (currentDate > returnDate) {
-    return "Overdue";
-  } else {
-    return "Active"; // Not yet due
-  }
-};
-
 
   return (
     <div className="view-authors-container" data-testid="borrow-management">
       <div className="book-management-image">
         <h2>Borrow Books Management</h2>
       </div>
-      < div className="book-management-buttons">
+      <div className="book-management-buttons">
         <button
           className="book-add"
           onClick={toggleAddPopup}
@@ -132,12 +116,14 @@ const getBorrowStatusByDate = (borrow) => {
         >
           Borrow Book
         </button>
+      </div>
+      <div className="book-management-buttons">
         <button
           className="book-add"
-          onClick={toggleExpiredList} // Correct function name
+          onClick={visibleExpiredBook}
           data-testid="add-borrow-button"
         >
-          {showExpiredList ? "Show All Borrows" : "Show Expired Books"}
+          {showExpiredList ? "Show All Borrows" : "Expired Books"}
         </button>
       </div>
       <div className="book-management-search">
@@ -173,27 +159,17 @@ const getBorrowStatusByDate = (borrow) => {
                 <td data-testid={`borrow-time-${borrow.Borrow_ID}`}>{borrow.Borrow_Time}</td>
                 <td data-testid={`return-date-${borrow.Borrow_ID}`}>{borrow.Return_Date}</td>
                 <td data-testid={`is-complete-${borrow.Borrow_ID}`}>
-                  {getBorrowStatusByDate(borrow)}
+                  {borrow.isComplete === 1 ? "Complete" : "Not yet Returned"}
                 </td>
                 <td className="action-column">
-                {getBorrowStatusByDate(borrow) === "Overdue" && !borrow.isComplete ? (
-                  <button
-                    className="action-button overdue-button"
-                    onClick= ""
-                    data-testid={`overdue-button-${borrow.Borrow_ID}`}
-                  >
-                    Overdue
-                  </button>
-                ) : (
                   <button
                     className="action-button return-button"
                     onClick={() => confirmReturn(borrow.Borrow_ID)}
                     disabled={borrow.isComplete === 1}
                     data-testid={`return-button-${borrow.Borrow_ID}`}
                   >
-                    {borrow.isComplete ? "Returned" : "Return"}
+                    Return
                   </button>
-                )}
                 </td>
               </tr>
             ))}

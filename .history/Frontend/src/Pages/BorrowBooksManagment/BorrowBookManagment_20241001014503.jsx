@@ -137,7 +137,7 @@ const getBorrowStatusByDate = (borrow) => {
           onClick={toggleExpiredList} // Correct function name
           data-testid="add-borrow-button"
         >
-          {showExpiredList ? "Show All Borrows" : "Show Expired Books"}
+          {showExpiredList ? "Show All Borrows" : "Expired Books"}
         </button>
       </div>
       <div className="book-management-search">
@@ -176,24 +176,14 @@ const getBorrowStatusByDate = (borrow) => {
                   {getBorrowStatusByDate(borrow)}
                 </td>
                 <td className="action-column">
-                {getBorrowStatusByDate(borrow) === "Overdue" && !borrow.isComplete ? (
-                  <button
-                    className="action-button overdue-button"
-                    onClick= ""
-                    data-testid={`overdue-button-${borrow.Borrow_ID}`}
-                  >
-                    Overdue
-                  </button>
-                ) : (
                   <button
                     className="action-button return-button"
                     onClick={() => confirmReturn(borrow.Borrow_ID)}
                     disabled={borrow.isComplete === 1}
                     data-testid={`return-button-${borrow.Borrow_ID}`}
                   >
-                    {borrow.isComplete ? "Returned" : "Return"}
+                    Return
                   </button>
-                )}
                 </td>
               </tr>
             ))}

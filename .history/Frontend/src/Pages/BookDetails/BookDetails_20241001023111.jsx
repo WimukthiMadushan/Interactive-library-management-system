@@ -115,22 +115,18 @@ function BookDetails() {
   const getBorrowStatusByDate = (borrow) => {
     const currentDate = new Date();
     const returnDate = new Date(borrow.Return_Date);
-    let status = "";
-    let color = "black"; // Default color
+    let color;
   
     if (borrow.isComplete === 1) {
-      status = "Complete";
+      return "Complete";
     } else if (currentDate > returnDate) {
-      status = "Overdue";
+      return "Overdue";
       color = "red";
     } else {
-      status = "Active";
-      color = "green"; // Use a different color for active status if desired
+      return "Active";
+      color = "black";
     }
-  
-    return { status, color };
   };
-  
 
   return (
     <div className="book-details-container">
@@ -162,9 +158,7 @@ function BookDetails() {
                   </tr>
                 </thead>
                 <tbody>
-                  {borrowedBooks.map((book) => 
-                    {const { status, color } = getBorrowStatusByDate(book)
-                    return (
+                  {borrowedBooks.map((book) => (
                     <tr key={book.Borrow_ID}>
                       <td>{book.Borrow_ID}</td>
                       <td className="font-medium">{book.Title}</td>
@@ -192,7 +186,7 @@ function BookDetails() {
                         </button>
                       </td>
                     </tr>
-                  )})}
+                  ))}
                 </tbody>
               </table>
             )}

@@ -15,10 +15,6 @@
   color: #080808; /* Gray text */
 }
 
-.overdue-button:hover {
-  color: #f7f4f4; /* Gray text */
-}
-
 .book-add {
   margin-top: 20px;
   margin-bottom: 20px;

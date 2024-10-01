@@ -163,7 +163,7 @@ function BookDetails() {
                 </thead>
                 <tbody>
                   {borrowedBooks.map((book) => 
-                    {const { status, color } = getBorrowStatusByDate(book)
+                    {const { status, color } = getBorrowStatusByDate(borrow)
                     return (
                     <tr key={book.Borrow_ID}>
                       <td>{book.Borrow_ID}</td>

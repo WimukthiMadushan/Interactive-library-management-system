@@ -1,8 +1,7 @@
 .book-details-container {
-  max-width: 95%;
-  margin: 0 100px 0px 50px;
+  max-width: 1260px;
+  margin: 0 50px;
   padding: 20px;
-
 }
 
 .book-details-header h1 {

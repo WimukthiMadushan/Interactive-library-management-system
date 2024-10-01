@@ -162,9 +162,7 @@ function BookDetails() {
                   </tr>
                 </thead>
                 <tbody>
-                  {borrowedBooks.map((book) => 
-                    {const { status, color } = getBorrowStatusByDate(book)
-                    return (
+                  {borrowedBooks.map((book) => (
                     <tr key={book.Borrow_ID}>
                       <td>{book.Borrow_ID}</td>
                       <td className="font-medium">{book.Title}</td>
@@ -192,7 +190,7 @@ function BookDetails() {
                         </button>
                       </td>
                     </tr>
-                  )})}
+                  ))}
                 </tbody>
               </table>
             )}

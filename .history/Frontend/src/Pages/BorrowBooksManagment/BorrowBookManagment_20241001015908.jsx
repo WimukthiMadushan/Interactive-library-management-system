@@ -137,7 +137,7 @@ const getBorrowStatusByDate = (borrow) => {
           onClick={toggleExpiredList} // Correct function name
           data-testid="add-borrow-button"
         >
-          {showExpiredList ? "Show All Borrows" : "Show Expired Books"}
+          {showExpiredList ? "Show All Borrows" : "Expired Books"}
         </button>
       </div>
       <div className="book-management-search">

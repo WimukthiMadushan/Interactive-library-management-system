@@ -12,11 +12,7 @@
 
 .overdue-button {
   background-color: #e70a0a; /* Light gray */
-  color: #080808; /* Gray text */
-}
-
-.overdue-button:hover {
-  color: #f7f4f4; /* Gray text */
+  color: #888888; /* Gray text */
 }
 
 .book-add {

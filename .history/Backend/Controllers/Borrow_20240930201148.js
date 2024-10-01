@@ -347,21 +347,28 @@ export const getBorrows = (req, res) => {
       res.status(500).send("Internal Server Error");
     } else {
       res.status(200).send(result);
+      console.log("hi")
     }
   });
 };
 
 // Get all expired borrows for view borrows in receptionist
+// Get all expired borrows for view borrows in receptionist
 export const getExpiredBorrows = (req, res) => {
   const sqlQuery = `
-    SELECT * FROM Borrow WHERE Return_Date < CURDATE() AND isComplete = 0;
+    SELECT * FROM Borrow WHERE Return_Date < CURDATE() AND isComplete = 0
   `;
 
   connection.query(sqlQuery, (err, result) => {
     if (err) {
-      res.status(500).send("Internal Server Error");
-    } else {
-      res.status(200).send(result);
+      return res.status(500).send("Internal Server Error");
     }
+    
+    if (result.length === 0) {
+      return res.status(404).send("No expired borrows found");
+    }
+    
+    return res.status(200).json(result);
   });
 };
+

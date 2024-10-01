@@ -354,7 +354,7 @@ export const getBorrows = (req, res) => {
 // Get all expired borrows for view borrows in receptionist
 export const getExpiredBorrows = (req, res) => {
   const sqlQuery = `
-    SELECT * FROM Borrow WHERE Return_Date < CURDATE() AND isComplete = 0;
+    SELECT * FROM Borrow
   `;
 
   connection.query(sqlQuery, (err, result) => {
@@ -362,6 +362,7 @@ export const getExpiredBorrows = (req, res) => {
       res.status(500).send("Internal Server Error");
     } else {
       res.status(200).send(result);
+      console.log("hi")
     }
   });
 };
