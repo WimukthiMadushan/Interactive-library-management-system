@@ -2,11 +2,11 @@
   background: linear-gradient(to bottom right, #000000, #363636);
   min-height: 100vh;
   display: flex;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .dashboard-container h1 {
   color: white;
   font-size: 3rem;
@@ -16,14 +16,17 @@
 
 .dashboard-container {
   padding: 2rem;
+  width: 100%;
 }
 
 .admin-cards-grid {
   display: grid;
   align-items: center;
   grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
-  gap: 1.4rem;
+  gap: 3rem; /* Increased gap to create more space between buttons */
   max-width: 1600px;
+  width: 100%; /* Full width of the grid container */
+
 }
 
 .admin-card {
@@ -33,7 +36,8 @@
   padding: 1.5rem;
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
-  width: 22rem;
+  width: 100%; /* Ensure cards take full width within their grid */
+  max-width: 22rem; /* Keep a max width for the cards */
   height: 20rem;
 }
 

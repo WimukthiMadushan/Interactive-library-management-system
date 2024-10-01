@@ -107,14 +107,14 @@ const toggleExpiredList = () => {
 //idetify borrowbook state
 const getBorrowStatusByDate = (borrow) => {
   const currentDate = new Date();
-  const returnDate = new Date(borrow.Return_Date); // Assuming Return_Date is a string
+  const returnDate = new Date(borrow.Return_Date);
 
   if (borrow.isComplete === 1) {
     return "Complete";
   } else if (currentDate > returnDate) {
     return "Overdue";
   } else {
-    return "Active"; // Not yet due
+    return "Active";
   }
 };
 
@@ -214,7 +214,7 @@ const getBorrowStatusByDate = (borrow) => {
         <ReturnBookPopup
           onClose={toggleReturnPopup}
           borrowId={selectedBorrowId}
-          fetchBorrows={fetchBorrows} // Pass fetchBorrows to refresh data
+          fetchBorrows={fetchBorrows} 
           data-testid="return-book-popup"
         />
       )}

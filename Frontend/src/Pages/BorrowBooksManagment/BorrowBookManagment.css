@@ -1,22 +1,22 @@
-/* Default button style */
+
 .return-button {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50; 
   color: white;
 }
 
-/* Disabled button style */
+
 .return-button:disabled {
-  background-color: #d3d3d3; /* Light gray */
-  color: #888888; /* Gray text */
+  background-color: #d3d3d3;
+  color: #888888; 
 }
 
 .overdue-button {
-  background-color: #e70a0a; /* Light gray */
-  color: #080808; /* Gray text */
+  background-color: #e70a0a; 
+  color: #080808; 
 }
 
 .overdue-button:hover {
-  color: #f7f4f4; /* Gray text */
+  color: #f7f4f4; 
 }
 
 .book-add {

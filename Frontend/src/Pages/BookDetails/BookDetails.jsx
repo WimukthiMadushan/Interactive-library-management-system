@@ -157,7 +157,6 @@ function BookDetails() {
                     <th>Borrow Time</th>
                     <th>Location</th>
                     <th>Return Date</th>
-                    <th>Renew Book</th>
                     <th>Add Review</th>
                   </tr>
                 </thead>
@@ -175,14 +174,6 @@ function BookDetails() {
                         {`Floor ${book.Floor}, Section ${book.Section}, Shelf ${book.Shelf_Number}, Row ${book.RowNum}`}
                       </td>
                       <td><span style={{ color }}>{new Date(book.Return_Date).toLocaleDateString()}</span></td>
-                      <td>
-                        <button
-                          className="update-button"
-                          onClick={() => handleOpenConfirmModal(book)}
-                        >
-                          Renew
-                        </button>
-                      </td>
                       <td>
                         <button
                           className="add-review-button"

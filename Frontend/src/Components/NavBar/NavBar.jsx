@@ -64,7 +64,9 @@ function NavBar() {
         <Link to={"/"}>
           <img className="navbar-logo" src={logo} alt="Logo" data-testid="logo" />
         </Link>
+        <Link to={"/"} className="navbar-p">
         <p>InfoPulse</p>
+        </Link>
       </div>
 
       <div className="navbar-center" data-testid="navbar-center">
