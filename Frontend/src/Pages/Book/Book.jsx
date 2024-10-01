@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../../Hooks/AuthContext";
 import axios from "axios";
+import { Document, Page, pdfjs } from "react-pdf";
 import "./Book.css";
+
+// Set worker URL for react-pdf
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function Book() {
   const location = useLocation();
@@ -14,6 +18,8 @@ function Book() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showReservationPopup, setShowReservationPopup] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reviews, setReview] = useState([]);
+  const [numPages, setNumPages] = useState(null); // To track number of pages in PDF
 
   const { authState } = useAuth();
   const { userId } = authState;
@@ -46,6 +52,20 @@ function Book() {
       }
     };
     fetchBookCopy();
+  }, [bookId]);
+
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/review/${bookId}`
+        );
+        setReview(response.data);
+      } catch (error) {
+        console.log("Error fetching data:", error.message);
+      }
+    };
+    fetchReview();
   }, [bookId]);
 
   const handleReserve = (copyId) => {
@@ -100,6 +120,10 @@ function Book() {
 
   const handleCloseLoginPopup = () => {
     setShowLoginPopup(false);
+  };
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
   };
 
   return (
@@ -170,6 +194,43 @@ function Book() {
           ))}
         </div>
 
+        <div className="book-preview">
+          <h1>Book Preview</h1>
+          <div className="pdf-preview">
+            <Document
+              file="https://drive.google.com/uc?export=download&id=14o-Tx2q7czbpkwgJHvBDjjYTvIVbu1SQ"
+              onLoadSuccess={onDocumentLoadSuccess}
+            >
+              {/* Render first 3 pages */}
+              {[1, 2, 3].map((page) => (
+                <Page key={page} pageNumber={page} />
+              ))}
+            </Document>
+          </div>
+        </div>
+
+        <div className="reviews">
+          <h2>Reviews</h2>
+          {reviews.length === 0 ? (
+            <p className="no-reviews">No reviews yet.</p>
+          ) : (
+            reviews.map((review) => (
+              <div key={review.Review_ID} className="review-card">
+                <div className="review-header">
+                  <span className="review-username">{review.Username}</span>
+                  <span className="review-rating">
+                    {Array(review.Rating).fill("⭐")}
+                  </span>
+                </div>
+                <p className="review-text">{review.Review}</p>
+                <p className="review-date">
+                  {new Date(review.Review_Date).toLocaleDateString()}
+                </p>
+              </div>
+            ))
+          )}
+        </div>
+
         {/* Reservation Popup */}
         {showReservationPopup && (
           <div className="popup-background">
@@ -189,16 +250,16 @@ function Book() {
                 value={endDateTime}
                 onChange={(e) => setEndDateTime(e.target.value)}
               />
-              <div className="button-group">
+              <div className="reservation-buttons">
                 <button
-                  className="confirm-reservation"
+                  className="confirm-button"
                   onClick={confirmReservation}
                   disabled={loading}
                 >
                   {loading ? "Reserving..." : "Confirm Reservation"}
                 </button>
                 <button
-                  className="cancel-reservation"
+                  className="cancel-button"
                   onClick={handleCancelReservation}
                 >
                   Cancel
@@ -208,12 +269,17 @@ function Book() {
           </div>
         )}
 
-        {/* Login Required Popup */}
+        {/* Login Popup */}
         {showLoginPopup && (
           <div className="popup-background">
-            <div className="login-required-popup">
-              <h3>You need to be logged in to reserve a book.</h3>
-              <button onClick={handleCloseLoginPopup}>Close</button>
+            <div className="login-popup">
+              <h3>Please log in to make a reservation</h3>
+              <button
+                className="close-login-popup"
+                onClick={handleCloseLoginPopup}
+              >
+                Close
+              </button>
             </div>
           </div>
         )}
