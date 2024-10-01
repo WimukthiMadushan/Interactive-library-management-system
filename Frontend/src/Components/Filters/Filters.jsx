@@ -60,14 +60,20 @@ const Filters = ({togglePopup,onApply}) => {
   };
 
   return (
-    <div className="container">
+    <div className="container" data-testid="filters-container">
       <div className="title">
         Advanced Filters
       </div>
+      
+      {/* Date Filters */}
       <div className="input-group">
         <div className="input-group-title">
           <label className="label">Published Date</label>
-          <span className="clear-button" onClick={() => handleClear('dateRange')}>
+          <span 
+            className="clear-button" 
+            onClick={() => handleClear('dateRange')} 
+            data-testid="clear-date-range"
+          >
             Clear
           </span>
         </div>
@@ -82,6 +88,7 @@ const Filters = ({togglePopup,onApply}) => {
               endDate={endDate}
               placeholderText="mm/dd/yyyy"
               className="date-picker"
+              data-testid="date-picker-start"
             />
           </div>
           <div className="input-group-date">
@@ -94,33 +101,43 @@ const Filters = ({togglePopup,onApply}) => {
               endDate={endDate}
               placeholderText="mm/dd/yyyy"
               className="date-picker"
+              data-testid="date-picker-end"
             />
           </div>
         </div>
       </div>
 
+      {/* Categories */}
       <div className="input-group">
         <div className="input-group-title">
           <label className="label">Categories</label>
-          <span className="clear-button" onClick={() => handleClear('categories')}>
+          <span 
+            className="clear-button" 
+            onClick={() => handleClear('categories')} 
+            data-testid="clear-categories"
+          >
             Clear
           </span>
         </div>
-
         <Select
           className="select"
           options={categoryFilters}
           isMulti
           placeholder="Select Category"
           onChange={handleCategoryChange}
+          data-testid="categories-select"
         />
-        
       </div>
 
+      {/* Reviews */}
       <div className="input-group">
         <div className="input-group-title">
           <label className="label">Reviews</label>
-          <span className="clear-button" onClick={() => handleClear('rangeValues')}>
+          <span 
+            className="clear-button" 
+            onClick={() => handleClear('rangeValues')} 
+            data-testid="clear-reviews"
+          >
             Clear
           </span>
         </div>
@@ -140,6 +157,7 @@ const Filters = ({togglePopup,onApply}) => {
                 display: 'flex',
                 width: '100%'
               }}
+              data-testid="reviews-slider"
             >
               <div
                 ref={props.ref}
@@ -184,7 +202,7 @@ const Filters = ({togglePopup,onApply}) => {
                   color: '#fff',
                   fontWeight: 'bold',
                   fontSize: '14px',
-                  fontFamily: 'Arial,Helvetica Neue,Helvetica,sans-serif',
+                  fontFamily: 'Arial, Helvetica Neue, Helvetica, sans-serif',
                   padding: '4px',
                   borderRadius: '4px',
                   backgroundColor: '#fbb033',
@@ -200,15 +218,15 @@ const Filters = ({togglePopup,onApply}) => {
       </div>
 
       <div className="button-group">
-        <button className="button cancel-button" onClick={togglePopup}>
+        <button className="button cancel-button" onClick={togglePopup} data-testid="cancel-button">
           Cancel
         </button>
-        <button className="button apply-button" onClick={handleApply}>
+        <button className="button apply-button" onClick={handleApply} data-testid="apply-button">
           Apply
         </button>
       </div>
     </div>
-  ); 
+  );
 }; 
 
 export default Filters;

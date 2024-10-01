@@ -30,7 +30,7 @@ function Book() {
     const fetchBook = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/book/${bookId}`
+          `http://localhost:5001/api/book/${bookId}`
         );
         setBook(response.data);
       } catch (error) {
@@ -44,7 +44,7 @@ function Book() {
     const fetchBookCopy = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/bookcopy/${bookId}`
+          `http://localhost:5001/api/bookcopy/${bookId}`
         );
         setBookCopy(response.data);
       } catch (error) {
@@ -91,7 +91,7 @@ function Book() {
         .slice(0, 5);
       const reserveEndTime = endDate.toISOString().split("T")[1].slice(0, 5);
 
-      const response = await axios.post(`http://localhost:5000/api/reserve`, {
+      const response = await axios.post(`http://localhost:5001/api/reserve`, {
         UserID: userId,
         Copy_ID: selectedCopyId,
         isComplete: 0,
@@ -127,55 +127,91 @@ function Book() {
   };
 
   return (
-    <div className="book-page-container">
-      <div className="book-details">
-        <div className="book-content">
+    <div className="book-page-container" data-testid="book-page">
+      <div className="book-details" data-testid="book-details">
+        <div className="book-content" data-testid="book-content">
           <div className="bookpage-book-image">
-            <img src={book.Image_Path} alt="" />
+            <img src={book.Image_Path} alt="" data-testid="book-image" />
           </div>
 
-          <div className="book-text">
-            <h1>{book.Title}</h1>
-            <p className="book-description">{book.Description}</p>
-            <div className="book-meta">
+          <div className="book-text" data-testid="book-text">
+            <h1 data-testid="book-title">{book.Title}</h1>
+            <p className="book-description" data-testid="book-description">
+              {book.Description}
+            </p>
+            <div className="book-meta" data-testid="book-meta">
               <p>
-                <strong>ISBN:</strong> {book.ISBN_Number}
+                <strong>ISBN:</strong>{" "}
+                <span data-testid="book-isbn">{book.ISBN_Number}</span>
               </p>
               <p>
-                <strong>Author:</strong> {book.Author_Name}
+                <strong>Author:</strong>{" "}
+                <span data-testid="book-author">{book.Author_Name}</span>
               </p>
               <p>
-                <strong>Category:</strong> {book.Category_Name}
+                <strong>Category:</strong>{" "}
+                <span data-testid="book-category">{book.Category_Name}</span>
               </p>
               <p>
-                <strong>Published Date:</strong> {book.Published_Date}
+                <strong>Published Date:</strong>{" "}
+                <span data-testid="book-published-date">
+                  {book.Published_Date}
+                </span>
               </p>
             </div>
           </div>
         </div>
 
-        <h2 style={{ marginTop: "2rem" }}>Available Copies</h2>
-        <div className="book-copy-details">
+        <h2
+          style={{ marginTop: "2rem" }}
+          data-testid="available-copies-heading"
+        >
+          Available Copies
+        </h2>
+        <div className="book-copy-details" data-testid="book-copy-details">
           {bookCopy.map((copy) => (
-            <div key={copy.Copy_ID} className="book-copy-card">
+            <div
+              key={copy.Copy_ID}
+              className="book-copy-card"
+              data-testid={`book-copy-${copy.Copy_ID}`}
+            >
               <ul>
                 <li>
-                  <strong>Language:</strong> {copy.Language}
+                  <strong>Language:</strong>{" "}
+                  <span data-testid={`copy-language-${copy.Copy_ID}`}>
+                    {copy.Language}
+                  </span>
                 </li>
                 <li>
-                  <strong>Location:</strong> You can pick the book up from the{" "}
-                  <em>{copy.Floor} Floor</em>, <em>{copy.Section} Section</em>,{" "}
-                  <em>Shelf {copy.Shelf_Number}</em>, Row <em>{copy.RowNum}</em>
-                  .
+                  <strong>Location:</strong>
+                  <span data-testid={`copy-location-${copy.Copy_ID}`}>
+                    You can pick the book up from the{" "}
+                    <em>{copy.Floor} Floor</em>, <em>{copy.Section} Section</em>
+                    ,<em>Shelf {copy.Shelf_Number}</em>, Row{" "}
+                    <em>{copy.RowNum}</em>.
+                  </span>
                 </li>
                 <li>
                   <strong>Status:</strong>
                   {copy.isReserved ? (
-                    <span className="status reserved">Reserved</span>
+                    <span
+                      className="status reserved"
+                      data-testid={`copy-status-${copy.Copy_ID}`}
+                    >
+                      Reserved
+                    </span>
                   ) : copy.isBorrowed ? (
-                    <span className="status borrowed">Borrowed</span>
+                    <span
+                      className="status borrowed"
+                      data-testid={`copy-status-${copy.Copy_ID}`}
+                    >
+                      Borrowed
+                    </span>
                   ) : (
-                    <span className="status available">
+                    <span
+                      className="status available"
+                      data-testid={`copy-status-${copy.Copy_ID}`}
+                    >
                       Available for borrowing or reservation
                     </span>
                   )}
@@ -185,6 +221,7 @@ function Book() {
                 className="reserve-button"
                 disabled={copy.isReserved || copy.isBorrowed}
                 onClick={() => handleReserve(copy.Copy_ID)}
+                data-testid={`reserve-button-${copy.Copy_ID}`}
               >
                 {copy.isReserved || copy.isBorrowed
                   ? "Not Available"
@@ -233,7 +270,7 @@ function Book() {
 
         {/* Reservation Popup */}
         {showReservationPopup && (
-          <div className="popup-background">
+          <div className="popup-background" data-testid="reservation-popup">
             <div className="reservation-popup">
               <h3>Select Reservation Start and End Time</h3>
               <label htmlFor="start-time">Start Date & Time:</label>
@@ -242,6 +279,7 @@ function Book() {
                 id="start-time"
                 value={startDateTime}
                 onChange={(e) => setStartDateTime(e.target.value)}
+                data-testid="start-time-input"
               />
               <label htmlFor="end-time">End Date & Time:</label>
               <input
@@ -249,18 +287,21 @@ function Book() {
                 id="end-time"
                 value={endDateTime}
                 onChange={(e) => setEndDateTime(e.target.value)}
+                data-testid="end-time-input"
               />
               <div className="reservation-buttons">
                 <button
                   className="confirm-button"
                   onClick={confirmReservation}
                   disabled={loading}
+                  data-testid="confirm-reservation-button"
                 >
                   {loading ? "Reserving..." : "Confirm Reservation"}
                 </button>
                 <button
                   className="cancel-button"
                   onClick={handleCancelReservation}
+                  data-testid="cancel-reservation-button"
                 >
                   Cancel
                 </button>
@@ -271,12 +312,12 @@ function Book() {
 
         {/* Login Popup */}
         {showLoginPopup && (
-          <div className="popup-background">
-            <div className="login-popup">
-              <h3>Please log in to make a reservation</h3>
+          <div className="popup-background" data-testid="login-popup">
+            <div className="login-required-popup">
+              <h3>You need to be logged in to reserve a book.</h3>
               <button
-                className="close-login-popup"
                 onClick={handleCloseLoginPopup}
+                data-testid="close-login-popup-button"
               >
                 Close
               </button>

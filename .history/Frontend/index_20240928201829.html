@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LMS Sem 05</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        width: 100%
+      }
+
+      /* Keyframes for animation */
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-30px);
+        }
+        60% {
+          transform: translateY(-15px);
+        }
+      }
+
+      /* Apply animation to chatbot */
+      .chatbase-button {
+        animation: bounce 2s infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="main"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      window.embeddedChatbotConfig = {
+        chatbotId: "dOZsvXorwFVwkJdAI_SnR",
+        domain: "www.chatbase.co",
+      };
+    </script>
+    <script
+      src="https://www.chatbase.co/embed.min.js"
+      chatbotId="dOZsvXorwFVwkJdAI_SnR"
+      domain="www.chatbase.co"
+      defer
+    ></script>
+  </body>
+</html>

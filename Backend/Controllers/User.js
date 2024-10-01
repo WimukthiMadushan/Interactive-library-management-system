@@ -50,6 +50,21 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+export const deleteStaff = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await query("DELETE FROM staff WHERE Staff_ID = ?", [id]);
+    if (result.affectedRows === 0) {
+      return sendResponse(res, 404, "Staff not found");
+    }
+    return sendResponse(res, 200, "Staff deleted successfully");
+  } catch (err) {
+    console.error("Database error: ", err);
+    return sendResponse(res, 500, "Internal server error");
+  }
+};
+
 
 export const getStaff = (req, res) => {
 
@@ -92,6 +107,29 @@ export const updateStaff = (req, res) => {
       }
       return res.json({success: true,
         message: "Staff updated successfully"
+      });
+    }
+  );
+};
+
+export const createStaff = (req, res) => {
+  const {
+    User_ID,
+    Role
+  } = req.body;
+  console.log(req.body);
+  connection.query(
+    "INSERT INTO staff (User_ID, Role) VALUES (?, ?)",
+    [User_ID, Role],
+    (err, result) => {
+      if (err) {
+        console.error("Database error: ", err);
+        return res.json({success: false,
+          message: "Internal server error"
+        });
+      }
+      return res.json({success: true,
+        message: "Staff added successfully"
       });
     }
   );

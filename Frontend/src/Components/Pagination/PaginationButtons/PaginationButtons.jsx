@@ -24,6 +24,7 @@ const PaginationButtons = ({ currentPage, totalPages, onPageChange }) => {
         className="PaginationButtons-button"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        data-testid="prev-button"
       >
         Prev
       </button>
@@ -38,6 +39,7 @@ const PaginationButtons = ({ currentPage, totalPages, onPageChange }) => {
           currentPage === i ? "active" : ""
         }`}
         onClick={() => onPageChange(i)}
+        data-testid={`page-button-${i}`}
       >
         {i}
       </button>
@@ -51,13 +53,14 @@ const PaginationButtons = ({ currentPage, totalPages, onPageChange }) => {
         className="PaginationButtons-button"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        data-testid="next-button"
       >
         Next
       </button>
     );
   }
 
-  return <div className="PaginationButtons-container">{buttons}</div>;
+  return <div className="PaginationButtons-container" data-testid="pagination-container">{buttons}</div>;
 };
 
 export default PaginationButtons;
