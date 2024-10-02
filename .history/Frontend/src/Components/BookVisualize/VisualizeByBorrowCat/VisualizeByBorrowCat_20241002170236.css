@@ -1,0 +1,37 @@
+.outer-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: #fff; /* White background for the component */
+   border-radius: 10px;
+   padding: 20px; /* Padding inside the component */
+   box-shadow: 0 4px 15px rgba(216, 9, 9, 0.1); /* Shadow for depth */
+ }
+ 
+ .chart-title {
+   font-size: 20px;
+   margin-bottom: 20px; /* Space between title and chart */
+   color: #333; /* Dark color for the title */
+ }
+ 
+ .legend-wrapper {
+   margin-top: 10px; /* Space between chart and legend */
+ }
+ 
+ .legend-list {
+   list-style-type: none; /* Remove default list styling */
+   padding: 0; /* Remove padding */
+ }
+ 
+ .legend-item {
+   display: flex; /* Align items in a row */
+   align-items: center; /* Center align items vertically */
+   margin-bottom: 5px; /* Space between legend items */
+ }
+ 
+ .legend-color-box {
+   width: 15px; /* Width of color box */
+   height: 15px; /* Height of color box */
+   margin-right: 10px; /* Space between color box and text */
+ }
+ 
