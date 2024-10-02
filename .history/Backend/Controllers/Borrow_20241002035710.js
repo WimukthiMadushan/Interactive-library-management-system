@@ -370,47 +370,40 @@ export const getOverdueBooks = (req, res) =>{
   const { id } = req.params;
   const sqlQuery = `
     SELECT 
-    Book.Title,
-    Borrow.Borrow_ID,
-    Borrow.Book_ID,
-    Borrow.Borrow_Date,
-    Borrow.Borrow_Time,
-    Borrow.Return_Date,
-    User.First_Name,
-    User.Last_Name,
-    Book_Copy.Book_Location,
-    Language.Language_Name,
-    Location.Floor,
-    Location.Section,
-    Location.Shelf_Number,
-    Location.RowNum,
-    DATEDIFF(CURRENT_DATE, Borrow.Return_Date) AS Overdue_Days,
-    CASE 
-        WHEN DATEDIFF(CURRENT_DATE, Borrow.Return_Date) > 0 
-        THEN DATEDIFF(CURRENT_DATE, Borrow.Return_Date) * 5.00  -- Assuming $5.00 fee per day
-        ELSE 0
-    END AS Overdue_Fees
-FROM 
-    Borrow
-JOIN 
-    Book_Copy ON Borrow.Book_ID = Book_Copy.Copy_ID
-JOIN 
-    Language ON Book_Copy.Language = Language.Language_ID
-JOIN 
-    Location ON Book_Copy.Book_Location = Location.Loca_ID
-JOIN 
-    Book ON Book_Copy.Book_ID = Book.Book_ID
-JOIN 
-    User ON Borrow.User_ID = User.User_ID
-WHERE 
-    Borrow.Borrow_ID = ?;
-
+      Book.Title,
+      Borrow.Borrow_ID,
+      Borrow.Book_ID,
+      Borrow.Borrow_Date,
+      Borrow.Borrow_Time,
+      Borrow.Return_Date,
+      User.First_Name,
+      User.Last_Name,
+      Book_Copy.Book_Location,
+      Language.Language_Name,
+      Location.Floor,
+      Location.Section,
+      Location.Shelf_Number,
+      Location.RowNum
+    FROM 
+      Borrow
+    JOIN 
+      Book_Copy ON Borrow.Book_ID = Book_Copy.Copy_ID
+    JOIN 
+      Language ON Book_Copy.Language = Language.Language_ID
+    JOIN 
+      Location ON Book_Copy.Book_Location = Location.Loca_ID
+    JOIN 
+      Book ON Book_Copy.Book_ID = Book.Book_ID
+    JOIN
+      Use ON Borrow.User_ID = User.User_ID
+    WHERE 
+      Borrow.Borrow_ID = ?;
   `;
   connection.query(sqlQuery, [id], (err, result) => {
     if (err) {
       res.status(500).send("Internal Server Error");
     } else {
-      res.status(200).send({ success: true, data: result });
+      res.status(200).send(result);
     }
   });
 }

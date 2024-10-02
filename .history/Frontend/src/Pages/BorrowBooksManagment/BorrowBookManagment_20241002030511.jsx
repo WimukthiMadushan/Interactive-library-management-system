@@ -233,7 +233,7 @@ const toggleOverduePopup = () => {
         />
       )}
       {showOverdueModal && (
-        <OverdueBookPopup
+        <ReturnBookPopup
           onClose={toggleOverduePopup}
           borrowId={selectedBorrowId}
           fetchBorrows={fetchBorrows} 

@@ -1,5 +1,5 @@
 /* ReturnBookPopup.css */
-.return-book-popup-container {
+.overdue-book-popup-container {
    position: fixed;  /* Make the container fixed to the viewport */
    top: 0;
    left: 0;
@@ -12,7 +12,7 @@
    z-index: 1000;  /* Ensure it is above other elements */
  }
  
- .return-book-popup {
+ .overdue-book-popup {
    background-color: #fff;  
    padding: 40px;
    border-radius: 8px;
@@ -49,4 +49,6 @@
    color: red;
    margin-top: 10px;
  }
+ 
+
  

@@ -120,17 +120,13 @@ const getBorrowStatusByDate = (borrow) => {
 
 //Action For Overdue Book
 const actionForOverdue = (id) => {
-  console.log("Overdue button clicked for Borrow ID:", id); // Debug log
   setSelectedBorrowId(id);
   setShowOverdueModal(true);
 };
 
-
 const toggleOverduePopup = () => {
   setShowOverdueModal(!showOverdueModal);
-  console.log("Toggling Overdue Popup", showOverdueModal); // Debug log
 };
-
 
 
   return (
@@ -233,7 +229,7 @@ const toggleOverduePopup = () => {
         />
       )}
       {showOverdueModal && (
-        <OverdueBookPopup
+        <ReturnBookPopup
           onClose={toggleOverduePopup}
           borrowId={selectedBorrowId}
           fetchBorrows={fetchBorrows} 
