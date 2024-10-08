@@ -196,32 +196,3 @@ export const deleteReserve = (req, res) => {
     res.status(200).json({ message: "Reservation deleted successfully" });
   });
 };
-
-export const reservebookVisualizeByCat = (req, res) => {
-  const sqlQuery = `
-    SELECT 
-      c.Cat_Name, 
-      COUNT(r.Reserve_id) AS reservedCount
-    FROM 
-      Reserve r
-    JOIN 
-      Book_Copy bc ON r.Book_ID = bc.Copy_ID
-    JOIN 
-      Book b ON bc.Book_ID = b.Book_ID
-    JOIN 
-      Category c ON b.Category = c.Cat_ID
-    GROUP BY 
-      c.Cat_Name;
-  `;
-
-  connection.query(sqlQuery, (err, result) => {
-    if (err) {
-      console.error("Error fetching reserved books by category:", err);
-      res.status(500).send("Internal Server Error");
-    } else {
-      res.status(200).json(result);
-    }
-  });
-};
-
-

@@ -72,11 +72,12 @@ input:focus {
   transform: translateY(-2px);
 }
 
-.close-button {
+.upP-close-button {
   width: fit-content;
   height: fit-content;
   position: absolute;
-  right: 15px;
+  right: -10px;
+  top: -15px;
   background: none;
   border: none;
   cursor: pointer;
@@ -84,7 +85,7 @@ input:focus {
   transition: transform 0.2s ease;
 }
 
-.close-button:hover {
+.upP-close-button:hover {
   transform: scale(1.2);
   background: transparent;
 }

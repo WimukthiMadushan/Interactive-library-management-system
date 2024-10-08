@@ -3,19 +3,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 15px rgba(216, 9, 9, 0.1);
+  /* padding: 20px; */
+  /* box-shadow: 0 4px 15px rgba(216, 9, 9, 0.1); */
   width: 100%;
-  max-width: 750px; /* Increased max-width to give more room for the pie chart and legend */
+  max-width: 750px; /* Increased max-width for a better layout */
   margin: 0;
 }
 
 /* Title centered at the top */
 .chart-title {
   font-size: 22px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   color: #333;
   text-align: center;
   font-weight: 600;
@@ -26,7 +26,8 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 10px;
+  height: fit-content;
+  /* padding: 10px; */
 }
 
 /* Pie chart container on the left side */
@@ -35,8 +36,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 20px;
+  /* padding-right: 20px; */
+  width: fit-content;
 }
+/* .recharts-layer {
+  height: 25%;
+  width: 25%;
+} */
 
 /* Legend wrapper on the right side */
 .legend-wrapper {
@@ -44,8 +50,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin: auto;
+  height: fit-content;
 }
-
+/* .recharts-wrapper{
+  height: 50%;
+  width: 80%;
+} */
 /* Unordered list for the legend */
 .legend-list {
   display: grid;

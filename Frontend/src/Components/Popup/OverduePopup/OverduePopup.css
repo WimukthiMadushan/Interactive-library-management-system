@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-h2 {
+.overdue-title {
   margin-bottom: 20px;  /* Space below the title */
   font-size: 28px;  /* Title font size */
   color: #333;  /* Title color */

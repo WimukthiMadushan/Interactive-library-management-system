@@ -69,7 +69,7 @@ const AddStaffPopup = ({ toggleAddPopup, fetchStaffs }) => {
             <button className="close-button" onClick={toggleAddPopup} data-testid="close-button">
               <MdClose size={24} />
             </button>
-            <h1>Add Staff</h1>
+            <h1 className="add-staff-h1">Add Staff</h1>
             <form className="staff-form" onSubmit={handleAddSubmit} data-testid="staff-form">
 
               <div className="add-user">

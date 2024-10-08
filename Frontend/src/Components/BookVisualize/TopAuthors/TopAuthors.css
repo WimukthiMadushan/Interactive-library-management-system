@@ -1,0 +1,14 @@
+.inline-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Adjust the gap as needed */
+}
+
+.inline-container label,
+.inline-container select {
+  margin: 0;
+  padding: 5px;
+  font-size: 14px;
+  /* Adjust font size */
+}

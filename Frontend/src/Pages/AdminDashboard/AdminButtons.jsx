@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaBook, FaUser, FaUsers, FaBuilding } from "react-icons/fa";
+import { FaBook, FaUser, FaUsers, FaBuilding, FaPoll  } from "react-icons/fa";
 import "./AdminButtons.css";
 
 function AdminButtons() {
   return (
     <div className="outer-container" data-testid="admin-dashboard">
       <div className="dashboard-container">
-        <h1>Admin Dashboard.</h1>
+        <h1>Admin Dashboard</h1>
         <div className="admin-cards-grid">
           <div className="admin-card" data-testid="author-card">
             <div className="admin-card-content">
@@ -41,7 +41,7 @@ function AdminButtons() {
             <div className="admin-card-content">
               <FaUsers className="icon" />
               <h3>User Management</h3>
-              <p>Manage user accounts, roles, and permissions.</p>
+              <p>Manage library user accounts, roles, and permissions.</p>
               <Link
                 to={"/usermanagement"}
                 className="admin-card-link"
@@ -67,9 +67,9 @@ function AdminButtons() {
           </div>
           <div className="admin-card" data-testid="publisher-card">
             <div className="admin-card-content">
-              <FaBuilding className="icon" />
+              <FaPoll  className="icon" />
               <h3>Book Visualization</h3>
-              <p>Manage publishers, their details, and published books.</p>
+              <p>Visualize library data, about books and libray members.</p>
               <Link
                 to={"/bookvisulization"}
                 className="admin-card-link"

@@ -22,8 +22,8 @@
 .admin-cards-grid {
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
-  gap: 3rem; /* Increased gap to create more space between buttons */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem; /* Increased gap to create more space between buttons */
   max-width: 1600px;
   width: 100%; /* Full width of the grid container */
 

@@ -1,11 +1,17 @@
 import express from "express";
 const router = express.Router();
-import { getBorrowBooksOfUser,borrowBook,returnBook,renewBook,getBorrows,getExpiredBorrows, getOverdueBooks, bookVisualizeByCat, bookVisualizeByStates} from "../Controllers/Borrow.js";
+import {
+    getBorrowBooksOfUser,
+    borrowBook,
+    returnBook,
+    renewBook,
+    getBorrows,
+    getExpiredBorrows,
+    getOverdueBooks,
+} from "../Controllers/Borrow.js";
 
 router.get("/", getBorrows);
 router.get("/expired" , getExpiredBorrows);
-router.get("/bookVisualizeByCat" , bookVisualizeByCat);
-router.get("/bookVisualizeByStates" , bookVisualizeByStates);
 router.get("/:id", getBorrowBooksOfUser);
 router.get("/overdue/:id", getOverdueBooks);
 router.post('/',borrowBook);

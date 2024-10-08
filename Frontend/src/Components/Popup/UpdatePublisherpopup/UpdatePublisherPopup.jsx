@@ -77,7 +77,7 @@ function UpdatePublisherPopup({
           <h1>Update Publisher</h1>
           <button
             type="button"
-            className="close-button"
+            className="upP-close-button"
             onClick={toggleUpdatePopup}
             data-testid="close-button"
           >

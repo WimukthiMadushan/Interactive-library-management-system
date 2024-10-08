@@ -22,11 +22,13 @@
   animation: zoomInQuick 0.3s forwards ease;
 }
 
-h1 {
+.add-staff-h1 {
   font-size: 1.8rem;
   margin-bottom: 20px;
   text-align: center;
   color: #333;
+  width: fit-content;
+  margin: auto;
 }
 
 .staff-form {

@@ -45,7 +45,7 @@ function OverdueBookPopup({ onClose, borrowId, fetchBorrows }) {
         <button className="close-button" onClick={onClose} data-testid="close-button">
           &times;
         </button>
-        <h2>Overdue Book Details</h2>
+        <h2 className="overdue-title">Overdue Book Details</h2>
         {borrowDetails && (
           <div>
             <p><strong>Borrower:</strong> {borrowDetails[0].First_Name} {borrowDetails[0].Last_Name}</p>

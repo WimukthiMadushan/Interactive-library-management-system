@@ -33,6 +33,8 @@
 .add-author-dialog-title {
   font-size: 1.5rem;
   font-weight: bold;
+  width: fit-content;
+  margin: auto;
 }
 
 .dialog-description {
@@ -109,7 +111,7 @@
   width: fit-content;
   height: fit-content;
   position: absolute;
-  top: 0px;
+  top: -15px;
   right: 10px;
   background-color: transparent;
   border: none;

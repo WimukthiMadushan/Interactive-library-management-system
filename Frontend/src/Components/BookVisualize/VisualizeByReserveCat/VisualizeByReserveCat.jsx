@@ -16,7 +16,7 @@ const BookVisualizeByReserveCat = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/reserve/reservebookVisualizeByCat");
+        const response = await axios.get("http://localhost:5001/api/visualize/reservebookvisualizebycat");
         const chartData = response.data.map((item, index) => ({
           name: item.Cat_Name,
           value: item.reservedCount,
@@ -32,6 +32,15 @@ const BookVisualizeByReserveCat = () => {
 
     fetchData();
   }, []);
+
+  const tooltipStyle = {
+    backgroundColor: '#fff',
+    border: '1px solid #ccc',
+    borderRadius: '10px',
+    padding: '10px',
+    fontSize: '14px', // Adjust font size
+    width: 'fit-content'
+  };
 
   if (loading) {
     return <div className="loading-message">Loading chart data...</div>;
@@ -56,7 +65,7 @@ const BookVisualizeByReserveCat = () => {
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip contentStyle={tooltipStyle}/>
           </PieChart>
         </div>
         <div className="legend-wrapper">

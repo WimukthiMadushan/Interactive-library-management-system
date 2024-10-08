@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import axios from "axios";
-import './VisualizeByBorrowCat.css';
+// import './VisualizeByBorrowCat.css';
 
 const COLORS = [
   "#8884d8", "#8dd1e1", "#82ca9d", "#d0ed57", "#ffc658",
@@ -16,7 +16,7 @@ const BookVisualizeByBorrowCat = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/borrow/bookVisualizeByCat");
+        const response = await axios.get("http://localhost:5001/api/visualize/bookvisualizebycat");
         const chartData = response.data.map((item, index) => ({
           name: item.Cat_Name,
           value: item.borrowedCount,
@@ -32,6 +32,15 @@ const BookVisualizeByBorrowCat = () => {
 
     fetchData();
   }, []);
+
+  const tooltipStyle = {
+    backgroundColor: '#fff',
+    border: '1px solid #ccc',
+    borderRadius: '10px',
+    padding: '10px',
+    fontSize: '14px', // Adjust font size
+    width: 'fit-content'
+  };
 
   if (loading) {
     return <div className="loading-message">Loading chart data...</div>;
@@ -56,7 +65,7 @@ const BookVisualizeByBorrowCat = () => {
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip contentStyle={tooltipStyle}/>
           </PieChart>
         </div>
         <div className="legend-wrapper">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import axios from "axios";
-import './VisualizeByBookStates.css'; // Ensure you create a separate CSS file for this component
+// import './VisualizeByBookStates.css'; // Ensure you create a separate CSS file for this component
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -12,7 +12,7 @@ const BookVisualizeByState = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/borrow/bookVisualizeByStates");
+        const response = await axios.get("http://localhost:5001/api/visualize/bookvisualizebystates");
         const chartData = response.data.map((item) => ({
           name: `${item.table_name} - ${item.isComplete === 1 ? "Complete" : "Incomplete"}`,
           value: item.count,
@@ -27,6 +27,15 @@ const BookVisualizeByState = () => {
 
     fetchData();
   }, []);
+
+  const tooltipStyle = {
+    backgroundColor: '#fff',
+    border: '1px solid #ccc',
+    borderRadius: '10px',
+    padding: '10px',
+    fontSize: '14px', // Adjust font size
+    width: 'fit-content'
+  };
 
   if (loading) {
     return <div className="loading-message">Loading chart data...</div>;
@@ -55,7 +64,7 @@ const BookVisualizeByState = () => {
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip contentStyle={tooltipStyle}/>
           </PieChart>
         </div>
         <div className="legend-wrapper">
