@@ -52,32 +52,18 @@ Before you begin, ensure you have met the following requirements install your co
 
 ### Running the Application
 
-1. **Set up the MySQL Database:**
 
-   - Create a MySQL database named `library_management` in local mysql database.
-
-2. **Set up environment variables:**
-
-   - Modify Database.js file in the Backend folder. And change accoring to your data.
-
-     ```plaintext
-     HOST=localhost
-     USER=root
-     PASSWORD=yourpassword
-     DB_NAME=library_management
-     ```
-
-3. **Start the backend server:**
+1. **Start the backend server:**
 
    ```bash
    cd Backend
-   npm start
+   nodemon index.js
 
-4. **Start the frontend server:**
+2. **Start the frontend server:**
 
    ```bash
    cd Frontend
-   npm start
+   npm run dev
 
    
 ## 📸 Screenshots
@@ -91,6 +77,28 @@ Before you begin, ensure you have met the following requirements install your co
 
 ### User Profile
 ![User Dashboard](./Resources/Profile.png)
+
+## Google Drive Link:
+https://drive.google.com/drive/folders/19m7PGEp2mqusDeKSkvzxqwwxnYqgnztV?usp=share_link
+
+
+## User Credentials:
+- Admin:  
+  Username: Tcarter  
+  Password: password33  
+
+- Library Member:  
+  Username: Swilson  
+  Password: password8
+
+- Reception
+  Username: Ehernandez 
+  Password: password24
+- Admin
+  Username:  Tcarter
+  Password: password33
+
+
 
 
 
