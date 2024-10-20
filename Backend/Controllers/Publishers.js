@@ -13,8 +13,14 @@ export const getPublishers = (req, res) => {
 };
 
 export const createPublisher = (req, res) => {
-  const { Publisher_First_Name, Publisher_Last_Name, Email, Address, Mobile } =
-    req.body;
+  const {
+    Publisher_First_Name,
+    Publisher_Last_Name,
+    Email,
+    Address,
+    Mobile
+  } =
+  req.body;
   connection.query(
     `INSERT INTO Publisher (Publisher_First_Name, Publisher_Last_Name, Email, Address, Mobile) 
       VALUES (?,?,?,?,?) `,
@@ -34,7 +40,9 @@ export const createPublisher = (req, res) => {
 };
 
 export const getPublisherById = (req, res) => {
-  const { id } = req.params;
+  const {
+    id
+  } = req.params;
   connection.query(
     "SELECT * FROM Publisher WHERE Publisher_ID = ?",
     [id],
@@ -51,10 +59,18 @@ export const getPublisherById = (req, res) => {
 };
 
 export const updatePublisher = (req, res) => {
-  const { id } = req.params;
+  const {
+    id
+  } = req.params;
 
-  const { Publisher_First_Name, Publisher_Last_Name, Email, Address, Mobile } =
-    req.body;
+  const {
+    Publisher_First_Name,
+    Publisher_Last_Name,
+    Email,
+    Address,
+    Mobile
+  } =
+  req.body;
 
   connection.query(
     "UPDATE Publisher SET Publisher_First_Name = ?,Publisher_Last_Name = ?, Email = ?, Address = ?, Mobile = ? WHERE Publisher_ID = ?",
@@ -74,7 +90,9 @@ export const updatePublisher = (req, res) => {
 };
 
 export const deletePublisher = (req, res) => {
-  const { id } = req.params;
+  const {
+    id
+  } = req.params;
   connection.query(
     "DELETE FROM Publisher WHERE Publisher_ID = ?",
     [id],

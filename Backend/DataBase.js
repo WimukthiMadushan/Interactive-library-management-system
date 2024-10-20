@@ -1,4 +1,7 @@
 import mysql2 from "mysql2";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import {
   Book,
@@ -21,9 +24,10 @@ import insertDataFromFile from "./insertData.js";
 const connection = mysql2.createConnection({
   host: "localhost",
   user: "root",
-  password: "#WM@b2000#",
+  password: "dulanga1234",
   database: "library_database",
 });
+
 
 function DropTables() {
   connection.query(dropTables, (err, results) => {
@@ -95,8 +99,8 @@ connection.connect((err) => {
     return;
   }
   console.log("Database connection established");
-  //DropTables();
-  //createTable(
+  // DropTables();
+  // createTable(
   //  User,
   //  Author,
   //  Category,
@@ -109,8 +113,8 @@ connection.connect((err) => {
   //  Review,
   //  Borrow,
   //  Reserve
-  //);
-  //insertData();
+  // );
+  // insertData();
   console.log("Database connected");
 });
 

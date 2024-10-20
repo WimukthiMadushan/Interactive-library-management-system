@@ -1,0 +1,129 @@
+/* Base Styles */
+.search-container {
+  padding: 20px;
+  margin: 20px;
+  animation: fadeIn 0.8s ease-in-out;
+  max-width: 100%;
+  width: 100%; /* Ensure it takes full width */
+}
+
+/* Search Box Section */
+.search-boxes {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Wraps content if screen size is too small */
+}
+
+.search-input {
+  width: calc(50% - 10px); /* Adjust to full width on small screens */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+  margin-bottom: 10px; /* Add margin for better spacing */
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #fbb033;
+}
+
+/* Filters Section */
+.filters-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  padding: 10px;
+}
+
+.filters:hover {
+  transform: scale(1.1);
+}
+
+.animated {
+  transform: translateX(10px);
+}
+
+.applied-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Filter Popup Options */
+.filter-options {
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid #fbb033;
+  border-radius: 16px;
+  background-color: #f9f9f9;
+}
+
+/* Grid for Book Display */
+.display-books {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust grid based on screen size */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .search-boxes {
+    flex-direction: column; /* Stack search boxes vertically */
+    align-items: center;
+  }
+
+  .search-input {
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  .filters {
+    margin: 0 auto; /* Center filters on small screens */
+  }
+
+  .filter-options {
+    position: static; /* Remove absolute positioning for small screens */
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .filters-container {
+    flex-direction: column; /* Stack filters vertically */
+    align-items: center;
+  }
+
+  .display-books {
+    grid-template-columns: 1fr; /* Single column on small screens */
+  }
+
+  .filter-item {
+    width: 100%; /* Full width filter item on smaller screens */
+  }
+}

@@ -1,0 +1,24 @@
+.chart-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center; /* Center-aligns the content */
+   margin: 20px; /* Adds space around the chart */
+   padding: 20px; /* Adds padding inside the container */
+   border: 1px solid #ccc; /* Optional: adds a border around the container */
+   border-radius: 10px; /* Optional: rounds the corners of the container */
+   background-color: #f9f9f9; /* Optional: sets a light background color */
+ }
+ 
+ .chart-title {
+   font-size: 24px; /* Title font size */
+   margin-bottom: 20px; /* Space between title and chart */
+   color: #333; /* Title color */
+   text-align: center; /* Center the title */
+ }
+ 
+ .loading-message {
+   font-size: 18px; /* Loading message font size */
+   color: #555; /* Loading message color */
+   text-align: center; /* Center the loading message */
+ }
+ 

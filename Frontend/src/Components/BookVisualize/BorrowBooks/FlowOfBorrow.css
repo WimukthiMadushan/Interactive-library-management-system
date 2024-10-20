@@ -1,0 +1,34 @@
+.recharts-cartesian-axis-tick {
+    fill: #000; /* Ensure the tick labels are visible */
+}
+
+.full-container {
+    width: 100%;
+    height: 100%;
+}
+
+.pie-chart-container {
+    width: 100%;
+}
+
+.recharts-cartesian-axis-tick {
+    fill: #000; /* Ensure the tick labels are visible */
+}
+
+.inline-container-borrow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.inline-container-borrow label {
+    margin-left: 100px;
+}
+
+.inline-container-borrow select {
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 8px;
+    margin-right: 60px;
+}

@@ -1,8 +1,19 @@
 /* SearchBook.css */
+/* SearchBook.css */
+
+
 .search-container {
   padding: 20px;
-  margin: 20px auto;
+  margin: 20px 20px;
   animation: fadeIn 0.8s ease-in-out;
+  width: 98%;
+}
+
+.search-boxes {
+  display: flex;
+  justify-content: space-between; /* Change to 'center' if needed */
+  width: 100%; /* Ensure it takes full width */
+  margin-bottom: 20px;
 }
 
 @keyframes fadeIn {
@@ -16,11 +27,6 @@
   }
 }
 
-.search-boxes {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
 
 .search-input {
   width: calc(50% - 10px);
@@ -132,7 +138,7 @@
 }
 
 .cross-icon {
-  width: fit-content;
+  width: 12px;
   margin-left: 7px;
   cursor: pointer;
 }

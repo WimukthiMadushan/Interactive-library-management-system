@@ -1,0 +1,35 @@
+.chart-container {
+   display: flex;
+   justify-content: center; /* Center-aligns the content horizontally */
+   align-items: center; /* Aligns items vertically in the center */
+   margin: 20px;
+   padding: 20px;
+   border: 1px solid #ccc;
+   border-radius: 10px;
+   background-color: #f9f9f9;
+ }
+ 
+ .chart-wrapper {
+   display: flex;
+   flex-direction: row; /* Places the chart and legend side by side */
+   align-items: center; /* Vertical alignment */
+ }
+ 
+ .chart {
+   margin-right: 20px; /* Adds space between the chart and the legend */
+ }
+ 
+ .chart-title {
+   font-size: 24px;
+   margin-bottom: 20px;
+   color: #333;
+   text-align: center;
+   width: 100%; /* Ensures title spans the full width */
+ }
+ 
+ .loading-message {
+   font-size: 18px;
+   color: #555;
+   text-align: center;
+ }
+ 

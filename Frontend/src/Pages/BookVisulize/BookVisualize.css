@@ -1,0 +1,52 @@
+/* Visualization page styles */
+.visualization-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to bottom right, #000000, #313131);
+  padding: 20px;
+}
+
+/* Title for the visualization page */
+.visualization-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Cards container */
+.visualization-cards {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  gap: 20px; /* Space between cards */
+  width: 100%;
+  justify-content: space-around; /* Evenly space the cards */
+  align-items: center;
+}
+
+/* Individual card styles */
+.card {
+  background-color: #ffffff; /* White background for cards */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(240, 238, 238, 0.1);
+  padding: 20px; /* Padding inside cards */
+  width: calc(50% - 20px); /* Two-column layout */
+  box-sizing: border-box; /* Include padding in the width */
+  transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Card hover effect */
+.card:hover {
+  box-shadow: 0 6px 20px rgba(240, 238, 238, 0.2); /* Darker shadow on hover */
+}
+
+.recharts-cartesian-axis-tick {
+  fill: #000; /* Ensure the tick labels are visible */
+}
+
+/* Media query for smaller screens (e.g., tablets) */
+@media (max-width: 768px) {
+  .card {
+    width: 100%; /* Stack cards vertically on smaller screens */
+  }
+}

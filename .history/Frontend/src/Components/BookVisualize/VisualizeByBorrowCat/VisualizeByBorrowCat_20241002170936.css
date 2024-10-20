@@ -1,0 +1,74 @@
+/* Container for the entire component */
+.full-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(216, 9, 9, 0.1);
+  width: 100%;
+  max-width: 700px; /* Adjust max width for a balanced layout */
+  margin: 0 auto;
+}
+
+/* Title centered at the top */
+.chart-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Flex container for the chart and legend */
+.chart-legend-container {
+  display: flex;
+  justify-content: space-between; /* Ensure space between the chart and the legend */
+  width: 100%;
+}
+
+/* Pie chart container on the left side */
+.pie-chart-container {
+  flex: 1; /* Take available space on the left */
+  display: flex;
+  justify-content: center; /* Center the chart horizontally */
+  align-items: center;
+}
+
+/* Legend wrapper on the right side */
+.legend-wrapper {
+  flex: 1; /* Take available space on the right */
+  display: flex;
+  justify-content: flex-start; /* Align legend to the start */
+  align-items: center;
+}
+
+/* Unordered list for the legend */
+.legend-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Legend item */
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Box for displaying color */
+.legend-color-box {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+
+/* Loading message */
+.loading-message {
+  font-size: 18px;
+  color: #888;
+  text-align: center;
+}

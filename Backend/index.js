@@ -14,11 +14,12 @@ import borrowRoutes from "./Routes/Borrow.js";
 import reserveRoutes from "./Routes/Reserve.js";
 import authorRoutes from "./Routes/Author.js";
 import languageRoutes from "./Routes/Language.js";
+import visualizeRoutes from "./Routes/Visualize.js";
 
 dotenv.config(); // Load environment variables
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -52,6 +53,7 @@ app.use("/api/borrow", borrowRoutes);
 app.use("/api/reserve", reserveRoutes);
 app.use("/api/author", authorRoutes);
 app.use("/api/language", languageRoutes);
+app.use("/api/visualize", visualizeRoutes);
 
 // Serve static files
 app.use("/books", express.static("books"));

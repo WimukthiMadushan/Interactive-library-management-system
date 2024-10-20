@@ -1,0 +1,24 @@
+.inline-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-right: 50px;
+    /* Adjust the gap as needed */
+}
+
+.inline-container label {
+    margin: 0;
+    padding: 5px;
+    font-size: 14px;
+    margin-left: 60px;
+}
+
+.inline-container select{
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+#range-select{
+    width: fit-content;
+}
